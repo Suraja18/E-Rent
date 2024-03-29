@@ -2,9 +2,9 @@
     <x-slot name="head">
         - Customer Review
     </x-slot>
-    <x-users.navbar />
+    <x-tenants.navbar />
 
     <x-common.customer-review />
 
-    <x-users.footer />
+    <x-tenants.footer />
 </x-users.main.app-layout>

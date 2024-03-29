@@ -2,7 +2,7 @@
     <x-slot name="head">
         - FAQs
     </x-slot>
-
+    <x-users.navbar />
     <!-- Start FAQs Banner -->
     <section class="clientSays bg-blue-lighter pt-7b">
         <div class="property-wrappers">
@@ -171,5 +171,5 @@
             }
         </script>
     </x-slot>
-
+    <x-users.footer />
 </x-users.main.app-layout>

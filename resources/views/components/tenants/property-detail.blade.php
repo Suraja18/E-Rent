@@ -1,5 +1,5 @@
  <!-- Start House Details -->
- <section class="houseDetails">
+ <section class="houseDetails" id="allPropertyDetail">
     <div class="container p5">
         <div class="service-grid" role="list">
             <div class="service-grid" role="listitem">

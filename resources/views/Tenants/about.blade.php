@@ -2,11 +2,10 @@
     <x-slot name="head">
         - About Us
     </x-slot>
-    <x-users.navbar />
+    <x-tenants.navbar />
 
     <x-common.about />
 
-    <x-users.footer />
+    <x-tenants.footer />
 
 </x-users.main.app-layout>
-    

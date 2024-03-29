@@ -3,7 +3,7 @@
     <div class="footer-width mt-2">
         <div class="footer-top">
             <div class="footer-top-left">
-                <a href="{{ route('user.index') }}" class="footer_logo inline-block">
+                <a href="{{ route('tenant.dashboard') }}" class="footer_logo inline-block">
                     <img height="24" src="../Images/Original/Logo.svg" loading="lazy" alt="Logo">
                 </a>
                 <div class="text-testimonial footer-tagline">Multifamily
@@ -30,35 +30,36 @@
             <!-- For left one -->
             <div class="hero-content">
                 <div class="hero-content">
-                    <a href="{{ route('user.index') }}" class="footer-link header">Home</a>
+                    <a href="{{ route('tenant.dashboard') }}" class="footer-link header">Home</a>
                 </div>
                 <div class="hero-content">
-                    <a href="{{ route('user.about') }}" class="footer-link header">About</a>
+                    <a href="{{ route('tenant.about') }}" class="footer-link header">About</a>
                 </div>
             </div>
             <!-- For Middle one -->
             <div class="hero-content">
                 <div class="hero-content">
-                    <div class="footer-link header">Use Cases</div>
-                    <a href="{{ route('user.use-case') }}" class="footer-link">Tenants</a>
-                    <a href="#" class="footer-link">Landlord</a>
+                    <div class="footer-link header">Property</div>
+                    <a href="{{ route('tenant.property-types') }}" class="footer-link">Property Type</a>
+                    <a href="{{ route('tenant.landlord') }}" class="footer-link">Landlord</a>
+                    <a href="{{ route('tenant.property-list') }}" class="footer-link">Buildingd</a>
                 </div>
             </div>
             <!-- For Middle two -->
             <div class="hero-content">
                 <div class="hero-content">
                     <div class="footer-link header">Features</div>
-                    <a href="{{ route('user.user-role') }}" class="footer-link">Roles</a>
-                    <a href="{{ route('user.press-media') }}" class="footer-link">Press & Media</a>
-                    <a href="{{ route('user.faqs') }}" class="footer-link">FAQs</a>
+                    <a href="{{ route('tenant.landlord-forum') }}" class="footer-link">Landlond Forum</a>
+                    <a href="{{ route('tenant.press-media') }}" class="footer-link">Press & Media</a>
+                    <a href="{{ route('tenant.customer-review') }}" class="footer-link">Customer Review</a>
                 </div>
             </div>
             <!-- Last One -->
             <div class="hero-content fd-row">
                 <div>
                     <div class="footer-link header">Company</div>
-                    <a href="{{ route('user.about') }}" class="footer-link">Why HappyCo?</a>
-                    <a href="{{ route('user.contact') }}" class="footer-link">Contact Us</a>
+                    <a href="{{ route('tenant.about') }}" class="footer-link">Why HappyCo?</a>
+                    <a href="{{ route('tenant.contact') }}" class="footer-link">Contact Us</a>
                 </div>
             </div>
             <!-- Finish of Grid -->
@@ -84,7 +85,6 @@
             <div id="footerNode-end">
                 <p class="footer-text-end">Manage happier properties
                     with <strong>E-Rent</strong></p>
-                <a href="{{ route('user.login') }}" class="btnPrimary navButton">Login</a>
             </div>
         </div>
     </div>

@@ -1,8 +1,8 @@
 <x-users.main.app-layout>
-    <x-users.navbar />
+    <x-tenants.navbar />
     <x-slot name="head">
         - Press & Media
     </x-slot>
     <x-common.press-media />
-    <x-users.footer />
+    <x-tenants.footer />
 </x-users.main.app-layout>

@@ -6,9 +6,7 @@
         @endif
     </x-users.main.head>
     <body>
-        <x-users.navbar />
         {{ $slot }}
-        <x-users.footer />
         <x-users.main.js>
             @if(isset($scripts))
                 {{ $scripts }}

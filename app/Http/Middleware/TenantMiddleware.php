@@ -17,11 +17,11 @@ class TenantMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (!Auth::check()) {
-            return redirect()->route('user.index');
+            return redirect()->route('user.login');
         }
-        if (Auth::user()->role == 1) {
+        if (Auth::user()->roles == 1) {
             return $next($request);
         }
-        return redirect()->route('user.index')->withErrors(['error' => 'Unauthorized access']);
+        return redirect()->route('user.login')->withErrors(['error' => 'Unauthorized access']);
     }
 }

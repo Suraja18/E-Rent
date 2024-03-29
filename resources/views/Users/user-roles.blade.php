@@ -2,7 +2,7 @@
     <x-slot name="head">
         - User Roles
     </x-slot>
-
+    <x-users.navbar />
     <section class="clientSays bg-light">
         <div class="container pt-7b">
             <div class="hero-content mb-3 text-center">
@@ -53,5 +53,6 @@
     </section>
 
     <x-users.get-in-touch />
+    <x-users.footer />
 
 </x-users.main.app-layout>

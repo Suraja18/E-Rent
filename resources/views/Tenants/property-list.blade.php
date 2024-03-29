@@ -2,7 +2,7 @@
     <x-slot name="head">
         - All Property
     </x-slot>
-
+    <x-tenants.navbar />
      <!-- Property Banner -->
      <section class="clientSays bg-blue-lighter pt-7b">
         <div class="property-wrappers">
@@ -19,10 +19,12 @@
     </section>
     <!-- End Property Banner -->
 
-    <x-users.property-search />
+    <x-tenants.property-search />
 
-    <x-users.property-detail />
+    <x-tenants.property-detail />
 
     <x-users.showing-ads />
+
+    <x-tenants.footer />
 
 </x-users.main.app-layout>

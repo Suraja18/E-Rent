@@ -1,12 +1,9 @@
 <x-users.main.app-layout>
     <x-slot name="head">
-        - About Us
+        - Contact Us
     </x-slot>
-    <x-users.navbar />
-
-    <x-common.about />
-
-    <x-users.footer />
-
+    <x-tenants.navbar />
+    <x-common.contact />
+    <x-tenants.footer />
 </x-users.main.app-layout>
     

@@ -27,20 +27,20 @@ class UserController extends Controller
     {
         return view('Users.customer-review');
     }
-    public function landlordList()
-    {
-        return view('Users.landlord-list');
-    }
-    public function propertyList()
-    {
-        return  view('Users.property-list');
-    }
-    public function propertyTypes()
-    {
-        return view('Users.property-type');
-    }
     public function userRoles()
     {
         return view('Users.user-roles');
+    }
+    public function teamManagement()
+    {
+        return view('Users.team-management');
+    }
+    public function helpCentre()
+    {
+        return view('Users.help-centre');
+    }
+    public function useCases()
+    {
+        return view('Users.use-case');
     }
 }

@@ -83,12 +83,21 @@
     .container {
         max-width: 1120px;
     }
+    .hero-cont{
+        max-width: 960px;
+    }
 
     .ads-container {
         max-width: 1080px;
     }
+    .result-content-left {
+        flex: 0 0 auto;
+    }
     .result-row{
         flex-direction: column;
+    }
+    .result-content-right {
+        flex: 0 0 auto;
     }
     .pt-10b {
         padding-top: 6rem;
@@ -141,7 +150,6 @@
         margin: 1.5rem 0;
     }
     .result-list-content{
-        display: flex;
         flex: 0 0 30%;
         justify-content: space-between;
     }
@@ -482,6 +490,9 @@
         margin-left: auto;
         display: block;
     }
+    .hero-cont{
+        max-width: 720px;
+    }
     .hero-content.pt-2.for-mobile-only{
         display: block;
     }
@@ -720,6 +731,9 @@
     .universal-grid-container{
         grid-template-columns: repeat(2, 245px);
     }
+    .error-rows.pr-3r{
+        margin-top: 3rem;
+    }
 }
 @media screen and (max-width: 768px) {
     .pr-5t {
@@ -807,6 +821,9 @@
     }
     .result-content-right{
         display: block;
+    }
+    .hero-cont{
+        max-width: 540px;
     }
     .differenceIconContent{
         flex: 0 0 auto;
@@ -1596,7 +1613,7 @@
         width: 100%;
     }
     .register .inner {
-        min-width: auto;
+        min-width: 580px;
         background: 0 0;
         padding-top: 0;
         padding-bottom: 0;
@@ -1808,6 +1825,12 @@
         height: 100%;
         margin-bottom: 114px;   
     }
+    .nav-more-options{
+        display: block;
+    }
+    .register .inner {
+        min-width: 550px;
+    }
 }
 
 @media screen and (max-width: 576px){
@@ -1844,7 +1867,12 @@
     .app-sidebar{
         display: none;
     }
-    
+    .hero-cont{
+        max-width: none;
+    }
+    .register .inner {
+        min-width: 450px;
+    }
     
 }
 @media screen and (max-width: 480px) {
@@ -2179,6 +2207,9 @@
         padding: 1.75rem 0;
         padding-top: 5rem
     } 
+    .register .inner {
+        min-width: 100%;
+    }
 }
 
 @media screen and (min-width: 992px) and (max-width: 1079px) {
