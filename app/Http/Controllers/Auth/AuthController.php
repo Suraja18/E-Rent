@@ -42,6 +42,10 @@ class AuthController extends Controller
             $request->session()->put('time-to-log_' . Auth::id(), now()->addMinutes(30));
             return redirect()->route('tenant.dashboard');
         }
+        if (Auth::attempt(['email' => $email, 'password' => $password, 'roles' => 2])) {
+            $request->session()->put('time-to-log_' . Auth::id(), now()->addMinutes(30));
+            return redirect()->route('landlord.dashboard');
+        }
         return redirect()->route('user.login')->withErrors(['email' => 'Invalid credentials']);
     }
    

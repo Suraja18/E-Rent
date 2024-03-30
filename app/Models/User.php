@@ -63,4 +63,11 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    protected $guarded = [];
+
+    public function getBuildings()
+    {
+        return $this->hasMany(Building::class, 'landlord', 'id');
+    }
 }

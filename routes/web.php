@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/users.php';
 require __DIR__ . '/tenants.php';
+require __DIR__ . '/landlords.php';
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('user.login');
 Route::get('/register', [AuthController::class, 'registerUser'])->name('user.register');
