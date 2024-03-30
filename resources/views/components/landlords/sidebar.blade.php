@@ -4,8 +4,8 @@
         <aside class="app-sidebar" id="appSidebar">
             <div class="app-logo">
                 <a href="#" class="logo-grid">
-                    <img src="../Images/Original/House-Logo.png" alt="House Logo" class="use-case-image-responsive app-logos">
-                    <img src="../Images/Original/Logo.svg" alt="Logo Name" class="use-case-image-responsive app-logo-name">
+                    <img src="{{ asset('Images/Original/House-Logo.png') }}" alt="House Logo" class="use-case-image-responsive app-logos">
+                    <img src="{{ asset('Images/Original/Logo.svg') }}" alt="Logo Name" class="use-case-image-responsive app-logo-name">
                 </a>
             </div>
             <sidebar class="sidebar-content-container flex-cl-1">

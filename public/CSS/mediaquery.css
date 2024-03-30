@@ -122,6 +122,10 @@
     .universal-forum-grid-container{
         padding: 5rem 0;
     }
+    .add-flex-4{
+        flex: 0 auto;
+        width: 48%;
+    }
 }
 @media screen and (min-width: 1200px){
     .header-panel-inner-wrapper{
@@ -717,6 +721,7 @@
     .register .inner {
         min-width: 768px;
     }
+    
     
 }
 @media screen and (max-width: 848px)  {
@@ -1872,6 +1877,10 @@
     }
     .register .inner {
         min-width: 450px;
+    }
+    .add-flex-2,
+    .add-flex-4{
+        width: 100%;
     }
     
 }

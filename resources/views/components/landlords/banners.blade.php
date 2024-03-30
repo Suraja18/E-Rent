@@ -5,10 +5,13 @@
                 <li class="banner-header-name">
                     <a href="{{ route('landlord.dashboard') }}" class="banner-link-for-header">Dashboard</a>
                 </li>
-                @if(!Route::currentRouteName() == 'landlord.dashboard')
-                <li class="banner-header-name">
-                    /<span class="banner-link-for-header for-normal">@if($name){!! $name !!}@endif</span>
-                </li>
+                @if(isset($withhead))
+                    {!! $withhead !!}
+                @endif
+                @if(Route::currentRouteName() != 'landlord.dashboard')
+                    <li class="banner-header-name">
+                        /<span class="banner-link-for-header for-normal">@if($name){!! $name !!}@endif</span>
+                    </li>
                 @endif
             </ul>
         </div>

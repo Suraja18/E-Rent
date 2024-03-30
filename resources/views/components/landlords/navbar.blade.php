@@ -37,14 +37,14 @@
                                                 <a href="#" class="notification-tags">
                                                     <div class="d-flex">
                                                         <div class="margin-tb-auto">
-                                                            <img src="../Images/Original/Owners.png" alt="Icons" class="notification-image-avatar">
+                                                            <img src="{{ asset('Images/Original/Owners.png') }}" alt="Icons" class="notification-image-avatar">
                                                         </div>
                                                         <div class="notification-contents">
                                                             <h6 class="uppersection-notify">
                                                                 <b>New Message </b> from Suraj
                                                             </h6>
                                                             <p class="lowersection-pa">
-                                                                <img src="../Images/Original/Icons/clock.svg" alt="clock">
+                                                                <img src="{{ asset('Images/Original/Icons/clock.svg') }}" alt="clock">
                                                                 13 minutes ago
                                                             </p>
                                                         </div>
@@ -55,14 +55,14 @@
                                                 <a href="#" class="notification-tags">
                                                     <div class="d-flex">
                                                         <div class="margin-tb-auto">
-                                                            <img src="../Images/Original/Owners.png" alt="Icons" class="notification-image-avatar">
+                                                            <img src="{{ asset('Images/Original/Owners.png') }}" alt="Icons" class="notification-image-avatar">
                                                         </div>
                                                         <div class="notification-contents">
                                                             <h6 class="uppersection-notify">
                                                                 <b>New Message </b> from Suraj
                                                             </h6>
                                                             <p class="lowersection-pa">
-                                                                <img src="../Images/Original/Icons/clock.svg" alt="clock">
+                                                                <img src="{{ asset('Images/Original/Icons/clock.svg') }}" alt="clock">
                                                                 13 minutes ago
                                                             </p>
                                                         </div>
@@ -73,14 +73,14 @@
                                                 <a href="#" class="notification-tags">
                                                     <div class="d-flex">
                                                         <div class="margin-tb-auto">
-                                                            <img src="../Images/Original/Owners.png" alt="Icons" class="notification-image-avatar">
+                                                            <img src="{{ asset('Images/Original/Owners.png') }}" alt="Icons" class="notification-image-avatar">
                                                         </div>
                                                         <div class="notification-contents">
                                                             <h6 class="uppersection-notify">
                                                                 <b>New Message </b> from Suraj
                                                             </h6>
                                                             <p class="lowersection-pa">
-                                                                <img src="../Images/Original/Icons/clock.svg" alt="clock">
+                                                                <img src="{{ asset('Images/Original/Icons/clock.svg') }}" alt="clock">
                                                                 13 minutes ago
                                                             </p>
                                                         </div>

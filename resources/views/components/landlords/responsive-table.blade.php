@@ -4,7 +4,7 @@
             <div>
                 <b>@if($heading){!! $heading !!}@endif</b>
             </div>
-            <a href="" class="sidebar-link btn-add-new">
+            <a href="@if (isset($links)) {!! $links !!} @endif" class="sidebar-link btn-add-new">
                 <span class="sidebar-content-header">
                       Add New 
                 </span>
@@ -16,7 +16,7 @@
     </div>
     <div class="card-tables">
         <div class="p-0">
-            <table>
+            <table id="myTable">
                 <thead class="landlord-thead">
                     @if($thead){!! $thead !!}@endif
                 </thead>

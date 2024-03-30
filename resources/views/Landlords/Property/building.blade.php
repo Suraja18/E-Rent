@@ -11,6 +11,7 @@
     </x-landlords.banners>
                            
     <x-landlords.responsive-table>
+        <x-slot name="links">{!! route('building.create') !!}</x-slot>
         <x-slot name="heading">Building Lists</x-slot>
         <x-slot name="thead">
             <tr>
@@ -23,16 +24,16 @@
             </tr>
         </x-slot>
         <x-slot name="tbody">
-            @forelse ($buildings as $building)
+            @foreach ($buildings as $building)
                 <tr>
                     <td>{!! $loop->iteration !!}</td>
                     <td class="image-table-cell">
                         <div class="table-images">
-                            <img src="{!! $building->image !!}" class="tables-image-round" alt="Building 1">
+                            <img src="{!! $building->image-1 !!}" class="tables-image-round" alt="Building 1">
                         </div>
                     </td>
                     <td data-name="Name">{!! $building->name !!}</td>
-                    <td data-name="Floors">{!! $building->no_of_floors !!}</td>
+                    <td data-name="Floors">{!! $building->no-of-floors !!}</td>
                     <td data-name="Location">{!! $building->address !!}</td>
                     <td class="table-action-cell">
                         <a href="#" class="table-btns">
@@ -49,11 +50,7 @@
                         </a>
                     </td>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="6" class="text-center">No Data</td>
-                </tr>
-            @endforelse
+            @endforeach
 
             
         </x-slot>
