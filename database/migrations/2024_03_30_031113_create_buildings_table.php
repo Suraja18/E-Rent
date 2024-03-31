@@ -16,12 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('landlord');
             $table->foreign('landlord')->references('id')->on('users'); 
             $table->longText('description');
-            $table->longText('image-1');
-            $table->longText('image-2');
-            $table->longText('image-3');
-            $table->longText('image-4');
+            $table->longText('image_1');
+            $table->longText('image_2')->nullable();
+            $table->longText('image_3')->nullable();
+            $table->longText('image_4')->nullable();
             $table->string('name');
-            $table->integer('no-of-floors');
+            $table->integer('no_of_floors');
             $table->string('address');
             $table->timestamps();
             $table->softDeletes();

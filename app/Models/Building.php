@@ -12,12 +12,16 @@ class Building extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'image',
+        'image_1',
+        'image_2',
+        'image_3',
+        'image_4',
         'name',
         'phoneNumber',
         'no_of_floors',
         'address',
         'landlord',
+        'description',
     ];
 
     public function landlord()

@@ -588,6 +588,74 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     } 
 
+
+
+    const table = document.getElementById("tableResponsive");
+    if(table)
+    {
+        const tbody = table.querySelector("tbody");
+        const entriesSelect = document.getElementById("desireSelect");
+        const paginationSection = document.getElementById("paginationSection");
+
+        const totalEntries = tbody.children.length;
+
+        entriesSelect.innerHTML = "";
+        [10, 25, 50].forEach((option) => {
+            if (option <= totalEntries) {
+                const optionElement = document.createElement("option");
+                optionElement.value = option;
+                optionElement.textContent = option;
+                entriesSelect.appendChild(optionElement);
+            }
+        });
+
+
+        function showPage(pageNumber, entriesPerPage) {
+            const startIndex = (pageNumber - 1) * entriesPerPage;
+            const endIndex = Math.min(startIndex + entriesPerPage, totalEntries);
+            paginationSection.querySelector("b span:nth-child(1)").textContent = pageNumber;
+            Array.from(tbody.children).forEach((row, index) => {
+                if (index >= startIndex && index < endIndex) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        function updatePagination() {
+            const entriesPerPage = parseInt(entriesSelect.value);
+            const totalPages = Math.ceil(totalEntries / entriesPerPage);
+
+            paginationSection.querySelector("b span:nth-child(3)").textContent = totalEntries;
+            paginationSection.querySelector("b span:nth-child(2)").textContent = totalPages;
+
+            paginationSection.querySelector(".d-flex").innerHTML = "";
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.classList.add("form-control", "table-datas", "btnsm");
+                button.textContent = i;
+                button.addEventListener("click", () => {
+                    const paginationButtons = paginationSection.querySelectorAll(".form-control.table-datas.btnsm");
+                    paginationButtons.forEach((btn) => {
+                        btn.classList.remove("active");
+                    });
+
+                    showPage(i, entriesPerPage);
+                    button.classList.add("active");
+                });
+                paginationSection.querySelector(".d-flex").appendChild(button);
+            }
+            showPage(1, entriesPerPage);
+            paginationSection.querySelector(".form-control.table-datas.btnsm").classList.add("active");
+        }
+
+        entriesSelect.addEventListener("change", updatePagination);
+
+        updatePagination();
+    }
+
 });
 
 

@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Services\BuildingServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BuildingController extends Controller
 {
@@ -18,64 +20,62 @@ class BuildingController extends Controller
     {
         $this->building = $building;
     }
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $user = User::find(Auth::id());
-        $data = [ 'buildings' => $user->getBuildings];
+        $data = [ 'buildings' => $user->getBuildings()->latest()->get()];
         return view('Landlords.Property.building', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('Landlords.Property.add-building');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(BuildingRequest $request)
     {
-        $validatedData = $this->building->buildingStore($request->file('image-1'),$request->file('image-2'),$request->file('image-3'),$request->file('image-4'),  $request->validated());
+        $validatedData = $this->building->buildingStore($request->file('image_1'),$request->file('image_2'),$request->file('image_3'),$request->file('image_4'),  $request->validated());
         Building::create($validatedData);
-        // Alert::success('Blog Added Successfully');
-        return redirect()->route('blog.index');
+        Alert::success('Building Added Successfully');
+        return redirect()->route('building.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Building $building)
     {
-        //
+        $data = ['building' => $building, 'type' => 'readonly',];
+        return view('Landlords.Property.view-building', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Building $building)
     {
-        //
+        $data = ['building' => $building,];
+        return view('Landlords.Property.edit-building', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(BuildingRequest $request, Building $building)
     {
-        //
+        $validatedData = $this->building->buildingUpdate($request->file('image_1'),$request->file('image_2'),$request->file('image_3'),$request->file('image_4'),  $request->validated(), $building);
+        $building->update($validatedData);
+        Alert::success('Building Updated Successfully');
+        return redirect()->route('building.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Building $building)
     {
-        //
+        File::delete($building->image_1);
+        if(isset($building->image_2)){
+            File::delete($building->image_2);
+        }
+        if(isset($building->image_3)){
+            File::delete($building->image_3);
+        }
+        if(isset($building->image_4)){
+            File::delete($building->image_4);
+        }
+        $building->delete();
+        Alert::error('Building Deleted Successfully');
+        return redirect()->route('building.index');
     }
+
 }

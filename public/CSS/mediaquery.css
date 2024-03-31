@@ -236,8 +236,8 @@
     .table-images{
         display: block;
         position: relative;
-        height: 4rem;
-        width: 4rem;
+        height: 5rem;
+        width: 5rem;
     }
     .table-action-cell{
         flex-direction: column;
@@ -720,6 +720,9 @@
     }
     .register .inner {
         min-width: 768px;
+    }
+    .is-cols .users-main-section{
+        padding: 0 !important;
     }
     
     
@@ -1881,6 +1884,9 @@
     .add-flex-2,
     .add-flex-4{
         width: 100%;
+    }
+    .panel-main-container {
+        margin-top: 0;
     }
     
 }

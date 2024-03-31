@@ -26,11 +26,11 @@ class BuildingRequest extends FormRequest
             
             'name'   =>  'required | string | min:3 | max:50',
             'description'   =>  'required | string | min:3 | max:500',
-            'image-1' => $rule . '|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image-2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image-3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image-4' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'no-of-floors' => 'required|integer',
+            'image_1' => $rule . '|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_4' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'no_of_floors' => 'required|integer',
             'address'   =>  'required | string | min:3 | max:150',
         ];
     }

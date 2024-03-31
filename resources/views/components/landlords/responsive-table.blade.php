@@ -1,5 +1,5 @@
 <section class="users-main-section">
-    <div class="tables-notify is-bg-blue-100">
+    <div class="tables-notify is-bg-blue-100 top">
         <div class="tables-notify-container">
             <div>
                 <b>@if($heading){!! $heading !!}@endif</b>
@@ -14,9 +14,16 @@
             </a>
         </div>
     </div>
+    <div class="tables-notify data-table">
+        <div class="tables-notify-container">
+            <div>
+                <b>Showing <select class="table-datas" id="desireSelect"><option value="10">10</option><option value="25">25</option><option value="50">50</option></select> Entries</b>
+            </div>
+        </div>
+    </div>
     <div class="card-tables">
         <div class="p-0">
-            <table id="myTable">
+            <table id="tableResponsive">
                 <thead class="landlord-thead">
                     @if($thead){!! $thead !!}@endif
                 </thead>
@@ -24,6 +31,19 @@
                     @if($tbody){!! $tbody !!}@endif
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="tables-notify data-table" id="paginationSection">
+        <div class="tables-notify-container">
+            <div>
+                <b>Showing <span>1</span> to <span>3</span> of <span>3</span> Entries</b>
+            </div>
+            <div class="d-flex" style="gap: 5px">
+                <button type="button" class="form-control table-datas btnsm active">1</button>
+                <button type="button" class="form-control table-datas btnsm">2</button>
+                <button type="button" class="form-control table-datas btnsm">3</button>
+                <button type="button" class="form-control table-datas btnsm">4</button>
+            </div>
         </div>
     </div>
 </section>

@@ -690,18 +690,34 @@ p {
     box-shadow: inset 0 1px 2px rgba(0,0,0,0);
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
-/* .ck-desc .ck-content{
-    min-height: 200px;
-}
-.ck-desc p{
-    margin: 0;
-    font-size: 0.85rem;
+.table-datas,
+.form-control.table-datas{
+    padding: .45rem 1rem !important;
     font-weight: 600;
     line-height: 1.49;
     color: var(--core-navy-800);
-} */
+    border: 1px solid var(--neutral--navy-600);
+    border-radius: .375rem;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.form-control.table-datas.active{
+    color: var(--whiteColor);
+    border: 1px solid var(--green-100);
+    background: var(--green-100);
+}
 .attached-image{
     display: none;
+}
+.none{
+    border: 0;
+    background: transparent;
+    text-align: center;
+    cursor: pointer;
+    display: contents;
+}
+.none .action-names{
+    color: var(--whiteColor);
 }
 .attached-image.block{
     display: block;
@@ -4242,6 +4258,11 @@ left: unset;
     margin-right: 20px;
     margin-bottom: 15px;
 }
+.tables-notify.data-table{
+    background-color: var(--whiteColor);
+    padding-top: .375rem;
+    margin-bottom: 0 !important;
+}
 .status-filter-container-list{
     display: flex;
     align-items: center;
@@ -6991,17 +7012,22 @@ td {
     border-color: var(--red-500);
     background-color: var(--red-500);
 }
-
+.table-btns.edits{
+    border-color: var(--blue-500);
+    background-color: var(--blue-500);   
+}
 .table-btns:hover svg,
 .table-btns:hover .action-names{
     fill: var(--core-navy-800) !important;
 }
-.table-btns:hover{
+.table-btns:hover,
+.table-btns.danger:hover .none .action-names{
     border-color: var(--core-navy-800);
     color: var(--core-navy-800);
     background-color: var(--whiteColor);
 }
 .notification-containers{
+    display: none;
     position: absolute;
     top: 35px;
     right: 0;
@@ -7019,10 +7045,14 @@ td {
     border-width: 1px;
     box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
 }
+.tables-notify.is-bg-blue-100.top{
+    margin-bottom: 1rem;
+}
 .notification-containers.active{
     height: auto;
     width: 18.2rem;
     opacity: 1;
+    display: block;
 }
 .notification-tags{
     display: block;
@@ -7301,6 +7331,19 @@ ul{
     color: var(--core-navy-800);
     background-color: var(--whiteColor);
     border: 1px solid var(--core-navy-800);
+}
+.error-message {
+    color: red;
+    font-size: 10px;
+    margin-top: 5px;
+}
+.btnsm{
+    cursor: pointer;
+}
+.btnsm:hover{
+    background: var(--green-100);
+    color: var(--whiteColor);
+    border-color: var(--green-100);
 }
 /* End Register Page */
  
