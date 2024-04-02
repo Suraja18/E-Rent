@@ -24,7 +24,7 @@ class BuildingController extends Controller
     public function index()
     {
         $user = User::find(Auth::id());
-        $data = [ 'buildings' => $user->getBuildings()->latest()->get()];
+        $data = [ 'buildings' => $user->getBuildings()];
         return view('Landlords.Property.building', $data);
     }
 

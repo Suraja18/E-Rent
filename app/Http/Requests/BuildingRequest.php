@@ -31,7 +31,9 @@ class BuildingRequest extends FormRequest
             'image_3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'image_4' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'no_of_floors' => 'required|integer',
+            'room_per_floor' => 'required|integer',
             'address'   =>  'required | string | min:3 | max:150',
+            'google_maps_link'   =>  'required | string | min:3 | max:50000',
         ];
     }
 }

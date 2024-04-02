@@ -28,8 +28,15 @@
             <x-common.input-text-50>
                 <x-slot name="column1">No of Floors</x-slot>
                 <x-slot name="number1">Number</x-slot>
-                <x-slot name="column2">Address</x-slot>
+                <x-slot name="column2">Room Per Floor</x-slot>
+                <x-slot name="number2">Number</x-slot>
             </x-common.input-text-50>
+            <x-common.input-text-100>
+                <x-slot name="column">Address</x-slot>
+            </x-common.input-text-100>
+            <x-common.input-text-100>
+                <x-slot name="column">Google Maps Link</x-slot>
+            </x-common.input-text-100>
             <div class="text-center">
                 <input type="submit" value="Add" class="is-button-for-edit-profile is-hovers" />
             </div>

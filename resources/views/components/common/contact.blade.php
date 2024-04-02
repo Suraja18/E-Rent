@@ -55,7 +55,6 @@
                     </div>
                 </div>
                 <div class="hero-content is-50-mobile wow fadeInUp">
-                    <!-- <div class="google-maps" id="map"></div> -->
                     <iframe class="google-maps"
                         src="https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d4975.64534231162!2d84.10644133352281!3d28.136971586025812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d28.13782119854006!2d84.10735170548872!5e0!3m2!1sen!2snp!4v1709878758413!5m2!1sen!2snp"
                         allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>

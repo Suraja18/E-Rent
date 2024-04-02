@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Building extends Model
 {
@@ -22,10 +23,22 @@ class Building extends Model
         'address',
         'landlord',
         'description',
+        'room_per_floor',
+        'google_maps_link',
+        'status',
+        'slug',
     ];
 
     public function landlord()
     {
         return $this->belongsTo(User::class, 'landlord', 'id');
+    }
+    public function homeSell()
+    {
+        return $this->hasOne(HomeSell::class, 'building_id', 'id');
+    }
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = Str::slug($value);
     }
 }

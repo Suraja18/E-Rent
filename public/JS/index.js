@@ -589,7 +589,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } 
 
 
-
+    //Table Displays
     const table = document.getElementById("tableResponsive");
     if(table)
     {
@@ -601,7 +601,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         entriesSelect.innerHTML = "";
         [10, 25, 50].forEach((option) => {
-            if (option <= totalEntries) {
+            if(0 <= totalEntries) {
                 const optionElement = document.createElement("option");
                 optionElement.value = option;
                 optionElement.textContent = option;
@@ -613,7 +613,7 @@ document.addEventListener("DOMContentLoaded", function () {
         function showPage(pageNumber, entriesPerPage) {
             const startIndex = (pageNumber - 1) * entriesPerPage;
             const endIndex = Math.min(startIndex + entriesPerPage, totalEntries);
-            paginationSection.querySelector("b span:nth-child(1)").textContent = pageNumber;
+        
             Array.from(tbody.children).forEach((row, index) => {
                 if (index >= startIndex && index < endIndex) {
                     row.style.display = "";
@@ -622,15 +622,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         }
+        
 
         function updatePagination() {
             const entriesPerPage = parseInt(entriesSelect.value);
             const totalPages = Math.ceil(totalEntries / entriesPerPage);
-
+        
             paginationSection.querySelector("b span:nth-child(3)").textContent = totalEntries;
             paginationSection.querySelector("b span:nth-child(2)").textContent = totalPages;
-
+        
             paginationSection.querySelector(".d-flex").innerHTML = "";
+        
             for (let i = 1; i <= totalPages; i++) {
                 const button = document.createElement("button");
                 button.type = "button";
@@ -641,16 +643,26 @@ document.addEventListener("DOMContentLoaded", function () {
                     paginationButtons.forEach((btn) => {
                         btn.classList.remove("active");
                     });
-
+        
                     showPage(i, entriesPerPage);
                     button.classList.add("active");
                 });
                 paginationSection.querySelector(".d-flex").appendChild(button);
+                if (i === 1) {
+                    button.classList.add("active");
+                }
             }
+            
+        
+            if (totalEntries === 0) {
+                paginationSection.querySelector("b").innerHTML = "No Data in Table";
+            
+                paginationSection.querySelector(".d-flex").innerHTML = "";
+            }
+        
             showPage(1, entriesPerPage);
-            paginationSection.querySelector(".form-control.table-datas.btnsm").classList.add("active");
         }
-
+        
         entriesSelect.addEventListener("change", updatePagination);
 
         updatePagination();

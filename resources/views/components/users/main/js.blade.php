@@ -38,7 +38,7 @@
     });
   </script>
   <script>
-    function confirmDelete() {
+    function confirmDelete(formId) {
         Swal.fire({
             title: 'Are you sure want to delete this?',
             text: 'This action cannot be undone.',
@@ -50,7 +50,7 @@
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById('deleteTables').submit();
+                document.getElementById(formId).submit();
             } else {
                 return false;
             }

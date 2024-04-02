@@ -20,9 +20,13 @@ return new class extends Migration
             $table->longText('image_2')->nullable();
             $table->longText('image_3')->nullable();
             $table->longText('image_4')->nullable();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->integer('no_of_floors');
+            $table->integer('room_per_floor');
             $table->string('address');
+            $table->longText('google_maps_link');
+            $table->string('status')->nullable();
+            $table->string('slug')->unique();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -68,6 +68,10 @@ class User extends Authenticatable
 
     public function getBuildings()
     {
-        return $this->hasMany(Building::class, 'landlord', 'id');
+        return $this->hasMany(Building::class, 'landlord', 'id')->latest()->get();
+    }
+    public function homeSells()
+    {
+        return $this->hasMany(HomeSell::class, 'landlord_id', 'id')->latest()->get();
     }
 }

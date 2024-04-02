@@ -3344,7 +3344,38 @@ left: unset;
 .social-media-button {
     transition: fill 0.5s;
 }
-
+.flec-centre{
+    display: flex;
+    align-items: center;
+}
+.toggle-btn{
+    background-color: #d2d2d2;
+    width: 70px;
+    height: 35px;
+    border-radius: 70px;
+    cursor: pointer;
+    position: relative;
+    transition: 0.2s;
+}
+.toggle-btn::before{
+    position: absolute;
+    content: '';
+    background-color: #fff;
+    width: 25px;
+    height: 25px;
+    border-radius: 80px;
+    margin: 5px;
+    transition: 0.2s;
+}
+input:checked + .toggle-btn{
+    background-color: var(--green-100);
+}
+input:checked + .toggle-btn::before{
+    transform: translateX(35px);
+}
+#checkbtn{
+    display: none;
+}
 .social-media-button svg {
     width: 38px;
     height: 28px;
@@ -6556,6 +6587,10 @@ small{
     height: 100%;
     min-height: 100%;
 }
+.error-rows.units .users-main-section{
+    min-height: auto;
+    margin-bottom: 1rem;
+}
 .owner-header{
     position: relative;
     z-index: 200;
@@ -7021,7 +7056,7 @@ td {
     fill: var(--core-navy-800) !important;
 }
 .table-btns:hover,
-.table-btns.danger:hover .none .action-names{
+.table-btns:hover .none .action-names{
     border-color: var(--core-navy-800);
     color: var(--core-navy-800);
     background-color: var(--whiteColor);

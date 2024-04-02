@@ -4,7 +4,8 @@
             <div>
                 <b>@if($heading){!! $heading !!}@endif</b>
             </div>
-            <a href="@if (isset($links)) {!! $links !!} @endif" class="sidebar-link btn-add-new">
+            @if (isset($links))
+            <a href="{!! $links !!}" class="sidebar-link btn-add-new">
                 <span class="sidebar-content-header">
                       Add New 
                 </span>
@@ -12,6 +13,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
                 </div>
             </a>
+            @endif
         </div>
     </div>
     <div class="tables-notify data-table">
@@ -39,10 +41,7 @@
                 <b>Showing <span>1</span> to <span>3</span> of <span>3</span> Entries</b>
             </div>
             <div class="d-flex" style="gap: 5px">
-                <button type="button" class="form-control table-datas btnsm active">1</button>
-                <button type="button" class="form-control table-datas btnsm">2</button>
-                <button type="button" class="form-control table-datas btnsm">3</button>
-                <button type="button" class="form-control table-datas btnsm">4</button>
+                <button class="form-control table-datas btnsm active" type="button">1</button>
             </div>
         </div>
     </div>
