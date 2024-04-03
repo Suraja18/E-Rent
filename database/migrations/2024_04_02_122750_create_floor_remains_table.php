@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('units', function (Blueprint $table) {
+        Schema::create('floor_remains', function (Blueprint $table) {
             $table->id();
-            $table->longText('image_1');
-            $table->string('building_unit')->unique();
-            $table->unsignedBigInteger('rooms');
-            $table->string('description');
-            $table->string('slug')->unique();
+            $table->unsignedBigInteger('building_id');
+            $table->unsignedBigInteger('floor');
+            $table->unsignedBigInteger('remaining_room');
+            $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('units');
+        Schema::dropIfExists('floor_remains');
     }
 };

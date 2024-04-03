@@ -716,6 +716,10 @@ p {
     cursor: pointer;
     display: contents;
 }
+.search .is-hovers{
+    margin-top: 0 !important;
+    margin-left: 5px;
+}
 .none .action-names{
     color: var(--whiteColor);
 }
@@ -3249,6 +3253,14 @@ left: unset;
     flex: 0 0 auto;
     width: 50%;
 }
+.error-rows.display-33{
+    flex: 0 0 auto;
+    width: 33.33%;
+}
+.error-rows.display-67{
+    flex: 0 0 auto;
+    width: 66.67%;
+}
 .error-rows.error-rows.im-mt{
     margin-top: 3rem;
 }
@@ -3298,6 +3310,10 @@ left: unset;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+}
+.add-flex-1{
+    flex: 0 auto;
+    width: 95%;
 }
 .add-flex-4{
     flex: 0 auto;

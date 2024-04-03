@@ -21,7 +21,7 @@
             @csrf
             <x-common.input-text-100>
                 <x-slot name="column">Name</x-slot>
-                <x-slot name="value">{!! $building->name !!}</x-slot>
+                <x-slot name="value">{!! $building->name !!}</x-slot> 
             </x-common.input-text-100>
             <x-common.ck-imageless>
                 <x-slot name="column">Description</x-slot>

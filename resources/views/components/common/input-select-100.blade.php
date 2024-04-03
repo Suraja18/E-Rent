@@ -6,7 +6,7 @@
 @endphp
 <div class="admin">
     <h4 class="mb-1">@if(isset($column)){!! $column !!}@endif</h4>
-    <select class="form-control" name="@if(isset($columnname)){!! $columnname !!}@endif" required>
+    <select class="form-control" name="@if(isset($columnname)){!! $columnname !!}@endif" required id="@if(isset($columnname)){!! $columnname !!}@endif">
         @if(isset($type))
             {!! $type !!}
         @else

@@ -74,4 +74,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(HomeSell::class, 'landlord_id', 'id')->latest()->get();
     }
+    public function rentProperties()
+    {
+        return $this->hasMany(RentProperty::class, 'landlord_id', 'id')->latest()->get();
+    }
 }

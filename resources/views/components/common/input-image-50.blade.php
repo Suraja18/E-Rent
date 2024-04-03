@@ -8,8 +8,7 @@
             <x-common.input-file-flex><x-slot name="image">Image 2</x-slot><x-slot name="type2">empty</x-slot></x-common.input-file-flex>
         </div>
     </div>
-    @if(isset($type))
-    @else
-    <h6 class="mb-1 mt-1">Note: Please Insert Transparent Background Image ( Image: 2 = Optional )</h6>
+    @if(!isset($type))
+        <h6 class="mb-1 mt-1">Note: Please Insert Transparent Background Image ( Image: 2,3,4 = Optional )</h6>
     @endif
 </div>

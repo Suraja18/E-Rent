@@ -618,6 +618,8 @@
     .contaier{
         max-width: 960px;
     }
+    .error-rows.display-33,
+    .error-rows.display-67,
     .error-rows{
         flex: 0 0 auto;
         width: 100%;

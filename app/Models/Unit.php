@@ -19,5 +19,9 @@ class Unit extends Model
     {
         $this->attributes['slug'] = Str::slug($value);
     }
+    public function rentProperties()
+    {
+        return $this->hasMany(RentProperty::class, 'property_type_id');
+    }
 }
    

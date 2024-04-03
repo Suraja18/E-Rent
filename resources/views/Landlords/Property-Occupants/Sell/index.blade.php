@@ -10,7 +10,7 @@
         <x-slot name="name">Building Sell</x-slot>
     </x-landlords.banners>
     <div class="row bs-g-2 bg-1">
-        <div class="error-rows units">
+        <div class="error-rows units display-33">
             <x-landlords.new-body>
                 @if(isset($type))
                     <form enctype="multipart/form-data" action="{{ route('house-sell.update', $homeSell) }}" method="POST">
@@ -49,7 +49,7 @@
             </x-landlords.new-body>
         </div>
     
-        <div class="error-rows">
+        <div class="error-rows display-67">
             <x-landlords.responsive-table>
                 <x-slot name="heading">Building Unit</x-slot>
                 <x-slot name="thead">
