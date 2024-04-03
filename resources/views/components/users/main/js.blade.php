@@ -1,4 +1,3 @@
-<script src="{{ asset('JS/jquery.min.js') }}" type="text/javascript"></script>
 <script src="https://cdn.tiny.cloud/1/2ldp0s7ro357labm48hsnpkf8z7l2f7no918ybqutp20eryq/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 <script src="{{ asset('JS/datatable.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('JS/chartjs.min.js') }}" type="text/javascript"></script>

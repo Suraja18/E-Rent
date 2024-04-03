@@ -8,6 +8,10 @@ use App\Models\User;
 use App\Services\UserServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
 {
@@ -54,5 +58,41 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect()->route('user.login');
+    }
+    public function updateProfile(Request $request)
+    {
+        $validate = $request->validate([
+            'first_name' => 'required|string|min:3|max:50',
+            'last_name' => 'required|string|min:3|max:50',
+            'phone_number' => [
+                'required',
+                'numeric',
+                'digits_between:9,10',
+                Rule::unique('users', 'phone_number')->ignore(auth()->user()->id),
+            ],
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'address' => 'required|string',
+            'gender' => ['required', 'string', Rule::in(['Male', 'Female'])],
+        ]);
+        if($validate){
+            $user = User::findOrFail(Auth::id());
+            $user->first_name = $request->first_name;
+            $user->last_name = $request->last_name;
+            $user->phone_number = $request->phone_number;
+            $user->address = $request->address;
+            $user->gender = $request->gender;
+            $image = $request->image;
+            if ($image) {
+                File::delete('Images/Variable/Users'. $user->image);
+                $imageName = Str::uuid()->toString() . '-' . time() . '.' . $image->getClientOriginalExtension();
+                $image->move('Images/Variable/Users', $imageName);
+                $user->image = 'Images/Variable/Users/' . $imageName;
+            }
+            $user->update();
+            Alert::success('Your Profile has been Updated Successfully');
+            return redirect()->back();
+        }
+        
+        
     }
 }

@@ -140,6 +140,9 @@
         grid-row-gap: 15px;
         grid-template-columns: 50% 1fr;
     }
+    .flex-cl-1.account-sett{
+        margin: 10px auto;
+    }
 } 
 @media screen and (max-width: 1120px){
     .result-content-left{
@@ -247,7 +250,9 @@
     }
 }
 
+
 @media screen and (max-width: 992px) {
+    
     .navigationMenu-container-inner {
         display: none;
     }
@@ -743,6 +748,12 @@
     }
     .error-rows.pr-3r{
         margin-top: 3rem;
+    }
+
+}
+@media screen and (min-width: 992px){
+    .row-halfs{
+        width: 50% !important;
     }
 }
 @media screen and (max-width: 768px) {
@@ -1640,10 +1651,49 @@
         display: none;
         width: 0;
     }
-    
+    .profile-setting-header{
+        position: relative;
+        z-index: 9;
+        max-width: 100%;
+        min-height: 52px;
+        padding: 0 60px;
+        border-bottom: 1px solid #dae2ec;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+    }
+    .profile-panel-title{
+        text-align: center;
+        font-weight: 600;
+        font-size: 1.25rem;
+    }
+    .profile-grids{
+        grid-template-areas:
+            "avatar header"
+            "avatar header"
+            "body body";
+        grid-template-columns: auto 1fr;
+    }
+    .profile-grids-header{
+        align-self: center;
+    }
+    .profile-grids-avatar{
+        margin-bottom: 25px;
+    }
 }
 
 @media screen and (min-width: 768px)  {
+    .profile-grids{
+        grid-template-areas:
+            "header ."
+            "body avatar";
+        grid-template-columns: 2fr 1fr;
+    }
+    .profile-grids-avatar{
+        justify-self: center;
+    }
     .header-panel-body-container{
         padding: 20px 0 30px;
     }
@@ -1742,6 +1792,22 @@
     .tables-notify-container{
         gap: unset;
         flex-direction: row;
+    }
+    .flex-cl-1.account-sett{
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 8px 16px #627d981f;
+    }
+    .profile-setting-header{
+        display: flex;
+        align-items: center;
+        min-height: 60px;
+        padding: 10px 20px;
+        border-bottom: 1px solid #dae2ec;    
+    }
+    .profile-panel-title{
+        font-size: 1.81rem;
+        font-weight: 600;
     }
 }
 @media screen and (max-width: 600px){

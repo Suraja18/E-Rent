@@ -1,3 +1,6 @@
+@php
+    $user = App\Models\User::findOrFail(Illuminate\Support\Facades\Auth::id());
+@endphp
 <section id="landlordBody" class="special-container">
     <div class="landlordBody d-flex">
         <div id="landlordHeader">
@@ -96,13 +99,17 @@
                                     <menu class="profile-accounts">
                                         <button type="button" class="btn-profiles" id="profileAvatarButton">
                                             <div class="btn-profile-containers">
-                                                <span class="profile-names">Test</span>
+                                                <span class="profile-names">{!! $user->first_name !!}</span>
                                                 <div class="profile-avatar-img">
                                                     <div class="profile-avatar-img-container">
-                                                        <div class="profile-avatar-image profile-avatar-no-img">
-                                                            T
-                                                        </div>
-                                                        <!-- <img src="../Images/Original/Banner-2.png" class="profile-avatar-image" alt=""> -->
+                                                        @if (!$user->image)
+                                                            <div class="profile-avatar-image profile-avatar-no-img">
+                                                                {!! substr($user->first_name, 0, 1) !!}
+                                                            </div>
+                                                        @endif
+                                                        @if ($user->image)
+                                                            <img src="{!! asset($user->image) !!}" class="profile-avatar-image" alt="{!! $user->first_name !!}">
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -111,15 +118,21 @@
                                             <div class="avatar-whole-containers">
                                                 <div class="avatar-grid-subnav">
                                                     <div class="avatar-edit-profile-container">
-                                                        <a href="../Errors/404Error.html" class="avatar-edit-profile-wrappers">
+                                                        <a href="{!! route('landlord.profile') !!}" class="avatar-edit-profile-wrappers">
                                                             <div class="avatar-profile-container">
                                                                 <div class="avatar-profile-imgs">
                                                                     <div class="avatar-info-profile">
-                                                                        <div href="#" class="avatar-info-profile-imgs">
+                                                                        <div class="avatar-info-profile-imgs">
                                                                             <div class="profile-avatar-img">
                                                                                 <div class="profile-avatar-img-wrapper">
-                                                                                    <div class="profile-avatar-image profile-avatar-no-img">T</div>
-                                                                                    <!-- <img src="../Images/Original/Banner-2.png" class="profile-avatar-image" alt=""> -->
+                                                                                    @if (!$user->image)
+                                                                                        <div class="profile-avatar-image profile-avatar-no-img">
+                                                                                            {!! substr($user->first_name, 0, 1) !!}
+                                                                                        </div>
+                                                                                    @endif
+                                                                                    @if ($user->image)
+                                                                                        <img src="{!! asset($user->image) !!}" class="profile-avatar-image" alt="{!! $user->first_name !!}">
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -128,24 +141,24 @@
                                                                 <div class="avatar-profile-infos">
                                                                     <div class="m-0">
                                                                         <div class="title-owners">
-                                                                            Tenant
+                                                                            Landlord
                                                                         </div>
-                                                                        <h2 class="avatar-profile-name">Test</h2>
+                                                                        <h2 class="avatar-profile-name">{!! $user->first_name !!} {!! $user->last_name !!}</h2>
                                                                     </div>
                                                                     <div class="avatar-email-sub-title">
-                                                                        testingcoding4@gmail.com
+                                                                        {!! $user->email !!}
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </a>
-                                                        <a href="../Errors/404Error.html" class="is-button-for-edit-profile">
+                                                        <a href="{!! route('landlord.profile') !!}" class="is-button-for-edit-profile">
                                                             Edit Profile
                                                         </a>
                                                     </div>
-                                                    <div class="avatar-logout nav-icons-for-mobile for-avatar-log">
+                                                    <a href="{!! route('user.logout') !!}" class="avatar-logout nav-icons-for-mobile for-avatar-log">
                                                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
                                                         <span class="logout-avatar-info">Log out</span>
-                                                    </div>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

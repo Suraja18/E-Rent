@@ -21,14 +21,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'firstName',
-        'lastName',
-        'phoneNumber',
+        'first_name',
+        'last_name',
+        'phone_number',
         'email',
         'password',
-        'Image',
-        'Address',
-        'ZIP',
+        'image',
+        'address',
+        'gender',
         'roles',
     ];
 
@@ -53,11 +53,11 @@ class User extends Authenticatable
 
     public function setFirstNameAttribute($value)
     {
-        $this->attributes['firstName'] = Str::title($value);
+        $this->attributes['first_name'] = Str::title($value);
     }
     public function setLastNameAttribute($value)
     {
-        $this->attributes['lastName'] = Str::title($value);
+        $this->attributes['last_name'] = Str::title($value);
     }
     public function setPasswordAttribute($value)
     {

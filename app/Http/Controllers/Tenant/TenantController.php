@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TenantController extends Controller
 {
@@ -50,5 +53,10 @@ class TenantController extends Controller
     public function addFriend()
     {
         return view('Tenants.add-friends');
+    }
+    public function profile()
+    {
+        $data = ['user' => User::findOrFail(Auth::id()),];
+        return view('Tenants.edit-profile', $data);
     }
 }

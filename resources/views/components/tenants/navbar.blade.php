@@ -1,6 +1,8 @@
+@php
+    $user = App\Models\User::findOrFail(Illuminate\Support\Facades\Auth::id());
+@endphp
 <!-- Navbar -->
 <section class="Nav-Navbar">
-
     <!-- Navbar especially for Mobile Phones --> 
     <div class="mobile-below-nav-containers">
         <div class="nav-mobile-grid" role="list">
@@ -400,13 +402,17 @@
                                     <menu class="profile-accounts">
                                         <button type="button" class="btn-profiles" id="profileAvatarButton">
                                             <div class="btn-profile-containers">
-                                                <span class="profile-names">Test</span>
+                                                <span class="profile-names">{!! $user->first_name !!}</span>
                                                 <div class="profile-avatar-img">
                                                     <div class="profile-avatar-img-container">
-                                                        <div class="profile-avatar-image profile-avatar-no-img">
-                                                            T
-                                                        </div>
-                                                        <!-- <img src="../Images/Original/Banner-2.png" class="profile-avatar-image" alt=""> -->
+                                                        @if (!$user->image)
+                                                            <div class="profile-avatar-image profile-avatar-no-img">
+                                                                {!! substr($user->first_name, 0, 1) !!}
+                                                            </div>
+                                                        @endif
+                                                        @if ($user->image)
+                                                            <img src="{!! asset($user->image) !!}" class="profile-avatar-image" alt="{!! $user->first_name !!}">
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -415,15 +421,21 @@
                                             <div class="avatar-whole-containers">
                                                 <div class="avatar-grid-subnav">
                                                     <div class="avatar-edit-profile-container">
-                                                        <a href="../Errors/404Error.html" class="avatar-edit-profile-wrappers">
+                                                        <a href="{!! route('tenant.profile') !!}" class="avatar-edit-profile-wrappers">
                                                             <div class="avatar-profile-container">
                                                                 <div class="avatar-profile-imgs">
                                                                     <div class="avatar-info-profile">
-                                                                        <div href="#" class="avatar-info-profile-imgs">
+                                                                        <div class="avatar-info-profile-imgs">
                                                                             <div class="profile-avatar-img">
                                                                                 <div class="profile-avatar-img-wrapper">
-                                                                                    <div class="profile-avatar-image profile-avatar-no-img">T</div>
-                                                                                    <!-- <img src="../Images/Original/Banner-2.png" class="profile-avatar-image" alt=""> -->
+                                                                                    @if (!$user->image)
+                                                                                        <div class="profile-avatar-image profile-avatar-no-img">
+                                                                                            {!! substr($user->first_name, 0, 1) !!}
+                                                                                        </div>
+                                                                                    @endif
+                                                                                    @if ($user->image)
+                                                                                        <img src="{!! asset($user->image) !!}" class="profile-avatar-image" alt="{!! $user->first_name !!}">
+                                                                                    @endif
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -434,15 +446,15 @@
                                                                         <div class="title-owners">
                                                                             Tenant
                                                                         </div>
-                                                                        <h2 class="avatar-profile-name">Test</h2>
+                                                                        <h2 class="avatar-profile-name">{!! $user->first_name !!} {!! $user->last_name !!}</h2>
                                                                     </div>
                                                                     <div class="avatar-email-sub-title">
-                                                                        testingcoding4@gmail.com
+                                                                        {!! $user->email !!}
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </a>
-                                                        <a href="../Errors/404Error.html" class="is-button-for-edit-profile">
+                                                        <a href="{!! route('tenant.profile') !!}" class="is-button-for-edit-profile">
                                                             Edit Profile
                                                         </a>
                                                     </div>

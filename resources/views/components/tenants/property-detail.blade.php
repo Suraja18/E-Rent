@@ -1,12 +1,13 @@
- @php
+@php
     if(Route::currentRouteName() == 'tenant.dashboard'){
-        $property_rents = App\Models\RentProperty::latest()->take(4)->get()->shuffle();
-        $property_sells = App\Models\HomeSell::latest()->take(4)->get()->shuffle();
-    }else{
-        $property_rents = App\Models\RentProperty::latest()->get()->shuffle();
-        $property_sells = App\Models\HomeSell::latest()->get()->shuffle();
+        $property_rents = App\Models\RentProperty::latest()->where('status', 'Yes')->take(4)->get()->shuffle();
+        $property_sells = App\Models\HomeSell::latest()->where('status', 'Yes')->take(4)->get()->shuffle();
+    } else {
+        $property_rents = App\Models\RentProperty::latest()->where('status', 'Yes')->get()->shuffle();
+        $property_sells = App\Models\HomeSell::latest()->where('status', 'Yes')->get()->shuffle();
     }
- @endphp
+@endphp
+
  
  <!-- Start House Details -->
  <section class="houseDetails" id="allPropertyDetail">
@@ -84,5 +85,10 @@
             </div>
         </div>
     </div>
+    @if(Route::currentRouteName() == 'tenant.dashboard')
+        <div class="text-center">
+            <a href="{!! route('tenant.property-list') !!}" class="btn btnPrimary">Show More Property</a>
+        </div>
+    @endif
 </section>
 <!-- End House Details -->

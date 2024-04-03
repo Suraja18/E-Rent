@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'tenant' => \App\Http\Middleware\TenantMiddleware::class,
         'landlord' => \App\Http\Middleware\LandlordMiddleware::class,
         'session.logout' => \App\Http\Middleware\SessionLogOut::class,
+        'checkComplete' => \App\Http\Middleware\UserFillCompleteCheck::class,
     ];
 }

@@ -41,9 +41,15 @@
                                     @empty
                                         <div class="property-type-block text-center" role="listitem">Coming Soon</div>
                                     @endforelse
+                                    
                                 </div>
                             </div>
                         </div>
+                        @if(Route::currentRouteName() == 'tenant.dashboard')
+                            <div class="text-center">
+                                <a href="{!! route('tenant.property-types') !!}" class="btn btnPrimary">Show More</a>
+                            </div>
+                        @endif
 
                     </div>
                 </div>

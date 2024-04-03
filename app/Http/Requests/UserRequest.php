@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -22,14 +23,14 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstName' => 'required|string|min:3|max:50',
-            'lastName' => 'required|string|min:3|max:50',
-            'phoneNumber' => 'nullable|numeric|digits_between:9,10|unique:users,phoneNumber',
+            'first_name' => 'required|string|min:3|max:50',
+            'last_name' => 'required|string|min:3|max:50',
+            'phone_number' => 'nullable|numeric|digits_between:9,10|unique:users,phoneNumber',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:8',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'Address' => 'nullable|string',
-            'ZIP' => 'nullable|string',
+            'address' => 'nullable|string',
+            'gender' => ['nullable', 'string', Rule::in(['Male', 'Female'])],
             'roles' => 'required|integer|in:0,1,2',
         ];
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Tenant\TenantController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,13 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
         Route::get('/press-and-media',[TenantController::class, 'pressMedia'])->name('tenant.press-media');
         Route::get('/customer-review',[TenantController::class, 'customerReview'])->name('tenant.customer-review');
         Route::get('/contact', [TenantController::class, 'contactPage'])->name('tenant.contact');
+        Route::get('/profile', [TenantController::class, 'profile'])->name('tenant.profile');
+        Route::put('/update/profile', [AuthController::class, 'updateProfile'])->name('tenant.account');
+
+         //For Complete Profile Landlord
+        Route::middleware(['checkComplete'])->group(function () {
+
+        });
     });
 });
 
