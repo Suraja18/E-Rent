@@ -26,9 +26,9 @@ return new class extends Migration
             $table->longText('image_3')->nullable();
             $table->longText('image_4')->nullable();
             $table->longText('description');
-            $table->unsignedDecimal('electric_charge')->default(0);
-            $table->unsignedDecimal('water_charge')->default(0);
-            $table->unsignedDecimal('garbage_charge')->default(0);
+            $table->unsignedDecimal('electric_charge', 20, 2)->default(0);
+            $table->unsignedDecimal('water_charge', 20, 2)->default(0);
+            $table->unsignedDecimal('garbage_charge', 20, 2)->default(0);
             $table->enum('status', ['Yes', 'No'])->default('No');
             $table->string('slug');
             $table->foreign('property_type_id')->references('id')->on('units')->onDelete('cascade');

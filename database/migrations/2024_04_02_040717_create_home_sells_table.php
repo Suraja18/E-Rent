@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('building_id')->references('id')->on('buildings');
             $table->unsignedBigInteger('landlord_id');
             $table->foreign('landlord_id')->references('id')->on('users');
-            $table->decimal('price');
+            $table->unsignedDecimal('price', 20, 2);
             $table->enum('status', ['Yes', 'No'])->default('No');
             $table->timestamps();
         });

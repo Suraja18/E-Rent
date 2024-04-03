@@ -63,7 +63,7 @@ class BuildingServices{
             $image4->move('Images/Variable/Building', $imageName);
             $validatedData['image_4'] = "Images/Variable/Building/" . $imageName;
         }
-        $validatedData['slug'] = $request->name;
+        $validatedData['slug'] = $request['name'];
         return $validatedData;
     }
 }

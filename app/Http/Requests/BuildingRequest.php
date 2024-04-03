@@ -25,7 +25,7 @@ class BuildingRequest extends FormRequest
         return [
             
             'name'   =>  'required | string | min:3 | max:50',
-            'description'   =>  'required | string | min:3 | max:500',
+            'description'   =>  'required | string | min:3 | max:50000',
             'image_1' => $rule . '|image|mimes:jpeg,png,jpg,gif|max:2048',
             'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'image_3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

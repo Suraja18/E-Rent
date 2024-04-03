@@ -3441,6 +3441,7 @@ input:checked + .toggle-btn::before{
 }
 .property-type-icons{
     width: 3rem;
+    border-radius: 50%;
 }
 .heading-types{
     color: var(--core-navy-800);

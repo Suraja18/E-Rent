@@ -35,7 +35,7 @@
                         </div>
                     </td>
                     <td data-name="Building">{!! $rent->building->name !!}</td>
-                    <td data-name="Type">{!! $rent->property_type !!}</td>
+                    <td data-name="Type">{!! $rent->unit->building_unit !!}</td>
                     <td data-name="Floor">{!! $rent->floor !!}</td>
                     <td data-name="Rent">{!! $rent->monthly_house_rent !!}</td>
                     <td data-name="Status">{!! $rent->status !!}</td>
