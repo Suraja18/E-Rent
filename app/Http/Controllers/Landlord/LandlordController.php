@@ -24,4 +24,8 @@ class LandlordController extends Controller
         $data = ['user' => User::findOrFail(Auth::id()),];
         return view('Landlords.edit-profile', $data);
     }
+    public function Contact()
+    {
+        return view('Landlords.Contact.add');
+    }
 }

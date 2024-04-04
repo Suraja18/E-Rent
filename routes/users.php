@@ -17,3 +17,4 @@ Route::get('/customer-review',[UserController::class, 'customerReview'])->name('
 Route::get('/user-role',[UserController::class, 'userRoles'])->name('user.user-role');
 Route::get('/team-management',[UserController::class, 'teamManagement'])->name('user.teamManagement');
 Route::get('/help-centre',[UserController::class, 'helpCentre'])->name('user.helpCentre');
+Route::post('/success/contact', [UserController::class, 'updateContact'])->name('users.get.contact');

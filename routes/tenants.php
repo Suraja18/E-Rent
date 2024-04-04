@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Tenant\TenantController;
+use App\Http\Controllers\User\PDFController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['tenant', 'session.logout'])->group(function () {
@@ -17,9 +19,12 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
         Route::get('/press-and-media',[TenantController::class, 'pressMedia'])->name('tenant.press-media');
         Route::get('/customer-review',[TenantController::class, 'customerReview'])->name('tenant.customer-review');
         Route::get('/contact', [TenantController::class, 'contactPage'])->name('tenant.contact');
+        Route::post('/success/contact', [UserController::class, 'updateContact'])->name('tenant.get.contact');
         Route::get('/profile', [TenantController::class, 'profile'])->name('tenant.profile');
         Route::put('/update/profile', [AuthController::class, 'updateProfile'])->name('tenant.account');
         Route::get('/search/property-types', [TenantController::class, 'searchProperty'])->name('tenant.search.property');
+        Route::get('/forums/{slug}', [TenantController::class, 'forumDetail'])->name('tenant.forum.detail');
+        Route::get('/{slug}/pdf',[PDFController::class, 'generatePDF'])->name('forum.generatePDF');
 
          //For Complete Profile Landlord
         Route::middleware(['checkComplete'])->group(function () {

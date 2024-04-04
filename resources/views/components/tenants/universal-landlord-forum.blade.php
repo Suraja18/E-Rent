@@ -1,8 +1,8 @@
 @php
     if(Route::currentRouteName() == 'tenant.dashboard'){
-        $forums = App\Models\Forums::latest()->take(3)->get();
+        $forums = App\Models\Forums::latest()->take(3)->get()->shuffle();
     } else {
-        $forums = App\Models\Forums::latest()->get();
+        $forums = App\Models\Forums::latest()->get()->shuffle();
     }
 @endphp
 
@@ -13,7 +13,7 @@
                 <h3 class="use-case-feat-head header">Universal Landlord Forms</h3>
                 <div class="universal-grid-container">
                     @forelse ($forums as $forum)
-                    <a href="#" class="forum-containers" target="_blank" role="listitem" style="overflow:hidden">
+                    <a href="{!! route('tenant.forum.detail', $forum->slug) !!}" class="forum-containers" target="_blank" role="listitem" style="overflow:hidden">
                         <div class="image-before">
                             <img src="{!! asset('Images/Original/Request/aggrement.svg') !!}" alt="icons">
                         </div>

@@ -1,5 +1,7 @@
 @php
-    $user = App\Models\User::findOrFail(Illuminate\Support\Facades\Auth::id());
+    if(Auth::id()){
+        $user = App\Models\User::findOrFail(Illuminate\Support\Facades\Auth::id());
+    }
 @endphp     
     <!-- Contact US Banner -->
     <section class="clientSays bg-blue-lighter pt-7b">
@@ -66,7 +68,7 @@
                     <div class="wow fadeInUp mt-3 p4r">
                         <h2 class="heading-med">We’re excited to speak with you!</h2>
                         <div class="contact-forms">
-                            <form action="../Errors/404Error.html" method="POST">
+                            <form action="@if(isset($routes)) {!! $routes !!} @endif" method="POST">
                                 @csrf
                                 <div id="form-field-email" class="p-r">
                                     <label for="contactEmail" class="form-field-label">Email*</label>
@@ -74,6 +76,9 @@
                                         data-bouncer-bus-email-message="Please use your personal email" maxlength="256"
                                         name="email" data-name="email" placeholder="Your email" type="email"
                                         id="contactEmail" @if(isset($user->email)) value="{!! $user->email !!}" readonly @else required @endif>
+                                    @error('email')
+                                        <p class="error-message">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div id="form-field-name" class="form-field-wrappers">
                                     <div id="form-field-fname" class="form-field-blocks">
@@ -81,18 +86,27 @@
                                         <input class="form-field-input w-input" maxlength="256" name="first_name"
                                             data-name="first_name" placeholder="Your first name" type="text"
                                             id="first_name" @if(isset($user->first_name)) value="{!! $user->first_name !!}" readonly @else required @endif>
+                                        @error('first_name')
+                                            <p class="error-message">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div id="form-field-lname" class="form-field-blocks">
                                         <label for="last_name" class="form-field-label">Last Name*</label>
                                         <input class="form-field-input w-input" maxlength="256" name="last_name"
                                             data-name="last_name" placeholder="Your last name" type="text"
                                             id="last_name" @if(isset($user->last_name)) value="{!! $user->last_name !!}" readonly @else required @endif>
+                                        @error('last_name')
+                                            <p class="error-message">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div id="form-field-message" class="p-r">
                                     <label for="contactMessage" class="form-field-label">Message*</label>
                                     <textarea class="form-field-input w-input auto-height" name="message" data-name="message" placeholder="Your Message"
                                         id="contactMessage" required=""></textarea>
+                                    @error('message')
+                                        <p class="error-message">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="contact-form-buttons">
                                     <input type="submit" data-wait="Please wait..."

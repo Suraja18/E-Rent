@@ -7,6 +7,7 @@ use App\Http\Controllers\Landlord\HomeSellController;
 use App\Http\Controllers\Landlord\LandlordController;
 use App\Http\Controllers\Landlord\RentController;
 use App\Http\Controllers\Landlord\UnitController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['landlord', 'session.logout'])->group(function () {
@@ -14,6 +15,8 @@ Route::middleware(['landlord', 'session.logout'])->group(function () {
         Route::get('/', [LandlordController::class, 'dashboard'])->name('landlord.dashboard');
         Route::get('/profile', [LandlordController::class, 'profile'])->name('landlord.profile');
         Route::put('/update/profile', [AuthController::class, 'updateProfile'])->name('landlord.account');
+        Route::get('/contact', [LandlordController::class, 'Contact'])->name('landlord.contact');
+        Route::post('/success/contact', [UserController::class, 'updateContact'])->name('landlord.get.contact');
 
         //For Complete Profile Landlord
         Route::middleware(['checkComplete'])->group(function () {

@@ -1,6 +1,6 @@
 <x-users.main.app-layout>
     <x-slot name="head">
-        - Contact Us
+        - Landlord Forums
     </x-slot>
     <x-tenants.navbar />
 

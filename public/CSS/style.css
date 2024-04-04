@@ -408,8 +408,8 @@ a {
     padding-bottom: 3.5rem;
 }
 .plr-4 {
-    padding-left: 4rem;
-    padding-right: 4rem;
+    padding-left: 4rem !important;
+    padding-right: 4rem !important;
 }
 .pt-5b{
     padding-top: 5rem;

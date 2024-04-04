@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ContactRequest;
+use App\Models\Contact;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -42,5 +45,16 @@ class UserController extends Controller
     public function useCases()
     {
         return view('Users.use-case');
+    }
+    public function updateContact(ContactRequest $request)
+    {
+        $contact = new Contact;
+        $contact->first_name=$request->first_name;
+        $contact->last_name=$request->last_name;
+        $contact->email=$request->email;
+        $contact->message=$request->message;
+        $contact->save();
+        Alert::success('Your Message has been sent!');
+        return redirect()->back();
     }
 }

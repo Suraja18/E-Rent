@@ -3,7 +3,11 @@
         - Contact Us
     </x-slot>
     <x-users.navbar />
-    <x-common.contact />
+    <x-common.contact>
+        <x-slot name="routes">
+            {!! route('users.get.contact') !!}
+        </x-slot>
+    </x-common.contact>
     <x-users.footer />
 </x-users.main.app-layout>
     

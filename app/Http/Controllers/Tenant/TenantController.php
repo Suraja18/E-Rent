@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Models\Forums;
 use App\Models\RentProperty;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -92,5 +93,10 @@ class TenantController extends Controller
         $results = $properties->get();
         $data = ['properties' => $results, 'search' => $request,];
         return view('Tenants.property-list', $data);
+    }
+    public function forumDetail(string $slug)
+    {
+        $data = ['forum' => Forums::where('slug', $slug)->first()];
+        return view('Tenants.forum-detail', $data);
     }
 }
