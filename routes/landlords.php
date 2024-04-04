@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Landlord\BuildingController;
+use App\Http\Controllers\Landlord\ForumController;
 use App\Http\Controllers\Landlord\HomeSellController;
 use App\Http\Controllers\Landlord\LandlordController;
 use App\Http\Controllers\Landlord\RentController;
@@ -21,6 +22,7 @@ Route::middleware(['landlord', 'session.logout'])->group(function () {
             Route::resource('/unit', UnitController::class)->only(["index", "store", "edit", "update", "destroy"]);
             Route::resource('/house-sell', HomeSellController::class)->only(["index", "store", "edit", "update", "destroy"]);
             Route::resource('/rent', RentController::class);
+            Route::resource('/forum', ForumController::class);
         });
     });
 });

@@ -76,6 +76,13 @@
                 <x-slot name="value2">{!! $rent->garbage_charge !!}</x-slot>
                 <x-slot name="type">{!! $type !!}</x-slot>
             </x-common.input-text-50>
+            <x-common.input-text-100>
+                <x-slot name="column">Forum</x-slot>
+                @if (isset($rent->forum_id ))
+                    <x-slot name="value">{!! $rent->forum->heading !!}</x-slot>
+                @endif
+                <x-slot name="type">{!! $type !!}</x-slot>
+            </x-common.input-text-100>
             <x-common.toggle-status>
                 @if (isset($rent->status))
                     {!! $rent->status == 'Yes' ? 'checked' : '' !!}

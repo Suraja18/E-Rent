@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RentRequest;
 use App\Models\Building;
 use App\Models\FloorRemain;
+use App\Models\Forums;
 use App\Models\RentProperty;
 use App\Models\Unit;
 use App\Models\User;
@@ -38,7 +39,8 @@ class RentController extends Controller
                   ->where('landlord_id', $user->id);
         })->where('landlord', $user->id)->latest()->get();
         $units =  Unit::latest()->get();   
-        $data = ['buildings' => $buildings, 'units'=>$units];
+        $forums =  Forums::latest()->get();   
+        $data = ['buildings' => $buildings, 'units'=>$units, 'forums' => $forums,];
         return view('Landlords.Property-Occupants.Rent.add', $data);
     }
 
@@ -148,8 +150,9 @@ class RentController extends Controller
             $query->whereIn('type', ['Sell'])
                   ->where('landlord_id', $user->id);
         })->where('landlord', $user->id)->latest()->get();
-        $units =  Unit::latest()->get();   
-        $data = ['buildings' => $buildings, 'units'=>$units, 'rent' => $rent];
+        $units =  Unit::latest()->get();
+        $forums =  Forums::latest()->get();    
+        $data = ['buildings' => $buildings, 'units'=>$units, 'rent' => $rent, 'forums' => $forums];
         return view('Landlords.Property-Occupants.Rent.edit', $data);
     }
 

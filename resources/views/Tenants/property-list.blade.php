@@ -19,9 +19,9 @@
     </section>
     <!-- End Property Banner -->
 
-    <x-tenants.property-search />
+    <x-tenants.property-search :search="$search ?? null" />
 
-    <x-tenants.property-detail />
+    <x-tenants.property-detail :properties="$properties ?? null" />
 
     <x-users.showing-ads />
 

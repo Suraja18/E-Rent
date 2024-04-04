@@ -52,6 +52,15 @@
                                 <x-slot name="value">{!! $rent->area !!}</x-slot>
                             @endif
                         </x-common.input-text-100>
+                        <x-common.input-select-100>
+                            <x-slot name="column">Forum</x-slot>
+                            @if (isset($type))
+                                <x-slot name="type"><option value="{!! $rent->forum_id !!}">{!! $rent->forum->heading !!}</option></x-slot>
+                            @endif
+                            @foreach ($forums as $forum)
+                                <option value="{!! $forum->id !!}">{!! $forum->heading !!}</option>
+                            @endforeach
+                        </x-common.input-select-100>
                         <x-common.toggle-status>
                             @if (isset($type))
                                 {!! $rent->status == 'Yes' ? 'checked' : '' !!}
@@ -82,10 +91,10 @@
                     @foreach ($rents as $rent)
                         <tr>
                             <td>{!! $loop->iteration !!}</td>
-                            <td>{!! $rent->building->name !!}</td>
-                            <td>{!! $rent->area !!}</td>
-                            <td>{!! $rent->price !!}</td>
-                            <td>{!! $rent->status !!}</td>
+                            <td data-name="Building">{!! $rent->building->name !!}</td>
+                            <td data-name="Area">{!! $rent->area !!}</td>
+                            <td data-name="Price">{!! $rent->price !!}</td>
+                            <td data-name="Status">{!! $rent->status !!}</td>
                             <td>
                                 <form action="{{ route('house-sell.edit', $rent) }}" method="GET" class="table-btns edits">
                                     @csrf

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Landlord;
 
 use App\Http\Controllers\Controller;
 use App\Models\Building;
+use App\Models\Forums;
 use App\Models\RentProperty;
 use App\Models\Unit;
 use App\Models\User;
@@ -16,13 +17,14 @@ class HomeSellController extends Controller
     public function index()
     {
         $user = User::find(Auth::id());
-        $units =  Unit::where('rooms', 0)->whereNotIn('building_unit', ['Floor', 'Flat'])->latest()->get();   
+        $units =  Unit::where('rooms', 0)->orWhereNull('rooms')->whereNotIn('building_unit', ['Floor', 'Flat'])->latest()->get();   
         $buildings = Building::whereDoesntHave('rentProperties', function ($query) use ($user) {
             $query->whereIn('type', ['Sell', 'Rent'])
                   ->where('landlord_id', $user->id);
         })->where('landlord', $user->id)->latest()->get();        
         $homeSells = $user->rentProperties()->where('type', 'Sell')->latest()->get();
-        $data = [ 'buildings' => $buildings, 'rents' => $homeSells, 'units' => $units];        
+        $forums = Forums::latest()->get();
+        $data = [ 'buildings' => $buildings, 'rents' => $homeSells, 'units' => $units, 'forums' => $forums];        
         return view('Landlords.Property-Occupants.Sell.index', $data);
     }
 
@@ -40,6 +42,7 @@ class HomeSellController extends Controller
                                 }
                             }
                         ],
+            'forum_id' => 'required|exists:forums,id',
             'price' => 'required|numeric|min:0',
             'status' => 'nullable|in:on',
             'area' => 'required|numeric',
@@ -49,6 +52,7 @@ class HomeSellController extends Controller
             $homeSell = new RentProperty();
             $request->merge(['status' => $request->status == 'on' ? 'Yes' : 'No']);
             $homeSell->building_id=$request->building_id;
+            $homeSell->forum_id=$request->forum_id;
             $homeSell->landlord_id=Auth::id();
             $homeSell->price=$request->price;
             $homeSell->property_type_id=$request->property_type_id;
@@ -64,12 +68,13 @@ class HomeSellController extends Controller
     public function edit(Request $request)
     {
         $user = User::find(Auth::id());
-        $units =  Unit::where('rooms', 0)->whereNotIn('building_unit', ['Floor', 'Flat'])->latest()->get(); 
+        $units =  Unit::where('rooms', 0)->orWhereNull('rooms')->whereNotIn('building_unit', ['Floor', 'Flat'])->latest()->get(); 
         $buildings = Building::whereDoesntHave('rentProperties', function ($query) use ($user) {
             $query->whereIn('type', ['Sell', 'Rent'])
                   ->where('landlord_id', $user->id);
         })->where('landlord', $user->id)->get();       
         $homeSells = $user->rentProperties()->where('type', 'Sell')->latest()->get();
+        $forums = Forums::latest()->get();
         $homeSell = RentProperty::findOrFail($request->id);
         $data = [
             'buildings'=>$buildings, 
@@ -77,6 +82,7 @@ class HomeSellController extends Controller
             'rent'=>$homeSell,
             'units' => $units,
             'type' => 'edit',
+            'forums' => $forums,
         ];
         return view('Landlords.Property-Occupants.Sell.index', $data);
     }
@@ -95,6 +101,7 @@ class HomeSellController extends Controller
                                 }
                             }
                         ],
+            'forum_id' => 'required|exists:forums,id',
             'price' => 'required|numeric|min:0',
             'status' => 'nullable|in:on',
             'area' => 'required|numeric',
@@ -104,6 +111,7 @@ class HomeSellController extends Controller
             $homeSell = RentProperty::findOrFail($id);
             $request->merge(['status' => $request->status == 'on' ? 'Yes' : 'No']);
             $homeSell->building_id=$request->building_id;
+            $homeSell->forum_id=$request->forum_id;
             $homeSell->landlord_id=Auth::id();
             $homeSell->price=$request->price;
             $homeSell->property_type_id=$request->property_type_id;

@@ -19,6 +19,7 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
         Route::get('/contact', [TenantController::class, 'contactPage'])->name('tenant.contact');
         Route::get('/profile', [TenantController::class, 'profile'])->name('tenant.profile');
         Route::put('/update/profile', [AuthController::class, 'updateProfile'])->name('tenant.account');
+        Route::get('/search/property-types', [TenantController::class, 'searchProperty'])->name('tenant.search.property');
 
          //For Complete Profile Landlord
         Route::middleware(['checkComplete'])->group(function () {

@@ -1,6 +1,8 @@
 @php
     if(Route::currentRouteName() == 'tenant.dashboard'){
         $property_rents = App\Models\RentProperty::latest()->where('status', 'Yes')->take(4)->get()->shuffle();
+    } elseif (isset($properties)) {
+        $property_rents = $properties;
     } else {
         $property_rents = App\Models\RentProperty::latest()->where('status', 'Yes')->get()->shuffle();
     }
@@ -37,22 +39,22 @@
                                                     <div class="housing-image-text">{!! $property->unit->building_unit !!}</div>
                                                 </div>
                                                 <div class="housing-content-container">
-                                                    <div style="background-color:#a5f3fc; width: 150px;"><h5 class="text-housing-price">Rs @if($property->type == 'Rent') {!! $property->monthly_house_rent !!} @elseif($property->type == 'Sell') {!! $property->price !!} @endif</h5></div>
+                                                    <div style="background-color:#a5f3fc; width: 180px;"><h5 class="text-housing-price">Rs @if($property->type == 'Rent') {!! $property->monthly_house_rent !!} @elseif($property->type == 'Sell') {!! $property->price !!} @endif</h5></div>
                                                     <a class="text-housing-price" href="#">@if($property->type == 'Rent') {!! $property->rent_name !!} @elseif($property->type == 'Sell') {!! $property->building->name !!} @endif</a>
-                                                    <p class="housing-address"><img src="../Images/Original/Icons/address.svg" alt="address icon" class="ever-housing-icon">{!! $property->building->address !!}</p>
+                                                    <p class="housing-address"><img src="{{ asset('Images/Original/Icons/address.svg') }}" alt="address icon" class="ever-housing-icon">{!! $property->building->address !!}</p>
                                                 </div>
                                                 <div class="housing-content-areas">
                                                     <small class="housing-content-areas-paragraph text-center">
-                                                        <img src="../Images/Original/Icons/Sqft.svg" alt="Icons" class="ever-housing-icon">
+                                                        <img src="{{ asset('Images/Original/Icons/Sqft.svg') }}" alt="Icons" class="ever-housing-icon">
                                                         {!! $property->area !!} Sqft
                                                     </small>
                                                     @if($property->type == 'Rent')
                                                     <small class="housing-content-areas-paragraph text-center">
-                                                        <img src="../Images/Original/Icons/bed.svg" alt="Icons" class="ever-housing-icon">
+                                                        <img src="{{ asset('Images/Original/Icons/bed.svg') }}" alt="Icons" class="ever-housing-icon">
                                                         {!! $property->no_of_bed !!} Bed
                                                     </small>
                                                     <small class="housing-content-areas-paragraph text-center">
-                                                        <img src="../Images/Original/Icons/floor.svg" alt="Icons" class="ever-housing-icon">
+                                                        <img src="{{ asset('Images/Original/Icons/floor.svg') }}" alt="Icons" class="ever-housing-icon">
                                                         Floor No. {!! $property->floor !!}
                                                     </small>
                                                     @endif

@@ -18,14 +18,15 @@
 <section class="searchProperty">
     <div class="container search-banner search-container"
         data-wow-delay="0.1s">
-        <div class="row bs-g-2">
+        <form action="{!! route('tenant.search.property') !!}" method="GET" class="row bs-g-2">
+            @csrf
             <div class="search-box-left">
                 <div class="row bs-g-2">
                     <div class="search-input-box">
-                        <input type="text" class="form-control" placeholder="Search Keyword">
+                        <input type="search" name="keyword" class="form-control" placeholder="Search Keyword" required @if(isset($search->keyword)) value="{!! $search->keyword !!}" @endif>
                     </div>
                     <div class="search-input-box">
-                        <select class="form-select">
+                        <select class="form-select" name="type">
                             <option value="" selected>Property Type</option>
                             @foreach ($property_types as $type)
                                 <option value="{!! $type->id !!}">{!! $type->building_unit !!}</option>
@@ -33,8 +34,13 @@
                         </select>
                     </div>
                     <div class="search-input-box">
-                        <select class="form-select">
-                            <option value="" selected>Location</option>
+                        <select class="form-select" name="location">
+                            @if (isset($search->location))
+                                <option value="{!! $search->location !!}" selected>{!! $search->location !!}</option>
+                            @else
+                                <option value="" selected>Location</option>
+                            @endif
+                            
                             @foreach ($property_location as $location)
                                 <option value="{!! $location !!}">{!! $location !!}</option>
                             @endforeach
@@ -44,10 +50,9 @@
                 </div>
             </div>
             <div class="search-box-right">
-                <a href="/Errors/404Error.html"
-                    class="btnPrimary navButton is-search">Search</a>
+                <button type="submit" class="btnPrimary navButton is-search">Search</button>
             </div>
-        </div>
+        </form>
     </div>
 </section>
 <!-- End Search Property -->

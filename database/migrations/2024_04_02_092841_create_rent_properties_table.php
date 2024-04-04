@@ -17,11 +17,12 @@ return new class extends Migration
             $table->unsignedBigInteger('property_type_id');
             $table->unsignedBigInteger('landlord_id');
             $table->unsignedBigInteger('building_id');
+            $table->unsignedBigInteger('forum_id');
             $table->unsignedBigInteger('floor')->default(0);
             $table->unsignedBigInteger('area');
             $table->unsignedBigInteger('no_of_bed')->default(0);
             $table->enum('type',['Sell','Rent'])->default('Rent');
-            $table->unsignedDecimal('price', 20, 2);
+            $table->unsignedDecimal('price', 20, 2)->default(0);
             $table->unsignedDecimal('monthly_house_rent')->default(0);
             $table->longText('image_1')->nullable();
             $table->longText('image_2')->nullable();
@@ -36,6 +37,7 @@ return new class extends Migration
             $table->foreign('property_type_id')->references('id')->on('units')->onDelete('cascade');
             $table->foreign('landlord_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
+            $table->foreign('forum_id')->references('id')->on('forums')->onDelete('cascade');
             $table->timestamps();
         });
     }

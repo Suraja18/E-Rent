@@ -61,6 +61,12 @@
                 <x-slot name="column2">Garbage Charge</x-slot>
                 <x-slot name="number2">Number</x-slot>
             </x-common.input-text-50>
+            <x-common.input-select-100>
+                <x-slot name="column">Forum</x-slot>
+                @foreach ($forums as $forum)
+                    <option value="{!! $forum->id !!}">{!! $forum->heading !!}</option>
+                @endforeach
+            </x-common.input-select-100>
             <x-common.toggle-status />
             <div class="text-center">
                 <input type="submit" value="Put on Rent" class="is-button-for-edit-profile is-hovers" />

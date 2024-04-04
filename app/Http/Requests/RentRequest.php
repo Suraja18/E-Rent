@@ -36,6 +36,7 @@ class RentRequest extends FormRequest
                                     }
                                 ],
             'building_id' => 'required|exists:buildings,id',
+            'forum_id' => 'required|exists:forums,id',
             'floor' => 'required|numeric',
             'area' => 'required|numeric',
             'no_of_bed' => 'required|numeric',

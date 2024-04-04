@@ -84,6 +84,15 @@
                 <x-slot name="number2">Number</x-slot>
                 <x-slot name="value2">{!! $rent->garbage_charge !!}</x-slot>
             </x-common.input-text-50>
+            <x-common.input-select-100>
+                <x-slot name="column">Forum</x-slot>
+                @if (isset($rent->forum_id ))
+                    <x-slot name="type"><option value="{!! $rent->forum->id !!}">{!! $rent->forum->heading !!}</option></x-slot>
+                @endif
+                @foreach ($forums as $forum)
+                    <option value="{!! $forum->id !!}">{!! $forum->heading !!}</option>
+                @endforeach
+            </x-common.input-select-100>
             <x-common.toggle-status>
                 @if (isset($rent->status))
                     {!! $rent->status == 'Yes' ? 'checked' : '' !!}

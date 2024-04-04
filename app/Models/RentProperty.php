@@ -17,6 +17,7 @@ class RentProperty extends Model
         'property_type_id',
         'landlord_id',
         'building_id',
+        'forum_id',
         'floor',
         'area',
         'no_of_bed',
@@ -30,12 +31,16 @@ class RentProperty extends Model
         'status',
         'slug',
     ];
-    public function building()
+    public function building() 
     {
         return $this->belongsTo(Building::class, 'building_id');
     }
     public function unit()
     {
         return $this->belongsTo(Unit::class, 'property_type_id');
+    }
+    public function forum()
+    {
+        return $this->belongsTo(Forums::class);
     }
 }
