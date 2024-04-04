@@ -33,7 +33,7 @@
                 @endforeach
             </x-common.input-select-100>
             <x-common.input-select-50>
-                <x-slot name="column1">Property Type</x-slot>
+                <x-slot name="column1">Property Type</x-slot> 
                 @if (isset($rent->property_type_id ))
                     <x-slot name="type1"><option value="{!! $rent->property_type_id !!}">{!! $rent->unit->building_unit !!}</option></x-slot>
                 @endif

@@ -13,24 +13,26 @@ return new class extends Migration
     {
         Schema::create('rent_properties', function (Blueprint $table) {
             $table->id();
-            $table->string('rent_name');
+            $table->string('rent_name')->nullable();
             $table->unsignedBigInteger('property_type_id');
             $table->unsignedBigInteger('landlord_id');
             $table->unsignedBigInteger('building_id');
-            $table->unsignedBigInteger('floor');
+            $table->unsignedBigInteger('floor')->default(0);
             $table->unsignedBigInteger('area');
-            $table->unsignedBigInteger('no_of_bed');
-            $table->unsignedDecimal('monthly_house_rent');
-            $table->longText('image_1');
+            $table->unsignedBigInteger('no_of_bed')->default(0);
+            $table->enum('type',['Sell','Rent'])->default('Rent');
+            $table->unsignedDecimal('price', 20, 2);
+            $table->unsignedDecimal('monthly_house_rent')->default(0);
+            $table->longText('image_1')->nullable();
             $table->longText('image_2')->nullable();
             $table->longText('image_3')->nullable();
             $table->longText('image_4')->nullable();
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->unsignedDecimal('electric_charge', 20, 2)->default(0);
             $table->unsignedDecimal('water_charge', 20, 2)->default(0);
             $table->unsignedDecimal('garbage_charge', 20, 2)->default(0);
             $table->enum('status', ['Yes', 'No'])->default('No');
-            $table->string('slug');
+            $table->string('slug')->nullable();
             $table->foreign('property_type_id')->references('id')->on('units')->onDelete('cascade');
             $table->foreign('landlord_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');

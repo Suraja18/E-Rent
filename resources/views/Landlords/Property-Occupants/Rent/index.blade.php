@@ -26,7 +26,7 @@
             </tr> 
         </x-slot>
         <x-slot name="tbody">
-            @foreach ($rents as $rent)
+            @foreach ($rents as $rent) 
                 <tr>
                     <td>{!! $loop->iteration !!}</td>
                     <td class="image-table-cell">

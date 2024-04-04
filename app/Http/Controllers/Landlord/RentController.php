@@ -19,22 +19,23 @@ class RentController extends Controller
 {
     protected $rent;
 
-    public function __construct(RentServices $rent)
+    public function __construct(RentServices $rent) 
     {
         $this->rent = $rent;
     }
     public function index()
     {
         $user = User::find(Auth::id());
-        $data = [ 'rents' => $user->rentProperties(), ];
+        $data = [ 'rents' => $user->rentProperties()->where('type', 'Rent')->latest()->get(), ];
         return view('Landlords.Property-Occupants.Rent.index', $data);
     }
 
     public function create()
     {
         $user = User::find(Auth::id());
-        $buildings = Building::whereDoesntHave('homeSell', function ($query) use ($user) {
-            $query->where('landlord_id', $user->id);
+        $buildings = Building::whereDoesntHave('rentProperties', function ($query) use ($user) {
+            $query->whereIn('type', ['Sell'])
+                  ->where('landlord_id', $user->id);
         })->where('landlord', $user->id)->latest()->get();
         $units =  Unit::latest()->get();   
         $data = ['buildings' => $buildings, 'units'=>$units];
@@ -45,6 +46,24 @@ class RentController extends Controller
     {
         $building = Building::findOrFail($request->building_id);
         $unit = Unit::findOrFail($request->property_type_id);
+
+        $existingRentProperty = RentProperty::where('building_id', $request->building_id)
+                                        ->whereHas('unit', function ($query) {
+                                            $query->whereNull('rooms');
+                                        })
+                                        ->exists();
+        if ($existingRentProperty) {
+            Alert::error('Your Whole Building is already rented.');
+            return redirect()->route('rent.create');
+        }
+        if($unit->rooms === null){
+            $existingRentProperty = RentProperty::where('building_id', $request->building_id)->exists();
+            if ($existingRentProperty){
+                Alert::error('Your Building Room is already rented! Please Remove them first to rent for'. $unit->building_unit);
+                return redirect()->route('rent.create');
+            }
+        }
+
         $remainingRooms = $building->room_per_floor - $unit->rooms;
         $existingRecord = FloorRemain::where('building_id', $request->building_id)
         ->where('floor', $request->floor)
@@ -54,6 +73,9 @@ class RentController extends Controller
             if($unit->rooms == 0)
             {
                 $remainingRooms = $existingRecord->remaining_room - $building->room_per_floor;
+                if($unit->rooms == null){
+                    $remainingRooms = 0;
+                }
                 if ($remainingRooms >= 0) {
                     $existingRecord->update(['remaining_room' => $remainingRooms]);
                 } else {
@@ -110,8 +132,9 @@ class RentController extends Controller
     public function show(RentProperty $rent)
     {
         $user = User::find(Auth::id());
-        $buildings = Building::whereDoesntHave('homeSell', function ($query) use ($user) {
-            $query->where('landlord_id', $user->id);
+        $buildings = Building::whereDoesntHave('rentProperties', function ($query) use ($user) {
+            $query->whereIn('type', ['Sell'])
+                  ->where('landlord_id', $user->id);
         })->where('landlord', $user->id)->latest()->get();
         $units =  Unit::latest()->get();   
         $data = ['buildings' => $buildings, 'units'=>$units, 'rent' => $rent, 'type' => 'readonly'];
@@ -121,8 +144,9 @@ class RentController extends Controller
     public function edit(RentProperty $rent)
     {
         $user = User::find(Auth::id());
-        $buildings = Building::whereDoesntHave('homeSell', function ($query) use ($user) {
-            $query->where('landlord_id', $user->id);
+        $buildings = Building::whereDoesntHave('rentProperties', function ($query) use ($user) {
+            $query->whereIn('type', ['Sell'])
+                  ->where('landlord_id', $user->id);
         })->where('landlord', $user->id)->latest()->get();
         $units =  Unit::latest()->get();   
         $data = ['buildings' => $buildings, 'units'=>$units, 'rent' => $rent];
@@ -133,6 +157,28 @@ class RentController extends Controller
     {
         $building = Building::findOrFail($request->building_id);
         $unit = Unit::findOrFail($request->property_type_id);
+
+        if($building->id != $request->building_id)
+        {
+            $existingRentProperty = RentProperty::where('building_id', $request->building_id)
+                                        ->whereHas('unit', function ($query) {
+                                            $query->whereNull('rooms');
+                                        })
+                                        ->exists();
+            if ($existingRentProperty) {
+                Alert::error('Your Whole Building is already rented');
+                return redirect()->route('rent.edit', $rent);
+            }
+        }
+
+        if($unit->rooms === null){ 
+            $existingRentProperty = RentProperty::where('building_id', $request->building_id)->exists();
+            if ($existingRentProperty){
+                Alert::error('Your Building Room is already rented! Please Remove them first to rent for'. $unit->building_unit);
+                return redirect()->route('rent.edit', $rent);
+            }
+        }
+
         $unit2 = Unit::findOrFail($rent->property_type_id);
         $remainingRooms = $building->room_per_floor - $unit->rooms;
         $existingRecord = FloorRemain::where('building_id', $request->building_id)
@@ -142,6 +188,11 @@ class RentController extends Controller
         if ($existingRecord) {
             if($unit->rooms == 0){
                 $remainingRooms = ($existingRecord->remaining_room + $unit2->rooms) - $building->room_per_floor;
+                
+                if($unit->rooms == null){
+                    $remainingRooms = 0;
+                }
+
                 if ($remainingRooms >= 0) {
                     $existingRecord->update(['remaining_room' => $remainingRooms]);
                 } else {
@@ -149,7 +200,13 @@ class RentController extends Controller
                     return redirect()->route('rent.edit', $rent);
                 }
             }else{
+                if($unit2->rooms == 0)
+                {
+                    $unit2->rooms = $building->room_per_floor;
+                }
                 $remainingRooms = ($existingRecord->remaining_room + $unit2->rooms) - $unit->rooms;
+                
+
                 if ($remainingRooms >= 0) {
                     $existingRecord->update(['remaining_room' => $remainingRooms]);
                 } else {
@@ -170,7 +227,6 @@ class RentController extends Controller
 
     public function destroy(RentProperty $rent)
     {
-        $building = Building::findOrFail($rent->building_id);
         $unit = Unit::findOrFail($rent->property_type_id);
         $existingRecord = FloorRemain::where('building_id', $rent->building_id)
         ->where('floor', $rent->floor)

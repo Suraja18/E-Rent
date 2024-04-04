@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->longText('image_1');
             $table->string('building_unit')->unique();
-            $table->unsignedBigInteger('rooms');
+            $table->unsignedBigInteger('rooms')->nullable();
             $table->string('description');
             $table->string('slug')->unique();
             $table->timestamps();

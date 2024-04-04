@@ -33,9 +33,9 @@ class Building extends Model
     {
         return $this->belongsTo(User::class, 'landlord', 'id');
     }
-    public function homeSell()
+    public function rentProperties()
     {
-        return $this->hasOne(HomeSell::class, 'building_id', 'id');
+        return $this->hasMany(RentProperty::class, 'building_id');
     }
     public function setSlugAttribute($value)
     {

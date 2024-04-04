@@ -70,12 +70,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Building::class, 'landlord', 'id')->latest()->get();
     }
-    public function homeSells()
-    {
-        return $this->hasMany(HomeSell::class, 'landlord_id', 'id')->latest()->get();
-    }
     public function rentProperties()
     {
-        return $this->hasMany(RentProperty::class, 'landlord_id', 'id')->latest()->get();
+        return $this->hasMany(RentProperty::class, 'landlord_id', 'id');
     }
 }

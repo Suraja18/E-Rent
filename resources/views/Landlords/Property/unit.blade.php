@@ -36,7 +36,7 @@
                             @if (isset($unit->rooms))
                                 <x-slot name="value">{!! $unit->rooms !!}</x-slot>
                             @endif
-                            <x-slot name="head6"><h6 class="mb-1 mt-1">Note: For Full House Put Room = 0</h6></x-slot>
+                            <x-slot name="head6"><h6 class="mb-1 mt-1">Note: For Full House Empty Room, For Full Floor Room = 0</h6></x-slot>
                         </x-common.input-text-100>
                         <x-common.text-area-desc>
                             <x-slot name="column">Description</x-slot>

@@ -20,6 +20,8 @@ class RentProperty extends Model
         'floor',
         'area',
         'no_of_bed',
+        'type',
+        'price',
         'monthly_house_rent',
         'description',
         'electric_charge',

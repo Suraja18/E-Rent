@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Landlord;
 
 use App\Http\Controllers\Controller;
 use App\Models\Building;
-use App\Models\HomeSell;
+use App\Models\RentProperty;
+use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,28 +16,44 @@ class HomeSellController extends Controller
     public function index()
     {
         $user = User::find(Auth::id());
-        $buildings = Building::whereDoesntHave('homeSell', function ($query) use ($user) {
-            $query->where('landlord_id', $user->id);
+        $units =  Unit::where('rooms', 0)->whereNotIn('building_unit', ['Floor', 'Flat'])->latest()->get();   
+        $buildings = Building::whereDoesntHave('rentProperties', function ($query) use ($user) {
+            $query->whereIn('type', ['Sell', 'Rent'])
+                  ->where('landlord_id', $user->id);
         })->where('landlord', $user->id)->latest()->get();        
-        $homeSells = $user->homeSells();
-        $data = [ 'buildings' => $buildings, 'homeSells' => $homeSells];
+        $homeSells = $user->rentProperties()->where('type', 'Sell')->latest()->get();
+        $data = [ 'buildings' => $buildings, 'rents' => $homeSells, 'units' => $units];        
         return view('Landlords.Property-Occupants.Sell.index', $data);
     }
 
     public function store(Request $request)
     {
         $validate = $request->validate([
-            'building_id' => 'required|exists:buildings,id|unique:home_sells,building_id',
+            'building_id' => 'required|exists:buildings,id|unique:rent_properties,building_id',
+            'property_type_id' => [
+                            'required',
+                            'string',
+                            function ($attribute, $value, $fail) {
+                                $unit = Unit::where('id', $value)->first();
+                                if (!$unit) {
+                                    $fail('The selected property type is invalid.');
+                                }
+                            }
+                        ],
             'price' => 'required|numeric|min:0',
-            'status' => 'nullable|in:on'
+            'status' => 'nullable|in:on',
+            'area' => 'required|numeric',
         ]);
         if($validate)
         {
-            $homeSell = new HomeSell;
+            $homeSell = new RentProperty();
             $request->merge(['status' => $request->status == 'on' ? 'Yes' : 'No']);
             $homeSell->building_id=$request->building_id;
             $homeSell->landlord_id=Auth::id();
             $homeSell->price=$request->price;
+            $homeSell->property_type_id=$request->property_type_id;
+            $homeSell->area=$request->area;
+            $homeSell->type='Sell';
             $homeSell->status=$request->status;
             $homeSell->save();
             Alert::success('Home has been added to sold!');
@@ -47,15 +64,18 @@ class HomeSellController extends Controller
     public function edit(Request $request)
     {
         $user = User::find(Auth::id());
-        $buildings = Building::whereDoesntHave('homeSell', function ($query) use ($user) {
-            $query->where('landlord_id', $user->id);
-        })->where('landlord', $user->id)->latest()->get();        
-        $homeSells = $user->homeSells();
-        $homeSell = HomeSell::findOrFail($request->id);
+        $units =  Unit::where('rooms', 0)->whereNotIn('building_unit', ['Floor', 'Flat'])->latest()->get(); 
+        $buildings = Building::whereDoesntHave('rentProperties', function ($query) use ($user) {
+            $query->whereIn('type', ['Sell', 'Rent'])
+                  ->where('landlord_id', $user->id);
+        })->where('landlord', $user->id)->get();       
+        $homeSells = $user->rentProperties()->where('type', 'Sell')->latest()->get();
+        $homeSell = RentProperty::findOrFail($request->id);
         $data = [
             'buildings'=>$buildings, 
-            'homeSells'=>$homeSells,
-            'homeSell'=>$homeSell,
+            'rents'=>$homeSells,
+            'rent'=>$homeSell,
+            'units' => $units,
             'type' => 'edit',
         ];
         return view('Landlords.Property-Occupants.Sell.index', $data);
@@ -65,16 +85,30 @@ class HomeSellController extends Controller
     {
         $validate = $request->validate([
             'building_id' => 'required|exists:buildings,id',
+            'property_type_id' => [
+                            'required',
+                            'string',
+                            function ($attribute, $value, $fail) {
+                                $unit = Unit::where('id', $value)->first();
+                                if (!$unit) {
+                                    $fail('The selected property type is invalid.');
+                                }
+                            }
+                        ],
             'price' => 'required|numeric|min:0',
-            'status' => 'nullable|in:on'
+            'status' => 'nullable|in:on',
+            'area' => 'required|numeric',
         ]);
         if($validate)
         {
-            $homeSell = HomeSell::findOrFail($id);
+            $homeSell = RentProperty::findOrFail($id);
             $request->merge(['status' => $request->status == 'on' ? 'Yes' : 'No']);
             $homeSell->building_id=$request->building_id;
             $homeSell->landlord_id=Auth::id();
             $homeSell->price=$request->price;
+            $homeSell->property_type_id=$request->property_type_id;
+            $homeSell->area=$request->area;
+            $homeSell->type='Sell';
             $homeSell->status=$request->status;
             $homeSell->update();
             Alert::success('Home has been update to sold!');
@@ -83,7 +117,7 @@ class HomeSellController extends Controller
     }
     public function destroy(Request $request)
     {
-        $homeSell = HomeSell::findOrFail($request->id);
+        $homeSell = RentProperty::findOrFail($request->id);
         $homeSell->delete();
         Alert::error('Building Sold has been Removed Successfully');
         return redirect()->route('house-sell.index');

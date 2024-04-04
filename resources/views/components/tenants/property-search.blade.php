@@ -1,3 +1,19 @@
+@php
+    $property_types = App\Models\Unit::latest()->get();
+    $buildings = App\Models\Building::latest()->get()->shuffle();
+    $property_location = [];
+    $first_words = [];
+    foreach ($buildings as $building) {
+        $first_word = strtok($building->address, ' ');
+        $first_word = str_replace(',', '', $first_word);
+        if (!isset($first_words[$first_word])) { 
+            $property_location[] = $first_word;
+            $first_words[$first_word] = true;
+        }
+    }
+@endphp
+
+
 <!-- Search Property -->
 <section class="searchProperty">
     <div class="container search-banner search-container"
@@ -6,23 +22,22 @@
             <div class="search-box-left">
                 <div class="row bs-g-2">
                     <div class="search-input-box">
-                        <input type="text" class="form-control"
-                            placeholder="Search Keyword">
+                        <input type="text" class="form-control" placeholder="Search Keyword">
                     </div>
                     <div class="search-input-box">
                         <select class="form-select">
-                            <option selected>Property Type</option>
-                            <option value="1">Property Type 1</option>
-                            <option value="2">Property Type 2</option>
-                            <option value="3">Property Type 3</option>
+                            <option value="" selected>Property Type</option>
+                            @foreach ($property_types as $type)
+                                <option value="{!! $type->id !!}">{!! $type->building_unit !!}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="search-input-box">
                         <select class="form-select">
-                            <option selected>Location</option>
-                            <option value="1">Location 1</option>
-                            <option value="2">Location 2</option>
-                            <option value="3">Location 3</option>
+                            <option value="" selected>Location</option>
+                            @foreach ($property_location as $location)
+                                <option value="{!! $location !!}">{!! $location !!}</option>
+                            @endforeach
                         </select>
                     </div>
 
