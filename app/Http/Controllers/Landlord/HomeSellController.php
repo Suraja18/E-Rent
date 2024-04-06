@@ -43,7 +43,7 @@ class HomeSellController extends Controller
                             }
                         ],
             'forum_id' => 'required|exists:forums,id',
-            'price' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:0|max:10000000000000',
             'status' => 'nullable|in:on',
             'area' => 'required|numeric',
         ]);
@@ -102,7 +102,7 @@ class HomeSellController extends Controller
                             }
                         ],
             'forum_id' => 'required|exists:forums,id',
-            'price' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:0|max:10000000000000',
             'status' => 'nullable|in:on',
             'area' => 'required|numeric',
         ]);

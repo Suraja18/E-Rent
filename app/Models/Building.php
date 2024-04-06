@@ -25,6 +25,7 @@ class Building extends Model
         'description',
         'room_per_floor',
         'google_maps_link',
+        'deposit',
         'status',
         'slug',
     ];

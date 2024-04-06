@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('no_of_floors');
             $table->integer('room_per_floor');
             $table->string('address');
+            $table->unsignedDecimal('deposit', 20, 2)->default(0);
             $table->longText('google_maps_link');
             $table->string('status')->nullable();
             $table->string('slug')->unique();

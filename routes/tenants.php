@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Tenant\HousingController;
 use App\Http\Controllers\Tenant\TenantController;
 use App\Http\Controllers\User\PDFController;
 use App\Http\Controllers\User\UserController;
@@ -25,10 +26,12 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
         Route::get('/search/property-types', [TenantController::class, 'searchProperty'])->name('tenant.search.property');
         Route::get('/forums/{slug}', [TenantController::class, 'forumDetail'])->name('tenant.forum.detail');
         Route::get('/{slug}/pdf',[PDFController::class, 'generatePDF'])->name('forum.generatePDF');
+        Route::get('/{slug}/property',[HousingController::class, 'propertyDetail'])->name('tenant.propertyDetail');
+        
 
          //For Complete Profile Landlord
         Route::middleware(['checkComplete'])->group(function () {
-
+            Route::get('/{slug}/property/rent',[HousingController::class, 'showDetail'])->name('tenant.showDetail');
         });
     });
 });

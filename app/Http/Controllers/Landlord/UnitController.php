@@ -21,7 +21,7 @@ class UnitController extends Controller
         $validate = $request->validate([
             'image_1' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'building_unit'   =>  'required | string | min:3 | max:255 | unique:units',
-            'rooms' => 'required|integer|min:0',
+            'rooms' => 'required|integer|min:0|max:200',
             'description' => 'required|string| min:3 | max:150',
         ]);
         if($validate)

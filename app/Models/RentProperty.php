@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RentProperty extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $fillable = [
         'image_1',
         'image_2',
@@ -42,5 +44,9 @@ class RentProperty extends Model
     public function forum()
     {
         return $this->belongsTo(Forums::class);
+    }
+    public function landlord()
+    {
+        return $this->belongsTo(User::class);
     }
 }

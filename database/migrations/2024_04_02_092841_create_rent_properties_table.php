@@ -39,6 +39,7 @@ return new class extends Migration
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
             $table->foreign('forum_id')->references('id')->on('forums')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
