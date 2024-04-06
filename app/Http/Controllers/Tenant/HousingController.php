@@ -23,6 +23,9 @@ class HousingController extends Controller
         if ($propertiesCount < 4) {
             
             $remainingProperties = RentProperty::whereNotIn('id', $properties->pluck('id')->toArray())
+                                                ->whereNotIn('id', function ($query) {
+                                                    $query->select('rent_id')->from('rented_properties');
+                                                })
                                                 ->take(4 - $propertiesCount)
                                                 ->get();
             $remainingProperties = $remainingProperties->shuffle();

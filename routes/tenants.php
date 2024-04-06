@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Tenant\HousingController;
+use App\Http\Controllers\Tenant\RentController;
 use App\Http\Controllers\Tenant\TenantController;
 use App\Http\Controllers\User\PDFController;
 use App\Http\Controllers\User\UserController;
@@ -32,6 +33,7 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
          //For Complete Profile Landlord
         Route::middleware(['checkComplete'])->group(function () {
             Route::get('/{slug}/property/rent',[HousingController::class, 'showDetail'])->name('tenant.showDetail');
+            Route::post('/property/rent/success',[RentController::class, 'rentStore'])->name('tenant.store.rent');
         });
     });
 });

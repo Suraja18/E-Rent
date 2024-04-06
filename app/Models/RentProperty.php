@@ -49,4 +49,8 @@ class RentProperty extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function rentedProperties()
+    {
+        return $this->hasMany(RentedProperty::class, 'rent_id', 'id');
+    }
 }

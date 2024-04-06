@@ -467,7 +467,7 @@ img {
 }
 
 .mb-1 {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem !important;
 }
 
 .p-r {

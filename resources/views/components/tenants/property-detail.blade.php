@@ -1,12 +1,25 @@
 @php
     if(Route::currentRouteName() == 'tenant.dashboard'){
-        $property_rents = App\Models\RentProperty::latest()->where('status', 'Yes')->take(4)->get()->shuffle();
+        $property_rents = App\Models\RentProperty::latest()
+                        ->where('status', 'Yes')
+                        ->whereNotIn('id', function ($query) {
+                            $query->select('rent_id')->from('rented_properties');
+                        })
+                        ->take(4)
+                        ->get()
+                        ->shuffle();
     } elseif (isset($properties)) {
         $property_rents = $properties;
     } elseif (isset($propertiee)) {
         $property_rents = $propertiee;
     } else {
-        $property_rents = App\Models\RentProperty::latest()->where('status', 'Yes')->get()->shuffle();
+        $property_rents = App\Models\RentProperty::latest()
+                        ->where('status', 'Yes')
+                        ->whereNotIn('id', function ($query) {
+                            $query->select('rent_id')->from('rented_properties');
+                        })
+                        ->get()
+                        ->shuffle();
     }
 @endphp
 

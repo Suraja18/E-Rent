@@ -88,6 +88,9 @@ class TenantController extends Controller
             });
         }
 
+        $properties->whereNotIn('id', function ($query) {
+            $query->select('rent_id')->from('rented_properties');
+        });
         $properties->where('status', 'Yes');
 
         $results = $properties->get();
