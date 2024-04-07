@@ -89,7 +89,6 @@
                             <div class="mb-1"><p class="star-rate-text"><strong>Landord :</strong> {!! $property->landlord->first_name !!} {!! $property->landlord->last_name !!} </p></div>
                             <div class="add-img-container">
                                 <h1>Rs @if($property->type == 'Rent'){!! $property->monthly_house_rent !!}@elseif($property->type == 'Sell'){!! $property->price !!}@endif</h1>
-                                <h3><strong>Deposit:</strong> Rs {!! $property->building->deposit !!}</h3>
                             </div>
                             @if($property->type == 'Rent')
                             <h4 class="text-danger">Extra Charge:</h4>

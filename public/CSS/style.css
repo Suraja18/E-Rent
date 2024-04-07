@@ -4746,6 +4746,13 @@ input:checked + .toggle-btn::before{
     -webkit-user-select: none;
     user-select: none;
 }
+.card-status-checked.card{
+    background-color: var(--neutral--navy-400);
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 1rem;
+    color: var(--core-navy-800); 
+}
 .card-status-checked.card-cancelled{
     background-color: #ffefee;
     padding: 6px 12px;
@@ -5917,6 +5924,14 @@ small{
 .header-panel-stat.cancelled{
     color: #780a0a;
     border-color: #780a0a;
+}
+.header-panel-stat.approved{
+    color: var(--green-100);
+    border-color: var(--green-100);
+}
+.header-panel-stat.bluish{
+    color: var(--blue-500);
+    border-color: var(--blue-500);
 }
 .header-panel-stat.cancelled::before{
     content: "";

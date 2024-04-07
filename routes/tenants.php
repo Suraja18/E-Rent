@@ -34,6 +34,9 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
         Route::middleware(['checkComplete'])->group(function () {
             Route::get('/{slug}/property/rent',[HousingController::class, 'showDetail'])->name('tenant.showDetail');
             Route::post('/property/rent/success',[RentController::class, 'rentStore'])->name('tenant.store.rent');
+            Route::get('/property/rented',[RentController::class, 'viewAllProperty'])->name('tenant.view.allProperty');
+            Route::get('/property/{slug}/rented/view',[HousingController::class, 'showDetail'])->name('tenant.display.property');
+            Route::get('/property/rented/view/{slug}/pdf',[PDFController::class, 'generateUserPropertyDetailPDF'])->name('tenant.property.generatePDF');
         });
     });
 });

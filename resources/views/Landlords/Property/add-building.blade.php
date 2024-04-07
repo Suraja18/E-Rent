@@ -35,10 +35,6 @@
                 <x-slot name="column">Address</x-slot>
             </x-common.input-text-100>
             <x-common.input-text-100>
-                <x-slot name="column">Deposit</x-slot>
-                <x-slot name="number">number</x-slot>
-            </x-common.input-text-100>
-            <x-common.input-text-100>
                 <x-slot name="column">Google Maps Link</x-slot>
             </x-common.input-text-100>
             <div class="text-center">

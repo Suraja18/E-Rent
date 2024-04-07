@@ -25,6 +25,12 @@
             }
         }
         $imageCount = count($combinedImages);
+
+        if(isset($property->rentProperty->slug)){
+            $slug = $property->slug;
+        }else{
+            $slug = $property->building->slug;
+        }
     @endphp
 
     {{-- Start View From here --}}
@@ -53,18 +59,22 @@
                                 <div class="upper-section-view-maintain">
                                     <header class="header-panel-maintain is-header-req">
                                         <div style="display: block; margin-right: 10px;">
-                                            <a href="maintainance.html" class="btn-back">
+                                            <a href="{!! route('tenant.view.allProperty') !!}" class="btn-back">
                                                 <img src="{!! asset('Images/Original/Request/leftArrow-purple.svg') !!}" alt="left-back-btn" class="left-back-btn">
                                             </a>
                                         </div>
                                         <h2 class="mobile-panel-title">Property Rent Details</h2>
-                                        @if(!Route::currentRouteName() == 'tenant.showDetail')
+                                        @if(!(Route::currentRouteName() == 'tenant.showDetail'))
                                         <div class="panel-left-wrap">
                                             <div class="panel-left-wrapper">
                                                 <div class="panel-controller">
                                                     <div class="panel-left-wrapper">
                                                         <div class="panel-st">
-                                                            <button type="button" class="m-button btn-Primary btn-dangers">Cancelled</button>
+                                                            @if ($property->rentedProperty && $property->rentedProperty->status == 'New')
+                                                                <button type="button" class="m-button btn-Primary btn-dangers">Cancelled</button>
+                                                            @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Approved')
+                                                                <button type="button" class="m-button btn-Primary">Check Out</button>
+                                                            @endif
                                                         </div>
                                                         <div>
                                                             <div class="m-dots req-btns">
@@ -76,12 +86,9 @@
                                                                 </button>
                                                                 <div class="m-dots-popover is-pa" id="mDotsPopUp">
                                                                     <div class="wrapper-for-box-size">
-                                                                        <ul class="list-unstyle">
-                                                                            <li class="m-dot-item edit" role="listitem">
-                                                                                <a href="#" class="m-dot-links"> Print</a>
-                                                                            </li>   
+                                                                        <ul class="list-unstyle"> 
                                                                             <li class="m-dot-item" role="listitem">
-                                                                                <a href="#" class="m-dot-links"> Download</a>
+                                                                                <a href="{!! route('tenant.property.generatePDF', $slug) !!}" class="m-dot-links"> Download</a>
                                                                             </li>   
                                                                             <li class="m-dot-item delete" role="listitem">
                                                                                 <a href="#" class="m-dot-links"> Delete</a>
@@ -111,20 +118,33 @@
                                                             <div class="p-r">
                                                                 <button type="button" class="btn-panel-stat" id="btnStatusClicked">
                                                                     <div class="header-panep-type-des desc for-mobe">
-                                                                        <p class="header-panel-stat @if(!Route::currentRouteName() == 'tenant.showDetail') cancelled @endif"><span>@if(Route::currentRouteName() == 'tenant.showDetail') New @endif</span></p>
+                                                                        @if(Route::currentRouteName() == 'tenant.showDetail' || ($property->rentedProperty && $property->rentedProperty->status == "New"))
+                                                                            <p class="header-panel-stat"><span> New </span></p>
+                                                                        @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Cancelled')
+                                                                            <p class="header-panel-stat cancelled"><span> Cancelled </span></p>
+                                                                        @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Approved')
+                                                                            <p class="header-panel-stat approved"><span> Approved </span></p>
+                                                                        @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Checked Out')
+                                                                            <p class="header-panel-stat bluish"><span> Checked Out </span></p>
+                                                                        @endif
+
                                                                     </div>
-                                                                    @if(!Route::currentRouteName() == 'tenant.showDetail')
+                                                                    @if(!(Route::currentRouteName() == 'tenant.showDetail'))
                                                                     <img src="{!! asset('Images/Original/downArrow.svg') !!}" class="stat-down-ar" alt="downARrow">
                                                                     @endif
                                                                 </button>
-                                                                @if(!Route::currentRouteName() == 'tenant.showDetail')
+                                                                @if(!(Route::currentRouteName() == 'tenant.showDetail'))
                                                                 <div class="status-change-options" id="sectionChangeOptionsUpperbody">
                                                                     <div class="status-change-options-container">
                                                                         <h3 class="status-change-options-upper-head">
                                                                             Change status 
                                                                         </h3>
                                                                         <select class="multi-scroll" placeholder="Status" id="multiScrollSelect">
-                                                                            <option value="Cancelled">Cancelled</option>
+                                                                            @if ($property->rentedProperty && $property->rentedProperty->status == 'New')
+                                                                                <option value="Cancelled">Cancelled</option>
+                                                                            @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Approved')
+                                                                                <option value="Checked Out">Checked Out</option>
+                                                                            @endif
                                                                         </select>
                                                                         <footer class="status-change-options-footer">
                                                                             <div class="status-change-option-footer">
@@ -148,7 +168,15 @@
                                                         <div class="header-panel-type">
                                                             <p class="header-panep-type-des"> @if($property->type == 'Rent'){!! $property->rent_name !!}@elseif($property->type == 'Sell'){!! $property->building->name !!}@endif </p>
                                                             <div class="header-panep-type-des desc">
-                                                                <p class="header-panel-stat @if(!Route::currentRouteName() == 'tenant.showDetail') cancelled @endif"><span>@if(Route::currentRouteName() == 'tenant.showDetail') New @endif</span></p>
+                                                                @if(Route::currentRouteName() == 'tenant.showDetail' || ($property->rentedProperty && $property->rentedProperty->status == "New"))
+                                                                    <p class="header-panel-stat"><span> New </span></p>
+                                                                @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Cancelled')
+                                                                    <p class="header-panel-stat cancelled"><span> Cancelled </span></p>
+                                                                @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Approved')
+                                                                    <p class="header-panel-stat approved"><span> Approved </span></p>
+                                                                @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Checked Out')
+                                                                    <p class="header-panel-stat bluish"><span> Checked Out </span></p>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </div>
@@ -309,13 +337,15 @@
    
                                                         <p style="font-weight: 600;" class="info-grid-items">Email :</p>
                                                         <p class="info-grid-items">{!! $property->landlord->email !!}</p>
-                                                        
-                                                        <p class="info-grid-items">
-                                                            <a href="{!! route('forum.generatePDF', $property->forum->slug) !!}" class="view-more-link">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M64 464l48 0 0 48-48 0c-35.3 0-64-28.7-64-64L0 64C0 28.7 28.7 0 64 0L229.5 0c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3L384 304l-48 0 0-144-80 0c-17.7 0-32-14.3-32-32l0-80L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16zM176 352l32 0c30.9 0 56 25.1 56 56s-25.1 56-56 56l-16 0 0 32c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48 0-80c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24l-16 0 0 48 16 0zm96-80l32 0c26.5 0 48 21.5 48 48l0 64c0 26.5-21.5 48-48 48l-32 0c-8.8 0-16-7.2-16-16l0-128c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16l0-64c0-8.8-7.2-16-16-16l-16 0 0 96 16 0zm80-112c0-8.8 7.2-16 16-16l48 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64 0-64z"></path></svg>
-                                                            </a>
-                                                        </p>
-
+                                                        @if(!(Route::currentRouteName() == 'tenant.showDetail')) 
+                                                            <p style="font-weight: 600;" class="info-grid-items">Lease Agreement :</p>
+                                                            <p class="info-grid-items d-flex">
+                                                                <a class="text-hover" href="{!! route('tenant.forum.detail', $property->forum->slug) !!}">{!! $property->forum->heading !!}</a>
+                                                                <a href="{!! route('forum.generatePDF', $property->forum->slug) !!}" class="view-more-link d-flex">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M64 464l48 0 0 48-48 0c-35.3 0-64-28.7-64-64L0 64C0 28.7 28.7 0 64 0L229.5 0c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3L384 304l-48 0 0-144-80 0c-17.7 0-32-14.3-32-32l0-80L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16zM176 352l32 0c30.9 0 56 25.1 56 56s-25.1 56-56 56l-16 0 0 32c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48 0-80c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24l-16 0 0 48 16 0zm96-80l32 0c26.5 0 48 21.5 48 48l0 64c0 26.5-21.5 48-48 48l-32 0c-8.8 0-16-7.2-16-16l0-128c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16l0-64c0-8.8-7.2-16-16-16l-16 0 0 96 16 0zm80-112c0-8.8 7.2-16 16-16l48 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64 0-64z"></path></svg>
+                                                                </a>
+                                                            </p>
+                                                        @endif
                                             </div>
                                         </div>
                                     </div>
@@ -327,22 +357,26 @@
                                 <span class="color-navy">Created by 
                                     @if(Route::currentRouteName() == 'tenant.showDetail')
                                         {!! Auth::user()->first_name !!} {!! Auth::user()->last_name !!}
+                                    @else
+                                        
+                                        {!! $property->rentedProperty->tenant->first_name !!} {!! $property->rentedProperty->tenant->last_name !!}
                                     @endif 
                                     on
                                 </span>
-                                <span class="color-navy">{{ Carbon\Carbon::now()->diffForHumans() }}</span>
+                                <span class="color-navy">{!! $property->rentedProperty->created_at->toDateString() !!} ({!! $property->rentedProperty->created_at->diffForHumans() !!})</span>
                                 
                             </div>
                         </div>
                         @if(Route::currentRouteName() == 'tenant.showDetail') 
                             <form class="text-center mb-1" action="{!! route('tenant.store.rent') !!}" method="POST">
                                 @csrf
-                                <p style="font-weight: 600;" class="info-grid-items mb-1">
-                                    @if(Route::currentRouteName() == 'tenant.showDetail') 
-                                        <input type="checkbox" name="checkbox" style="margin-right: 10px" />
-                                        I read the terms and Agreement for 
-                                    @endif
+                                <p style="font-weight: 600;" class="info-grid-items mb-1 d-flex">
+                                    <input type="checkbox" name="checkbox" style="margin-right: 10px" />
+                                    I read the terms and Agreement for 
                                     <a class="text-hover" href="{!! route('tenant.forum.detail', $property->forum->slug) !!}">{!! $property->forum->heading !!}</a>
+                                    <a href="{!! route('forum.generatePDF', $property->forum->slug) !!}" class="view-more-link d-flex">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M64 464l48 0 0 48-48 0c-35.3 0-64-28.7-64-64L0 64C0 28.7 28.7 0 64 0L229.5 0c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3L384 304l-48 0 0-144-80 0c-17.7 0-32-14.3-32-32l0-80L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16zM176 352l32 0c30.9 0 56 25.1 56 56s-25.1 56-56 56l-16 0 0 32c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48 0-80c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24l-16 0 0 48 16 0zm96-80l32 0c26.5 0 48 21.5 48 48l0 64c0 26.5-21.5 48-48 48l-32 0c-8.8 0-16-7.2-16-16l0-128c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16l0-64c0-8.8-7.2-16-16-16l-16 0 0 96 16 0zm80-112c0-8.8 7.2-16 16-16l48 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64 0-64z"></path></svg>
+                                    </a>
                                     @error('checkbox')
                                         <p class="error-message">{{ "Please Read and Check Agreement before processing the house" }}</p>
                                     @enderror

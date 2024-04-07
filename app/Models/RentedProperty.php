@@ -17,6 +17,10 @@ class RentedProperty extends Model
         'status',
         'active',
     ];
+    public function tenant()
+    {
+        return $this->belongsTo(User::class, 'tenant_id', 'id');
+    }
     public function rentProperty()
     {
         return $this->belongsTo(RentProperty::class, 'rent_id', 'id');

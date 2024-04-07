@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedDecimal('discount', 20, 2)->default(0);
             $table->enum('status',['New', 'Approved', 'Cancelled', 'Checked Out']);
             $table->enum('active',['Yes', 'No']);
+            $table->enum('tenantVisible',['Yes', 'No'])->default('Yes');
             $table->timestamps();
             $table->foreign('tenant_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('rent_id')->references('id')->on('rent_properties')->onDelete('cascade');

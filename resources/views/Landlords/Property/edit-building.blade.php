@@ -46,11 +46,6 @@
                 <x-slot name="value">{!! $building->address !!}</x-slot>
             </x-common.input-text-100>
             <x-common.input-text-100>
-                <x-slot name="column">Deposit</x-slot>
-                <x-slot name="number">number</x-slot>
-                <x-slot name="value">{!! $building->deposit !!}</x-slot>
-            </x-common.input-text-100>
-            <x-common.input-text-100>
                 <x-slot name="column">Google Maps Link</x-slot>
                 <x-slot name="valuemap">{!! $building->google_maps_link !!}</x-slot>
                 <x-slot name="value">{!! $building->google_maps_link !!}</x-slot>
