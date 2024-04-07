@@ -771,7 +771,9 @@
     .slider-small-img{
         height: 75px;
     }
-    
+    .is-tenant-banners.dis-block{
+        display: block !important;
+    }
 }
 
 @media screen and (min-width: 992px){

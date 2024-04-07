@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use App\Models\Building;
+use App\Models\RentedProperty;
 use App\Models\RentProperty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HousingController extends Controller
 {
@@ -42,7 +44,8 @@ class HousingController extends Controller
             $building = Building::where('slug', $slug)->firstOrFail();
             $property = RentProperty::where('building_id', $building->id)->firstOrFail();
         }
-        $data = ['property' => $property, ];
+        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->whereNull('deleted_at')->where('tenantVisible', 'Yes')->first();
+        $data = ['property' => $property, 'rented_property' => $rented_property ];
         return view('Tenants.view-detail', $data);
     }
 }

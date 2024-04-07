@@ -298,16 +298,6 @@ document.addEventListener("DOMContentLoaded", function () {
         statusFullWrapper.addEventListener('click', function () {
             statusFullOption.classList.toggle('active');
         });
-        document.getElementById('statusApply').addEventListener('click', function () {
-            var selectedStatus = document.getElementById('multiScrollSelect').value;
-            var statusSpan = document.getElementById('insideTheBox');
-            statusSpan.innerHTML = '<span class="mr-5p">Status</span><span class="status-filters fw-600">' + selectedStatus + '</span>';
-            var successMessage = document.getElementById('successStatusChange');
-            successMessage.style.display = 'block';
-            setTimeout(function () {
-                successMessage.style.display = 'none';
-            }, 5 * 60 * 1000);
-        });
 
     }
 
@@ -522,6 +512,22 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     }
+
+
+    const ApproveNowMobile = document.getElementById('ApproveNowMobile');
+    const sectionChangeOptionsUbodyMobile = document.getElementById('sectionChangeOptionsUbodyMobile');
+
+    if (ApproveNowMobile && sectionChangeOptionsUbodyMobile) {
+        const btnCancelledMobile = document.getElementById('btnCancelledMobile');
+        ApproveNowMobile.addEventListener("click", function () {
+            sectionChangeOptionsUbodyMobile.classList.toggle('active');
+        });
+        btnCancelledMobile.addEventListener("click", function () {
+            sectionChangeOptionsUbodyMobile.classList.remove('active');
+        });
+
+    }
+
     const btnStatusClicked = document.getElementById('btnStatusClicked');
     const sectionChangeOptionsUpperbody = document.getElementById('sectionChangeOptionsUpperbody');
 

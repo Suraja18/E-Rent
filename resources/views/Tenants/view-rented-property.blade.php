@@ -61,7 +61,7 @@
                                                     <div class="pb-10p">
                                                         <div class="popup-content">
                                                             <div>
-                                                                <select class="multi-scroll" placeholder="Status" id="multiScrollSelect">
+                                                                <select class="multi-scroll" placeholder="Status">
                                                                     <option value="New">New</option>
                                                                     <option value="Approved">Approved</option>
                                                                     <option value="Cancelled">Cancelled</option>
@@ -157,7 +157,11 @@
                                                                         <a href="../Errors/404Error.html" class="upper-btn">Print</a>
                                                                     </div>
                                                                     <div class="btn-container-opt">
-                                                                        <a href="../Errors/404Error.html" class="lower-btn">Delete</a>
+                                                                        <form action="{!! route('tenant.property.delete', $slug) !!}" method="POST" id="deleteTables{!! $property_rent->id !!}">
+                                                                            @method('DELETE')
+                                                                            @csrf
+                                                                            <input type="button" value="Delete" class="lower-btn" onclick="return confirmDelete('deleteTables{!! $property_rent->id !!}')" />
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>

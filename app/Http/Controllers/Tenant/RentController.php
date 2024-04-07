@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Building;
 use App\Models\RentedProperty;
 use App\Models\RentProperty;
+use App\Notifications\ApprovalNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -14,7 +15,7 @@ class RentController extends Controller
 {
     public function viewAllProperty()
     {
-        $properties = RentedProperty::where('tenant_id', Auth::id())->orWhere('tenantVisible', 'Yes')->get();
+        $properties = RentedProperty::where('tenant_id', Auth::id())->where('tenantVisible', 'Yes')->get();
         $count = $properties->count();
         $data = ['count' => $count, 'properties' => $properties,];
         return view('Tenants.view-rented-property', $data);
@@ -26,54 +27,84 @@ class RentController extends Controller
             'id' => 'required|exists:rent_properties,id',
             'checkbox' => 'required|in:on'
         ]);
-        if($validate)
-        {
-            $rents = RentedProperty::withTrashed()
-                    ->where('rent_id', $request->id)->get();
-            if(!$rents->isEmpty())
-            {
-                foreach($rents as $rent)
-                {
-                    if($rent && $rent->rent_id == $request->id)
-                    {
-                        Alert::error('This Property is already processed by others');
-                        return redirect()->back();             
-                    }
-                    else{
-                        $rents = new RentedProperty;
-                        $rents->tenant_id = Auth::id();
-                        $rents->rent_id = $request->id; 
-                        $rents->discount = 0;
-                        $rents->status = "New";
-                        $rents->active = "No";
-                        $rents->save();
-                        Alert::success("Your Request is sent to Landlord for Approval");
-                        return redirect()->back();      
-                    }
-                }
-            }else{
-                $rents = new RentedProperty;
-                $rents->tenant_id = Auth::id();
-                $rents->rent_id = $request->id; 
-                $rents->discount = 0;
-                $rents->status = "New";
-                $rents->active = "No";
-                $rents->save();
+
+        if ($validate) {
+            $isPropertyRented = RentedProperty::where('rent_id', $request->id)
+                                ->where(function($query) {
+                                    $query->whereNull('deleted_at');
+                                })
+                                ->exists();
+
+            if ($isPropertyRented) {
+                Alert::error('This Property is already processed by others');
+                return redirect()->back();
+            } else {
+                $rent = new RentedProperty;
+                $rent->tenant_id = Auth::id();
+                $rent->rent_id = $request->id;
+                $rent->discount = 0;
+                $rent->status = "New";
+                $rent->active = "No";
+                $rent->save();
+                $landlord = $rent->rentProperty->landlord;
+                $landlord->notify(new ApprovalNotification($rent));
+
                 Alert::success("Your Request is sent to Landlord for Approval");
-                return redirect()->back();   
-            }   
+                return redirect()->route('tenant.view.allProperty');
+            }
         }
     }
-    
+
     public function displaySelectProperty(string $slug)
     {
         $property  = RentProperty::where('slug', $slug)->first();
-        if(!$property){
+        if (!$property) {
             $building = Building::where('slug', $slug)->firstOrFail();
             $property = RentProperty::where('building_id', $building->id)->firstOrFail();
         }
-        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->whereNull('deleted_at')->first();
+        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->whereNull('deleted_at')->where('tenantVisible', 'Yes')->first();
         $data = ['property' => $property, 'property_rent' => $rented_property];
         return view('Tenants.view-detail', $data);
+    }
+
+    public function propertyDelete(string $slug)
+    {
+        $property  = RentProperty::where('slug', $slug)->first();
+        if (!$property) {
+            $building = Building::where('slug', $slug)->firstOrFail();
+            $property = RentProperty::where('building_id', $building->id)->firstOrFail();
+        }
+        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->whereNull('deleted_at')->where('tenantVisible', 'Yes')->first();
+        $rented_property->tenantVisible = "No";
+        $rented_property->update();
+        Alert::error('Building Rent Deleted Successfully');
+        return redirect()->route('tenant.view.allProperty');
+    }
+
+    public function propertyCheckout(string $slug)
+    {
+        $property  = RentProperty::where('slug', $slug)->first();
+        if (!$property) {
+            $building = Building::where('slug', $slug)->firstOrFail();
+            $property = RentProperty::where('building_id', $building->id)->firstOrFail();
+        }
+        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->whereNull('deleted_at')->where('tenantVisible', 'Yes')->first();
+        $rented_property->status = "Checked Out";
+        $rented_property->update();
+        Alert::success('Building Rent Checked Out Successfully');
+        return redirect()->route('tenant.view.allProperty');
+    }
+    public function propertyCancel(string $slug)
+    {
+        $property  = RentProperty::where('slug', $slug)->first();
+        if (!$property) {
+            $building = Building::where('slug', $slug)->firstOrFail();
+            $property = RentProperty::where('building_id', $building->id)->firstOrFail();
+        }
+        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->whereNull('deleted_at')->where('tenantVisible', 'Yes')->first();
+        $rented_property->status = "Cancelled";
+        $rented_property->update();
+        Alert::error('Building Rent Cancelled Out Successfully');
+        return redirect()->route('tenant.view.allProperty');
     }
 }

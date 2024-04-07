@@ -12,14 +12,14 @@
                     <div class="form-group">
                         <div class="form-wrapper">
                             <label for>First Name</label>
-                            <input type="text" class="form-control" name="firstName">
+                            <input type="text" class="form-control" name="first_name">
                             @error('firstName')
                                 <p class="error-message">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="form-wrapper">
                             <label for>Last Name</label>
-                            <input type="text" class="form-control" name="lastName">
+                            <input type="text" class="form-control" name="last_name">
                             @error('lastName')
                                 <p class="error-message">{{ $message }}</p>
                             @enderror

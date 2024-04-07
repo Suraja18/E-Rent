@@ -37,6 +37,9 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::get('/property/rented',[RentController::class, 'viewAllProperty'])->name('tenant.view.allProperty');
             Route::get('/property/{slug}/rented/view',[HousingController::class, 'showDetail'])->name('tenant.display.property');
             Route::get('/property/rented/view/{slug}/pdf',[PDFController::class, 'generateUserPropertyDetailPDF'])->name('tenant.property.generatePDF');
+            Route::delete('/property/rented/delete/{slug}', [RentController::class, 'propertyDelete'])->name('tenant.property.delete');
+            Route::put('/property/rented/cancel/{slug}', [RentController::class, 'propertyCancel'])->name('tenant.property.cancel');
+            Route::put('/property/rented/check-out/{slug}', [RentController::class, 'propertyCheckout'])->name('tenant.property.checkout');
         });
     });
 });
