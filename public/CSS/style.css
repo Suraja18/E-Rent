@@ -4718,7 +4718,7 @@ input:checked + .toggle-btn::before{
     align-items: center;
     grid-column-gap: 20px;
     grid-template-areas: "extra-content title header-left avatar description additional-info footer header-right";
-    grid-template-columns: 53px 3.5fr 100px 48px 1.5fr 80px auto auto;
+    grid-template-columns: 53px 3.5fr 100px 48px 1.2fr 100px auto auto;
     padding: 15px 20px;
 }
 .maintainance-card .card-view-btn{

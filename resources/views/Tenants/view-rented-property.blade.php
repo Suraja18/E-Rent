@@ -64,6 +64,7 @@
                                                                 <select class="multi-scroll" placeholder="Status">
                                                                     <option value="New">New</option>
                                                                     <option value="Approved">Approved</option>
+                                                                    <option value="Confirmed">Confirmed</option>
                                                                     <option value="Cancelled">Cancelled</option>
                                                                     <option value="Checked Out">Checked Out</option>
                                                                 </select>
@@ -102,6 +103,8 @@
                                                             <div class="card-status-checked card-cancelled">Cancelled</div>
                                                         @elseif ($property_rent->status == 'Approved')
                                                             <div class="card-status-checked card-resolved">Approved</div>
+                                                        @elseif ($property_rent->status == 'Confirmed')
+                                                            <div class="card-status-checked card-resolved">Confirmed</div>
                                                         @elseif ($property_rent->status == 'Checked Out')
                                                             <div class="card-status-checked card-in-progress">Checked Out</div>
                                                         @endif
@@ -128,7 +131,11 @@
                                                     </div>
                                                     <div class="card-maintainance-hurry">
                                                         <div class="card-maint">
-                                                            @if(isset($property_rent->rentProperty->monthly_house_rent)) {!! $property_rent->rentProperty->monthly_house_rent !!} @else {!! $property_rent->rentProperty->price !!} @endif
+                                                            @if($property_rent->rentProperty->type == "Rent") 
+                                                                {!! $property_rent->rentProperty->monthly_house_rent !!} 
+                                                            @else
+                                                                {!! $property_rent->rentProperty->price !!} 
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     @php

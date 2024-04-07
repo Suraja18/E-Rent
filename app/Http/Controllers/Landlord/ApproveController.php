@@ -45,9 +45,11 @@ class ApproveController extends Controller
             {
                 $price = $property->monthly_house_rent;
                 $rentMessage = "Please Pay the deposit for <b>". $property->building->name ."<b/> rent";
+                $tenantMessage = "Rented Building for <b>". $property->building->name ."</b> has been approved.";
             }else{
                 $price = $property->price ;
                 $rentMessage = "Please Pay the price for <b>". $property->building->name ."<b/>";
+                $tenantMessage = "Purchase Building for <b>". $property->building->name ."</b> has been approved.";
             }
             if($price <= $request->discount)
             {
@@ -59,7 +61,7 @@ class ApproveController extends Controller
                 $rent->discount = $request->discount;
                 $rent->update();
                 $rent->tenant->notify(new UserNotification([
-                    'tenantMessage' => "Rented Building for <b>". $property->building->name ."</b> has been approved."
+                    'tenantMessage' => $tenantMessage,
                 ]));
                 $rent->tenant->notify(new PayRentNotification([
                     'rentMessage' => $rentMessage,

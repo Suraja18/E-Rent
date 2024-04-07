@@ -65,10 +65,12 @@
                                         </div>
                                         <h2 class="mobile-panel-title">Property Rent Details</h2>
                                         @if(!(Route::currentRouteName() == 'tenant.showDetail'))
+
                                         <div class="panel-left-wrap">
                                             <div class="panel-left-wrapper">
                                                 <div class="panel-controller">
                                                     <div class="panel-left-wrapper">
+                                                        @if($property->type=="Rent")
                                                         <form class="panel-st" method="POST" action="@if ($property->rentedProperty && $property->rentedProperty->status == 'New') {!! route('tenant.property.cancel', $slug) !!} @else {!! route('tenant.property.checkout', $slug) !!}  @endif">
                                                             @method('PUT')
                                                             @csrf
@@ -78,6 +80,7 @@
                                                                 <button type="submit" class="m-button btn-Primary">Check Out</button>
                                                             @endif
                                                         </form>
+                                                        @endif
                                                         <div>
                                                             <div class="m-dots req-btns">
                                                                 <button type="button" class="fixed-btns" id="fixMoreButton">
@@ -130,40 +133,46 @@
                                                                             <p class="header-panel-stat cancelled"><span> Cancelled </span></p>
                                                                         @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Approved')
                                                                             <p class="header-panel-stat approved"><span> Approved </span></p>
+                                                                        @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Confirmed')
+                                                                            <p class="header-panel-stat approved"><span> Confirmed </span></p>
                                                                         @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Checked Out')
                                                                             <p class="header-panel-stat bluish"><span> Checked Out </span></p>
                                                                         @endif
 
                                                                     </div>
                                                                     @if(!(Route::currentRouteName() == 'tenant.showDetail'))
-                                                                        @if ($property->rentedProperty && $property->rentedProperty->status == 'New' || $property->rentedProperty && $property->rentedProperty->status == 'Approved')
-                                                                        <img src="{!! asset('Images/Original/downArrow.svg') !!}" class="stat-down-ar" alt="downARrow">
+                                                                        @if($property->type == "Rent")
+                                                                            @if ($property->rentedProperty && $property->rentedProperty->status == 'New' || $property->rentedProperty && $property->rentedProperty->status == 'Approved' || $property->rentedProperty && $property->rentedProperty->status == 'Confirmed')
+                                                                            <img src="{!! asset('Images/Original/downArrow.svg') !!}" class="stat-down-ar" alt="downARrow">
+                                                                            @endif
                                                                         @endif
                                                                     @endif
                                                                 </button>
                                                                 @if(!(Route::currentRouteName() == 'tenant.showDetail'))
-                                                                    @if ($property->rentedProperty && $property->rentedProperty->status == 'New' || $property->rentedProperty && $property->rentedProperty->status == 'Approved')
-                                                                    <div class="status-change-options" id="sectionChangeOptionsUpperbody">
-                                                                        <div class="status-change-options-container">
-                                                                            <h3 class="status-change-options-upper-head">
-                                                                                Change status 
-                                                                            </h3>
-                                                                            <form class="status-change-options-footer" action="@if ($property->rentedProperty && $property->rentedProperty->status == 'New') {!! route('tenant.property.cancel', $slug) !!} @else {!! route('tenant.property.checkout', $slug) !!}  @endif" method="POST">
-                                                                                @method('PUT')
-                                                                                @csrf
-                                                                                <div class="status-change-option-footer">
-                                                                                    <button type="button" class="m-button btn-cancel mr-20p" id="btnCancel">Cancel</button>
-                                                                                    <button type="submit" class="m-button btn-Primary @if ($property->rentedProperty && $property->rentedProperty->status == 'New') btn-dangers @endif">
-                                                                                        @if ($property->rentedProperty && $property->rentedProperty->status == 'New')
-                                                                                            Cancelled
-                                                                                        @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Approved')
-                                                                                            Checked Out
-                                                                                        @endif
-                                                                                    </button>
-                                                                                </div>
-                                                                            </form>
+                                                                    @if($property->type == "Rent")
+                                                                        @if ($property->rentedProperty && $property->rentedProperty->status == 'New' || $property->rentedProperty && $property->rentedProperty->status == 'Approved' || $property->rentedProperty && $property->rentedProperty->status == 'Confirmed')
+                                                                        <div class="status-change-options" id="sectionChangeOptionsUpperbody">
+                                                                            <div class="status-change-options-container">
+                                                                                <h3 class="status-change-options-upper-head">
+                                                                                    Change status 
+                                                                                </h3>
+                                                                                <form class="status-change-options-footer" action="@if ($property->rentedProperty && $property->rentedProperty->status == 'New') {!! route('tenant.property.cancel', $slug) !!} @else {!! route('tenant.property.checkout', $slug) !!}  @endif" method="POST">
+                                                                                    @method('PUT')
+                                                                                    @csrf
+                                                                                    <div class="status-change-option-footer">
+                                                                                        <button type="button" class="m-button btn-cancel mr-20p" id="btnCancel">Cancel</button>
+                                                                                        <button type="submit" class="m-button btn-Primary @if ($property->rentedProperty && $property->rentedProperty->status == 'New') btn-dangers @endif">
+                                                                                            @if ($property->rentedProperty && $property->rentedProperty->status == 'New')
+                                                                                                Cancelled
+                                                                                            @else
+                                                                                                Checked Out
+                                                                                            @endif
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
+                                                                        @endif
                                                                     @endif
                                                                 @endif
                                                             </div>
@@ -185,6 +194,8 @@
                                                                     <p class="header-panel-stat cancelled"><span> Cancelled </span></p>
                                                                 @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Approved')
                                                                     <p class="header-panel-stat approved"><span> Approved </span></p>
+                                                                @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Confirmed')
+                                                                    <p class="header-panel-stat approved"><span> Confirmed </span></p>
                                                                 @elseif ($property->rentedProperty && $property->rentedProperty->status == 'Checked Out')
                                                                     <p class="header-panel-stat bluish"><span> Checked Out </span></p>
                                                                 @endif

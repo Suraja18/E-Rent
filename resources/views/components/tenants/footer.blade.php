@@ -90,3 +90,27 @@
     </div>
 </footer>
 <!-- End Footer -->
+<script>
+    $(document).ready(function () {
+        $('.notification-tags').click(function (e) {
+            e.preventDefault();
+            var notificationId = $(this).data('notification-id');
+            var url = "{{ route('tenant.mark.notification.read', ':id') }}".replace(':id', notificationId);
+            var targetUrl = $(this).attr('href');
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {_token: '{{ csrf_token() }}'},
+                success: function (response) {
+                    // Remove the clicked notification from the list
+                    $(e.target).closest('li').remove();
+                    window.location.href = targetUrl;
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>

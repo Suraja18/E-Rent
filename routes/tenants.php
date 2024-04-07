@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Tenant\HousingController;
 use App\Http\Controllers\Tenant\RentController;
 use App\Http\Controllers\Tenant\TenantController;
+use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\User\PDFController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,7 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::delete('/property/rented/delete/{slug}', [RentController::class, 'propertyDelete'])->name('tenant.property.delete');
             Route::put('/property/rented/cancel/{slug}', [RentController::class, 'propertyCancel'])->name('tenant.property.cancel');
             Route::put('/property/rented/check-out/{slug}', [RentController::class, 'propertyCheckout'])->name('tenant.property.checkout');
+            Route::post('/mark-notification-read/{notification}', [NotificationController::class,'markNotificationRead'])->name('tenant.mark.notification.read');
         });
     });
 });

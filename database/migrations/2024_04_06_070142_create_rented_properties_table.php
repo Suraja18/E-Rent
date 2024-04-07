@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('tenant_id');
             $table->unsignedBigInteger('rent_id');
             $table->unsignedDecimal('discount', 20, 2)->default(0);
-            $table->enum('status',['New', 'Approved', 'Cancelled', 'Checked Out']);
+            $table->enum('status',['New', 'Approved','Confirmed', 'Cancelled', 'Checked Out']);
             $table->enum('active',['Yes', 'No']);
             $table->enum('tenantVisible',['Yes', 'No'])->default('Yes');
             $table->timestamps();
