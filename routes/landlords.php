@@ -6,6 +6,7 @@ use App\Http\Controllers\Landlord\BuildingController;
 use App\Http\Controllers\Landlord\ForumController;
 use App\Http\Controllers\Landlord\HomeSellController;
 use App\Http\Controllers\Landlord\LandlordController;
+use App\Http\Controllers\Landlord\PaymentController;
 use App\Http\Controllers\Landlord\RentController;
 use App\Http\Controllers\Landlord\UnitController;
 use App\Http\Controllers\User\NotificationController;
@@ -29,6 +30,10 @@ Route::middleware(['landlord', 'session.logout'])->group(function () {
             Route::resource('/rent', RentController::class);
             Route::resource('/forum', ForumController::class);
             Route::resource('/approve', ApproveController::class);
+            Route::resource('/payment', PaymentController::class);
+            Route::post('/get-buildings', [PaymentController::class, 'getBuildings'])->name('get.buildings');
+            Route::post('/get-rented-properties', [PaymentController::class, 'getRentedProperties'])->name('get.rented_properties');
+
             Route::post('/mark-notification-read/{notification}', [NotificationController::class,'markNotificationRead'])->name('mark.notification.read');
         });
     });

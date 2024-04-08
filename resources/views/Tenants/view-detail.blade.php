@@ -407,7 +407,7 @@
                                     @enderror
                                 </p>
                                 <input type="hidden" name="id" value="{!! $property->id !!}" />
-                                <input type="submit" value="Request to Rent" class="m-button btn-Primary" />
+                                <input type="submit" value="Request to @if($property->type == "Rent") Rent @else Sell @endif" class="m-button btn-Primary" />
                             </form>
                         @endif
                     </div>

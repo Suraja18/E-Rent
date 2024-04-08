@@ -7850,6 +7850,162 @@ ul{
     padding: 3px 6px;
     font-size: 12px;
 }
+.bill-mov{
+    display: none;
+}
+.bill-mov.active{
+    display: block;
+}
 
 /* End Register Page */
  
+/* Final Invoice */
+.invoice-container{
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.invoice-row{
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.col-invoice{
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    float: left;
+}
+.col-invoice-12{
+    width: 100%;
+}
+.col-invoice-6{
+    width: 50%;
+}
+.invoice-title h2,
+.invoice-title h3{
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+.invoice-title-right{
+    float: right;
+}
+.invoice-address{
+    margin-bottom: 20px;
+    font-style: normal;
+    line-height: 1.43;
+}
+.float-right{
+    float: right !important;
+    width:auto;
+}
+.invoice-panel{
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.panel-invoice{
+    border-color: #ddd;
+}
+.panel-invoice>.invoice-panel-heading{
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+.invoice-panel-heading{
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+.invoice-panel-title{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+}
+.invoice-panel-body{
+    padding: 15px;
+}
+.invoice-responsive table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    max-width: 100%;
+    background-color: transparent;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.invoice-responsive td{
+    padding: 0;
+}
+.invoice-responsive table>thead:first-child>tr:first-child>td {
+    border-top: 0;
+}
+.invoice-responsive tr{
+    display: table-row !important;
+}
+.invoice-responsive table>tbody>tr>td,
+.invoice-responsive table>thead>tr>td{
+    padding: 5px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+    background-color: transparent;
+    display: table-cell !important;
+}
+.invoice-responsive table > tbody > tr > .thick-line {
+    border-top: 2px solid;
+}
+
+.invoice-panel-body::before,
+.invoice-container::before,
+.invoice-row::before{
+    content: " ";
+    display: table;
+}
+.invoice-panel-body::after,
+.invoice-container::after,
+.invoice-row::after{
+    content: " ";
+    display: table;
+    clear: both;
+}
+@media screen and (max-width: 576px)
+{
+    .invoice-panel-body {
+        padding: 0;
+    }
+}
+@media screen and (min-width: 768px) {
+    .invoice-container{
+        width: 98%;
+    }
+}
+@media screen and (max-width: 768px){
+    .invoice-responsive{
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        border: 1px solid #ddd;
+    }
+    .invoice-responsive>table{
+        margin-bottom: 0;
+    }
+    .invoice-responsive table>thead>tr>td{
+        white-space: nowrap;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    .invoice-responsive td:first-child{
+        text-align: left;
+    }
+}
+
+
+/* End Final Invoice */

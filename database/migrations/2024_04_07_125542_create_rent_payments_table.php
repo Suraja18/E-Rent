@@ -14,13 +14,17 @@ return new class extends Migration
         Schema::create('rent_payments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('rented_id');
-            $table->unsignedDecimal('monthly_payment', 20, 2);
             $table->unsignedDecimal('amt_paid', 20, 2);
             $table->enum('status', ['Paid', 'Half-Paid', 'Unpaid']);
             $table->enum('payment_mode', ['Bank', 'Cash', 'Cheque', 'Remaining'])->default('Remaining');
             $table->enum('payment_type', ['Deposit', 'Rent', 'Sell', 'Due']);
-            $table->date('Month')->nullable();
+            $table->enum('visible', ['Yes','No'])->default('Yes');
+            $table->date('month')->nullable();
+            $table->string('remarks')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('rented_id')->references('id')->on('rented_properties')->onDelete('cascade');
+            
         });
     }
 

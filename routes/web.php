@@ -13,3 +13,4 @@ Route::get('/register', [AuthController::class, 'registerUser'])->name('user.reg
 Route::post('/register-complete', [AuthController::class, 'registerComplete'])->name('user.completeRegister');
 Route::post('/login', [AuthController::class, 'login'])->name('user.loginSuccess');
 Route::get('/logout', [AuthController::class, 'logout'])->name('user.logout');
+Route::get('/bills', [AuthController::class, 'bills']);

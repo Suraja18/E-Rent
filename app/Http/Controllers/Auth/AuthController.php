@@ -21,6 +21,11 @@ class AuthController extends Controller
         $this->users = $userService;
     }
 
+    public function bills()
+    {
+        return view('bils');
+    }
+
     public function registerComplete(UserRequest $request)
     {
         $validatedData = $this->users->userStore($request->validated());  
