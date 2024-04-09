@@ -6,6 +6,7 @@
         @endif
     </x-users.main.head>
     <body>
+        <script src="{{ asset('JS/jquery.min.js') }}" type="text/javascript"></script>
         @include('sweetalert::alert')
         {{ $slot }}
         <x-users.main.js>

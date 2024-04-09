@@ -42,6 +42,7 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::put('/property/rented/cancel/{slug}', [RentController::class, 'propertyCancel'])->name('tenant.property.cancel');
             Route::put('/property/rented/check-out/{slug}', [RentController::class, 'propertyCheckout'])->name('tenant.property.checkout');
             Route::post('/mark-notification-read/{notification}', [NotificationController::class,'markNotificationRead'])->name('tenant.mark.notification.read');
+            Route::get('/property/{slug}/make/payment', [HousingController::class,'makePayment'])->name('tenant.make.payment');
         });
     });
 });

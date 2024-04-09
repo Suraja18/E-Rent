@@ -16,10 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('rented_id');
             $table->unsignedDecimal('amt_paid', 20, 2);
             $table->enum('status', ['Paid', 'Half-Paid', 'Unpaid']);
-            $table->enum('payment_mode', ['Bank', 'Cash', 'Cheque', 'Remaining'])->default('Remaining');
-            $table->enum('payment_type', ['Deposit', 'Rent', 'Sell', 'Due']);
+            $table->enum('payment_mode', ['Bank', 'Cash', 'Cheque', 'Online'])->default('Online');
+            $table->enum('payment_type', ['Deposit', 'Rent', 'Sell']);
             $table->enum('visible', ['Yes','No'])->default('Yes');
-            $table->date('month')->nullable();
+            $table->string('month', 7)->nullable()->comment('Format: YYYY-MM');
             $table->string('remarks')->nullable();
             $table->timestamps();
             $table->softDeletes();

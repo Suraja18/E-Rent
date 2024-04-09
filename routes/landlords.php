@@ -10,6 +10,7 @@ use App\Http\Controllers\Landlord\PaymentController;
 use App\Http\Controllers\Landlord\RentController;
 use App\Http\Controllers\Landlord\UnitController;
 use App\Http\Controllers\User\NotificationController;
+use App\Http\Controllers\User\PDFController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,9 +31,10 @@ Route::middleware(['landlord', 'session.logout'])->group(function () {
             Route::resource('/rent', RentController::class);
             Route::resource('/forum', ForumController::class);
             Route::resource('/approve', ApproveController::class);
-            Route::resource('/payment', PaymentController::class);
+            Route::resource('/payment', PaymentController::class)->only(["index", "create", "store", "show", "destroy"]);
             Route::post('/get-buildings', [PaymentController::class, 'getBuildings'])->name('get.buildings');
             Route::post('/get-rented-properties', [PaymentController::class, 'getRentedProperties'])->name('get.rented_properties');
+            Route::get('/payment/pdf/{id}', [PDFController::class, 'generateInvoicePDF'])->name('landlord.payment.pdf.download');
 
             Route::post('/mark-notification-read/{notification}', [NotificationController::class,'markNotificationRead'])->name('mark.notification.read');
         });

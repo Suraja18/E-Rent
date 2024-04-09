@@ -14,7 +14,7 @@
         </x-slot>
         <x-slot name="name">Add Payment</x-slot>
     </x-landlords.banners>
-                           
+
     <x-landlords.new-body>
         <form enctype="multipart/form-data" action="{{ route('payment.store') }}" method="POST">
             @csrf
@@ -34,7 +34,7 @@
 
             <div class="admin">
                 <h4 class="mb-1">Building</h4>
-                <select class="form-control" id="building-select" name="building" required>
+                <select class="form-control" id="building-select" name="building_id" required>
                     <option value="">Select Building...</option>
                 </select>
                 @error('building')
@@ -42,7 +42,7 @@
                 @enderror
             </div>
 
-            
+
 
             <div class="admin">
                 <h4 class="mb-1">Month of</h4>
@@ -50,7 +50,8 @@
                     $defaultDate = date('Y-m', strtotime('-1 month'));
                     $defaultMonthYear = date('F-Y', strtotime($defaultDate));
                 @endphp
-                <input class="form-control" type="month" name="month" value="{{ old('month', $defaultDate) }}" required />
+                <input class="form-control" type="month" name="month" value="{{ old('month', $defaultDate) }}"
+                    required />
                 @error('month')
                     <p class="error-message">{{ $message }}</p>
                 @enderror
@@ -61,7 +62,6 @@
                     <div class="col-invoice col-invoice-12">
                         <div class="invoice-title">
                             <h2>Invoice</h2>
-                            <h3 class="invoice-title-right"># 12345</h3>
                         </div>
                         <hr />
                         <div class="invoice-row">
@@ -81,6 +81,10 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
+                                                        <td>Due Amount</td>
+                                                        <td class="text-right" id="due-amount">Rs 0</td>
+                                                    </tr>
+                                                    <tr>
                                                         <td id="heading">Monthly House Rent</td>
                                                         <td class="text-right" id="monthly-house-rent">Rs 0</td>
                                                     </tr>
@@ -97,7 +101,7 @@
                                                         <td class="text-right" id="garbage-charge">Rs 0</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="thick-line text-center"><strong>Total</strong></td>
+                                                        <td class="thick-line text-center"><strong id="totalHead">Total</strong></td>
                                                         <td class="thick-line text-right" id="total">Rs 0</td>
                                                     </tr>
                                                 </tbody>
@@ -119,7 +123,6 @@
                     <option value="Deposit">Deposit</option>
                     <option value="Rent">Rent</option>
                     <option value="Sell">Sell</option>
-                    <option value="Due">Due</option>
                 </select>
                 @error('payment_type')
                     <p class="error-message">{{ $message }}</p>
@@ -130,7 +133,8 @@
                 <div class="add-img-container">
                     <div class="add-flex-2">
                         <h4 class="mb-1">Amount</h4>
-                        <input name="amt_paid" placeholder="Write payment amount here..." class="form-control" required type="number" min="0" />
+                        <input name="amt_paid" placeholder="Write payment amount here..." class="form-control" required
+                            type="number" min="0" />
                         @error('amt_paid')
                             <p class="error-message">{{ $message }}</p>
                         @enderror
@@ -141,7 +145,6 @@
                             <option value="">Select payment mode...</option>
                             <option value="Cash">Cash</option>
                             <option value="Cheque">Cheque</option>
-                            <option value="Remaining">Remaining</option>
                         </select>
                         @error('payment_mode')
                             <p class="error-message">{{ $message }}</p>
@@ -150,28 +153,32 @@
                 </div>
             </div>
 
-            <x-common.input-text-100>
-                <x-slot name="column">Remarks</x-slot>
-            </x-common.input-text-100>
+            <div class="admin">
+                <h4 class="mb-1">Remarks</h4>
+                <input placeholder="Write remarks here..." name="remarks" class="form-control" />
+                @error('remarks')
+                    <p class="error-message">{{ $message }}</p>
+                @enderror
+            </div>
 
             <div class="text-center">
-                <input type="submit" value="Put on Rent" class="is-button-for-edit-profile is-hovers" />
+                <input type="submit" value="Save Payment" class="is-button-for-edit-profile is-hovers" />
             </div>
         </form>
     </x-landlords.new-body>
 
 
-    
-    <x-landlords.footer />  
-    
-    
+
+    <x-landlords.footer />
+
+
 
 
     <script>
-        $(document).ready(function () {
-            $('#tenant-select').change(function () {
+        $(document).ready(function() {
+            $('#tenant-select').change(function() {
                 var tenantId = $(this).val();
-    
+
                 $.ajax({
                     url: "{{ route('get.buildings') }}",
                     type: 'POST',
@@ -179,61 +186,81 @@
                         '_token': '{{ csrf_token() }}',
                         'tenant_id': tenantId
                     },
-                    success: function (data) {
+                    success: function(data) {
                         $('#building-select').empty();
-                        $('#building-select').append('<option value="">Select Building...</option>');
-                        $.each(data, function (index, building) {
-                            $('#building-select').append('<option value="' + building.id + '">' + building.name + '</option>');
+                        $('#building-select').append(
+                            '<option value="">Select Building...</option>');
+                        $.each(data, function(index, building) {
+                            var optionText = building.name;
+                            if (building.rent_properties[0].rent_name) {
+                                optionText += ' / ' + building.rent_properties[0].rent_name;
+                            }
+                            $('#building-select').append('<option value="' + building.rent_properties[0].id + '">' + optionText + '</option>');
                         });
                     }
                 });
             });
         });
     </script>
-<script>
+    <script>
+        $(document).ready(function() {
+            $('#building-select').change(function() {
+                var buildingId = $(this).val();
 
-    $(document).ready(function () {
-        $('#building-select').change(function () {
-            var buildingId = $(this).val();
-
-            $.ajax({
-                url: "{{ route('get.rented_properties') }}",
-                type: 'POST',
-                data: {
-                    '_token': '{{ csrf_token() }}',
-                    'building_id': buildingId
-                },
-                success: function (data) {
-                    populateInvoice(data);
-                }
+                $.ajax({
+                    url: "{{ route('get.rented_properties') }}",
+                    type: 'POST',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'building_id': buildingId
+                    },
+                    success: function(data) {
+                        populateInvoice(data);
+                        
+                    }
+                });
             });
+
+            function populateInvoice(data) {
+                $('.invoice-container.bill-mov').addClass('active');
+
+                if(data.deposit_rent)
+                {
+                    $('#monthly-house-rent').text('Rs ' + parseFloat(data.deposit_rent).toFixed(2));
+                    $('#heading').text('Deposit');
+                    $('#electric-charge').text('Rs ' + parseFloat(data.electric_charge).toFixed(2));
+                    $('#water-charge').text('Rs ' + parseFloat(data.water_charge).toFixed(2));
+                    $('#garbage-charge').text('Rs ' + parseFloat(data.garbage_charge).toFixed(2));
+                    $('#totalHead').text('Total Deposit');
+                    $('#total').text('Rs ' + parseFloat(data.total).toFixed(2));
+
+                }
+                else
+                {
+                    if (data.sell_price == 0) {
+                        $('#due-amount').text('Rs ' + parseFloat(data.remainToPay).toFixed(2));
+                        $('#monthly-house-rent').text('Rs ' + parseFloat(data.monthly_house_rent).toFixed(2));
+                        $('#heading').text('Monthly House Rent');
+                    } else if (data.monthly_house_rent == 0) {
+                        $('#monthly-house-rent').text('Rs ' + parseFloat(data.sell_price).toFixed(2));
+                        $('#heading').text('House Sell');
+                    }
+
+                    $('#electric-charge').text('Rs ' + parseFloat(data.electric_charge).toFixed(2));
+                    $('#water-charge').text('Rs ' + parseFloat(data.water_charge).toFixed(2));
+                    $('#garbage-charge').text('Rs ' + parseFloat(data.garbage_charge).toFixed(2));
+                    $('#totalHead').text('Total');
+                    if (data.sell_price == 0) {
+                        $('#total').text('Rs ' + parseFloat(data.total).toFixed(2));
+                    } else if (data.monthly_house_rent == 0) {
+                        $('#total').text('Rs ' + parseFloat(data.sell_price).toFixed(2));
+                    }
+
+                }
+            }
         });
+    </script>
 
-        function populateInvoice(data) {
-            $('.invoice-container.bill-mov').addClass('active');
-            if(data.sell_price == 0)
-            {
-                $('#monthly-house-rent').text('Rs ' + data.monthly_house_rent);
-                $('#heading').text('Monthly House Rent');
-            }else if(data.monthly_house_rent == 0){
-                $('#monthly-house-rent').text('Rs ' + data.sell_price);
-                $('#heading').text('House Sell');
-            }
-            
-            $('#electric-charge').text('Rs ' + data.electric_charge);
-            $('#water-charge').text('Rs ' + data.water_charge);
-            $('#garbage-charge').text('Rs ' + data.garbage_charge);
-            if(data.sell_price == 0)
-            {
-                $('#total').text('Rs ' + data.total);
-            }else if(data.monthly_house_rent == 0){
-                $('#total').text('Rs ' + data.sell_price);
-            }
-            
-        }
-    });
-</script>
 
-    
-    
+
 </x-users.main.app-layout>

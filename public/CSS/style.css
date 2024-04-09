@@ -1,18 +1,6 @@
 /* Import Font Family */
 
 @font-face {
-    font-family: muli-regular;
-    src: url(../fonts/muli/Muli-Regular.ttf);
-}
-@font-face {
-    font-family: muli-semibold;
-    src: url(../fonts/muli/Muli-SemiBold.ttf);
-}
-@font-face {
-    font-family: muli-bold;
-    src: url(../fonts/muli/Muli-Bold.ttf);
-}
-@font-face {
     font-family: proxima-nova;
     src: url(https://use.typekit.net/af/2555e1/00000000000000007735e603/30/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("woff2"), url(https://use.typekit.net/af/2555e1/00000000000000007735e603/30/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("woff"), url(https://use.typekit.net/af/2555e1/00000000000000007735e603/30/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3) format("opentype");
     font-weight: 700;
@@ -7855,6 +7843,9 @@ ul{
 }
 .bill-mov.active{
     display: block;
+}
+.view-btn.dangers{
+    color: var(--red-500) !important;
 }
 
 /* End Register Page */

@@ -146,7 +146,7 @@
                                                         }
                                                     @endphp
                                                     <div class="card-view-btn">
-                                                        <a href="{!! route('tenant.display.property', $slug) !!}" class="status-links view-btn">View</a>
+                                                        <a class="status-links view-btn dangers">UnPaid</a>
                                                     </div>
                                                     <div class="card-right-grid">
                                                         <div class="d-flex p-r">
@@ -161,7 +161,13 @@
                                                             <div class="more-info-for-maintainance">
                                                                 <div class="p-10p">
                                                                     <div class="btn-container-opt below">
+                                                                        <a href="{!! route('tenant.make.payment', $slug) !!}" class="upper-btn">Pay Rent</a>
+                                                                    </div>
+                                                                    <div class="btn-container-opt below">
                                                                         <a href="../Errors/404Error.html" class="upper-btn">Print</a>
+                                                                    </div>
+                                                                    <div class="btn-container-opt below">
+                                                                        <a href="{!! route('tenant.display.property', $slug) !!}" class="upper-btn">View</a>
                                                                     </div>
                                                                     <div class="btn-container-opt">
                                                                         <form action="{!! route('tenant.property.delete', $slug) !!}" method="POST" id="deleteTables{!! $property_rent->id !!}">
