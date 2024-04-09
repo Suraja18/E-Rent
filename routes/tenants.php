@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Tenant\HousingController;
+use App\Http\Controllers\Tenant\PaymentController;
 use App\Http\Controllers\Tenant\RentController;
 use App\Http\Controllers\Tenant\TenantController;
 use App\Http\Controllers\User\NotificationController;
@@ -43,6 +44,9 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::put('/property/rented/check-out/{slug}', [RentController::class, 'propertyCheckout'])->name('tenant.property.checkout');
             Route::post('/mark-notification-read/{notification}', [NotificationController::class,'markNotificationRead'])->name('tenant.mark.notification.read');
             Route::get('/property/{slug}/make/payment', [HousingController::class,'makePayment'])->name('tenant.make.payment');
+            Route::post('/property/rent/pay/esewa',[PaymentController::class, 'esewaPay'])->name('tenant.esewa.pay');
+            Route::get('/property/rent/pay/eSewa/success',[PaymentController::class, 'esewaSuccess']);
+            Route::get('/property/rent/pay/esewa/failure',[PaymentController::class, 'esewaFailure']);
         });
     });
 });

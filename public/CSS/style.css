@@ -7847,7 +7847,18 @@ ul{
 .view-btn.dangers{
     color: var(--red-500) !important;
 }
-
+.pay-btn{
+    background: transparent;
+    border: 1px solid var(--neutral--navy-600);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.pay-btn:hover{
+    background: var(--whiteColor);
+}
+.pay-btn img{
+    height: 38px;
+}
 /* End Register Page */
  
 /* Final Invoice */

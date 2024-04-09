@@ -22,21 +22,17 @@
                     <h2 class="header-f0r-mobile text-center">Make Payment</h2>
                     <div class="is-header-all-wrappers padding">
                         <div class="is-header-all-container padding">
-                            <form enctype="multipart/form-data" action="{{ route('payment.store') }}" method="POST">
+                            <form enctype="multipart/form-data" action="{{ route('tenant.esewa.pay') }}" method="POST">
                                 @csrf
-                    
                                 <div class="admin">
                                     <h4 class="mb-1">Building</h4>
                                     <select class="form-control" name="building_id" required>
-                                        <option value="{!! $buildingName !!}">{!! $buildingName !!}</option>
+                                        <option value="{!! $rented_property->id !!}">{!! $buildingName !!}</option>
                                     </select>
                                     @error('building')
                                         <p class="error-message">{{ $message }}</p>
                                     @enderror
                                 </div>
-                    
-                    
-                    
                                 <div class="admin">
                                     <h4 class="mb-1">Month of</h4>
                                     @php
@@ -49,7 +45,6 @@
                                         <p class="error-message">{{ $message }}</p>
                                     @enderror
                                 </div>
-                    
                                 <div class="invoice-container bill-mov active">
                                     <div class="invoice-row">
                                         <div class="col-invoice col-invoice-12">
@@ -82,7 +77,7 @@
                                                                             @endif
                                                                         @endif
                                                                         <tr>
-                                                                            <td id="heading">@if($paymentType == "Rent") Monthly House Rent @elseif($paymentType == "Sell") Sell @endif</td>
+                                                                            <td id="heading">@if($paymentType == "Sell") Sell @else Monthly House Rent @endif</td>
                                                                             <td class="text-right" id="monthly-house-rent">Rs {!! number_format($price, 2) !!}</td>
                                                                         </tr>
                                                                         <tr>
@@ -111,8 +106,6 @@
                                         </div>
                                     </div>
                                 </div>
-                    
-                    
                                 <div class="admin">
                                     <h4 class="mb-1">Payment Type</h4>
                                     <select class="form-control" name="payment_type" required>
@@ -122,9 +115,18 @@
                                         <p class="error-message">{{ $message }}</p>
                                     @enderror
                                 </div>
-                    
-                                <div class="text-center">
-                                    <input type="submit" value="Save Payment" class="is-button-for-edit-profile is-hovers" />
+                                <div class="admin">
+                                    <h4 class="mb-1">Amount</h4>
+                                    <input name="amt_paid" placeholder="Write payment amount here..." class="form-control" required
+                                        type="number" min="0" value="{!! $allTotal !!}" />
+                                    @error('amt_paid')
+                                        <p class="error-message">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <h4 class="mb-1">Pay with</h4>
+                                    <button type="submit" class="pay-btn"><img src="{!! asset('Images/Original/esewa_logo.png') !!}" alt="" class="img-fluid"></button>
+                                    
                                 </div>
                             </form>
                         </div>

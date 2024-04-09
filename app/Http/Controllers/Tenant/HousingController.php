@@ -79,12 +79,11 @@ class HousingController extends Controller
                 $paymentType = "Rent";
             }
         }
-
+        $price = $property->monthly_house_rent - $rented_property->discount;
         if($property->type == "Sell")
         {
             $paymentType = "Sell";
         }
-
         if($paymentType == "Rent")
         {
             $price = $property->monthly_house_rent - $rented_property->discount;
@@ -134,6 +133,7 @@ class HousingController extends Controller
             'chargeW' => $chargeW,
             'chargeG' => $chargeG,
             'allTotal' => $allTotal,
+            'rented_property' => $rented_property,
         ];
         return view('Tenants.make-payment',$data);
     }
