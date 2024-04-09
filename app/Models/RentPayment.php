@@ -18,6 +18,8 @@ class RentPayment extends Model
         'payment_type',
         'month',
         'remarks',
+        'tenantVisible',
+        'visible'
     ];
 
     public function rentedProperty()

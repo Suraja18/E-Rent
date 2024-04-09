@@ -15,7 +15,7 @@
         <x-slot name="name">Invoice</x-slot>
     </x-landlords.banners>
 
-    <x-landlords.new-body>
+    <x-landlords.new-body> 
         <div class="invoice-container">
             <div class="invoice-row">
                 <div class="col-invoice col-invoice-6 float-right">

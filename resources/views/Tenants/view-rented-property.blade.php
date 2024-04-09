@@ -30,16 +30,13 @@
                                     <p>{!! $count !!} Total</p>
                                 </div>
                                 <div class="header-right-side-wrap">
-                                    <a href="#" class="is-button-for-edit-profile">
+                                    <a href="{!! route('tenant.payment_history') !!}" class="is-button-for-edit-profile">
                                         Payment History 
                                     </a>
                                 </div>
                             </header>
                             <div class="status-maintainance">
                                 <div class="status-maintainance-container">
-                                    <div class="status-filter-search for-mobile">
-                                        <input type="text" autocomplete="off" placeholder="Search here..." class="filter-search-input">
-                                    </div>
                                     <div class="status-filter">
                                         <div class="status-filter-wrappers p-r">
                                             <div class="status-filter-container-list" id="statusFullWrapper">

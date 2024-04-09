@@ -49,6 +49,10 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::get('/property/rent/pay/eSewa/success',[PaymentController::class, 'esewaSuccess']);
             Route::get('/property/rent/pay/esewa/failure',[PaymentController::class, 'esewaFailure']);
             Route::post('/property/view/rented', [RentController::class, 'viewRentedProperty'])->name('tenant.property.status.search');
+            Route::get('/property/payment/history', [PaymentController::class, 'index'])->name('tenant.payment_history'); 
+            Route::get('/property/{payment}/payment/history', [PaymentController::class, 'show'])->name('tenant.payment_history.show'); 
+            Route::delete('/property/{payment}/payment/history/delete', [PaymentController::class, 'destroy'])->name('tenant.payment.destroy'); 
+            Route::get('/property/payment/pdf/{id}', [PDFController::class, 'generateInvoicePDF'])->name('tenant.payment.pdf.download');
         });
     });
 });

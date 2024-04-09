@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('payment_mode', ['Bank', 'Cash', 'Cheque', 'Online'])->default('Online');
             $table->enum('payment_type', ['Deposit', 'Rent', 'Sell']);
             $table->enum('visible', ['Yes','No'])->default('Yes');
+            $table->enum('tenantVisible', ['Yes','No'])->default('Yes');
             $table->string('month', 7)->nullable()->comment('Format: YYYY-MM');
             $table->string('remarks')->nullable();
             $table->timestamps();
