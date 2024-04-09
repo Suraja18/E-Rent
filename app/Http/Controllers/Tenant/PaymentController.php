@@ -86,4 +86,49 @@ class PaymentController extends Controller
         Alert::error('Payment Failed! Error While Paying');
         return redirect()->route('tenant.view.allProperty');
     }
+    public function khaltiPay(EsewaRequest $request)
+    {
+        $pid = $request->building_id;
+        $amt = $request->amt_paid;
+        $payment = new RentPayment();
+        $payment->rented_id = $pid; 
+        $payment->amt_paid = $amt;
+        $rents = RentedProperty::where('id', $pid)->whereNull('deleted_at')->first();
+        if($request->payment_type == "Deposit")
+        {
+            $rentPrice = $rents->rentProperty->monthly_house_rent + $rents->rentProperty->electric_charge + $rents->rentProperty->water_charge + $rents->rentProperty->garbage_charge - $rents->discount;
+            if($rentPrice != $amt)
+            {
+                Alert::warning('Please Insert the full amount to continue');
+                return redirect()->route('tenant.view.allProperty');
+            }
+        }
+        if($request->payment_type == "Sell")
+        {
+            $rentPrice = $rents->rentProperty->price = $rents->discount;
+            if($rents->status == "Confirmed")
+            {
+                Alert::warning('You have already paid for this property');
+                return redirect()->route('tenant.view.allProperty');
+            }
+            if($rentPrice != $amt)
+            {
+                Alert::warning('Please Insert the full amount to continue');
+                return redirect()->route('tenant.view.allProperty');
+            }
+        }
+        $payment->status = "Paid";
+        $payment->payment_mode = "Online";
+        $payment->payment_type = $request->payment_type;
+        $payment->month = $request->month;
+        if($payment->payment_type == "Deposit")
+        {
+            $rent = $payment->rentedProperty;
+            $rent->status = "Confirmed";
+            $rent->update();
+        }
+        $payment->save();
+        Alert::success("Payment Successful");
+        return redirect()->route('tenant.view.allProperty');
+    }
 }

@@ -45,6 +45,7 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::post('/mark-notification-read/{notification}', [NotificationController::class,'markNotificationRead'])->name('tenant.mark.notification.read');
             Route::get('/property/{slug}/make/payment', [HousingController::class,'makePayment'])->name('tenant.make.payment');
             Route::post('/property/rent/pay/esewa',[PaymentController::class, 'esewaPay'])->name('tenant.esewa.pay');
+            Route::post('/property/rent/pay/khalti',[PaymentController::class, 'khaltiPay'])->name('tenant.khalti.pay');
             Route::get('/property/rent/pay/eSewa/success',[PaymentController::class, 'esewaSuccess']);
             Route::get('/property/rent/pay/esewa/failure',[PaymentController::class, 'esewaFailure']);
         });

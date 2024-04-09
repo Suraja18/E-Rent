@@ -22,7 +22,7 @@
                     <h2 class="header-f0r-mobile text-center">Make Payment</h2>
                     <div class="is-header-all-wrappers padding">
                         <div class="is-header-all-container padding">
-                            <form enctype="multipart/form-data" action="{{ route('tenant.esewa.pay') }}" method="POST">
+                            <form enctype="multipart/form-data" action="#" method="POST" enctype="multipart/form-data" id="paymentForm">
                                 @csrf
                                 <div class="admin">
                                     <h4 class="mb-1">Building</h4>
@@ -118,15 +118,15 @@
                                 <div class="admin">
                                     <h4 class="mb-1">Amount</h4>
                                     <input name="amt_paid" placeholder="Write payment amount here..." class="form-control" required
-                                        type="number" min="0" value="{!! $allTotal !!}" />
+                                        type="number" min="0" value="{!! $allTotal !!}" id="payment-amount" />
                                     @error('amt_paid')
                                         <p class="error-message">{{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div>
                                     <h4 class="mb-1">Pay with</h4>
-                                    <button type="submit" class="pay-btn"><img src="{!! asset('Images/Original/esewa_logo.png') !!}" alt="" class="img-fluid"></button>
-                                    
+                                    <button type="button" id="payment-button" class="pay-btn"><img src="{!! asset('Images/Original/khalti-logo.svg') !!}" alt="" class="img-fluid"></button>  
+                                    <button type="button" class="pay-btn" onclick="setEsewaRoute()"><img src="{!! asset('Images/Original/esewa_logo.png') !!}" alt="" class="img-fluid"></button>         
                                 </div>
                             </form>
                         </div>
@@ -137,5 +137,45 @@
     </div>
 
     <x-tenants.footer />
+    <script>
+        function setEsewaRoute() {
+            document.getElementById('paymentForm').action = "{{ route('tenant.esewa.pay') }}";
+            document.getElementById('paymentForm').submit();
+        }
+    </script>
+    <script>
+        var config = {
+            // replace the publicKey with yours
+            "publicKey": "test_public_key_c04c30f5b52d433a8e659fedebed65c4",
+            "productIdentity": "1234567890",
+            "productName": "Dragon",
+            "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
+            "paymentPreference": [
+                "KHALTI"
+            ],
+            "eventHandler": {
+                onSuccess(payload) {
+                    console.log(payload);
+                    document.getElementById('paymentForm').action = "{!! route('tenant.khalti.pay') !!}";
+                    document.getElementById('paymentForm').submit();
+                },
+                onError(error) {
+                    console.log(error);
+                },
+                onClose() {
+                    console.log('widget is closing');
+                }
+            }
+        };
+    
+        var checkout = new KhaltiCheckout(config);
+        var btn = document.getElementById("payment-button");
+        btn.onclick = function() {
+            var amount = document.getElementById("payment-amount").value;
+            checkout.show({
+                amount: amount * 100
+            });
+        }
+    </script>
 
 </x-users.main.app-layout>
