@@ -30,8 +30,8 @@
                                     <p>{!! $count !!} Total</p>
                                 </div>
                                 <div class="header-right-side-wrap">
-                                    <a href="newrequest.html" class="is-button-for-edit-profile add-icons">
-                                        Add request 
+                                    <a href="#" class="is-button-for-edit-profile">
+                                        Payment History 
                                     </a>
                                 </div>
                             </header>
@@ -41,9 +41,6 @@
                                         <input type="text" autocomplete="off" placeholder="Search here..." class="filter-search-input">
                                     </div>
                                     <div class="status-filter">
-                                        <div class="status-filter-search for-desktop">
-                                            <input type="text" autocomplete="off" placeholder="Search here..." class="filter-search-input">
-                                        </div>
                                         <div class="status-filter-wrappers p-r">
                                             <div class="status-filter-container-list" id="statusFullWrapper">
                                                 <button type="button" class="button-close-for-filter"></button>
@@ -54,14 +51,15 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="15" width="28" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>
                                             </div>
                                             <div class="status-other-option-container" id="statusFullOption">
-                                                <div class="status-other-option-wrapper">
+                                                <form class="status-other-option-wrapper" action="{!! route('tenant.property.status.search') !!}" method="POST">
+                                                    @csrf
                                                     <div class="popup-header">
                                                         <h3 class="popup-header-text">Status</h3>
                                                     </div>
                                                     <div class="pb-10p">
                                                         <div class="popup-content">
                                                             <div>
-                                                                <select class="multi-scroll" placeholder="Status">
+                                                                <select class="multi-scroll" placeholder="Status" name="selectStatus">
                                                                     <option value="New">New</option>
                                                                     <option value="Approved">Approved</option>
                                                                     <option value="Confirmed">Confirmed</option>
@@ -72,9 +70,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="popup-footer">
-                                                        <button class="is-button-for-edit-profile btn-Primary">Apply</button>
+                                                        <button type="submit" class="is-button-for-edit-profile btn-Primary">Apply</button>
                                                     </div>
-                                                </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

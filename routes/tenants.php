@@ -48,6 +48,7 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::post('/property/rent/pay/khalti',[PaymentController::class, 'khaltiPay'])->name('tenant.khalti.pay');
             Route::get('/property/rent/pay/eSewa/success',[PaymentController::class, 'esewaSuccess']);
             Route::get('/property/rent/pay/esewa/failure',[PaymentController::class, 'esewaFailure']);
+            Route::post('/property/view/rented', [RentController::class, 'viewRentedProperty'])->name('tenant.property.status.search');
         });
     });
 });

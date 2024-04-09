@@ -21,6 +21,14 @@ class RentController extends Controller
         return view('Tenants.view-rented-property', $data);
     }
 
+    public function viewRentedProperty(Request $request)
+    {
+        $properties = RentedProperty::where('tenant_id', Auth::id())->where('tenantVisible', 'Yes')->where('status', $request->selectStatus)->get();
+        $count = $properties->count();
+        $data = ['count' => $count, 'properties' => $properties,];
+        return view('Tenants.view-rented-property', $data);
+    }
+
     public function rentStore(Request $request)
     {
         $validate = $request->validate([

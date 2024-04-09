@@ -31,7 +31,7 @@
                     <td>{!! $loop->iteration !!}</td>
                     <td data-name="Date">{!! $payment->created_at->toDateString() !!}</td>
                     <td data-name="Tenant">{!! $payment->rentedProperty->tenant->first_name !!} {!! $payment->rentedProperty->tenant->last_name !!}</td>
-                    <td data-name="Building">
+                    <td data-name="Building" style="flex-direction: column">
                         {!! $payment->rentedProperty->rentProperty->building->name !!}<br/>
                         @if(isset($payment->rentedProperty->rentProperty->rent_name))
                             <small>(<i>{!! $payment->rentedProperty->rentProperty->rent_name !!}</i>)</small><br/>
