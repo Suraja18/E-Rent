@@ -56,7 +56,7 @@ class PaymentController extends Controller
         $payments = RentPayment::where('rented_id', $rented->id)->where('payment_type', "Deposit")->first();
         $paymentrent = RentPayment::where('rented_id', $rented->id)->first();
         $paymentrents = RentPayment::where('rented_id', $rented->id)->get();
-        if($rented->rentProperty->type == "Rent")
+        if($rented->rentProperty->type == "Rent") 
         {
             $rentPrice = $rented->rentProperty->monthly_house_rent + $rented->rentProperty->electric_charge + $rented->rentProperty->water_charge + $rented->rentProperty->garbage_charge - $rented->discount;
         }elseif($rented->rentProperty->type == "Sell"){

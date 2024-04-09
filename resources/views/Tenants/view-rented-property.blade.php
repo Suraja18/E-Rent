@@ -132,9 +132,9 @@
                                                     <div class="card-maintainance-hurry">
                                                         <div class="card-maint">
                                                             @if($property_rent->rentProperty->type == "Rent") 
-                                                                {!! $property_rent->rentProperty->monthly_house_rent !!} 
+                                                                {!! $property_rent->rentProperty->monthly_house_rent - $property_rent->discount !!} 
                                                             @else
-                                                                {!! $property_rent->rentProperty->price !!} 
+                                                                {!! $property_rent->rentProperty->price - $property_rent->discount !!} 
                                                             @endif
                                                         </div>
                                                     </div>
@@ -144,9 +144,56 @@
                                                         }else{
                                                             $slug = $property_rent->rentProperty->building->slug;
                                                         }
+
+                                                        if($property_rent->status == "Confirmed")
+                                                        {
+                                                            $rentedProperty = $property_rent;
+                                                            if ($rentedProperty->rentProperty->type == "Rent") {
+                                                                $rentPrice = $rentedProperty->rentProperty->monthly_house_rent +
+                                                                    $rentedProperty->rentProperty->electric_charge +
+                                                                    $rentedProperty->rentProperty->water_charge +
+                                                                    $rentedProperty->rentProperty->garbage_charge -
+                                                                    $rentedProperty->discount;
+                                                            } elseif ($rentedProperty->rentProperty->type == "Sell") {
+                                                                $rentPrice = $rentedProperty->rentProperty->price - $rentedProperty->discount;
+                                                            }
+                                                            $totalPaid = 0 - $rentPrice;
+                                                            $paymentPrevious = App\Models\RentPayment::where('rented_id', $rentedProperty->id)->where('payment_type', 'Deposit')->get();
+                                                            $paymentrent = App\Models\RentPayment::where('rented_id', $rentedProperty->id)->first();
+                                                            $payments = App\Models\RentPayment::where('rented_id', $rentedProperty->id)->get();
+                                                            foreach ($payments as $payment) {
+                                                                $totalPaid += $payment->amt_paid;
+                                                            }
+                                                            if($paymentrent)
+                                                            {
+                                                                $createdAt = Carbon\Carbon::parse($paymentrent->created_at);
+                                                                $today = Carbon\Carbon::today();     
+                                                                $diffInMonths = $createdAt->diffInMonths($today);
+                                                            }
+                                                            $rentToPay = 0;
+                                                            $remainToPay = 0;
+                                                            if(isset($diffInMonths)){
+                                                                for($i = 0; $i < $diffInMonths; $i++)
+                                                                {
+                                                                    $rentToPay = $rentToPay + $rentPrice;
+                                                                }
+                                                            }
+                                                            $remainingAmount = $rentToPay - $totalPaid;
+                                                            $status = $remainingAmount > 0 ? 'Unpaid' : 'Paid';
+                                                        }
                                                     @endphp
                                                     <div class="card-view-btn">
-                                                        <a class="status-links view-btn dangers">UnPaid</a>
+                                                        
+                                                            @if($property_rent->status == "Approved")
+                                                                <a class="status-links view-btn dangers">Unpaid</a>
+                                                            @else
+                                                                @if($status == "Unpaid")
+                                                                    <a class="status-links view-btn dangers">{!! $status !!}</a>
+                                                                @elseif($status == "Paid")
+                                                                    <a class="status-links view-btn">{!! $status !!}</a>
+                                                                @endif
+                                                            @endif
+                                                        </a>
                                                     </div>
                                                     <div class="card-right-grid">
                                                         <div class="d-flex p-r">
