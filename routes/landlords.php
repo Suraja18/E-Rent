@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Landlord\ApproveController;
 use App\Http\Controllers\Landlord\BuildingController;
+use App\Http\Controllers\Landlord\EmailController;
 use App\Http\Controllers\Landlord\ForumController;
 use App\Http\Controllers\Landlord\HomeSellController;
 use App\Http\Controllers\Landlord\LandlordController;
@@ -37,6 +38,10 @@ Route::middleware(['landlord', 'session.logout'])->group(function () {
             Route::post('/get-rented-properties', [PaymentController::class, 'getRentedProperties'])->name('get.rented_properties');
 
             Route::get('/active-tenants', [TenantController::class, 'activeIndex'])->name('landlord.tenant.active.index');
+
+            Route::get('/{id}/email',[EmailController::class, 'sendEmailByID'])->name('landlord.email.send.id');
+            Route::get('/email',[EmailController::class, 'sendEmail'])->name('landlord.email.send');
+            Route::post('/email/success',[EmailController::class, 'successEmail'])->name('landlord.email.success');
 
             Route::get('/payment/pdf/{id}', [PDFController::class, 'generateInvoicePDF'])->name('landlord.payment.pdf.download');
             Route::post('/mark-notification-read/{notification}', [NotificationController::class,'markNotificationRead'])->name('mark.notification.read');

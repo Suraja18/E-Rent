@@ -16,8 +16,13 @@ class TenantController extends Controller
         $activeTenants = User::whereHas('rentedProperties', function ($query) {
             $query->whereNull('deleted_at')
                 ->where('status', 'Confirmed');
-        })->whereHas('rentedProperties.building', function ($query) use ($landlordId) {
-            $query->where('landlord', $landlordId);
-        })->where('role', 'tenant')->get();
+        })->whereHas('rentedProperties.rentProperty.landlord', function ($query) use ($landlordId) {
+            $query->where('id', $landlordId);
+        })->where('roles', '1')->get();
+
+        $data = [
+            'tenants' => $activeTenants,
+        ];
+        return view('Landlords.Tenants.Active.index', $data);
     }
 }
