@@ -179,7 +179,7 @@
                                                     @endphp
                                                     <div class="card-view-btn">
                                                         
-                                                            @if($property_rent->status == "Approved")
+                                                            @if($property_rent->status == "Approved" || $property_rent->status == "New" )
                                                                 <a class="status-links view-btn dangers">Unpaid</a>
                                                             @else
                                                                 @if($status == "Unpaid")
