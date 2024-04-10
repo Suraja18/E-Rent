@@ -1,18 +1,17 @@
 <x-users.main.app-layout>
     <x-slot name="head">
-        - Payment
+        - Active Tenants
     </x-slot>
     <x-landlords.sidebar />
 
     <x-landlords.navbar />
 
     <x-landlords.banners>
-        <x-slot name="name">Payment</x-slot>
+        <x-slot name="name">Tenants</x-slot>
     </x-landlords.banners>
                            
     <x-landlords.responsive-table>
-        <x-slot name="links">{!! route('payment.create') !!}</x-slot>
-        <x-slot name="heading">Payment Lists</x-slot>
+        <x-slot name="heading">Active Tenants</x-slot>
         <x-slot name="thead">
             <tr>
                 <th>S.N</th>

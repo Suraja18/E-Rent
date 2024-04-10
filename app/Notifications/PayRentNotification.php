@@ -46,7 +46,7 @@ class PayRentNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'rentMessage' => $this->notificationData['rentMessage'],
+            'rentMessage' => $this->notificationData['rentMessage'], 
         ];
     }
 }

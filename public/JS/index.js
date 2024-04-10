@@ -568,6 +568,7 @@ document.addEventListener("DOMContentLoaded", function () {
     DropdownToggle('dropdownmaintenance', 'expandArrow-maintenance', 'sidebarDropdown-maintenance');
     DropdownToggle('dropdownproperty', 'expandArrow-property', 'sidebarDropdown-property');
     DropdownToggle('dropdownpropertyoccupant', 'expandArrow-propertyoccupant', 'sidebarDropdown-propertyoccupant');
+    DropdownToggle('dropdownpropertyoccupy', 'expandArrow-propertyoccupy', 'sidebarDropdown-propertyoccupy');
     DropdownToggle('dropdowntenants', 'expandArrow-tenants', 'sidebarDropdown-tenants');
     DropdownToggle('dropdownreport', 'expandArrow-report', 'sidebarDropdown-report');
 
