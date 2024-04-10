@@ -21,19 +21,30 @@ class HousingController extends Controller
             $property = RentProperty::where('building_id', $building->id)->firstOrFail();
         }
         $type = $property->property_type_id;
-        $properties = RentProperty::where('property_type_id', $type)->take(4)->get()->shuffle();
+        $properties = RentProperty::where('property_type_id', $type) ->where('status', 'Yes')
+        ->whereNotIn('id', function ($query) {
+            $query->select('rent_id')
+                ->from('rented_properties')
+                ->where('status', '<>', 'Cancelled')
+                ->orWhereNull('deleted_at');
+        })->take(4)->get()->shuffle();
         
         $propertiesCount = $properties->count();
         if ($propertiesCount < 4) {
             
             $remainingProperties = RentProperty::whereNotIn('id', $properties->pluck('id')->toArray())
+                                                ->where('status', 'Yes')
                                                 ->whereNotIn('id', function ($query) {
-                                                    $query->select('rent_id')->from('rented_properties');
+                                                    $query->select('rent_id')
+                                                        ->from('rented_properties')
+                                                        ->where('status', '<>', 'Cancelled')
+                                                        ->orWhereNull('deleted_at');
                                                 })
                                                 ->take(4 - $propertiesCount)
-                                                ->get();
+                                                ->get(); 
             $remainingProperties = $remainingProperties->shuffle();
             $properties = $properties->concat($remainingProperties);
+            
         }
         $data = ['property' => $property,'properties' => $properties, ];
         return view('Tenants.housing-details', $data);

@@ -87,11 +87,15 @@ class TenantController extends Controller
                       });
             });
         }
-
-        $properties->whereNotIn('id', function ($query) {
-            $query->select('rent_id')->from('rented_properties');
-        });
-        $properties->where('status', 'Yes');
+        $properties->where('status', 'Yes')
+        ->whereNotIn('id', function ($query) {
+            $query->select('rent_id')
+                  ->from('rented_properties')
+                  ->where('status', '<>', 'Cancelled')
+                  ->orWhereNull('deleted_at');
+        })
+        ->take(4)
+        ->get();
 
         $results = $properties->get();
         $data = ['properties' => $results, 'search' => $request,];

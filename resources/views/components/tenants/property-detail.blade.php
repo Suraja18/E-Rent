@@ -3,7 +3,10 @@
         $property_rents = App\Models\RentProperty::latest()
                         ->where('status', 'Yes')
                         ->whereNotIn('id', function ($query) {
-                            $query->select('rent_id')->from('rented_properties');
+                            $query->select('rent_id')
+                                ->from('rented_properties')
+                                ->where('status', '<>', 'Cancelled')
+                                ->orWhereNull('deleted_at');
                         })
                         ->take(4)
                         ->get()
@@ -16,7 +19,10 @@
         $property_rents = App\Models\RentProperty::latest()
                         ->where('status', 'Yes')
                         ->whereNotIn('id', function ($query) {
-                            $query->select('rent_id')->from('rented_properties');
+                            $query->select('rent_id')
+                                ->from('rented_properties')
+                                ->where('status', '<>', 'Cancelled')
+                                ->orWhereNull('deleted_at');
                         })
                         ->get()
                         ->shuffle();
