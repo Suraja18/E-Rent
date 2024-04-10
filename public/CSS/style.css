@@ -7130,7 +7130,7 @@ small{
     background-color: var(--green-100-101);
 }
 .card-badge.success::before{
-    content: "+";
+    content: "";
     font-size: .8rem;
     font-weight: var(--rent-badge-font-weight);
     line-height: 1;
@@ -7162,7 +7162,7 @@ small{
     
 }
 .card-badge.danger::before{
-    content: "−";
+    content: "";
     font-size: var(--rent-badge-font-size);
     font-weight: var(--rent-badge-font-weight);
     line-height: 1;

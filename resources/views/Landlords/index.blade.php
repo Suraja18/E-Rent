@@ -19,9 +19,19 @@
                 </div>
                 <div class="card-dashboard-body">
                     <div class="row">
+                        @php
+                            if($totalPreviousWeekPayment != 0)
+                            {
+                                $percentageChange = ($totalWeekPayment - $totalPreviousWeekPayment) / $totalPreviousWeekPayment * 100;
+                                $percentageChange = min($percentageChange, 100);
+                            }else {
+                                $percentageChange = 100;
+                            }
+                           $class = $percentageChange < 0 ? 'danger' : 'success';
+                        @endphp
                         <div class="colun">
-                            <p class="dashboard-card-head">Rs 47K</p>
-                            <span class="card-badge dashboard-card-badge success">3.5%</span>
+                            <p class="dashboard-card-head">Rs {{ number_format($totalWeekPayment, 2, '.', ',') }}</p>
+                            <span class="card-badge dashboard-card-badge {{ $class }}">{{ number_format($percentageChange, 1) }}%</span>
                         </div>
                         <div class="colun-auto">
                             <div class="e-bar-chart">
@@ -59,9 +69,18 @@
                 </div>
                 <div class="card-dashboard-body">
                     <div class="row">
+                        @php
+                            if ($previousMonthActiveTenants != 0) {
+                                $percentageChangeTenant = ($currentMonthActiveTenants - $previousMonthActiveTenants) / $previousMonthActiveTenants * 100;
+                                $percentageChangeTenant = min($percentageChangeTenant, 100);
+                            } else {
+                                $percentageChangeTenant = 100; 
+                            }
+                            $classTenant = $percentageChangeTenant < 0 ? 'danger' : 'success';
+                        @endphp
                         <div class="colun">
-                            <p class="dashboard-card-head">500</p>
-                            <span class="card-badge dashboard-card-badge danger">1.5%</span>
+                            <p class="dashboard-card-head">{!! $currentMonthActiveTenants !!}</p>
+                            <span class="card-badge dashboard-card-badge {!! $classTenant !!}">{!! $percentageChangeTenant !!}%</span>
                         </div>
                         <div class="colun-auto">
                             <div class="e-bar-chart">
@@ -80,8 +99,7 @@
                 <div class="card-dashboard-body">
                     <div class="row">
                         <div class="colun">
-                            <p class="dashboard-card-head">10</p>
-                            <!-- <span class="card-badge dashboard-card-badge success">15%</span> -->
+                            <p class="dashboard-card-head">{!! $vacantProperties !!}</p>
                         </div>
                         <div class="colun-auto">
                             <div class="e-bar-chart">
@@ -94,6 +112,7 @@
         </div>
     </div>
     <!-- Card End -->
+
     <!-- Plot Start -->
     <div class="row bs-0" role="list">
         <div class="error-rows dash-plot" role="listitem">
@@ -162,7 +181,7 @@
                 <div class="card-dashboard-header card-center ptb-1-2">
                     <h6 class="mb-0">Yearly Tenants Comparison</h6>
                     <div class="p-r">
-                        <a class="status-links view-btn ptb-1-2" href="#">View Details</a>
+                        <a class="status-links view-btn ptb-1-2" href="{!! route('landlord.tenant.active.index') !!}">View Details</a>
                     </div>
                 </div>
                 <div class="card-dashboard-body ptb-1-2">
@@ -177,7 +196,7 @@
                 <div class="card-dashboard-header card-center ptb-1-2">
                     <h6 class="mb-0">Revenue Comparison</h6>
                     <div class="p-r">
-                        <a class="status-links view-btn ptb-1-2" href="#">View Details</a>
+                        <a class="status-links view-btn ptb-1-2" href="{!! route('payment.index') !!}">View Details</a>
                     </div>
                 </div>
                 <div class="card-dashboard-body ptb-1-2">
@@ -200,7 +219,7 @@
             new Chart(ctx, {
             type: "bar",
             data: {
-                labels: ["M", "T", "W", "T", "F", "S", "S"],
+                labels: ["S", "M", "T", "W", "T", "F", "S"],
                 datasets: [{
                 label: "Sales",
                 tension: 0.4,
@@ -209,7 +228,11 @@
                 borderSkipped: false,
                 backgroundColor: "#06b6d4",
                 // borderColor: "#06b6d4",
-                data: [50, 20, 10, 22, 50, 10, 40],
+                data: [
+                    @foreach ($weeklyPayments as $payment)
+                        {{ $payment }},
+                    @endforeach
+                ],
                 maxBarThickness: 6
                 }, ],
             },
@@ -313,7 +336,7 @@
                     datasets: [{
                         label: "Yearly Tenants",
                         backgroundColor: ["#3d3975", "#696694"],
-                        data: [712, 500],
+                        data: [{!! $previousMonthActiveTenants !!}, {!! $currentMonthActiveTenants !!}],
                     }],
                 },
                 options: {
@@ -331,9 +354,8 @@
             });
 
             var ctx3 = document.getElementById("chart-pie-tenant").getContext("2d");
-            var totalProperties = 50;
-            var vacantProperties = 10;
-            var occupiedProperties = totalProperties - vacantProperties;
+            var vacantProperties = {!! $vacantProperties !!};
+            var occupiedProperties = {!! $occupiedProperties !!};
 
             new Chart(ctx3, {
                 type: "doughnut",
@@ -366,13 +388,13 @@
             data: {
                 labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
-                label: "Sales",
+                label: "Tenant",
                 tension: 0.4,
                 borderWidth: 0,
                 borderRadius: 4,
                 borderSkipped: false,
                 backgroundColor: "#06b6d4",
-                data: [50, 90, 80, 75, 20, 10, 40, 50, 20, 75, 78, 99],
+                data: {!! $YearlyTenant !!},
                 maxBarThickness: 6
                 }, ],
             },
@@ -419,31 +441,31 @@
             data: {
                 labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
-                    label: "2024",
+                    label: {!! $currentYear !!},
                     tension: 0.4,
                     borderWidth: 2,
                     pointRadius: 2,
                     backgroundColor: "transparent",
                     borderColor: "#06b6d4",
-                    data: [50000, 25000, 15000, 60000, 20000, 10000, 20000, 60000, 90000, 50000, 40000, 50000], //For  Next Previous Year blue colorr
+                    data: {!! $currentYearRevenue !!}, 
                 },
                 {
-                    label: "2023",
+                    label: {!! $previousYear !!},
                     tension: 0.4,
                     borderWidth: 2,
                     pointRadius: 2,
                     backgroundColor: "transparent",
                     borderColor: "#00c389",
-                    data: [25000, 25000, 25000, 30000, 40000, 20000, 30000, 30000, 30000, 50000, 50000, 50000], //For Previous Year Red Color
+                    data: {!! $previousYearRevenue !!}, 
                 },
                 {
-                    label: "2022",
+                    label: {!! $previousPreviousYear !!},
                     tension: 0.4,
                     borderWidth: 2,
                     pointRadius: 2,
                     backgroundColor: "transparent",
                     borderColor: "#eb3d3d",
-                    data: [10000, 5000, 5000, 6000, 10000, 10000, 10000, 6000, 9000, 5000, 10000, 20000], //For Current Year Yellow Color
+                    data: {!! $previousPreviousYearRevenue !!}, 
                 },
              ],
             },
