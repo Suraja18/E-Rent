@@ -37,9 +37,10 @@ Route::middleware(['landlord', 'session.logout'])->group(function () {
             Route::post('/get-buildings', [PaymentController::class, 'getBuildings'])->name('get.buildings');
             Route::post('/get-rented-properties', [PaymentController::class, 'getRentedProperties'])->name('get.rented_properties');
 
-            Route::get('/active-tenants', [TenantController::class, 'activeIndex'])->name('landlord.tenant.active.index');
+            Route::get('/active-tenants', [TenantController::class, 'activeIndex'])->name('landlord.tenant.active.index'); 
             Route::get('/already-rented', [TenantController::class, 'alreadyRented'])->name('landlord.property.rent.index');
             Route::get('/{id}/already-rented/{amt}/notify', [TenantController::class, 'notifyRented'])->name('landlord.property.rent.notify');
+            Route::get('/deposited-tenants', [TenantController::class, 'depositTenants'])->name('landlord.tenant.deposit');
             Route::get('/vacant-property', [TenantController::class, 'vacantProperty'])->name('landlord.property.rent.vacant');
 
             Route::get('/{id}/email',[EmailController::class, 'sendEmailByID'])->name('landlord.email.send.id');

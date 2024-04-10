@@ -30,6 +30,21 @@ class TenantController extends Controller
         return view('Landlords.Tenants.Active.index', $data);
     }
 
+    public function depositTenants()
+    {
+        $landlordId = Auth::id();
+        $rentedProperties = RentedProperty::withTrashed()->whereHas('rentProperty', function ($query) use ($landlordId) {
+            $query->where('landlord_id', $landlordId);
+        })->whereHas('payments', function ($query) {
+            $query->where('payment_type', 'Deposit');
+        })->get();
+        $data = [
+            'rentedProperties' => $rentedProperties,
+        ];
+        return view('Landlords.Tenants.Deposited.index', $data);
+        
+    }
+
     public function alreadyRented()
     {
         $landlordId = Auth::id();

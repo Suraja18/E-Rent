@@ -16,6 +16,8 @@
             <tr>
                 <th>S.N</th>
                 <th>Building</th>
+                <th>Tenant</th>
+                <th>Phone Number</th>
                 <th>Monthly Rent</th>
                 <th>Other Charges</th>
                 <th>Last Payment Date</th>
@@ -28,9 +30,11 @@
                 <tr>
                     <td>{!! $loop->iteration !!}</td>
                     <td data-name="Building" style="flex-direction: column">
-                        {!! $property->rentProperty->building->name !!}
+                        {!! $property->rentProperty->building->name !!}<br />
                         (<i>{!! $property->rentProperty->rent_name !!}</i>)
                     </td>
+                    <td data-name="Phone Number">{!! $property->tenant->first_name !!} {!! $property->tenant->last_name !!}</td>
+                    <td data-name="Phone Number">{!! $property->tenant->phone_number !!}</td>
                     <td data-name="Monthly Rent">{!! $property->rentProperty->monthly_house_rent - $property->discount !!}</td>
                     <td data-name="Other Charges">{!! $property->rentProperty->electric_charge + $property->rentProperty->water_charge + $property->rentProperty->garbage_charge !!}</td>
                     @php
