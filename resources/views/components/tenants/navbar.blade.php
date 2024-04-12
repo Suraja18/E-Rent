@@ -362,7 +362,7 @@
                                 </div>
                                 <div class="navbar-header-tag" onclick="window.location.href='{{ route('tenant.maintenanceRequest') }}';">
                                     <div
-                                        class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.maintenanceRequest') active @endif">Maintainance Request</div>
+                                        class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.maintenanceRequest' || Route::currentRouteName() == 'tenant.maintenance.*' ) active @endif">Maintainance Request</div>
                                     <div
                                         class="text--xxs nav-sub">Manage maintenance requests here.</div>
                                 </div>

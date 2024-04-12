@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Tenant\HousingController;
+use App\Http\Controllers\Tenant\MaintenanceController;
 use App\Http\Controllers\Tenant\PaymentController;
 use App\Http\Controllers\Tenant\RentController;
 use App\Http\Controllers\Tenant\TenantController;
@@ -53,6 +54,10 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::get('/property/{payment}/payment/history', [PaymentController::class, 'show'])->name('tenant.payment_history.show'); 
             Route::delete('/property/{payment}/payment/history/delete', [PaymentController::class, 'destroy'])->name('tenant.payment.destroy'); 
             Route::get('/property/payment/pdf/{id}', [PDFController::class, 'generateInvoicePDF'])->name('tenant.payment.pdf.download');
+            Route::post('/add/maintenance/form', [MaintenanceController::class, 'store'])->name('tenant.maintenance.store');
+
+
+            Route::get('/add/maintenance', [MaintenanceController::class, 'create'])->name('tenant.maintenance.add');
         });
     });
 });

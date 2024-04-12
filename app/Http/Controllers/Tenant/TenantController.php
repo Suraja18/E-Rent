@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\Forums;
+use App\Models\RentPayment;
 use App\Models\RentProperty;
 use App\Models\User;
 use Illuminate\Http\Request;

@@ -385,21 +385,18 @@ document.addEventListener("DOMContentLoaded", function () {
         categoryRadios.forEach(function (radio) {
             const secondCategoryLists = document.querySelector('.wizard-steps.is-second');
             const thirdCategoryLists = document.querySelector('.wizard-steps.is-third');
-            const lastCategoryLists = document.querySelector('.wizard-steps.is-fourth');
             const wizardStepImage = document.getElementById('wizardStepImage');
             const wizardStepDescription = document.getElementById('wizardStepDescription');
             const wizardStepAddress = document.getElementById('wizardStepAddress');
             const wizardStepPiority = document.getElementById('wizardStepPiority');
             secondCategoryLists.classList.remove('active');
             thirdCategoryLists.classList.remove('active');
-            lastCategoryLists.classList.remove('active');
             wizardStepImage.classList.remove('active');
             wizardStepDescription.classList.remove('active');
             wizardStepAddress.classList.remove('active');
             wizardStepPiority.classList.remove('active');
             const subFormCategoryLists = document.querySelectorAll('.sub-form-category-list.is-sec');
             const subFormSubCategoryLists = document.querySelectorAll('.sub-form-category-list.is-third');
-            const subFormLastCategoryLists = document.querySelectorAll('.sub-form-category-list.is-ls');
             radio.addEventListener('change', function () {
                 const selectedCategory = this.id.replace('category', '').toLowerCase();
 
@@ -411,7 +408,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         const subcategoryRadios = document.querySelectorAll('input[type="radio"][name^="116"]');
                         subcategoryRadios.forEach(function (radio1) {
                             thirdCategoryLists.classList.remove('active');
-                            lastCategoryLists.classList.remove('active');
                             wizardStepImage.classList.remove('active');
                             wizardStepDescription.classList.remove('active');
                             wizardStepAddress.classList.remove('active');
@@ -425,49 +421,30 @@ document.addEventListener("DOMContentLoaded", function () {
                                         thirdCategoryLists.scrollIntoView({ behavior: "smooth" });
                                         const thirdCategoryRadios = document.querySelectorAll('input[type="radio"][name^="117"]');
                                         thirdCategoryRadios.forEach(function (radio2) {
-                                            lastCategoryLists.classList.remove('active');
                                             wizardStepImage.classList.remove('active');
                                             wizardStepDescription.classList.remove('active');
                                             wizardStepAddress.classList.remove('active');
                                             wizardStepPiority.classList.remove('active');
                                             radio2.addEventListener('change', function () {
-                                                const selectedThirdCategory = this.id.replace('category', '').toLowerCase();
-                                                subFormLastCategoryLists.forEach(function (subForm2) {
-                                                    if (subForm2.classList.contains(`is-${selectedThirdCategory}`)) {
-                                                        lastCategoryLists.classList.add('active');;
-                                                        subForm2.classList.add('active');
-                                                        lastCategoryLists.scrollIntoView({ behavior: "smooth" });
-                                                        const forthCategoryRadios = document.querySelectorAll('input[type="radio"][name^="lastdetail"]');
-                                                        forthCategoryRadios.forEach(function (radio3) {
-                                                            wizardStepDescription.classList.remove('active');
-                                                            wizardStepAddress.classList.remove('active');
-                                                            wizardStepPiority.classList.remove('active');
-                                                            radio3.addEventListener('change', function () {
-                                                                wizardStepImage.classList.add('active');
-                                                                wizardStepImage.scrollIntoView({ behavior: "smooth" });
-                                                                const nextBtnForReq = document.getElementById("nextBtnForReq");
-                                                                nextBtnForReq.addEventListener('click', function () {
-                                                                    wizardStepDescription.classList.add('active');
-                                                                    wizardStepDescription.scrollIntoView({ behavior: "smooth" });
-                                                                    wizardStepAddress.classList.remove('active');
-                                                                    wizardStepPiority.classList.remove('active');
-                                                                    const continueBtnForReq = document.getElementById("continueBtnForReq");
-                                                                    continueBtnForReq.addEventListener('click', function () {
-                                                                        wizardStepAddress.classList.add('active');
-                                                                        wizardStepAddress.scrollIntoView({ behavior: "smooth" });
-                                                                        wizardStepPiority.classList.remove('active');
-                                                                        const nextBtnForLocation = document.getElementById("nextBtnForLocation");
-                                                                        nextBtnForLocation.addEventListener('click', function () {
-                                                                            wizardStepPiority.classList.add('active');
-                                                                            wizardStepPiority.scrollIntoView({ behavior: "smooth" });
-                                                                        });
-                                                                    });
-                                                                });
-                                                            });
+                                                wizardStepImage.classList.add('active');
+                                                wizardStepImage.scrollIntoView({ behavior: "smooth" });
+                                                const nextBtnForReq = document.getElementById("nextBtnForReq");
+                                                nextBtnForReq.addEventListener('click', function () {
+                                                    wizardStepDescription.classList.add('active');
+                                                    wizardStepDescription.scrollIntoView({ behavior: "smooth" });
+                                                    wizardStepAddress.classList.remove('active');
+                                                    wizardStepPiority.classList.remove('active');
+                                                    const continueBtnForReq = document.getElementById("continueBtnForReq");
+                                                    continueBtnForReq.addEventListener('click', function () {
+                                                        wizardStepAddress.classList.add('active');
+                                                        wizardStepAddress.scrollIntoView({ behavior: "smooth" });
+                                                        wizardStepPiority.classList.remove('active');
+                                                        const nextBtnForLocation = document.getElementById("nextBtnForLocation");
+                                                        nextBtnForLocation.addEventListener('click', function () {
+                                                            wizardStepPiority.classList.add('active');
+                                                            wizardStepPiority.scrollIntoView({ behavior: "smooth" });
                                                         });
-                                                    } else {
-                                                        subForm2.classList.remove('active');
-                                                    }
+                                                    });
                                                 });
                                             });
                                         });

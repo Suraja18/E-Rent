@@ -30,7 +30,7 @@
                                     <p>0 Total</p>
                                 </div>
                                 <div class="header-right-side-wrap">
-                                    <a href="newrequest.html" class="is-button-for-edit-profile add-icons">
+                                    <a href="{!! route('tenant.maintenance.add') !!}" class="is-button-for-edit-profile add-icons">
                                         Add request 
                                     </a>
                                 </div>
