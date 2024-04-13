@@ -111,8 +111,18 @@ class MaintenanceController extends Controller
             Alert::warning('Maintenance Request not Found');
             return redirect()->route('tenant.maintenanceRequest');
         }
-        $mRequest->tenantVisible = "No";
-        $mRequest->update();
+        if($mRequest->landlordVisible == "Yes")
+        {
+            $mRequest->tenantVisible = "No";
+            $mRequest->update();
+        }else{
+            File::delete($mRequest->image);
+            if($mRequest->video)
+            {
+                File::delete($mRequest->video);
+            }
+            $mRequest->delete();
+        }
         Alert::success('Maintenance Request Deleted Successfully', 'Thank You!');
         return redirect()->route('tenant.maintenanceRequest');
     }

@@ -106,7 +106,13 @@
                                             </td>
                                             <td data-name="Building">{!! $rent->rentedProperty->rentproperty->building->name !!}/{!! $rent->rentedProperty->rentproperty->rent_name !!}</td>
                                             <td data-name="Title">{!! $rent->title !!}</td>
-                                            <td data-name="Description">{!! $rent->description !!}</td>
+                                            <td data-name="Description">
+                                                @if(strlen($rent->description) > 70)
+                                                    {!! substr($rent->description, 0, 70) !!}...
+                                                @else
+                                                    {!! $rent->description !!}
+                                                @endif
+                                            </td>
                                             <td data-name="Initiated Date">{!! $rent->date !!}</td>
                                             <td data-name="Availability Time">{!! $rent->time1 !!}</td>
                                             <td data-name="Status">

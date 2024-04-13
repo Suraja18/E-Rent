@@ -7,6 +7,7 @@ use App\Http\Controllers\Landlord\EmailController;
 use App\Http\Controllers\Landlord\ForumController;
 use App\Http\Controllers\Landlord\HomeSellController;
 use App\Http\Controllers\Landlord\LandlordController;
+use App\Http\Controllers\Landlord\MaintenanceController;
 use App\Http\Controllers\Landlord\PaymentController;
 use App\Http\Controllers\Landlord\RentController;
 use App\Http\Controllers\Landlord\TenantController;
@@ -42,7 +43,13 @@ Route::middleware(['landlord', 'session.logout'])->group(function () {
             Route::get('/{id}/already-rented/{amt}/notify', [TenantController::class, 'notifyRented'])->name('landlord.property.rent.notify');
             Route::get('/deposited-tenants', [TenantController::class, 'depositTenants'])->name('landlord.tenant.deposit');
             Route::get('/vacant-property', [TenantController::class, 'vacantProperty'])->name('landlord.property.rent.vacant');
-
+            Route::get('/request/maintenance', [MaintenanceController::class, 'index'])->name('landlord.maintenance.index');
+            Route::get('/complete/request/maintenance', [MaintenanceController::class, 'complete'])->name('landlord.maintenance.complete');
+            Route::get('/view/{id}/maintenance', [MaintenanceController::class, 'view'])->name('landlord.maintenance.view');
+            Route::get('/progress/{id}/maintenance', [MaintenanceController::class, 'progress'])->name('landlord.maintenance.progress');
+            Route::get('/completed/{id}/maintenance', [MaintenanceController::class, 'completed'])->name('landlord.maintenance.completed');
+            Route::get('/cancel/{id}/maintenance', [MaintenanceController::class, 'cancel'])->name('landlord.maintenance.cancel');
+            Route::get('/delete/{id}/maintenance', [MaintenanceController::class, 'destroy'])->name('landlord.maintenance.destroy');
             Route::get('/{id}/email',[EmailController::class, 'sendEmailByID'])->name('landlord.email.send.id');
             Route::get('/email',[EmailController::class, 'sendEmail'])->name('landlord.email.send');
             Route::post('/email/success',[EmailController::class, 'successEmail'])->name('landlord.email.success');
