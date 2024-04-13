@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Landlord;
 
 use App\Http\Controllers\Controller;
 use App\Models\MaintenanceRequest;
+use App\Models\RentedProperty;
+use App\Models\RentProperty;
+use App\Notifications\MaintenanceNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +42,7 @@ class MaintenanceController extends Controller
     }
     public function progress(string $id)
     {
-        $mRequest = MaintenanceRequest::find($id)->first();
+        $mRequest = MaintenanceRequest::find($id);
         if(!$mRequest)
         {
             Alert::warning('Maintenance Request not Found');
@@ -52,13 +55,17 @@ class MaintenanceController extends Controller
             return redirect()->route('landlord.maintenance.index');
         }
         $mRequest->status = "In Progress";
+        $rent = RentedProperty::where('id',  $mRequest->rented_id)->first();
+        $rent->tenant->notify(new MaintenanceNotification([
+            'maintenanceMessage' => 'Your request for '. $rent->rentProperty->building->name . ' is in progress.' ,
+        ]));
         $mRequest->update();
         Alert::success('Maintenance Request have been updated to progress', 'Thank You!');
         return redirect()->route('landlord.maintenance.index');
     }
     public function completed(string $id)
     {
-        $mRequest = MaintenanceRequest::find($id)->first();
+        $mRequest = MaintenanceRequest::find($id);
         if(!$mRequest)
         {
             Alert::warning('Maintenance Request not Found');
@@ -71,13 +78,17 @@ class MaintenanceController extends Controller
             return redirect()->route('landlord.maintenance.index');
         }
         $mRequest->status = "Completed";
+        $rent = RentedProperty::where('id',  $mRequest->rented_id)->first();
+        $rent->tenant->notify(new MaintenanceNotification([
+            'maintenanceMessage' => 'Your request for '. $rent->rentProperty->building->name . ' is Completed.' ,
+        ]));
         $mRequest->update();
         Alert::success('Maintenance Request have been updated to Completed', 'Thank You!');
         return redirect()->route('landlord.maintenance.index');
     }
     public function cancel(string $id)
     {
-        $mRequest = MaintenanceRequest::find($id)->first();
+        $mRequest = MaintenanceRequest::find($id);
         if(!$mRequest)
         {
             Alert::warning('Maintenance Request not Found');
@@ -90,13 +101,17 @@ class MaintenanceController extends Controller
             return redirect()->route('landlord.maintenance.index');
         }
         $mRequest->status = "Cancelled";
+        $rent = RentedProperty::where('id',  $mRequest->rented_id)->first();
+        $rent->tenant->notify(new MaintenanceNotification([
+            'maintenanceMessage' => 'Your request for '. $rent->rentProperty->building->name . ' is Cancelled.' ,
+        ]));
         $mRequest->update();
         Alert::success('Maintenance Request have been cancelled', 'Thank You!');
         return redirect()->route('landlord.maintenance.index');
     }
     public function destroy(string $id)
     {
-        $mRequest = MaintenanceRequest::find($id)->first();
+        $mRequest = MaintenanceRequest::find($id);
         if(!$mRequest)
         {
             Alert::warning('Maintenance Request not Found');
@@ -125,7 +140,7 @@ class MaintenanceController extends Controller
     }
     public function view(string $id)
     {
-        $mRequest = MaintenanceRequest::find($id)->first();
+        $mRequest = MaintenanceRequest::find($id);
         if(!$mRequest)
         {
             Alert::warning('Maintenance Request not Found');

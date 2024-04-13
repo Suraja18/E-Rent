@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Models\MaintenanceRequest;
 use App\Models\RentedProperty;
+use App\Notifications\MaintenanceNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
@@ -57,13 +58,17 @@ class MaintenanceController extends Controller
             }
             $mRequest->piority = $request->piority;
             $mRequest->save();
+            $rent = RentedProperty::where('id', $request->rented_id)->first();
+            $rent->rentProperty->landlord->notify(new MaintenanceNotification([
+                'maintenanceMessage' => 'New Maintenance Request from Building '. $rent->rentProperty->building->name . '.' ,
+            ]));
             Alert::success('Your Maintenance Request have been submitted', 'Thank You!');
             return redirect()->route('tenant.maintenanceRequest');
         }
     }
     public function view(string $id)
     {
-        $mRequest = MaintenanceRequest::find($id)->first();
+        $mRequest = MaintenanceRequest::find($id);
         if(!$mRequest)
         {
             Alert::warning('Maintenance Request not Found');
@@ -78,9 +83,9 @@ class MaintenanceController extends Controller
         $data = ['requests' => $mRequest,];
         return view('Tenants.Maintainance.view', $data);
     }
-    public function cancel(string $id)
+    public function cancel(string $id) 
     {
-        $mRequest = MaintenanceRequest::find($id)->first();
+        $mRequest = MaintenanceRequest::find($id);
         if(!$mRequest)
         {
             Alert::warning('Maintenance Request not Found');
@@ -99,7 +104,7 @@ class MaintenanceController extends Controller
     }
     public function destroy(string $id)
     {
-        $mRequest = MaintenanceRequest::find($id)->first();
+        $mRequest = MaintenanceRequest::find($id);
         if(!$mRequest)
         {
             Alert::warning('Maintenance Request not Found');

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->time('time1');
             $table->time('time2')->nullable();
             $table->longText('image');
-            $table->longText('video');
+            $table->longText('video')->nullable();
             $table->enum('piority', ['Low', 'Normal', 'High', 'Critical']);
             $table->enum('status', ['New', 'In Progress', 'Cancelled', 'Completed'])->default('New');
             $table->enum('tenantVisible', ['Yes', 'No'])->default('Yes');

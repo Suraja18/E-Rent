@@ -47,14 +47,18 @@
                                             @if (Auth::check())
                                                 @foreach (Auth::user()->unreadNotifications as $notification)
                                                     <li class="mb-5 p-r">
-                                                        <a href="@if(isset($notification->data['tenantMessage'])) {!!  route('approve.store' ) !!} @endif" class="notification-tags" data-notification-id="{{ $notification->id }}">
+                                                        <a href="@if(isset($notification->data['tenantMessage'])) {!!  route('approve.store' ) !!} @elseif(isset($notification->data['maintenanceMessage'])) {!! route('landlord.maintenance.index') !!} @endif" class="notification-tags" data-notification-id="{{ $notification->id }}">
                                                             <div class="d-flex">
                                                                 <div class="margin-tb-auto">
                                                                     <img src="{{ asset('Images/Original/Owners.png') }}" alt="Icons" class="notification-image-avatar">
                                                                 </div>
                                                                 <div class="notification-contents">
                                                                     <h6 class="uppersection-notify">
-                                                                        {!! $notification->data['tenantMessage'] !!}
+                                                                        @if(isset($notification->data['tenantMessage']))
+                                                                            {!! $notification->data['tenantMessage'] !!}
+                                                                        @elseif(isset($notification->data['maintenanceMessage']))
+                                                                            {!! $notification->data['maintenanceMessage'] !!}
+                                                                        @endif
                                                                     </h6>
                                                                     <p class="lowersection-pa">
                                                                         <img src="{{ asset('Images/Original/Icons/clock.svg') }}" alt="clock">
