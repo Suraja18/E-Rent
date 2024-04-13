@@ -2,7 +2,7 @@
     <div class="tables-notify is-bg-blue-100 top">
         <div class="tables-notify-container">
             <div>
-                <b>@if($heading){!! $heading !!}@endif</b>
+                <b>@if(isset($heading)){!! $heading !!}@endif</b>
             </div>
             @if (isset($links))
             <a href="{!! $links !!}" class="sidebar-link btn-add-new">

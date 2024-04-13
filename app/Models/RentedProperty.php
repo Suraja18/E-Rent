@@ -29,4 +29,8 @@ class RentedProperty extends Model
     {
         return $this->hasMany(RentPayment::class, 'rented_id');
     }
+    public function maintenanceRequests()
+    {
+        return $this->hasMany(MaintenanceRequest::class, 'rented_id');
+    }
 }

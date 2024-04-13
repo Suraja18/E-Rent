@@ -177,7 +177,7 @@
                                                             $status = $remainingAmount > 0 ? 'Unpaid' : 'Paid';
                                                         }
                                                     @endphp
-                                                    <div class="card-view-btn">
+                                                    <div class="card-view-btn unpaid">
                                                         
                                                             @if($property_rent->status == "Approved" || $property_rent->status == "New" )
                                                                 <a class="status-links view-btn dangers">Unpaid</a>
@@ -262,5 +262,6 @@
     <!-- End Banners -->
 
     <x-tenants.footer />
+    
 </x-users.main.app-layout>
     

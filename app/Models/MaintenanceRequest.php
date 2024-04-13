@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class MaintenanceRequest extends Model
 {
     use HasFactory;
+    public function rentedProperty()
+    {
+        return $this->belongsTo(RentedProperty::class, 'rented_id');
+    }
+
 }

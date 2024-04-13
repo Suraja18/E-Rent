@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\Forums;
+use App\Models\MaintenanceRequest;
 use App\Models\RentPayment;
 use App\Models\RentProperty;
 use App\Models\User;
@@ -39,7 +40,15 @@ class TenantController extends Controller
     }
     public function maintenanceRequest()
     {
-        return view('Tenants.maintenance-request');
+        $tenantId = Auth::id();
+        $maintenanceRequests = MaintenanceRequest::select('maintenance_requests.*')
+                            ->join('rented_properties', 'maintenance_requests.rented_id', '=', 'rented_properties.id')
+                            ->where('rented_properties.tenant_id', $tenantId)
+                            ->where('maintenance_requests.tenantVisible', 'Yes')
+                            ->get();
+        $count = $maintenanceRequests->count();
+        $data = ['mRequest' => $maintenanceRequests, 'count' => $count, ];
+        return view('Tenants.maintenance-request', $data);
     }
     public function landlordForum()
     {

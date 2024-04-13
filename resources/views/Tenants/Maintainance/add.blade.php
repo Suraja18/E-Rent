@@ -77,7 +77,7 @@
                                                                                 <div class="p-r">
                                                                                     <div class="file-uploads">
                                                                                         <div class="image-file-upload">
-                                                                                            <input type="file" name="MaintainanceRequestImage" id="MaintainanceRequestImage" class="file-upload" required>
+                                                                                            <input type="file" name="MaintainanceRequestImage" id="MaintainanceRequestImage" class="file-upload" accept="image/*">
                                                                                             <label for="MaintainanceRequestImage" class="main-image-req">
                                                                                                 <img src="{!! asset('Images/Original/Request/PlusCircle.svg') !!}" alt="Plus" class="image-upload-file">
                                                                                                 <h3 class="upload-file-title">Attachments</h3>
@@ -94,7 +94,7 @@
                                                                                 <div class="p-r">
                                                                                     <div class="file-uploads">
                                                                                         <div class="image-file-upload">
-                                                                                            <input type="file" name="MaintainanceRequestVideo" id="MaintainanceRequestVideo" class="file-upload">
+                                                                                            <input type="file" name="MaintainanceRequestVideo" id="MaintainanceRequestVideo" class="file-upload" accept="video/*">
                                                                                             <label for="MaintainanceRequestVideo" class="main-image-req">
                                                                                                 <img src="{!! asset('Images/Original/Request/VideoIcon.svg') !!}" alt="Plus" class="image-upload-file">
                                                                                                 <h3 class="upload-file-title">Videos</h3>
@@ -108,6 +108,12 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                @error('MaintainanceRequestImage')
+                                                                    <p class="error-message">{{ $message }}</p>
+                                                                @enderror
+                                                                @error('MaintainanceRequestVideo')
+                                                                    <p class="error-message">{{ $message }}</p>
+                                                                @enderror
                                                             </div>
                                                             <div class="wizard-next-btn">
                                                                 <button type="button" class="nextBtnForReq btn-Primary" id="nextBtnForReq">Next</button>
@@ -118,7 +124,7 @@
                                                                 <div class="wizard-titles">
                                                                     <div class="text-center">
                                                                         <h2 class="form-wizard-title text-center">Describe the issue</h2>
-                                                                        <p class="form-wizard-description text-center">Provide the issue details.</p>
+                                                                        <p class="form-wizard-description text-center">Provide the issue details</p>
                                                                     </div>
                                                                 </div>
                                                                 <div>
@@ -126,8 +132,21 @@
                                                                         <div class="input-upper-wrappers">
                                                                             <span class="input-small-head">Building</span>
                                                                             <span class="input-small-wrap">
-                                                                                <input type="text" maxlength="150" name="building" required="required" placeholder="Building" class="input-prb-form">
+                                                                                <select name="rented_id" class="input-prb-form" required>
+                                                                                    <option value="">Select Property...</option>
+                                                                                    @foreach ($properties as $property)
+                                                                                        <option value="{!! $property->id !!}">
+                                                                                            {!! $property->rentProperty->building->name !!}
+                                                                                            @if(isset($property->rentProperty->rent_name))
+                                                                                                {!! "/ " . $property->rentProperty->rent_name !!}
+                                                                                            @endif
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                </select>
                                                                             </span>
+                                                                            @error('rented_id')
+                                                                                <p class="error-message">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                     </div>
                                                                     <div class="upper-input-container p-r input-upper-wrapper">
@@ -136,6 +155,9 @@
                                                                             <span class="input-small-wrap">
                                                                                 <input type="text" maxlength="150" name="title" required="required" placeholder="problem" class="input-prb-form">
                                                                             </span>
+                                                                            @error('title')
+                                                                                <p class="error-message">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
                                                                     </div>
                                                                     <div class="upper-input-container p-r input-upper-wrapper">
@@ -144,8 +166,11 @@
                                                                             <span class="input-small-wrap">
                                                                                 <textarea required="required" name="description" cols="30" rows="10" class="input-prb-form description"></textarea>
                                                                             </span>
+                                                                            @error('description')
+                                                                                <p class="error-message">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
-                                                                    </div>
+                                                                    </div>   
                                                                 </div>
                                                             </div>
                                                             <div class="wizard-next-btn">
@@ -156,19 +181,44 @@
                                                             <div>
                                                                 <div class="wizard-titles">
                                                                     <div class="text-center">
-                                                                        <h2 class="form-wizard-title text-center">Location information</h2>
-                                                                        <p class="form-wizard-description text-center">Fill in the location information of the property where the request should be done.</p>
+                                                                        <h2 class="form-wizard-title text-center">Request Availability</h2>
+                                                                        <p class="form-wizard-description text-center">Provide the maintenance availability details</p>
                                                                     </div>
                                                                 </div>
                                                                 <div>
                                                                     <div class="upper-input-container p-r input-upper-wrapper">
                                                                         <div class="input-upper-wrappers">
-                                                                            <span class="input-small-head">Address</span>
+                                                                            <span class="input-small-head">Initiated Date</span>
                                                                             <span class="input-small-wrap">
-                                                                                <input type="text" maxlength="150" name="Address" required="required" placeholder="Enter Address" class="input-prb-form">
+                                                                                <input type="date" maxlength="150" name="date" required="required" placeholder="Date" class="input-prb-form">
                                                                             </span>
+                                                                            @error('date')
+                                                                                <p class="error-message">{{ $message }}</p>
+                                                                            @enderror
                                                                         </div>
-                                                                    </div>          
+                                                                    </div>
+                                                                    <div class="upper-input-container p-r input-upper-wrapper">
+                                                                        <div class="input-upper-wrappers">
+                                                                            <span class="input-small-head">Availability Time 1 </span>
+                                                                            <span class="input-small-wrap">
+                                                                                <input type="time" maxlength="150" name="time1" required="required" placeholder="time" class="input-prb-form">
+                                                                            </span>
+                                                                            @error('time1')
+                                                                                <p class="error-message">{{ $message }}</p>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>   
+                                                                    <div class="upper-input-container p-r input-upper-wrapper">
+                                                                        <div class="input-upper-wrappers">
+                                                                            <span class="input-small-head">Availability Time 2 </span>
+                                                                            <span class="input-small-wrap">
+                                                                                <input type="time" maxlength="150" name="time2" placeholder="time" class="input-prb-form">
+                                                                            </span>
+                                                                            @error('time2')
+                                                                                <p class="error-message">{{ $message }}</p>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>      
                                                                 </div>
                                                                 <div class="wizard-next-btn">
                                                                     <button type="button" class="nextBtnForReq btn-Primary" id="nextBtnForLocation" >Next</button>
@@ -224,6 +274,9 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+                                                                        @error('piority')
+                                                                            <p class="error-message">{{ $message }}</p>
+                                                                        @enderror
                                                                     </div>
                                                                 </div>
                                                             </div>

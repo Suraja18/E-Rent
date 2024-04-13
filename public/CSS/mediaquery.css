@@ -774,6 +774,10 @@
     .is-tenant-banners.dis-block{
         display: block !important;
     }
+    .video-control {
+        height: 220px;
+        margin-left: -120px;
+    }
 }
 
 @media screen and (min-width: 992px){
@@ -994,7 +998,9 @@
     .ads-header.for-mobile{
         text-align: center;
     }
-
+    .is-header-req.mb-20px.mb{
+        padding-left: 0;
+    }
     .ads-header h2{
         text-align: center;
         font-size: 35px;
@@ -1270,11 +1276,15 @@
         grid-template-areas:
             "avatar header-left header-right"
             "title title title"
-            "description description description"
+            "description description footer"
             "extra-content extra-content additional-info";
         grid-template-columns: auto auto 1fr;
         padding: 15px;
     }   
+    .maintainance-card .card-view-btn.unpaid *{
+        position: relative;
+        font-size: 1rem;
+    }
     .maintainance-card .card-view-btn *{
         position: absolute;
         top: 0;
@@ -1746,6 +1756,10 @@
     .slider-small-img{
         height: 65px;
     }
+    .video-control {
+        height: 180px;
+        margin-left: 0;
+    }
 }
 
 @media screen and (min-width: 768px)  {
@@ -1794,7 +1808,7 @@
     .info-grid-list-item{
         display: grid;
         grid-column-gap: 10px;
-        grid-template-columns: 160px 1fr;
+        grid-template-columns: 170px 1fr;
     }
     .use-case-wrap.wrap-75{
         flex-basis: 75%;
@@ -2049,6 +2063,9 @@
     .m-button.btn-wishlist svg,
     .m-button.btn-carts svg{
         height: .8rem;
+    }
+    .video-control {
+        height: 150px;
     }
     
 }

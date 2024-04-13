@@ -4756,6 +4756,13 @@ input:checked + .toggle-btn::before{
     font-size: 1rem;
     color: var(--blue-100);
 }
+.card-status-checked.card-new{
+    background-color: var(--neutral--navy-400);
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 1rem;
+    color: var(--core-navy-800);
+}
 .card-status-checked.card-resolved{
     background-color: var(--green-100-101);
     padding: 6px 12px;
@@ -5952,7 +5959,7 @@ small{
     max-width: 100%;
     overflow: hidden;
 }
-.address-btns{
+.address-btns{ 
     border: 0;
     color: var(--neutral--navy-800);
     background-color: #f0f4f8;
@@ -5985,7 +5992,7 @@ small{
     display:inline-block;
 }
 .address-btns span{
-    max-width: 235px;
+    max-width: 100%;
     margin: 0;
     overflow: hidden;
     font-weight: 400;
@@ -6027,7 +6034,11 @@ small{
     display: grid;
 }
 .info-grid-list-item{
-    font-size: 1.125rem;
+    font-size: 1.12rem;
+}
+.video-control{
+    height: 250px;
+    margin-left: -200px;
 }
 .info-grid-items{
     margin: 0;

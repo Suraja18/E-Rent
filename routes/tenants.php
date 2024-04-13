@@ -58,6 +58,11 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
 
 
             Route::get('/add/maintenance', [MaintenanceController::class, 'create'])->name('tenant.maintenance.add');
+            Route::get('/view/{id}/maintenance', [MaintenanceController::class, 'view'])->name('tenant.maintenance.view');
+            Route::get('/cancel/{id}/maintenance', [MaintenanceController::class, 'cancel'])->name('tenant.maintenance.cancel');
+            Route::get('/delete/{id}/maintenance', [MaintenanceController::class, 'destroy'])->name('tenant.maintenance.destroy');
+            Route::post('/search/maintenance', [MaintenanceController::class, 'search'])->name('tenant.maintenance.search');
+
         });
     });
 });
