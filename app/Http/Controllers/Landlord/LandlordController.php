@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Landlord;
 
 use App\Http\Controllers\Controller;
 use App\Models\Building;
+use App\Models\MaintenanceRequest;
 use App\Models\RentedProperty;
 use App\Models\RentPayment;
 use App\Models\RentProperty;
@@ -154,6 +155,19 @@ class LandlordController extends Controller
         $previousPreviousYearRevenueJSON = json_encode($previousPreviousYearRevenue);
         // End Revenue Comparison
 
+        // Start Maintenance Request
+        $maintenanceRequests = MaintenanceRequest::whereHas('rentedProperty', function ($query) use ($landlordId) {
+            $query->whereHas('rentProperty', function ($query) use ($landlordId) {
+                $query->where('landlord_id', $landlordId);
+            });
+        })->get();
+        $monthlyData = [];
+        foreach ($maintenanceRequests as $request) {
+            $month = date('n', strtotime($request->date));
+            $monthlyData[$month] = isset($monthlyData[$month]) ? $monthlyData[$month] + 1 : 1;
+        }
+        // End Maintenance Request
+
         $data = [
             'weeklyPayments' => $currentAggregatedPayments,
             'totalWeekPayment' => $totalWeekPayment,
@@ -169,6 +183,7 @@ class LandlordController extends Controller
             'previousYear' => $currentYear - 1,
             'previousPreviousYearRevenue' => $previousPreviousYearRevenueJSON,
             'previousPreviousYear' => $currentYear - 2,
+            'monthlyData' => $monthlyData,
         ];
         // return $data;
         return view('Landlords.index', $data);

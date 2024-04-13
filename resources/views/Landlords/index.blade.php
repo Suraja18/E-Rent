@@ -50,8 +50,17 @@
                 <div class="card-dashboard-body">
                     <div class="row">
                         <div class="colun">
-                            <p class="dashboard-card-head">2</p>
-                            <span class="card-badge dashboard-card-badge danger">1.6%</span>
+                            @php
+                                $currentMonth = date('n');
+                                $previousMonth = ($currentMonth - 1 > 0) ? $currentMonth - 1 : 12;
+                                $totalRequestsThisMonth = isset($monthlyData[$currentMonth]) ? $monthlyData[$currentMonth] : 0;
+                                $totalRequestsPreviousMonth = isset($monthlyData[$previousMonth]) ? $monthlyData[$previousMonth] : 0;
+                                $percentageChange = ($totalRequestsPreviousMonth != 0) ? (($totalRequestsThisMonth - $totalRequestsPreviousMonth) / $totalRequestsPreviousMonth) * 100 : 100;
+                                $class = $percentageChange < 0 ? 'danger' : 'success';
+                            @endphp
+
+                            <p class="dashboard-card-head">{!! $totalRequestsThisMonth !!}</p>
+                            <span class="card-badge dashboard-card-badge {!! $class !!}">{{ number_format($percentageChange, 1) }}%</span>
                         </div>
                         <div class="colun-auto">
                             <div class="e-bar-chart">
@@ -281,13 +290,17 @@
             data: {
                 labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
                 datasets: [{
-                label: "Tenants",
+                label: "Request",
                 tension: 0.4,
                 borderWidth: 2,
                 pointRadius: 0,
                 backgroundColor: "transparent",
                 borderColor: "#06b6d4",
-                data: [5, 25, 15, 6, 2, 1, 0, 0, 0, 2, 4, 2],
+                data: [
+                    @foreach(range(1, 12) as $month)
+                        {{ isset($monthlyData[$month]) ? $monthlyData[$month] : 0 }},
+                    @endforeach
+                ],
                 }, ],
             },
             options: {
