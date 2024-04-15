@@ -113,4 +113,21 @@
             });
         });
     });
+    $(document).ready(function() {
+        $('.add-friend').on('click', function() {
+            var friendId = $(this).data('friend-id');
+            $.ajax({
+                type: 'POST',
+                url: '{!! route('user.addFriend') !!}',
+                data: {
+                    friend_id: friendId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    $('.add-friend[data-friend-id="' + friendId + '"]').hide();
+                    $('.is-button-for-edit-profile[data-friend-id="' + friendId + '"]').show();
+                }
+            });
+        });
+    });
 </script>

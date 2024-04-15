@@ -79,4 +79,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(RentedProperty::class, 'tenant_id', 'id');
     }
+    public function friends()
+    {
+        return $this->hasMany(Friends::class, 'user_id');
+    }
+
+    public function sentFriendRequests()
+    {
+        return $this->hasMany(Friends::class, 'sent_id');
+    }
 }

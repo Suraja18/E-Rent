@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Tenant\FriendController;
 use App\Http\Controllers\Tenant\HousingController;
 use App\Http\Controllers\Tenant\MaintenanceController;
 use App\Http\Controllers\Tenant\PaymentController;
@@ -61,6 +62,8 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::get('/view/{id}/maintenance', [MaintenanceController::class, 'view'])->name('tenant.maintenance.view');
             Route::get('/cancel/{id}/maintenance', [MaintenanceController::class, 'cancel'])->name('tenant.maintenance.cancel');
             Route::get('/delete/{id}/maintenance', [MaintenanceController::class, 'destroy'])->name('tenant.maintenance.destroy');
+            Route::post('/users/add-friend', [FriendController::class, 'addFriend'])->name('user.addFriend');
+            Route::post('/users/update-friend-request', [FriendController::class, 'updateFriendRequest'])->name('user.updateFriendRequest');
             Route::post('/search/maintenance', [MaintenanceController::class, 'search'])->name('tenant.maintenance.search');
 
         });
