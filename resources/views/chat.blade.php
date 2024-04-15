@@ -681,7 +681,6 @@
         </div>
     </div>
     <script>
-        // JavaScript/jQuery
         $(document).ready(function() {
             $('.chat-contact').click(function() {
                 $('.chat-contact').removeClass('active');
@@ -691,8 +690,6 @@
                 $('#' + chatId).addClass('active');
             });
         });
-        // JavaScript/jQuery
-
     </script>
 
 </x-users.main.app-layout>

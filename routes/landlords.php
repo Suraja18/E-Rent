@@ -8,6 +8,7 @@ use App\Http\Controllers\Landlord\ForumController;
 use App\Http\Controllers\Landlord\HomeSellController;
 use App\Http\Controllers\Landlord\LandlordController;
 use App\Http\Controllers\Landlord\MaintenanceController;
+use App\Http\Controllers\Landlord\MessageController;
 use App\Http\Controllers\Landlord\PaymentController;
 use App\Http\Controllers\Landlord\RentController;
 use App\Http\Controllers\Landlord\TenantController;
@@ -58,6 +59,9 @@ Route::middleware(['landlord', 'session.logout'])->group(function () {
             Route::get('/friends', [LandlordController::class, 'view'])->name('landlord.view.friends');
             Route::post('/users/add-friend', [FriendController::class, 'addFriend'])->name('landlord.addFriend');
             Route::post('/users/update-friend-request', [FriendController::class, 'updateFriendRequest'])->name('landlord.updateFriendRequest');
+            Route::get('/send/message', [MessageController::class, 'sendMessage'])->name('landlord.sendMessage');
+            Route::post('/send-message', [MessageController::class, 'sendMessages'])->name('landlord.sendMessages');
+
 
             Route::get('/payment/pdf/{id}', [PDFController::class, 'generateInvoicePDF'])->name('landlord.payment.pdf.download');
             Route::post('/mark-notification-read/{notification}', [NotificationController::class,'markNotificationRead'])->name('mark.notification.read');
