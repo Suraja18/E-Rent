@@ -12,6 +12,7 @@
                            
     <x-common.edit-profile>
         <x-slot name="route">{!! route('landlord.account') !!}</x-slot>
+        <x-slot name="routeFRD">{!! route('landlord.view.friends') !!}</x-slot>
         <x-slot name="first_name">{!! $user->first_name !!}</x-slot>
         <x-slot name="last_name">{!! $user->last_name !!}</x-slot>
         <x-slot name="phone_number">{!! $user->phone_number !!}</x-slot>

@@ -7,7 +7,7 @@
     <x-landlords.navbar />
 
     <x-landlords.banners>
-        <x-slot name="name">Add Profile</x-slot>
+        <x-slot name="name">Add Friends</x-slot>
     </x-landlords.banners>
 
     @php

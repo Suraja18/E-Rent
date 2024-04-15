@@ -56,6 +56,7 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::delete('/property/{payment}/payment/history/delete', [PaymentController::class, 'destroy'])->name('tenant.payment.destroy'); 
             Route::get('/property/payment/pdf/{id}', [PDFController::class, 'generateInvoicePDF'])->name('tenant.payment.pdf.download');
             Route::post('/add/maintenance/form', [MaintenanceController::class, 'store'])->name('tenant.maintenance.store');
+            Route::get('/friends', [FriendController::class, 'view'])->name('tenant.view.friends');
 
 
             Route::get('/add/maintenance', [MaintenanceController::class, 'create'])->name('tenant.maintenance.add');

@@ -52,4 +52,8 @@ class FriendController extends Controller
 
         return response()->json(['success' => false, 'message' => 'Friend request not found.']);
     }
+    public function view()
+    {
+        return view('Tenants.friends');
+    }
 }

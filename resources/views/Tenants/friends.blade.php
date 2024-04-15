@@ -1,16 +1,25 @@
 <x-users.main.app-layout>
     <x-slot name="head">
-        - Friends
+        - Accounts
     </x-slot>
-    <x-landlords.sidebar />
-
-    <x-landlords.navbar />
-
-    <x-landlords.banners>
-        <x-slot name="name">Friends</x-slot>
-    </x-landlords.banners>
-
-    @php
+    <x-tenants.navbar />
+    
+     <!-- Start Banners -->
+     <div class="is-tenant-banners">
+        <div class="is-header-all-container">
+            <div class="pt-20p hide">
+                <ul class="banner-header-links">
+                    <li class="banner-header-name">
+                        <a href="index.html" class="banner-link-for-header">Home</a>
+                    </li>
+                    <li class="banner-header-name">
+                        /<span class="banner-link-for-header for-normal">Friends</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        @php
         $friendsa = App\Models\User::whereIn('roles', ['1', '2'])
             ->where('id', '!=', auth()->id())
             ->where(function ($query) {
@@ -98,5 +107,9 @@
     <!-- End Banners -->
 
 
-    <x-landlords.footer />
+    </div>
+    <!-- End Banners -->
+
+    <x-tenants.footer />
 </x-users.main.app-layout>
+    
