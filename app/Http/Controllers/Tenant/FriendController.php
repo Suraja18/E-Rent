@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use App\Models\Friends;
+use App\Models\User;
+use App\Notifications\FriendNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +19,12 @@ class FriendController extends Controller
             'sent_id' => $friendId,
             'type' => 'New'
         ]);
+        $friend = User::find($friendId);
+        if ($friend) {
+            $friend->notify(new FriendNotification([
+                'friendMessage' => "New Friend Request from ". auth()->user()->first_name . " " . auth()->user()->last_name  . ".",
+            ]));
+        }
         return response()->json(['success' => true]);
     }
     public function updateFriendRequest(Request $request)
@@ -29,6 +37,12 @@ class FriendController extends Controller
                 $friendRequest->type = $type;
                 $friendRequest->save();
                 $message = "Friends";
+                $friend = User::find($requestId);
+                if ($friend) {
+                    $friend->notify(new FriendNotification([
+                        'friendMessage' => auth()->user()->first_name . " " . auth()->user()->last_name  . " has accepted your request. Send More Friend Request",
+                    ]));
+                }
             } else {
                 $friendRequest->delete();
                 $message = "Friend Removed";

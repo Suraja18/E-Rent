@@ -47,7 +47,7 @@
                                             @if (Auth::check())
                                                 @foreach (Auth::user()->unreadNotifications as $notification)
                                                     <li class="mb-5 p-r">
-                                                        <a href="@if(isset($notification->data['tenantMessage'])) {!!  route('approve.store' ) !!} @elseif(isset($notification->data['maintenanceMessage'])) {!! route('landlord.maintenance.index') !!} @endif" class="notification-tags" data-notification-id="{{ $notification->id }}">
+                                                        <a href="@if(isset($notification->data['tenantMessage'])) {!!  route('approve.store' ) !!} @elseif(isset($notification->data['maintenanceMessage'])) {!! route('landlord.maintenance.index') !!} @elseif(isset($notification->data['friendMessage'])) {!! route('landlord.add.friends') !!} @endif" class="notification-tags" data-notification-id="{{ $notification->id }}">
                                                             <div class="d-flex">
                                                                 <div class="margin-tb-auto">
                                                                     <img src="{{ asset('Images/Original/Owners.png') }}" alt="Icons" class="notification-image-avatar">
@@ -58,6 +58,8 @@
                                                                             {!! $notification->data['tenantMessage'] !!}
                                                                         @elseif(isset($notification->data['maintenanceMessage']))
                                                                             {!! $notification->data['maintenanceMessage'] !!}
+                                                                        @elseif(isset($notification->data['friendMessage']))
+                                                                            {!! $notification->data['friendMessage'] !!}
                                                                         @endif
                                                                     </h6>
                                                                     <p class="lowersection-pa">

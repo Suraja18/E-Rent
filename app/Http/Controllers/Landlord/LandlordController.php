@@ -202,4 +202,12 @@ class LandlordController extends Controller
     {
         return view('Landlords.Contact.add');
     }
+    public function addFriends()
+    {
+        return view('Landlords.Friends.add');
+    }
+    public function view()
+    {
+        return view('Landlords.Friends.view');
+    }
 }

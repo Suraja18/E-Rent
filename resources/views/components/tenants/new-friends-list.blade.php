@@ -1,4 +1,5 @@
 @php
+if(Route::currentRouteName() == 'tenant.dashboard' || Route::currentRouteName() == 'landlord.view.friends' || Route::currentRouteName() == 'tenant.view.friends'){
     $friends = App\Models\User::whereIn('roles', ['1', '2'])
                                 ->where('id', '!=', auth()->id())
                                 ->whereNotExists(function ($query) {
@@ -13,7 +14,25 @@
                                           ->whereRaw('friends.sent_id = users.id')
                                           ->where('friends.user_id', auth()->id());
                                 })
-                                ->get();
+                                ->latest()->take(4)->get();
+}else{
+    $friends = App\Models\User::whereIn('roles', ['1', '2'])
+                                ->where('id', '!=', auth()->id())
+                                ->whereNotExists(function ($query) {
+                                    $query->select('id')
+                                          ->from('friends')
+                                          ->whereRaw('friends.user_id = users.id')
+                                          ->where('friends.sent_id', auth()->id());
+                                })
+                                ->whereNotExists(function ($query) {
+                                    $query->select('id')
+                                          ->from('friends')
+                                          ->whereRaw('friends.sent_id = users.id')
+                                          ->where('friends.user_id', auth()->id());
+                                })
+                                ->latest()->get();
+}
+
 @endphp
 <div class="service-grid" role="list" id="serGrid">
     <div class="service-grid" role="listitem">
@@ -23,7 +42,7 @@
                     <h2 class="text-left mb-30p">People You May Know</h2>
                 </div>
                 <div class="row" role="list">
-                    @foreach ($friends as $friend)
+                    @forelse ($friends as $friend)
                         @php
                             $requiredFields = ['first_name', 'last_name', 'phone_number', 'email', 'image', 'address', 'gender'];
                             $profileIncomplete = false;
@@ -49,7 +68,9 @@
                                 </div>
                             </div> 
                         @endif
-                    @endforeach
+                    @empty
+                        <div class="col-25 animate wow fadeInUp" data-wow-delay="0.1s" role="listitem">No Other People </div>
+                    @endforelse
                 </div>     
             </div>
         </div>
