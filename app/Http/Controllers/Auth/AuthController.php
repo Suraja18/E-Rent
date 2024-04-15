@@ -21,9 +21,9 @@ class AuthController extends Controller
         $this->users = $userService;
     }
 
-    public function bills()
+    public function chat()
     {
-        return view('bils');
+        return view('chat');
     }
 
     public function registerComplete(UserRequest $request)

@@ -778,6 +778,11 @@
         height: 220px;
         margin-left: -120px;
     }
+    .d-b{
+        transition: all 1s ease-in-out;
+        display: none;
+        will-change: display;
+    }
 }
 
 @media screen and (min-width: 992px){
@@ -787,6 +792,15 @@
     .row.admin{
         margin-bottom: 3.5rem;
     }
+    .chat-sidebar {
+        flex: 0 0 17.5rem;
+        max-width: 17.5rem;
+    }
+    .d-b{
+        display: block;
+        margin-left: .5rem;
+        transition: all .5s ease-in-out;
+    }    
 }
 
 @media screen and (max-width: 848px)  {
@@ -1760,6 +1774,12 @@
         height: 180px;
         margin-left: 0;
     }
+    .back-chat{
+        display: block;
+    }
+    .chat-editor-area{
+        top: 32.5rem;
+    }
 }
 
 @media screen and (min-width: 768px)  {
@@ -1887,7 +1907,14 @@
         font-size: 1.81rem;
         font-weight: 600;
     }
-    
+    .chat-sidebar {
+        position: relative;
+        height: 100%;
+        top: 0;
+        left: 0 !important;
+        width: 4.063rem;
+        transition: none;
+    }
     
 }
 @media screen and (max-width: 600px){
@@ -2067,7 +2094,18 @@
     .video-control {
         height: 150px;
     }
-    
+}
+@media screen and (min-width: 576px){
+    .chat-msg{
+        height: calc(100vh - 4.3125rem - 3.9875rem);
+    }
+    .contacts-list {
+        height: calc(100% - 2.063rem);
+    }
+    .chat-headers{
+        flex: 0 0 auto;
+        width: 66.66666667%;
+    }
 }
 @media screen and (max-width: 480px) {
     .pr-5t {
