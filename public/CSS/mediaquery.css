@@ -1778,7 +1778,7 @@
         display: block;
     }
     .chat-editor-area{
-        top: 32.5rem;
+        top: 30.5rem;
     }
 }
 
@@ -2017,6 +2017,11 @@
     .slider-small-img{
         height: 60px;
     }
+    .d-flex.chat-mg{
+        min-height: auto !important;
+        height: auto !important;
+        overflow: unset !important;
+    }
 }
 
 @media screen and (max-width: 576px){
@@ -2097,7 +2102,7 @@
 }
 @media screen and (min-width: 576px){
     .chat-msg{
-        height: calc(100vh - 4.3125rem - 3.9875rem);
+        height: calc(100vh - 4.3125rem - 3rem);
     }
     .contacts-list {
         height: calc(100% - 2.063rem);

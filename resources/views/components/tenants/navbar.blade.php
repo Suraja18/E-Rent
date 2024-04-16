@@ -32,7 +32,7 @@
             </div>
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <a href="#" class="nav-icons-for-mobile @if(Route::currentRouteName() == '#') active @endif">
+                    <a href="{!! route('tenant.view.allProperty') !!}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.view.allProperty' || Route::currentRouteName() == 'tenant.showDetail') active @endif">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 320 512"><path d="M160 0c17.7 0 32 14.3 32 32V67.7c1.6 .2 3.1 .4 4.7 .7c.4 .1 .7 .1 1.1 .2l48 8.8c17.4 3.2 28.9 19.9 25.7 37.2s-19.9 28.9-37.2 25.7l-47.5-8.7c-31.3-4.6-58.9-1.5-78.3 6.2s-27.2 18.3-29 28.1c-2 10.7-.5 16.7 1.2 20.4c1.8 3.9 5.5 8.3 12.8 13.2c16.3 10.7 41.3 17.7 73.7 26.3l2.9 .8c28.6 7.6 63.6 16.8 89.6 33.8c14.2 9.3 27.6 21.9 35.9 39.5c8.5 17.9 10.3 37.9 6.4 59.2c-6.9 38-33.1 63.4-65.6 76.7c-13.7 5.6-28.6 9.2-44.4 11V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V445.1c-.4-.1-.9-.1-1.3-.2l-.2 0 0 0c-24.4-3.8-64.5-14.3-91.5-26.3c-16.1-7.2-23.4-26.1-16.2-42.2s26.1-23.4 42.2-16.2c20.9 9.3 55.3 18.5 75.2 21.6c31.9 4.7 58.2 2 76-5.3c16.9-6.9 24.6-16.9 26.8-28.9c1.9-10.6 .4-16.7-1.3-20.4c-1.9-4-5.6-8.4-13-13.3c-16.4-10.7-41.5-17.7-74-26.3l-2.8-.7 0 0C119.4 279.3 84.4 270 58.4 253c-14.2-9.3-27.5-22-35.8-39.6c-8.4-17.9-10.1-37.9-6.1-59.2C23.7 116 52.3 91.2 84.8 78.3c13.3-5.3 27.9-8.9 43.2-11V32c0-17.7 14.3-32 32-32z"/></svg>
                         <p class="small-text">Rent</p>
                     </a>
@@ -40,7 +40,7 @@
             </div>
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <a class="nav-icons-for-mobile">
+                    <a href="{!! route('tenant.sendMessage') !!}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.sendMessage') active @endif">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 512 512"><path d="M256.6 8C116.5 8 8 110.3 8 248.6c0 72.3 29.7 134.8 78.1 177.9 8.4 7.5 6.6 11.9 8.1 58.2A19.9 19.9 0 0 0 122 502.3c52.9-23.3 53.6-25.1 62.6-22.7C337.9 521.8 504 423.7 504 248.6 504 110.3 396.6 8 256.6 8zm149.2 185.1l-73 115.6a37.4 37.4 0 0 1 -53.9 9.9l-58.1-43.5a15 15 0 0 0 -18 0l-78.4 59.4c-10.5 7.9-24.2-4.6-17.1-15.7l73-115.6a37.4 37.4 0 0 1 53.9-9.9l58.1 43.5a15 15 0 0 0 18 0l78.4-59.4c10.4-8 24.1 4.5 17.1 15.6z"/></svg>
                         <p class="small-text">Chat</p>
                     </a>
@@ -450,7 +450,7 @@
                             </li>
                             <li class="navigationMenu-controls-list not-mobile">
                                 <div class="p-r">
-                                    <a class="nav-icons-for-mobile">
+                                    <a href="{!! route('tenant.sendMessage') !!}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.sendMessage') active @endif">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 512 512"><path d="M256.6 8C116.5 8 8 110.3 8 248.6c0 72.3 29.7 134.8 78.1 177.9 8.4 7.5 6.6 11.9 8.1 58.2A19.9 19.9 0 0 0 122 502.3c52.9-23.3 53.6-25.1 62.6-22.7C337.9 521.8 504 423.7 504 248.6 504 110.3 396.6 8 256.6 8zm149.2 185.1l-73 115.6a37.4 37.4 0 0 1 -53.9 9.9l-58.1-43.5a15 15 0 0 0 -18 0l-78.4 59.4c-10.5 7.9-24.2-4.6-17.1-15.7l73-115.6a37.4 37.4 0 0 1 53.9-9.9l58.1 43.5a15 15 0 0 0 18 0l78.4-59.4c10.4-8 24.1 4.5 17.1 15.6z"/></svg>
                                     </a>
                                 </div>

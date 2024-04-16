@@ -24,6 +24,21 @@ class MessageController extends Controller
         // return $data;
         return view('Landlords.Message.send-message', $data);
     }
+    public function sendTenantMessage()
+    {
+        $userId = Auth::id();
+        $messages = Messages::join('friends', 'messages.friend_id', '=', 'friends.id')
+            ->select('messages.*')
+            ->where('friends.type', 'Accepted')
+            ->where(function ($query) use ($userId) {
+                $query->where('friends.user_id', $userId)
+                    ->orWhere('friends.sent_id', $userId);
+            })
+            ->get();
+        $data = ['messages' => $messages, ];
+        // return $data;
+        return view('Tenants.messages', $data);
+    }
     public function sendMessages(Request $request)
     {
         $request->validate([
@@ -37,5 +52,20 @@ class MessageController extends Controller
         $message->save();
         
         return response()->json(['success' => true, 'message' => 'Message sent successfully']);
+    }
+    public function markAsRead(Request $request)
+    {
+        $friendId = $request->input('friend_id');
+        Messages::where('friend_id', $friendId)
+            ->where('sent_by', '!=', auth()->id())
+            ->update(['read_at' => now()]);
+
+        return response()->json(['success' => true]);
+    }
+    public function deleteMessage(Request $request)
+    {
+        $messageId = $request->input('message_id');
+        Messages::where('id', $messageId)->delete();
+        return response()->json(['success' => true]);
     }
 }

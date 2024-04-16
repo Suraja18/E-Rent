@@ -2,11 +2,7 @@
     <x-slot name="head">
         - Message
     </x-slot>
-    <x-landlords.sidebar />
-
-    <x-landlords.navbar />
-
-
+    <x-tenants.navbar />
     <div class="card-dashboard chat-msg" style="overflow: hidden">
         <div class="p-r d-flex p-0">
             <div class="chat-sidebar">
@@ -215,16 +211,6 @@
             </div>
         </div>
     </div>
-
-</section>
-</div>
-</div>
-</div>
-</div>
-</div>       
-</div>
-</section>
-</div>
 <script>
     $(document).ready(function() {
         $('.chat-contact').click(function() {
@@ -240,7 +226,7 @@
             chatContentScroll.scrollTop = chatContentScroll.scrollHeight;
             $.ajax({
                 type: 'POST',
-                url: '{{ route("landlord.mark_messages_as_read") }}',
+                url: '{{ route("tenant.mark_messages_as_read") }}',
                 data: {
                     friend_id: friendId,
                     _token: '{{ csrf_token() }}'
@@ -261,7 +247,7 @@
             
             $.ajax({
                 type: 'POST',
-                url: "{!! route('landlord.sendMessages') !!}",
+                url: "{!! route('tenant.sendMessages') !!}",
                 data: {
                     friend_id: friendId,
                     message: message,
@@ -286,7 +272,7 @@
         var messageId = $(this).closest('.hover-action.icons-on-hover').data('message-id');
         $.ajax({
             type: 'POST',
-            url: '{!! route('landlord.message.delete') !!}',
+            url: '{!! route('tenant.message.delete') !!}',
             data: {
                 message_id: messageId,
                 _token: '{{ csrf_token() }}'
@@ -310,4 +296,8 @@
         });
     });
 </script>
+
+
+
+
 </x-users.main.app-layout>

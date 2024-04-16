@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Landlord\MessageController;
 use App\Http\Controllers\Tenant\FriendController;
 use App\Http\Controllers\Tenant\HousingController;
 use App\Http\Controllers\Tenant\MaintenanceController;
@@ -57,6 +58,10 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::get('/property/payment/pdf/{id}', [PDFController::class, 'generateInvoicePDF'])->name('tenant.payment.pdf.download');
             Route::post('/add/maintenance/form', [MaintenanceController::class, 'store'])->name('tenant.maintenance.store');
             Route::get('/friends', [FriendController::class, 'view'])->name('tenant.view.friends');
+            Route::get('/send/message', [MessageController::class, 'sendTenantMessage'])->name('tenant.sendMessage');
+            Route::post('/send-message', [MessageController::class, 'sendMessages'])->name('tenant.sendMessages');
+            Route::post('/mark-messages-as-read', [MessageController::class, 'markAsRead'])->name('tenant.mark_messages_as_read');
+            Route::post('/delete-messages', [MessageController::class, 'deleteMessage'])->name('tenant.message.delete');
 
 
             Route::get('/add/maintenance', [MaintenanceController::class, 'create'])->name('tenant.maintenance.add');
