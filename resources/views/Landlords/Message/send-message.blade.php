@@ -9,7 +9,7 @@
 
     <div class="card-dashboard chat-msg" style="overflow: hidden">
         <div class="p-r d-flex p-0">
-            <div class="chat-sidebar">
+            <div class="chat-sidebar show">
                 <div class="contacts-list p-r">
                     <div class="simple-wrapper">
                         <div class="simple-mask">
@@ -208,7 +208,7 @@
                     @endforeach
                 @endif
 
-                <div class="chat-editor-area">
+                <div class="chat-editor-area is-land">
                     <input type="text" name="message" id="messageInput" class="write-message" placeholder = "Write a message..." required />
                     <button class="btn-send" id="btnSend">Send</button>
                 </div>

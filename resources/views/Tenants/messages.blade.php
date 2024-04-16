@@ -5,7 +5,7 @@
     <x-tenants.navbar />
     <div class="card-dashboard chat-msg" style="overflow: hidden">
         <div class="p-r d-flex p-0">
-            <div class="chat-sidebar">
+            <div class="chat-sidebar show">
                 <div class="contacts-list p-r">
                     <div class="simple-wrapper">
                         <div class="simple-mask">
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="chat-content-body">
+                        <div class="chat-content-body is-ten">
                             <div class="chat-content-scroll" id="chat-content-scroll-{!! $friendMessages[0]->friend_id !!}">
                                 <div class="chat-up">
                                     <div class="avatar-img status" style="height:3.5rem; width:3.5rem;">

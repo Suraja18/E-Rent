@@ -7441,7 +7441,11 @@ small{
 }
 .chat-content-body {
     direction: inherit;
-    height: 30.5rem;
+    height: 28.5rem;
+}
+.chat-content-body.is-ten {
+    direction: inherit;
+    height: 27.5rem;
 }
 .chat-content-scroll{
     height: 100%;

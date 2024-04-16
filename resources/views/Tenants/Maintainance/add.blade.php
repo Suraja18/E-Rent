@@ -317,7 +317,7 @@
                         labels.push(getRadioButtonLabel(radio));
                     }
                 });
-                titleInput.value = labels.join('/');
+                titleInput.value = labels.join(' / ');
                 titleInput.readOnly = true;
             });
         });

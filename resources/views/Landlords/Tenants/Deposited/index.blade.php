@@ -34,11 +34,11 @@
                     </td>
                     <td data-name="Name">{!! $property->tenant->first_name !!} {!! $property->tenant->last_name !!}</td>
                     <td data-name="Phone Number">{!! $property->tenant->phone_number !!}</td>
-                    <td data-name="Payment Mode">{!! $property->tenant->address !!}</td>
+                    <td data-name="Address">{!! $property->tenant->address !!}</td>
                     @php
                         $payment = $property->payments->where('payment_type', 'Deposit')->first();
                     @endphp
-                    <td data-name="Payment Type">{!! $payment->amt_paid !!}</td>
+                    <td data-name="Deposit Amount">{!! $payment->amt_paid !!}</td>
                     <td data-name="Building">
                         {!! $property->rentProperty->building->name !!}<br />
                         (<i>{!! $property->rentProperty->rent_name !!}</i>)

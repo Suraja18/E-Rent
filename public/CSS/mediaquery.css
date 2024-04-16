@@ -1780,6 +1780,9 @@
     .chat-editor-area{
         top: 30.5rem;
     }
+    .chat-editor-area.is-land{
+        top: 32rem;
+    }
 }
 
 @media screen and (min-width: 768px)  {
@@ -2006,7 +2009,7 @@
     }
     .panel-main-container{
         height: 100%;
-        margin-bottom: 114px;   
+        margin-bottom: 15px;   
     }
     .nav-more-options{
         display: block;
@@ -2021,6 +2024,10 @@
         min-height: auto !important;
         height: auto !important;
         overflow: unset !important;
+    }
+    .table-action-cell{
+        flex-wrap: wrap;
+        gap: 10px;
     }
 }
 

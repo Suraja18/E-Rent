@@ -34,8 +34,8 @@
                     </td>
                     <td data-name="Name">{!! $tenant->first_name !!} {!! $tenant->last_name !!}</td>
                     <td data-name="Phone Number">{!! $tenant->phone_number !!}</td>
-                    <td data-name="Payment Mode">{!! $tenant->email !!}</td>
-                    <td data-name="Payment Type">{!! $tenant->address !!}</td>
+                    <td data-name="Email">{!! $tenant->email !!}</td>
+                    <td data-name="Address">{!! $tenant->address !!}</td>
                     <td class="table-action-cell">
                         <a href="{{ route('landlord.email.send.id', $tenant->id) }}" class="table-btns edits">
                             <span class="action-icons">
