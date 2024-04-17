@@ -21,7 +21,6 @@ class MessageController extends Controller
             })
             ->get();
         $data = ['messages' => $messages, ];
-        // return $data;
         return view('Landlords.Message.send-message', $data);
     }
     public function sendTenantMessage()

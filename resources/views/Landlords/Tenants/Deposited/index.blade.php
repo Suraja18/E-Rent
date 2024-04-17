@@ -32,7 +32,13 @@
                             <img src="{!! asset($property->tenant->image) !!}" class="tables-image-round" alt="{!! $property->tenant->first_name !!}">
                         </div>
                     </td>
-                    <td data-name="Name">{!! $property->tenant->first_name !!} {!! $property->tenant->last_name !!}</td>
+                    <td data-name="Name">
+                        <form action="{!! route('landlord.viewFriend') !!}" method="POST">
+                            @csrf
+                            <input type="hidden" name="tenantID" value="{!! $property->tenant->id !!}" />
+                            <input class="b-e-0" type="submit" value="{!! $property->tenant->first_name !!} {!! $property->tenant->last_name !!}">
+                        </form> 
+                    </td>
                     <td data-name="Phone Number">{!! $property->tenant->phone_number !!}</td>
                     <td data-name="Address">{!! $property->tenant->address !!}</td>
                     @php

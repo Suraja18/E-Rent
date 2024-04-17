@@ -121,7 +121,7 @@
                                     </div>
                                     <div style="flex: 1; margin-left:1rem;">
                                         <h6 class="mb-0">
-                                            <a href="#" class="head-title-chat">
+                                            <a class="head-title-chat">
                                                 @if($friendMessages[0]->sender->id == auth()->id())
                                                     @if($friendMessages[0]->friend->user_id != auth()->id())
                                                         {!! ($friendMessages[0]->friend->user->first_name) !!} {!! ($friendMessages[0]->friend->user->last_name) !!}

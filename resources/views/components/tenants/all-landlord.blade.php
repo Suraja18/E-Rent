@@ -38,7 +38,13 @@
                                         <img class="img-fluid" src="{!! asset($landlord->image) !!}" alt="{!! $landlord->first_name !!} ">
                                     </div>
                                     <div class="text-center landlord-wrappers">
-                                        <h5 class="heading-larger for-landlord">{!! $landlord->first_name !!} {!! $landlord->last_name !!}</h5>
+                                        <h5 class="heading-larger for-landlord">
+                                            <form action="{!! route('tenant.viewFriend') !!}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="tenantID" value="{!! $landlord->id !!}" />
+                                                <input class="b-e-0" type="submit" value="{!! $landlord->first_name !!} {!! $landlord->last_name !!}">
+                                            </form>
+                                        </h5>
                                         <p class="paragraph text-center mt-0">Landlord</p>
                                     </div>
                                 </div>

@@ -63,6 +63,9 @@ Route::middleware(['landlord', 'session.logout'])->group(function () {
             Route::post('/send-message', [MessageController::class, 'sendMessages'])->name('landlord.sendMessages');
             Route::post('/mark-messages-as-read', [MessageController::class, 'markAsRead'])->name('landlord.mark_messages_as_read');
             Route::post('/delete-messages', [MessageController::class, 'deleteMessage'])->name('landlord.message.delete');
+            Route::post('/view/friends', [LandlordController::class, 'seeFriends'])->name('landlord.viewFriend');
+            Route::post('/unfriend', [LandlordController::class, 'unfriend'])->name('landlord.unfriend');
+            Route::post('/addingFriend', [LandlordController::class, 'addingFriend'])->name('landlord.addingFriend');
 
             Route::get('/payment/pdf/{id}', [PDFController::class, 'generateInvoicePDF'])->name('landlord.payment.pdf.download');
             Route::post('/mark-notification-read/{notification}', [NotificationController::class,'markNotificationRead'])->name('mark.notification.read');

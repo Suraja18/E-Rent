@@ -6333,6 +6333,22 @@ small{
     margin-top: 15px;
     margin-bottom: 15px;
 }
+.pr-unfriend-container{
+    position: absolute;
+    top: 32px;
+    right: -10px;
+    display: none;   
+    background: var(--whiteColor);
+    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+    z-index: 999;
+    transition: all .5s ease-in-out;
+    will-change: display;
+}
+.pr-unfriend-container.active{
+    display: block;
+    width: 150px;
+    height: auto;
+}
 /* End Use Cases */
 /* Landlord Forum */
 .use-case-image-responsive.is-background{
@@ -7873,6 +7889,144 @@ ul{
     padding-left: 0;
     margin: 0;
     list-style: none;
+}
+.pr-container{
+    font-family: inherit;
+    padding-bottom: 16px;
+    justify-content: center;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
+.pr-wrapper{
+    min-width: 0;
+    display: flex;
+    flex-shrink: 1;
+    flex-direction: column;
+    padding-right: 16px;
+    flex-grow: 1;
+}
+.pr-div{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    position: relative;
+    align-items: center;
+}
+.pr-profile-container{
+    padding: 4px;
+    border-radius: 50%;
+}
+.pr-info{
+    display: flex;
+}
+.pr-info-container{
+    position: relative;
+    max-width: 100%;
+    flex-direction: column;
+    display: flex;
+    flex-shrink: 0;
+}
+.pr-info-container.body{
+    align-items: flex-start;
+}
+.pr-header{
+    font-family: inherit;
+    max-width: 100%;
+    color: var(--core-navy-800);
+    font-size: 2rem;
+    text-align: left;
+    font-weight: 700;
+    word-wrap: break-word;
+    display: block;
+    word-break: break-word;
+    min-width: 0;
+}
+.pr-friends{
+    font-family: inherit;
+    max-width: 100%;
+    color: var(--core-navy-800);
+    font-size: 1rem;
+    text-align: left;
+    font-weight: 400;
+    word-wrap: break-word;
+    display: block;
+    word-break: break-word;
+    min-width: 0;
+    line-height: 1.333;
+}
+.pr-wrapper-container{
+    margin-bottom: 20px;
+    margin-top: 4px;
+    margin-right: 10px;
+}
+.pr-button-container{
+    margin-top: .5rem;
+    margin-left: .25rem;
+    margin-right: .25rem;
+}
+.pr-button-wrapper{
+    display: inline-flex;
+    justify-content: center;
+    padding: 0;
+    background-color: transparent;
+    flex-direction: column;
+    text-align: inherit;
+    width: 100%;
+}
+.b-e-0{
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    color: var(--core-navy-800);
+    font-size: inherit;
+}
+.pr-button-bg{
+    display: flex;
+    background-color: var(--green-400);
+    padding-right: 12px;
+    justify-content: center;
+    align-items: center;
+    padding-left: 12px;
+    height: 36px;
+    flex-wrap: nowrap;
+    border-radius: 6px;
+    border: 0;
+    cursor: pointer;
+}
+.pr-button-bg.active,
+.pr-button-bg:hover{
+    background-color: var(--green-100);
+}
+.pr-button-bg.bor{
+    background-color: transparent;
+    border: 1px solid var(--neutral--navy-800);
+}
+.pr-button-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% + 6px);
+}
+.pr-button-icon{
+    display: flex;
+    max-width: 100%;
+    align-items: center;
+    flex-shrink: 0;
+}
+.plus-image{
+    filter: invert(100%);
+}
+.icon-text{
+    min-width: 0;
+    color: var(--whiteColor);
+    word-wrap: break-word;
+    font-weight: 600;
+    display: block;
+    font-size: .875rem;
+    word-break: break-word;
+    line-height: 1.333;
+    margin-left: 5px;
 }
 /* Owner or Landlord Tables End*/
 

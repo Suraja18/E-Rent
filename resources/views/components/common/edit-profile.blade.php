@@ -8,7 +8,7 @@
                         <h2 class="profile-panel-title">Edit Profile</h2>
                         <a href="{!! $routeFRD !!}" class="is-button-for-edit-profile">View All Friends</a>
                     </header>
-                    <div class="flex-cl-1" style="padding:20px">
+                    <div class="flex-cl-1" style="padding:20px"> 
                         <div>
                             <form class="profile-grids" method="POST" action="{!! $route !!}" enctype="multipart/form-data">
                                 @method('PUT')

@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\Forums;
+use App\Models\Friends;
 use App\Models\MaintenanceRequest;
 use App\Models\RentPayment;
 use App\Models\RentProperty;
 use App\Models\User;
+use App\Notifications\FriendNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -115,5 +117,54 @@ class TenantController extends Controller
     {
         $data = ['forum' => Forums::where('slug', $slug)->first()];
         return view('Tenants.forum-detail', $data);
+    }
+    public function seeFriends(Request $request)
+    {
+        $tenant = User::findOrFail($request->tenantID);
+        return view('Tenants.Profile.index', compact('tenant'));
+    }
+    public function unfriend(Request $request)
+    {
+        $tenantId = $request->tenantID;
+        $authId = Auth::id();
+        $tenant = User::findOrFail($tenantId);
+        $friendship = Friends::where(function ($query) use ($authId, $tenantId) {
+            $query->where('user_id', $authId)->where('sent_id', $tenantId)
+                ->orWhere('user_id', $tenantId)->where('sent_id', $authId);
+        })
+        ->where('type', 'Accepted')
+        ->first();
+        if($friendship)
+        {
+            $friendship->delete();
+        }
+        return view('Tenants.Profile.index', compact('tenant'));
+    }
+    public function addingFriend(Request $request)
+    {
+        $friendId = $request->tenantID; 
+        $authId = Auth::id();
+        $friendship = Friends::where(function ($query) use ($authId, $friendId) {
+            $query->where('user_id', $authId)->where('sent_id', $friendId)
+                ->orWhere('user_id', $friendId)->where('sent_id', $authId);
+        })
+        ->where('type', 'New')
+        ->first();
+        if(!$friendship){
+            Friends::create([
+                'user_id' => auth()->id(),
+                'sent_id' => $friendId,
+                'type' => 'New'
+            ]);
+            $friend = User::find($friendId);
+            if ($friend) {
+                $friend->notify(new FriendNotification([
+                    'friendMessage' => "New Friend Request from ". auth()->user()->first_name . " " . auth()->user()->last_name  . ".",
+                ]));
+            }
+        }
+        $friend = User::find($friendId);
+        $tenant = $friend;
+        return view('Tenants.Profile.index', compact('tenant'));
     }
 }

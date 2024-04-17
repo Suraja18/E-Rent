@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use App\Models\Friends;
+use App\Models\Messages;
 use App\Models\User;
 use App\Notifications\FriendNotification;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class FriendController extends Controller
 {
     public function addFriend(Request $request)
     {
-        $friendId = $request->input('friend_id');
+        $friendId = $request->input('friend_id'); 
         Friends::create([
             'user_id' => auth()->id(),
             'sent_id' => $friendId,
@@ -36,8 +37,13 @@ class FriendController extends Controller
             if ($type) {
                 $friendRequest->type = $type;
                 $friendRequest->save();
+                $message = new Messages();
+                $message->friend_id = $friendRequest->id;
+                $message->sent_by = auth()->id();
+                $message->message = "Hi";
+                $message->save();
                 $message = "Friends";
-                $friend = User::find($requestId);
+                $friend = User::find($requestId); 
                 if ($friend) {
                     $friend->notify(new FriendNotification([
                         'friendMessage' => auth()->user()->first_name . " " . auth()->user()->last_name  . " has accepted your request. Send More Friend Request",

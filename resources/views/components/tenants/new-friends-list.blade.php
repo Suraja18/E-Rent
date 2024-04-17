@@ -60,7 +60,14 @@ if(Route::currentRouteName() == 'tenant.dashboard' || Route::currentRouteName() 
                                         <img class="img-fluid" src="{!! asset($friend->image) !!}" alt="{!! $friend->first_name !!} Image">
                                     </div>
                                     <div class="text-center landlord-wrappers">
-                                        <h5 class="heading-larger for-landlord">{!! $friend->first_name !!} {!! $friend->last_name !!}</h5>
+                                        <h5 class="heading-larger for-landlord">
+                                            <form action="{!! $route !!}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="tenantID" value="{!! $friend->id !!}" />
+                                                <input class="b-e-0" type="submit" value="{!! $friend->first_name !!} {!! $friend->last_name !!}">
+                                            </form> 
+                                            
+                                        </h5>
                                         <p class="paragraph text-center mt-0">@if($friend->roles == '1') Tenant @else Landlord @endif</p>
                                         <button type="button" class="add-friend m-button btn-Primary wid100" data-friend-id="{!! $friend->id !!}">Add Friend</button>
                                         <a class="is-button-for-edit-profile wid100" style="display: none" data-friend-id="{!! $friend->id !!}">Friend Request Sent</a>

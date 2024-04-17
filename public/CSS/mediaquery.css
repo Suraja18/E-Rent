@@ -783,6 +783,28 @@
         display: none;
         will-change: display;
     }
+    .pr-div{
+        flex-direction: column;
+    }
+    
+    .pr-profile{
+        margin-bottom: 16px;
+        margin-top: 0;
+    }
+    .pr-info{
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-bottom: 16px;
+    }
+    .pr-buttons{
+        margin-top: .5rem;
+        flex-grow: 1;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .pr-info{
+        flex-direction: column;
+    }
 }
 
 @media screen and (min-width: 992px){
@@ -801,6 +823,36 @@
         margin-left: .5rem;
         transition: all .5s ease-in-out;
     }    
+    .pr-profile{
+        position: absolute;
+        top: 0;
+        margin-top: 0;
+        margin-right: 16px;
+        bottom: 0;
+        left: 0;
+        align-self: flex-start;
+    }
+    .pr-info{
+        margin-top: 32px;
+        margin-bottom: 16px;
+        align-self: center;
+        flex-grow: 1;
+    }
+    .pr-div{
+        flex-direction: column;
+        justify-items: center;
+    }
+    .pr-wrapper-body{
+        margin-top: 6rem;
+    }
+    .pr-buttons{
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        max-width: 400px;
+        flex-grow: 0;
+        margin-left: 5rem;
+        align-self: flex-end;
+    }
 }
 
 @media screen and (max-width: 848px)  {
@@ -1764,7 +1816,7 @@
         flex-direction: row;
     }
     .col-flex-83{
-        flex: 0 0 auto;
+        flex: 0 0 auto; 
         width: 100%;
     }
     .slider-small-img{
@@ -2118,6 +2170,9 @@
         flex: 0 0 auto;
         width: 66.66666667%;
     }
+    .d-576{
+        display: flex;
+    }
 }
 @media screen and (max-width: 480px) {
     .pr-5t {
@@ -2128,8 +2183,8 @@
         padding-bottom: 3rem;
     }
     .plr-4 {
-        padding-left: 1.75rem;
-        padding-right: 1.75rem;
+        padding-left: 1.75rem !important;
+        padding-right: 1.75rem !important;
     }
     .p2-5{
         padding: 1.5rem;
@@ -2453,6 +2508,9 @@
     } 
     .register .inner {
         min-width: 100%;
+    }
+    .pr-buttons{
+        width: 100%;
     }
 }
 

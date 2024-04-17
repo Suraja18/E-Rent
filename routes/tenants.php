@@ -62,6 +62,9 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::post('/send-message', [MessageController::class, 'sendMessages'])->name('tenant.sendMessages');
             Route::post('/mark-messages-as-read', [MessageController::class, 'markAsRead'])->name('tenant.mark_messages_as_read');
             Route::post('/delete-messages', [MessageController::class, 'deleteMessage'])->name('tenant.message.delete');
+            Route::post('/view/friends', [TenantController::class, 'seeFriends'])->name('tenant.viewFriend');
+            Route::post('/unfriend', [TenantController::class, 'unfriend'])->name('tenant.unfriend');
+            Route::post('/addingFriend', [TenantController::class, 'addingFriend'])->name('tenant.addingFriend');
 
 
             Route::get('/add/maintenance', [MaintenanceController::class, 'create'])->name('tenant.maintenance.add');

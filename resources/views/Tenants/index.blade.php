@@ -10,7 +10,9 @@
 
     <x-tenants.all-property-types />
 
-    <x-tenants.new-friends-list />
+    <x-tenants.new-friends-list>
+        <x-slot name="route"> {!! route('tenant.viewFriend') !!}</x-slot>
+    </x-tenants.new-friends-list>
 
     <x-tenants.property-detail />
 

@@ -69,8 +69,14 @@
                                                         alt="{!! $friend->first_name !!} Image">
                                                 </div>
                                                 <div class="text-center landlord-wrappers">
-                                                    <h5 class="heading-larger for-landlord">{!! $friend->first_name !!}
-                                                        {!! $friend->last_name !!}</h5>
+                                                    <h5 class="heading-larger for-landlord">
+                                                        <form action="{!! route('landlord.viewFriend') !!}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="tenantID" value="{!! $friend->id !!}" />
+                                                            <input class="b-e-0" type="submit" value="{!! $friend->first_name !!} {!! $friend->last_name !!}">
+                                                        </form> 
+                                                        
+                                                    </h5>
                                                     <p class="paragraph text-center mt-0">
                                                         @if ($friend->roles == '1')
                                                             Tenant
@@ -90,8 +96,9 @@
                     </div>
                 </div>
             </div>
-
-            <x-tenants.new-friends-list />
+            <x-tenants.new-friends-list>
+                <x-slot name="route"> {!! route('landlord.viewFriend') !!}</x-slot>
+            </x-tenants.new-friends-list>
 
         </div>
     </section>
