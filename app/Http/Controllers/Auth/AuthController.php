@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Notifications\VerifyEmailNotification;
 use App\Services\UserServices;
-use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -29,8 +29,10 @@ class AuthController extends Controller
 
     public function registerComplete(UserRequest $request)
     {
-        $validatedData = $this->users->userStore($request->validated());  
-        User::create($validatedData);
+        $validatedData = $this->users->userStore($request->validated());
+        $user = User::create($validatedData);
+        $user->notify(new VerifyEmailNotification);
+        Alert::error('Registration Successful.', 'Please check your email to verify first');
         return redirect()->route('user.login');
     }
     public function showLoginForm()
@@ -47,16 +49,33 @@ class AuthController extends Controller
     {
         $email = $request->input('email');
         $password = $request->input('password');
-
-        if (Auth::attempt(['email' => $email, 'password' => $password, 'roles' => 1])) {
-            $request->session()->put('time-to-log_' . Auth::id(), now()->addMinutes(30));
-            return redirect()->route('tenant.dashboard');
+    
+        $credentials = ['email' => $email, 'password' => $password];
+    
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $usermode = User::find(Auth::id());
+            if ($user->email_verified_at !== null) {
+                if ($user->roles == 1) {
+                    $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(30));
+                    $usermode->deleted_at = null;
+                    $usermode->update();
+                    Alert::success('Login Successful');
+                    return redirect()->route('tenant.dashboard');
+                } elseif ($user->roles == 2) {
+                    $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(30));
+                    Alert::success('Login Successful');
+                    return redirect()->route('landlord.dashboard');
+                }
+            } else {
+                Auth::logout();
+                Alert::error('Your email address is not verified.', 'Please check your email to verify first');
+                $usermode->notify(new VerifyEmailNotification); 
+                return redirect()->route('user.login');
+            }
         }
-        if (Auth::attempt(['email' => $email, 'password' => $password, 'roles' => 2])) {
-            $request->session()->put('time-to-log_' . Auth::id(), now()->addMinutes(30));
-            return redirect()->route('landlord.dashboard');
-        }
-        return redirect()->route('user.login')->withErrors(['email' => 'Invalid credentials']);
+        Alert::error('Invalid credentials.', 'Please enter correct email and password');
+        return redirect()->route('user.login');
     }
    
 
@@ -100,5 +119,19 @@ class AuthController extends Controller
         }
         
         
+    }
+    public function verify(Request $request)
+    {
+        $user = User::where('email', $request->get('email'))->first();
+
+        if (!$user) {
+            Alert::error('Invalid verification link.');
+            return redirect()->route('user.login');
+        }
+
+        $user->email_verified_at = now();
+        $user->save();
+        Alert::success('Email verified successfully.','You can now log in.');
+        return redirect()->route('user.login');
     }
 }

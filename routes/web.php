@@ -14,3 +14,4 @@ Route::post('/register-complete', [AuthController::class, 'registerComplete'])->
 Route::post('/login', [AuthController::class, 'login'])->name('user.loginSuccess');
 Route::get('/logout', [AuthController::class, 'logout'])->name('user.logout');
 Route::get('/chat', [AuthController::class, 'chat']);
+Route::get('/verify-email', [AuthController::class, 'verify'])->name('verify.email');
