@@ -170,6 +170,15 @@ class LandlordController extends Controller
         }
         // End Maintenance Request
 
+        // Start Active Tenant
+        $activeTenants = User::whereHas('rentedProperties', function ($query) {
+            $query->whereNull('deleted_at')
+                ->where('status', 'Confirmed');
+        })->whereHas('rentedProperties.rentProperty.landlord', function ($query) use ($landlordId) {
+            $query->where('id', $landlordId); 
+        })->where('roles', '1')->take(4)->get();
+        // End Active Tenant
+
         $data = [
             'weeklyPayments' => $currentAggregatedPayments,
             'totalWeekPayment' => $totalWeekPayment,
@@ -186,6 +195,7 @@ class LandlordController extends Controller
             'previousPreviousYearRevenue' => $previousPreviousYearRevenueJSON,
             'previousPreviousYear' => $currentYear - 2,
             'monthlyData' => $monthlyData,
+            'tenants' => $activeTenants,
         ];
         // return $data;
         return view('Landlords.index', $data);

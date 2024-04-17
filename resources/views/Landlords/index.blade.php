@@ -127,61 +127,31 @@
         <div class="error-rows dash-plot" role="listitem">
             <div class="card-dashboard">
                 <div class="card-dashboard-header card-center ptb-1-2">
-                    <h6 class="mb-0">Active Users</h6>
-                    <div class="p-r">
-                        <button type="button" class="view-more-link">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M64 464l48 0 0 48-48 0c-35.3 0-64-28.7-64-64L0 64C0 28.7 28.7 0 64 0L229.5 0c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3L384 304l-48 0 0-144-80 0c-17.7 0-32-14.3-32-32l0-80L64 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16zM176 352l32 0c30.9 0 56 25.1 56 56s-25.1 56-56 56l-16 0 0 32c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48 0-80c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24l-16 0 0 48 16 0zm96-80l32 0c26.5 0 48 21.5 48 48l0 64c0 26.5-21.5 48-48 48l-32 0c-8.8 0-16-7.2-16-16l0-128c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16l0-64c0-8.8-7.2-16-16-16l-16 0 0 96 16 0zm80-112c0-8.8 7.2-16 16-16l48 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64 0-64z"/></svg>
-                        </button>
-                    </div>
+                    <h6 class="mb-0">Active Tenants</h6>
                 </div>
                 <div class="card-dashboard-body ptb-1-2">
-                    <div class="d-flex align-center p-r mb-1">
-                        <div class="avatar-img status-online">
-                            <img src="../Images/Variable/Person/1.jpg" alt="Avatar">
-                        </div>
-                        <div class="avatar-flex">
-                            <h6 class="mb-0">
-                                <a href="#">Emma Watson</a>
-                            </h6>
-                            <p class="avatar-par mb-0">Tenants</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-center p-r mb-1">
-                        <div class="avatar-img">
-                            <img src="../Images/Variable/Person/2.jpg" alt="Avatar">
-                        </div>
-                        <div class="avatar-flex">
-                            <h6 class="mb-0">
-                                <a href="#">Antony Hopkins</a>
-                            </h6>
-                            <p class="avatar-par mb-0">Landlord</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-center p-r mb-1">
-                        <div class="avatar-img">
-                            <img src="../Images/Variable/Person/1.jpg" alt="Avatar">
-                        </div>
-                        <div class="avatar-flex">
-                            <h6 class="mb-0">
-                                <a href="#">John Lee</a>
-                            </h6>
-                            <p class="avatar-par mb-0">Tenants</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-center p-r mb-1">
-                        <div class="avatar-img status-online">
-                            <img src="../Images/Variable/Person/2.jpg" alt="Avatar">
-                        </div>
-                        <div class="avatar-flex">
-                            <h6 class="mb-0">
-                                <a href="#">Rowen Atkinson</a>
-                            </h6>
-                            <p class="avatar-par mb-0">Landlord</p>
-                        </div>
-                    </div>
+                    @foreach ($tenants as $tenant)
+                        <div class="d-flex align-center p-r mb-1">
+                            <div class="avatar-img status">
+                                <img src="{!! $tenant->image !!}" alt="Avatar">
+                            </div>
+                            <div class="avatar-flex">
+                                <h6 class="mb-0">
+                                    <form action="{!! route('landlord.viewFriend') !!}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="tenantID" value="{!! $tenant->id !!}" />
+                                        <input class="b-e-0" type="submit" value="{!! $tenant->first_name !!} {!! $tenant->last_name !!}" style="padding: 0" />
+                                    </form>    
+                                </h6>
+                                <p class="avatar-par mb-0">{!! $tenant->address !!}</p>
+                            </div>
+                        </div> 
+                    @endforeach
+                    
+
                 </div>
                 <div class="card-dashboard-footer p-0 text-center">
-                    <a class="status-links view-btn ptb-1-2" href="#">All active users</a>
+                    <a class="status-links view-btn ptb-1-2" href="{!! route('landlord.tenant.active.index') !!}">All active users</a>
                 </div>
             </div>
         </div>

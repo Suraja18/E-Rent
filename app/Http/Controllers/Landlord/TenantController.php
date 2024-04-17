@@ -21,7 +21,7 @@ class TenantController extends Controller
             $query->whereNull('deleted_at')
                 ->where('status', 'Confirmed');
         })->whereHas('rentedProperties.rentProperty.landlord', function ($query) use ($landlordId) {
-            $query->where('id', $landlordId);
+            $query->where('id', $landlordId); 
         })->where('roles', '1')->get();
 
         $data = [
