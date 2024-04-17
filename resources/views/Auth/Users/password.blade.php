@@ -1,6 +1,6 @@
 <x-users.main.app-layout>
     <x-slot name="head">
-        - Login
+        - Change Password
     </x-slot>
     <x-users.navbar />
     <section class="register" id="LoginForm">
@@ -8,28 +8,41 @@
             <div class="inner d-flex">
                 <form action="{{ route('user.loginSuccess') }}" method="POST">
                     @csrf
-                    <h3>Login</h3>
+                    <h3>Change Password</h3>
                     <div class="form-wrapper">
-                        <label for>Email</label>
-                        <input type="text" class="form-control" name="email">
+                        <label for="old_password">Old Password</label>
+                        <input type="password" class="form-control" name="old_password" id="old_password" />
+                        <div class="d-flex">
+                            <input type="checkbox" class="checkbox" id="show_old_password" />
+                            <label for="show_old_password" class="show-password-checkbox">Show Password</label>
+                        </div>
+                        
                     </div>
                     <div class="form-wrapper">
-                        <label for>Password</label>
-                        <input type="password" class="form-control" name="password">
+                        <label for="password">New Password</label>
+                        <input type="password" class="form-control" name="password" id="password" />
                         <div class="d-flex">
                             <input type="checkbox" class="checkbox" id="show_new_password" />
                             <label for="show_new_password" class="show-password-checkbox">Show Password</label>
                         </div>
                     </div>
-                    <button>Login</button>
-                    <div class="below-btn">New on E-Rent? <a href="{{ route('user.register') }}">Register</a></div>
+                    <div class="form-wrapper">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" class="form-control" name="confirm_password" id="confirm_password" />
+                        <div class="d-flex">
+                            <input type="checkbox" class="checkbox" id="show_confirm_password" />
+                            <label for="show_confirm_password" class="show-password-checkbox">Show Password</label>
+                        </div>
+                    </div>
+                    <button>Change Password</button>
                 </form>
                 <div class="image-right-bg">
-                    <img src="../Images/Original/bg-login.png" alt="Background">
+                    <img src="{!! asset('Images/Original/bg-login.png') !!}" alt="Background">
                 </div>
             </div>
         </div>
     </section>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const showPasswordCheckboxes = document.querySelectorAll('.checkbox');
@@ -50,5 +63,4 @@
             });
         });
     </script>
-    
 </x-users.main.app-layout>

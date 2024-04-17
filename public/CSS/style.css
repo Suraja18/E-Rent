@@ -7974,6 +7974,10 @@ ul{
     text-align: inherit;
     width: 100%;
 }
+.show-password-checkbox{
+    margin-bottom: 0;
+    margin-top: 8px;
+}
 .b-e-0{
     border: 0;
     background: transparent;

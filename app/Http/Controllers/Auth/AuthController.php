@@ -24,7 +24,7 @@ class AuthController extends Controller
 
     public function chat()
     {
-        return view('chat');
+        return view('Auth.Users.password');
     }
 
     public function registerComplete(UserRequest $request)
