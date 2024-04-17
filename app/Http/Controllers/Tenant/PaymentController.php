@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Tenant;
 
-require '../vendor/autoload.php';
+// require '../vendor/autoload.php';
+require __DIR__ . '../../../../../vendor/autoload.php';
 
 use RemoteMerge\Esewa\Client;
 use RemoteMerge\Esewa\Config;

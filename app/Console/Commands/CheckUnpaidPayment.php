@@ -29,7 +29,7 @@ class CheckUnpaidPayment extends Command
         $unpaidPayments = RentPayment::where('status', 'Unpaid')->get();
 
         foreach ($unpaidPayments as $payment) {
-            $payment->delete();
+            $payment->forceDelete();
             $this->info("Deleted unpaid payment ID: {$payment->id}");
         }
 
