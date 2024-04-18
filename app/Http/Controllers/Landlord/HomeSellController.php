@@ -127,7 +127,7 @@ class HomeSellController extends Controller
     {
         $homeSell = RentProperty::findOrFail($request->id);
         $homeSell->delete();
-        Alert::error('Building Sold has been Removed Successfully');
+        Alert::success('Building Sold has been Removed Successfully');
         return redirect()->route('house-sell.index');
     }
 }

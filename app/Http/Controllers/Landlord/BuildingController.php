@@ -74,7 +74,7 @@ class BuildingController extends Controller
             File::delete($building->image_4);
         }
         $building->delete();
-        Alert::error('Building Deleted Successfully');
+        Alert::success('Building Deleted Successfully');
         return redirect()->route('building.index');
     }
 

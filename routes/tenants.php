@@ -33,7 +33,8 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
         Route::get('/forums/{slug}', [TenantController::class, 'forumDetail'])->name('tenant.forum.detail');
         Route::get('/{slug}/pdf',[PDFController::class, 'generatePDF'])->name('forum.generatePDF');
         Route::get('/{slug}/property',[HousingController::class, 'propertyDetail'])->name('tenant.propertyDetail');
-        
+        Route::get('/change-password', [AuthController::class, 'changePassword'])->name('tenant.change.password');
+        Route::post('/change-password/try', [AuthController::class, 'changeTryPassword'])->name('tenant.try.change.password');
 
          //For Complete Profile Landlord
         Route::middleware(['checkComplete'])->group(function () {

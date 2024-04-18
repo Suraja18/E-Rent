@@ -28,6 +28,7 @@ class UserRequest extends FormRequest
             'phone_number' => 'nullable|numeric|digits_between:9,10|unique:users,phoneNumber',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:8',
+            'confirm_password' => 'required|same:password',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'address' => 'nullable|string',
             'gender' => ['nullable', 'string', Rule::in(['Male', 'Female'])],

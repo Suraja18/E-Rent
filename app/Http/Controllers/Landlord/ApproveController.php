@@ -82,7 +82,7 @@ class ApproveController extends Controller
         $rent->tenant->notify(new UserNotification([
             'tenantMessage' => "Rented Building for <b>". $property->building->name ."</b> has been cancelled."
         ]));
-        Alert::error('Building Rent Declined Successfully');
+        Alert::success('Building Rent Declined Successfully');
         return redirect()->route('approve.index');
     }
 }

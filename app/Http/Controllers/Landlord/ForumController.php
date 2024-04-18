@@ -56,7 +56,7 @@ class ForumController extends Controller
     public function destroy(Forums $forum)
     {
         $forum->delete();
-        Alert::error('Lease Agreement has been deleted Successfully');
+        Alert::success('Lease Agreement has been deleted Successfully');
         return redirect()->route('forum.index');
     }
 }

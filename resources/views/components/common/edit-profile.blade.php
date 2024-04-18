@@ -100,7 +100,7 @@
                                 <div class="mb-15">
                                     <div class="d-flex" style="justify-content: space-between">
                                         <h6 class="mb-1">Password</h6>
-                                        <a href="#" target="_blank" class="status-links clr-green">Change</a>
+                                        <a href="{!! $changePassword !!}" target="_blank" class="status-links clr-green">Change</a>
                                     </div>
                                     <p class="profile-p">You haven’t changed the password yet.</p>
                                 </div>

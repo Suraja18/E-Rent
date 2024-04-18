@@ -323,7 +323,7 @@ class PaymentController extends Controller
     {
         $payment->visible = "No";
         $payment->update();
-        Alert::warning('Payment has been deleted.');
+        Alert::success('Payment has been deleted.');
         return redirect()->route('payment.index');
     }
 }

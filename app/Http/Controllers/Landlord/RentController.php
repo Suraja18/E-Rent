@@ -252,7 +252,7 @@ class RentController extends Controller
             File::delete($rent->image_4);
         }
         $rent->delete();
-        Alert::error('Rent has been deleted Successfully');
+        Alert::success('Rent has been deleted Successfully');
         return redirect()->route('rent.index');
     }
 }

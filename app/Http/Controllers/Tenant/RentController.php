@@ -85,7 +85,7 @@ class RentController extends Controller
         $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->whereNull('deleted_at')->where('tenantVisible', 'Yes')->first();
         $rented_property->tenantVisible = "No";
         $rented_property->update();
-        Alert::error('Building Rent Deleted Successfully');
+        Alert::success('Building Rent Deleted Successfully');
         return redirect()->route('tenant.view.allProperty');
     }
 
@@ -112,7 +112,7 @@ class RentController extends Controller
         $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->whereNull('deleted_at')->where('tenantVisible', 'Yes')->first();
         $rented_property->status = "Cancelled";
         $rented_property->update();
-        Alert::error('Building Rent Cancelled Out Successfully');
+        Alert::success('Building Rent Cancelled Out Successfully');
         return redirect()->route('tenant.view.allProperty');
     }
 }

@@ -86,7 +86,7 @@ class UnitController extends Controller
     {
         File::delete($unit->image_1);
         $unit->delete();
-        Alert::error('Building Unit Deleted Successfully');
+        Alert::success('Building Unit Deleted Successfully');
         return redirect()->route('unit.index');
     }
 }

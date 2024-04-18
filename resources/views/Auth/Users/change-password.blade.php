@@ -6,7 +6,7 @@
     <section class="register" id="LoginForm">
         <div class="wrapper">
             <div class="inner d-flex">
-                <form action="{{ route('user.loginSuccess') }}" method="POST">
+                <form action="{{ Auth::user()->roles === 1 ? route('tenant.try.change.password') : route('landlord.try.change.password')  }}" method="POST">
                     @csrf
                     <h3>Change Password</h3>
                     <div class="form-wrapper">

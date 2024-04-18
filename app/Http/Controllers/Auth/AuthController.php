@@ -10,6 +10,7 @@ use App\Services\UserServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -32,7 +33,7 @@ class AuthController extends Controller
         $validatedData = $this->users->userStore($request->validated());
         $user = User::create($validatedData);
         $user->notify(new VerifyEmailNotification);
-        Alert::error('Registration Successful.', 'Please check your email to verify first');
+        Alert::success('Registration Successful.', 'Please check your email to verify first');
         return redirect()->route('user.login');
     }
     public function showLoginForm()
@@ -54,12 +55,12 @@ class AuthController extends Controller
     
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $usermode = User::find(Auth::id());
+            $userMode = User::find(Auth::id());
             if ($user->email_verified_at !== null) {
                 if ($user->roles == 1) {
                     $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(30));
-                    $usermode->deleted_at = null;
-                    $usermode->update();
+                    $userMode->deleted_at = null;
+                    $userMode->update();
                     Alert::success('Login Successful');
                     return redirect()->route('tenant.dashboard');
                 } elseif ($user->roles == 2) {
@@ -70,7 +71,7 @@ class AuthController extends Controller
             } else {
                 Auth::logout();
                 Alert::error('Your email address is not verified.', 'Please check your email to verify first');
-                $usermode->notify(new VerifyEmailNotification); 
+                $userMode->notify(new VerifyEmailNotification); 
                 return redirect()->route('user.login');
             }
         }
@@ -133,5 +134,39 @@ class AuthController extends Controller
         $user->save();
         Alert::success('Email verified successfully.','You can now log in.');
         return redirect()->route('user.login');
+    }
+    public function changePassword()
+    {
+        return view('Auth.Users.change-password');
+    }
+    public function changeTryPassword(Request $request)
+    {
+        $validate = $request->validate([
+            'old_password' => 'required',
+            'password' => 'required|min:8',
+            'confirm_password' => 'required|same:password',
+        ]);
+        if($validate)
+        {
+            if (!Hash::check($request->old_password, Auth::user()->password)) {
+                Alert::error('The old password is incorrect.', 'Please insert correct password to continue.');
+                if(Auth::user()->roles === 1)
+                {
+                    return redirect()->route('tenant.change.password');
+                }
+                elseif(Auth::user()->roles === 2)
+                {
+                    return redirect()->route('landlord.change.password');
+                }
+                
+            }
+            $user = User::find(Auth::id());
+            $user ->update([
+                'password' => $request->password,
+            ]); 
+            Auth::logout();
+            Alert::success('Password Changed Successfully.', 'Please login again');
+            return redirect()->route('user.login');
+        }
     }
 }

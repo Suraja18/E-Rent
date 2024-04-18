@@ -92,7 +92,9 @@
                 </div>
             </div>
 
-            <x-tenants.new-friends-list />
+            <x-tenants.new-friends-list>
+                <x-slot name="route"> {!! route('landlord.viewFriend') !!}</x-slot>
+            </x-tenants.new-friends-list>
 
         </div>
     </section>

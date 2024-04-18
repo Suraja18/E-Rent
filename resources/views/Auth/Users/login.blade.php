@@ -11,11 +11,11 @@
                     <h3>Login</h3>
                     <div class="form-wrapper">
                         <label for>Email</label>
-                        <input type="text" class="form-control" name="email">
+                        <input type="text" class="form-control" name="email" required />
                     </div>
                     <div class="form-wrapper">
                         <label for>Password</label>
-                        <input type="password" class="form-control" name="password">
+                        <input type="password" class="form-control" name="password" required />
                         <div class="d-flex">
                             <input type="checkbox" class="checkbox" id="show_new_password" />
                             <label for="show_new_password" class="show-password-checkbox">Show Password</label>
