@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 require __DIR__ . '/users.php';
 require __DIR__ . '/tenants.php';
 require __DIR__ . '/landlords.php';
+require __DIR__ . '/admin.php';
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('user.login');
 Route::get('/register', [AuthController::class, 'registerUser'])->name('user.register');
@@ -18,3 +19,5 @@ Route::get('/chat', [AuthController::class, 'chat']);
 Route::get('/verified',[AuthController::class,'verifiedEmail'])->name('verifiedEmail');
 Route::get('/forget-password',[AuthController::class,'forgetPassword'])->name('forgetPassword');
 Route::post('/send',[AuthController::class,'sendPass'])->name('user.send.pass');
+Route::get('/admin-login', [AuthController::class, 'showAdminLogin'])->name('admin.login');
+Route::post('/admin-login/success', [AuthController::class, 'doAdminLogin'])->name('admin.login.success');

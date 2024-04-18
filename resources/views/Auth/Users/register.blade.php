@@ -77,7 +77,7 @@
                     <div class="below-btn">Already  have an account? <a href="{{ route('user.login') }}">Log in.</a></div>
                 </form>
                 <div class="image-right-bg">
-                    <img src="../Images/Original/bg-remove.png" alt="Background">
+                    <img src="{!! asset('Images/Original/bg-remove.png') !!}" alt="Background">
                 </div>
             </div>
         </div>

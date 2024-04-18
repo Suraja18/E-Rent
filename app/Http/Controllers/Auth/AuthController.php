@@ -255,4 +255,26 @@ class AuthController extends Controller
            
         }  
     }
+
+    public function showAdminLogin()
+    {
+        return view('Auth.Admin.login');
+    }
+    public function doAdminLogin(Request $request)
+    {
+        $email = $request->input('email');
+        $password = $request->input('password');    
+        $credentials = ['email' => $email, 'password' => $password];
+    
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            if ($user->roles == 0) {
+                $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(30));
+                Alert::success('Login Successful');
+                return redirect()->route('admin.dashboard');
+            }
+        }
+        Alert::error('Invalid credentials.', 'Please enter correct email and password');
+        return redirect()->route('admin.login');   
+    }
 }

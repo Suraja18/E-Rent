@@ -6,15 +6,15 @@
     <section class="register" id="LoginForm">
         <div class="wrapper">
             <div class="inner d-flex">
-                <form action="{{ route('user.loginSuccess') }}" method="POST">
+                <form action="{{ route('admin.login.success') }}" method="POST">
                     @csrf
                     <h3>Login</h3>
                     <div class="form-wrapper">
-                        <label for>Email</label>
+                        <label>Email</label>
                         <input type="email" class="form-control" name="email" required />
                     </div>
                     <div class="form-wrapper">
-                        <label for>Password</label>
+                        <label>Password</label>
                         <input type="password" class="form-control" name="password" required />
                         <div class="d-flex">
                             <input type="checkbox" class="checkbox" id="show_new_password" />
@@ -22,8 +22,6 @@
                         </div>
                     </div>
                     <button>Login</button>
-                    <div class="below-btn"><a href="{{ route('forgetPassword') }}">Forget Password?</a></div>
-                    <div class="below-btn">New on E-Rent? <a href="{{ route('user.register') }}">Register</a></div>
                 </form>
                 <div class="image-right-bg">
                     <img src="{!! asset('Images/Original/bg-login.png') !!}" alt="Background">
@@ -34,6 +32,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const showPasswordCheckboxes = document.querySelectorAll('.checkbox');
+
             showPasswordCheckboxes.forEach(function (checkbox) {
                 checkbox.addEventListener('change', function () {
                     const passwordInputContainer = this.parentElement.previousElementSibling;
