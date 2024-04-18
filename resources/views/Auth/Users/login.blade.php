@@ -22,6 +22,7 @@
                         </div>
                     </div>
                     <button>Login</button>
+                    <div class="below-btn"><a href="{{ route('forgetPassword') }}">Forget Password?</a></div>
                     <div class="below-btn">New on E-Rent? <a href="{{ route('user.register') }}">Register</a></div>
                 </form>
                 <div class="image-right-bg">

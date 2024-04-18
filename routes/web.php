@@ -16,3 +16,5 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('user.logout');
 Route::get('/verify-email', [AuthController::class, 'verify'])->name('verify.email');
 Route::get('/chat', [AuthController::class, 'chat']);
 Route::get('/verified',[AuthController::class,'verifiedEmail'])->name('verifiedEmail');
+Route::get('/forget-password',[AuthController::class,'forgetPassword'])->name('forgetPassword');
+Route::post('/send',[AuthController::class,'sendPass'])->name('user.send.pass');

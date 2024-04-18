@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Notifications\EmailTempPassword;
 use App\Notifications\VerifyEmailNotification;
 use App\Notifications\VerifyOTPNotification;
 use App\Services\UserServices;
@@ -225,5 +226,33 @@ class AuthController extends Controller
         $user->delete();
         Alert::success('Account deactivated Successfully.', 'You all information will be permenantly deleted after 30 days');
         return redirect()->route('user.login');
+    }
+    public function forgetPassword()
+    {
+        return view('Auth.Users.email');
+    }
+    public function sendPass(Request $request)
+    {
+        $validate = $request->validate([
+            'email' => 'required|string|email',
+        ]); 
+        if($validate)
+        {
+            $user = User::where('email', $request->email)->first();
+            if($user)
+            {
+                $password = Str::random(10);
+                $user->password = $password;
+                $user->update();
+                $user->notify(new EmailTempPassword($password));
+                Alert::success("We have sent a temporary password on your registered email address.", "Check Your Registered Email");
+                return redirect()->route('user.login');
+            }
+            else{
+                Alert::error("Your email address wasn't registered");
+                return redirect()->route('forgetPassword');
+            }
+           
+        }  
     }
 }
