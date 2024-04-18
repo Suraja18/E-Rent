@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Notifications\VerifyEmailNotification;
+use App\Notifications\VerifyOTPNotification;
 use App\Services\UserServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -193,25 +194,20 @@ class AuthController extends Controller
                 }   
             }
             $user = User::find(Auth::id()) ;
-            if ($this->isValidEmail($request->email)) {
-                $user->notify(new VerifyEmailNotification);
-            }else
-            {
-                Alert::error('The email entered is invalid.', 'Please insert valid email to continue.');
-                if(Auth::user()->roles === 1)
-                {
-                    return redirect()->route('tenant.change.email');
-                }
-                elseif(Auth::user()->roles === 2)
-                {
-                    return redirect()->route('landlord.change.email');
-                } 
-            }
-
+            $user-> email= $request->email;
+            $user->notify(new VerifyOTPNotification(Auth::id()));
+            Auth::logout();
+            Alert::success('Email Changed Request have been sent to Email.', 'Please check your email');
+            return redirect()->route('user.login');
         }
     }
-    private function isValidEmail($email)
+    public function verifiedEmail(Request $request)
     {
-        return checkdnsrr(substr(strstr($email, '@'), 1));
+        $user = User::find($request->id);
+        $user->email = $request->email;
+        $user->email_verified_at = now();
+        $user->update();
+        Alert::success('Email Changed Successfully.', 'Please login to continue');
+        return redirect()->route('user.login');
     }
 }
