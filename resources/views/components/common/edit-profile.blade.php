@@ -107,13 +107,14 @@
                             </div>
                         </div>
                         <hr class="margin-panel-hr" />
-                        <div>
+                        <form action="{!! $deactiveRoute !!}" method="POST">
+                            @csrf
                             <div class="profile-grids-header">
                                 <h4 class="settings-profiles-head">Delete Account</h4>
-                                <p class="profile-p"> Please note that all of the information will be permanently deleted. </p class="profile-p">
+                                <p class="profile-p"> Please note that all of the information will be permanently deleted after 30 days. </p class="profile-p">
                             </div>
                             <input type="submit" value="Delete account" class="table-btns danger for-delete-prof" />
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

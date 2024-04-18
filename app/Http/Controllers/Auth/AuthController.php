@@ -51,6 +51,13 @@ class AuthController extends Controller
     {
         $email = $request->input('email');
         $password = $request->input('password');
+        $user = User::withTrashed()->where('email', $email)->first();
+        if ($user && password_verify($password, $user->password))
+        {
+            if ($user->trashed()) {
+                $user->restore();
+            }
+        }
     
         $credentials = ['email' => $email, 'password' => $password];
     
@@ -66,6 +73,8 @@ class AuthController extends Controller
                     return redirect()->route('tenant.dashboard');
                 } elseif ($user->roles == 2) {
                     $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(30));
+                    $userMode->deleted_at = null;
+                    $userMode->update();
                     Alert::success('Login Successful');
                     return redirect()->route('landlord.dashboard');
                 }
@@ -208,6 +217,13 @@ class AuthController extends Controller
         $user->email_verified_at = now();
         $user->update();
         Alert::success('Email Changed Successfully.', 'Please login to continue');
+        return redirect()->route('user.login');
+    }
+    public function deactiveAccount()
+    {
+        $user = User::find(Auth::id());
+        $user->delete();
+        Alert::success('Account deactivated Successfully.', 'You all information will be permenantly deleted after 30 days');
         return redirect()->route('user.login');
     }
 }

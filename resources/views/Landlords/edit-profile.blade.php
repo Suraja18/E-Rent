@@ -21,6 +21,7 @@
         <x-slot name="email">{!! $user->email !!}</x-slot>
         <x-slot name="changePassword">{!! route('landlord.change.password') !!}</x-slot>
         <x-slot name="changeEmail">{!! route('landlord.change.email') !!}</x-slot>
+        <x-slot name="deactiveRoute">{!! route('landlord.deactive.email') !!}</x-slot>
         @if($user->image)
             <x-slot name="image">{!! $user->image !!}</x-slot>
         @endif
