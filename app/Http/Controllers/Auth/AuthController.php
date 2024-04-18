@@ -143,7 +143,7 @@ class AuthController extends Controller
     {
         $validate = $request->validate([
             'old_password' => 'required',
-            'password' => 'required|min:8',
+            'password' => 'required|min:8|different:old_password',
             'confirm_password' => 'required|same:password',
         ]);
         if($validate)
@@ -168,5 +168,50 @@ class AuthController extends Controller
             Alert::success('Password Changed Successfully.', 'Please login again');
             return redirect()->route('user.login');
         }
+    }
+    public function changeEmail()
+    {
+        return view('Auth.Users.change-email');
+    }
+    public function changeTryEmail(Request $request)
+    {
+        $validate = $request->validate([
+            'email' => 'required|string|email|unique:users,email',
+            'password' => 'required',
+        ]);
+        if($validate)
+        {
+            if (!Hash::check($request->password, Auth::user()->password)) {
+                Alert::error('The old password is incorrect.', 'Please insert correct password to continue.');
+                if(Auth::user()->roles === 1)
+                {
+                    return redirect()->route('tenant.change.email');
+                }
+                elseif(Auth::user()->roles === 2)
+                {
+                    return redirect()->route('landlord.change.email');
+                }   
+            }
+            $user = User::find(Auth::id()) ;
+            if ($this->isValidEmail($request->email)) {
+                $user->notify(new VerifyEmailNotification);
+            }else
+            {
+                Alert::error('The email entered is invalid.', 'Please insert valid email to continue.');
+                if(Auth::user()->roles === 1)
+                {
+                    return redirect()->route('tenant.change.email');
+                }
+                elseif(Auth::user()->roles === 2)
+                {
+                    return redirect()->route('landlord.change.email');
+                } 
+            }
+
+        }
+    }
+    private function isValidEmail($email)
+    {
+        return checkdnsrr(substr(strstr($email, '@'), 1));
     }
 }

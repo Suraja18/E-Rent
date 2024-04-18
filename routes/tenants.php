@@ -35,6 +35,8 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
         Route::get('/{slug}/property',[HousingController::class, 'propertyDetail'])->name('tenant.propertyDetail');
         Route::get('/change-password', [AuthController::class, 'changePassword'])->name('tenant.change.password');
         Route::post('/change-password/try', [AuthController::class, 'changeTryPassword'])->name('tenant.try.change.password');
+        Route::get('/change-email', [AuthController::class, 'changeEmail'])->name('tenant.change.email');
+        Route::post('/change-email/try', [AuthController::class, 'changeTryEmail'])->name('tenant.try.change.email');
 
          //For Complete Profile Landlord
         Route::middleware(['checkComplete'])->group(function () {

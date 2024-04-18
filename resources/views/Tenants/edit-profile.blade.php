@@ -28,6 +28,7 @@
             <x-slot name="address">{!! $user->address !!}</x-slot>
             <x-slot name="gender">{!! $user->gender !!}</x-slot>
             <x-slot name="email">{!! $user->email !!}</x-slot>
+            <x-slot name="changeEmail">{!! route('tenant.change.email') !!}</x-slot>
             <x-slot name="changePassword">{!! route('tenant.change.password') !!}</x-slot>
             @if($user->image)
                 <x-slot name="image">{!! $user->image !!}</x-slot>

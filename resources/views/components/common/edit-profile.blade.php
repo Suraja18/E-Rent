@@ -88,7 +88,7 @@
                                 <div class="mb-15">
                                     <div class="d-flex" style="justify-content: space-between">
                                         <h6 class="mb-1">Email</h6>
-                                        <a href="#" target="_blank" class="status-links clr-green">Change</a>
+                                        <a href="{!! $changeEmail !!}" target="_blank" class="status-links clr-green">Change</a>
                                     </div>
                                     <p class="profile-p">Your email is <b>@if(isset($email)) {!! $email !!} @endif</b></p>
                                 </div>

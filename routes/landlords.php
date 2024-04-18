@@ -28,6 +28,8 @@ Route::middleware(['landlord', 'session.logout'])->group(function () {
         Route::post('/success/contact', [UserController::class, 'updateContact'])->name('landlord.get.contact');
         Route::get('/change-password', [AuthController::class, 'changePassword'])->name('landlord.change.password');
         Route::post('/change-password/try', [AuthController::class, 'changeTryPassword'])->name('landlord.try.change.password');
+        Route::get('/change-email', [AuthController::class, 'changeEmail'])->name('landlord.change.email');
+        Route::post('/change-email/try', [AuthController::class, 'changeTryEmail'])->name('landlord.try.change.email');
 
         //For Complete Profile Landlord
         Route::middleware(['checkComplete'])->group(function () {
