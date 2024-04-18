@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\Forums;
 use App\Models\Friends;
 use App\Models\MaintenanceRequest;
+use App\Models\Messages;
 use App\Models\RentPayment;
 use App\Models\RentProperty;
 use App\Models\User;

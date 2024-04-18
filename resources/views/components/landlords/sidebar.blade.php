@@ -3,7 +3,7 @@
     <section id="sidebar">
         <aside class="app-sidebar" id="appSidebar">
             <div class="app-logo">
-                <a href="#" class="logo-grid">
+                <a href="{!! route('landlord.dashboard') !!}" class="logo-grid">
                     <img src="{{ asset('Images/Original/House-Logo.png') }}" alt="House Logo" class="use-case-image-responsive app-logos">
                     <img src="{{ asset('Images/Original/Logo.svg') }}" alt="Logo Name" class="use-case-image-responsive app-logo-name">
                 </a>
