@@ -113,10 +113,6 @@
             </x-landlords.responsive-table>
         </div>
     </div>
-    
-                           
-    
-
 
     <x-landlords.footer />                
 </x-users.main.app-layout>
