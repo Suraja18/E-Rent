@@ -201,47 +201,6 @@
                                     <span class="sidebar-content-header"> Invoice & Payment </span>
                                 </a>
                             </li>
-                            <li class="mb-5 o-hidden" role="listitem">
-                                <span class="sidebar-link" id="dropdownreport">
-                                    <div class="sidebar-content-linkitem p-r">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M192 0c-41.8 0-77.4 26.7-90.5 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H282.5C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM72 272a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm104-16H304c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16s7.2-16 16-16zM72 368a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm88 0c0-8.8 7.2-16 16-16H304c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16z"/></svg>
-                                    </div>
-                                    <span class="sidebar-content-header">
-                                        Reports 
-                                        <svg class="sidebar-arrowdown arrowDown" loading="lazy" id="expandArrow-report" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
-                                    </span>
-                                </span>
-                                <div class="sidebarDropdown" id="sidebarDropdown-report">
-                                    <ul class="sidebar-content-menu sub-menu">
-                                        <li role="list" class="for-list">
-                                            <a href="" class="sidebar-link" role="listitem">
-                                                <div class="sidebar-content-linkitem p-r">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M192 0c-41.8 0-77.4 26.7-90.5 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H282.5C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM128 256a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zM80 432c0-44.2 35.8-80 80-80h64c44.2 0 80 35.8 80 80c0 8.8-7.2 16-16 16H96c-8.8 0-16-7.2-16-16z"/></svg>
-                                                </div>
-                                                <span class="sidebar-content-header">
-                                                    Rent Payment 
-                                                </span>
-                                            </a>
-                                            <a href="" class="sidebar-link" role="listitem">
-                                                <div class="sidebar-content-linkitem p-r">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M192 0c-41.8 0-77.4 26.7-90.5 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H282.5C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM305 273L177 401c-9.4 9.4-24.6 9.4-33.9 0L79 337c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L271 239c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
-                                                </div>
-                                                <span class="sidebar-content-header">
-                                                    Revenue Summary
-                                                </span>
-                                            </a>
-                                            <a href="" class="sidebar-link" role="listitem">
-                                                <div class="sidebar-content-linkitem p-r">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M192 0c-41.8 0-77.4 26.7-90.5 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H282.5C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM112 192H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
-                                                </div>
-                                                <span class="sidebar-content-header">
-                                                    Property Occupants
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
                             <li class="mb-5 o-hidden" role="listitem"> 
                                 <a href="{!! route('forum.index') !!}" class="sidebar-link @if(request()->routeIs('forum.*')) active @endif">
                                     <div class="sidebar-content-linkitem p-r">

@@ -21,12 +21,20 @@
                                 </a>
                             </li>
                             <li class="mb-5 o-hidden" role="listitem">
+                                <a href="{{ route('admin.banners') }}" class="sidebar-link @if(Route::currentRouteName() == 'admin.banners') active @endif">
+                                    <div class="sidebar-content-linkitem p-r">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 448c0 35.3 28.7 64 64 64H224V384c0-17.7 14.3-32 32-32H384V64c0-35.3-28.7-64-64-64H64C28.7 0 0 28.7 0 64V448zM171.3 75.3l-96 96c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l96-96c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6zm96 32l-160 160c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l160-160c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6zM384 384H256V512L384 384z"/></svg>
+                                    </div>
+                                    <span class="sidebar-content-header"> Banners </span>
+                                </a>
+                            </li>
+                            <li class="mb-5 o-hidden" role="listitem">
                                 <span class="sidebar-link @if(request()->routeIs('approve.*') || request()->routeIs('landlord.maintenance.*')) active @endif" id="dropdownmaintenance">
                                     <div class="sidebar-content-linkitem p-r">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M0 64C0 28.7 28.7 0 64 0H352c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zM160 352c0-17.7 14.3-32 32-32V304c0-44.2 35.8-80 80-80H416c17.7 0 32-14.3 32-32V160 69.5c37.3 13.2 64 48.7 64 90.5v32c0 53-43 96-96 96H272c-8.8 0-16 7.2-16 16v16c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V352z"/></svg>
                                     </div>
                                     <span class="sidebar-content-header">
-                                        Request 
+                                        About 
                                         <svg class="sidebar-arrowdown arrowDown" loading="lazy" id="expandArrow-maintenance" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
                                     </span>
                                 </span>

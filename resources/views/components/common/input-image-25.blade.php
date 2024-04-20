@@ -50,6 +50,6 @@
         </div>
     </div>
     @if(!isset($type))
-        <h6 class="mb-1 mt-1">Note: Please Insert Transparent Background Image ( Image: 2,3,4 = Optional )</h6>
+        <h6 class="mb-1 mt-1">Note: Please Insert Transparent Background Image</h6>
     @endif
 </div>
