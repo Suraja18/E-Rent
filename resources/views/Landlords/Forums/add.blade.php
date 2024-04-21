@@ -1,6 +1,6 @@
 <x-users.main.app-layout>
     <x-slot name="head">
-        - Add Aggrement
+        - Add Agreement
     </x-slot>
     <x-landlords.sidebar />
 
@@ -12,7 +12,7 @@
                 /<a href="{{ route('forum.index') }}" class="banner-link-for-header"> Landlord Forum</a>
             </li>
         </x-slot>
-        <x-slot name="name">Add Aggrement</x-slot>
+        <x-slot name="name">Add Agreement</x-slot>
     </x-landlords.banners>
                            
     <x-landlords.new-body>

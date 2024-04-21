@@ -81,8 +81,63 @@ class AboutController extends Controller
     }
     public function images()
     {
-        $introImage = DescImage::where('about_id', 2)->get();
+        $introImage = DescImage::where('about_id', 2)->latest()->get();
         $data = ['images' => $introImage];
         return view('Admin.About.infinity-image', $data);
+    }
+    public function imagesStore(Request $request)
+    {
+        $introImage = new DescImage;
+        $introImage->about_id = 2;
+        $image1 = $request->image_1;
+        if ($image1) {
+            $imageName = Str::uuid()->toString() . '-' . time() . '.' . $image1->getClientOriginalExtension();
+            $image1->move('Images/Variable/About/Infinity', $imageName);
+            $introImage->image = "Images/Variable/About/Infinity/" . $imageName;
+        }  
+        $introImage->save();
+        Alert::success('Images Inserted Successfully');
+        return redirect()->route('admin.infinity.images'); 
+    }
+    public function imagesDestroy(string $id)
+    {
+        $introImage = DescImage::where('id', $id)->where('about_id', 2)->first();
+        File::delete($introImage->image);
+        $introImage->delete();
+        Alert::success('Image Deleted Successfully');
+        return redirect()->route('admin.infinity.images');
+    }
+    public function history()
+    {
+        $data = [
+            'history' => About::find(3),
+            'historyImage' => DescImage::where('about_id', 3)->first(),
+        ];
+        return view('Admin.About.history', $data);
+    }
+    public function aboutHistory(Request $request)
+    {
+        $validate = $request->validate([
+            'heading' => 'required|string|min:10|max:25',
+            'description' => 'required|string|min:100|max:500000',
+            'image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        if($validate)
+        {
+            $history = About::find(3);
+            $historyImage = DescImage::where('about_id', 3)->first();
+            $history->heading = $request->heading;
+            $history->description = $request->description;
+            $image1 = $request->image_1;
+            if ($image1) {
+                File::delete($historyImage->image);
+                $imageName = Str::uuid()->toString() . '-' . time() . '.' . $image1->getClientOriginalExtension();
+                $image1->move('Images/Variable/About/Intro', $imageName);
+                $history->image = "Images/Variable/About/Intro/" . $imageName;
+            } 
+            $history->update();
+            Alert::success('About History Successfully Updated!');
+            return redirect()->route('admin.history');
+        }
     }
 }

@@ -31,7 +31,7 @@
                                 </div>
                             </td>
                             <td class="table-action-cell">
-                                <form action="{{ route('unit.destroy', $unit) }}" method="POST" class="table-btns danger" id="deleteTables{!! $unit->id !!}">
+                                <form action="{{ route('admin.infinity.images.destroy', $unit) }}" method="POST" class="table-btns danger" id="deleteTables{!! $unit->id !!}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="none" onclick="return confirmDelete('deleteTables{!! $unit->id !!}')">
@@ -49,7 +49,7 @@
         </div>
         <div class="error-rows units display-33">
             <x-landlords.new-body>
-                    <form enctype="multipart/form-data" action="{{ route('unit.store') }}" method="POST">
+                    <form enctype="multipart/form-data" action="{{ route('admin.infinity.images.store') }}" method="POST">
                         @csrf
                         <x-common.input-image-100 />
                         <div class="text-center">

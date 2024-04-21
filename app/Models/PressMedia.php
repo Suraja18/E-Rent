@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DescImage extends Model
+class PressMedia extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'about_id',
-        'image'
+        'image_1',
+        'heading',
+        'type',
+        'description'
     ];
 }

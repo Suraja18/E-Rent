@@ -13,7 +13,7 @@
             </x-common.input-file-flex>
         </div>
     </div>
-    @if(!isset($type))
+    @if((!isset($type)) && (!isset($nothing)))
         <h6 class="mb-1 mt-1">Note: Please Insert Transparent Background Image</h6>
     @endif
 </div>

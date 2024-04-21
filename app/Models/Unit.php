@@ -9,7 +9,13 @@ use Illuminate\Support\Str;
 class Unit extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'image_1',
+        'building_unit',
+        'rooms',
+        'description',
+        'slug'
+    ];
 
     public function setBuildingUnitAttribute($value)
     {

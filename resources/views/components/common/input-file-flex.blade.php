@@ -49,9 +49,17 @@
                     preview.setAttribute('src', event.target.result);
                 };
                 reader.readAsDataURL(file);
-                const imgcont = this.closest('.add-flex-4').querySelector('.attached-image');
+                var imgcont = this.closest('.add-flex-4')?.querySelector('.attached-image');
                 if (imgcont) {
                     imgcont.classList.add('block');
+                }
+                var imgcont2 = this.closest('.add-flex-2')?.querySelector('.attached-image');
+                if (imgcont2) {
+                    imgcont2.classList.add('block');
+                }
+                var imgcont3 = this.closest('.add-flex-1')?.querySelector('.attached-image');
+                if (imgcont3) {
+                    imgcont3.classList.add('block');
                 }
             }
         });

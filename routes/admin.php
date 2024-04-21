@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PressController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin', 'session.logout'])->group(function () {
@@ -15,5 +16,9 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::post('/about/infinity/store', [AboutController::class, 'infinityStore'])->name('admin.infinity.store');
         Route::get('/about/infinity/images', [AboutController::class, 'images'])->name('admin.infinity.images');
         Route::post('/about/infinity/images/store', [AboutController::class, 'imagesStore'])->name('admin.infinity.images.store');
+        Route::delete('/about/infinity/images/{id}/delete', [AboutController::class, 'imagesDestroy'])->name('admin.infinity.images.destroy');
+        Route::get('/about/history', [AboutController::class, 'history'])->name('admin.history');
+        Route::post('/about/history/store', [AboutController::class, 'aboutHistory'])->name('admin.history.store');
+        Route::resource('/press', PressController::class);
     });
 });

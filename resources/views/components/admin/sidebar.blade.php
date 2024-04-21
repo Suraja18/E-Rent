@@ -29,7 +29,7 @@
                                 </a>
                             </li>
                             <li class="mb-5 o-hidden" role="listitem">
-                                <span class="sidebar-link @if(request()->routeIs('admin.intro') || request()->routeIs('admin.infinity')) active @endif" id="dropdownmaintenance">
+                                <span class="sidebar-link @if(request()->routeIs('admin.intro') || request()->routeIs('admin.infinity') || request()->routeIs('admin.infinity.images') || request()->routeIs('admin.history')) active @endif" id="dropdownmaintenance">
                                     <div class="sidebar-content-linkitem p-r">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
                                     </div>
@@ -65,7 +65,7 @@
                                                     Infinity Images
                                                 </span>
                                             </a>
-                                            <a href="{!! route('landlord.maintenance.complete') !!}" class="sidebar-link @if(request()->routeIs('landlord.maintenance.complete')) active @endif" role="listitem">
+                                            <a href="{!! route('admin.history') !!}" class="sidebar-link @if(request()->routeIs('admin.history')) active @endif" role="listitem">
                                                 <div class="sidebar-content-linkitem p-r">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V299.6l-94.7 94.7c-8.2 8.2-14 18.5-16.8 29.7l-15 60.1c-2.3 9.4-1.8 19 1.4 27.8H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128zM549.8 235.7l14.4 14.4c15.6 15.6 15.6 40.9 0 56.6l-29.4 29.4-71-71 29.4-29.4c15.6-15.6 40.9-15.6 56.6 0zM311.9 417L441.1 287.8l71 71L382.9 487.9c-4.1 4.1-9.2 7-14.9 8.4l-60.1 15c-5.5 1.4-11.2-.2-15.2-4.2s-5.6-9.7-4.2-15.2l15-60.1c1.4-5.6 4.3-10.8 8.4-14.9z"/></svg>
                                                 </div>
@@ -76,6 +76,14 @@
                                         </li>
                                     </ul>
                                 </div>
+                            </li>
+                            <li class="mb-5 o-hidden" role="listitem">
+                                <a href="{{ route('press.index') }}" class="sidebar-link @if(request()->routeIs('press.*')) active @endif">
+                                    <div class="sidebar-content-linkitem p-r">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M256 0H576c35.3 0 64 28.7 64 64V288c0 35.3-28.7 64-64 64H256c-35.3 0-64-28.7-64-64V64c0-35.3 28.7-64 64-64zM476 106.7C471.5 100 464 96 456 96s-15.5 4-20 10.7l-56 84L362.7 169c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h80 48H552c8.9 0 17-4.9 21.2-12.7s3.7-17.3-1.2-24.6l-96-144zM336 96a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM64 128h96V384v32c0 17.7 14.3 32 32 32H320c17.7 0 32-14.3 32-32V384H512v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V192c0-35.3 28.7-64 64-64zm8 64c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16H88c8.8 0 16-7.2 16-16V208c0-8.8-7.2-16-16-16H72zm0 104c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16H88c8.8 0 16-7.2 16-16V312c0-8.8-7.2-16-16-16H72zm0 104c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16H88c8.8 0 16-7.2 16-16V416c0-8.8-7.2-16-16-16H72zm336 16v16c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V416c0-8.8-7.2-16-16-16H424c-8.8 0-16 7.2-16 16z"/></svg>
+                                    </div>
+                                    <span class="sidebar-content-header"> Press & Media </span>
+                                </a>
                             </li>
                             <li class="mb-5 o-hidden" role="listitem">
                                 <span class="sidebar-link @if(request()->routeIs('building.*') || request()->routeIs('unit.*')) active @endif" id="dropdownproperty">
