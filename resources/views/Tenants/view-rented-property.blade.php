@@ -206,9 +206,6 @@
                                                                         <a href="{!! route('tenant.make.payment', $slug) !!}" class="upper-btn">Pay Rent</a>
                                                                     </div>
                                                                     <div class="btn-container-opt below">
-                                                                        <a href="../Errors/404Error.html" class="upper-btn">Print</a>
-                                                                    </div>
-                                                                    <div class="btn-container-opt below">
                                                                         <a href="{!! route('tenant.display.property', $slug) !!}" class="upper-btn">View</a>
                                                                     </div>
                                                                     <div class="btn-container-opt">

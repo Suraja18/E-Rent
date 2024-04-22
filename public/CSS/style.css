@@ -8384,6 +8384,20 @@ ul{
 .main-image-req.active > *{
     display: none;
 }
+.rateOptions{
+    display: none;
+    position: absolute;
+    top: 39px;
+    right: 0;
+    width: 150px;
+    height: auto;
+    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+    z-index: 999;
+    background-color: var(--whiteColor);
+}
+.rateOptions.active{
+    display: block;
+}
 /* End Register Page */
  
 /* Final Invoice */

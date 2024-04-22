@@ -70,7 +70,8 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::post('/view/friends', [TenantController::class, 'seeFriends'])->name('tenant.viewFriend');
             Route::post('/unfriend', [TenantController::class, 'unfriend'])->name('tenant.unfriend');
             Route::post('/addingFriend', [TenantController::class, 'addingFriend'])->name('tenant.addingFriend');
-
+            Route::post('/submit/rating', [TenantController::class, 'submitRating'])->name('submit.rating');
+            Route::delete('/delete/{id}/review', [TenantController::class, 'deleteReview'])->name('delete.review');
 
             Route::get('/add/maintenance', [MaintenanceController::class, 'create'])->name('tenant.maintenance.add');
             Route::get('/view/{id}/maintenance', [MaintenanceController::class, 'view'])->name('tenant.maintenance.view');
