@@ -14,6 +14,7 @@
         })
         ->distinct('friend_id')
         ->count();
+    $company = App\Models\Company::first();
 @endphp
 <!-- Navbar -->
 <section class="Nav-Navbar">
@@ -332,7 +333,7 @@
                 <div class="navigationMenu-left">
                     <a href="{{ route('tenant.dashboard') }}"
                         class="navigationMenu-logo-link inline-block">
-                        <img src="{!! asset('Images/Original/Logo.svg') !!}"
+                        <img src="{!! asset($company->logo) !!}"
                             loading="lazy"
                             alt="Logo" class="navigationMenu-logo">
                     </a>

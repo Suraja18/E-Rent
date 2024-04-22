@@ -1,3 +1,6 @@
+@php
+    $company = App\Models\Company::first();
+@endphp
 <div class="landlord-body">
     <!-- Start Sidebar -->
     <section id="sidebar">
@@ -5,7 +8,7 @@
             <div class="app-logo">
                 <a href="{!! route('landlord.dashboard') !!}" class="logo-grid">
                     <img src="{{ asset('Images/Original/House-Logo.png') }}" alt="House Logo" class="use-case-image-responsive app-logos">
-                    <img src="{{ asset('Images/Original/Logo.svg') }}" alt="Logo Name" class="use-case-image-responsive app-logo-name">
+                    <img src="{{ asset($company->logo) }}" alt="Logo Name" class="use-case-image-responsive app-logo-name">
                 </a>
             </div>
             <sidebar class="sidebar-content-container flex-cl-1">

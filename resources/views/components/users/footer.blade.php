@@ -1,26 +1,29 @@
+@php
+    $company = App\Models\Company::first();
+@endphp
 <!-- Start Footer -->
 <footer class="footer-user">
     <div class="footer-width mt-2">
         <div class="footer-top">
             <div class="footer-top-left">
                 <a href="{{ route('user.index') }}" class="footer_logo inline-block">
-                    <img height="24" src="../Images/Original/Logo.svg" loading="lazy" alt="Logo">
+                    <img height="24" src="{!! asset($company->logo) !!}" loading="lazy" alt="Logo">
                 </a>
                 <div class="text-testimonial footer-tagline">Multifamily
-                    Solutions to Smile About</div>
+                    Solutions to Rent Property</div>
             </div>
             <div class="footer-top-right">
-                <a href="https://www.linkedin.com/" target="_blank" class="social_btn inline-block">
-                    <img src="../Images/Original/Icons/linkedIn.svg" loading="lazy" alt class="social_icon">
+                <a href="{!! $company->linkedin !!}" target="_blank" class="social_btn inline-block">
+                    <img src="{!! asset('Images/Original/Icons/linkedIn.svg') !!}" loading="lazy" alt class="social_icon">
                 </a>
-                <a href="https://www.facebook.com/" target="_blank" class="social_btn inline-block">
-                    <img src="../Images/Original/Icons/facebook.svg" loading="lazy" alt class="social_icon">
+                <a href="{!! $company->facebook !!}" target="_blank" class="social_btn inline-block">
+                    <img src="{!! asset('Images/Original/Icons/facebook.svg') !!}" loading="lazy" alt class="social_icon">
                 </a>
-                <a href="https://www.instagram.com/" target="_blank" class="social_btn inline-block">
-                    <img src="../Images/Original/Icons/instagram.svg" loading="lazy" alt class="social_icon">
+                <a href="{!! $company->instagram !!}" target="_blank" class="social_btn inline-block">
+                    <img src="{!! asset('Images/Original/Icons/instagram.svg') !!}" loading="lazy" alt class="social_icon">
                 </a>
-                <a href="https://twitter.com/" target="_blank" class="social_btn last inline-block">
-                    <img src="../Images/Original/Icons/twitter.svg" loading="lazy" alt class="social_icon">
+                <a href="{!! $company->twitter !!}" target="_blank" class="social_btn last inline-block">
+                    <img src="{!! asset('Images/Original/Icons/twitter.svg') !!}" loading="lazy" alt class="social_icon">
                 </a>
             </div>
         </div>

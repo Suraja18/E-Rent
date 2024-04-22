@@ -1,3 +1,6 @@
+@php
+    $company = App\Models\Company::first();
+@endphp
 <!-- Navbar --> 
 <section class="Nav-Navbar">
 
@@ -171,7 +174,7 @@
                         data-nav-id="1">
                         <div
                             class="text-testimonial is-title">Use Cases</div>
-                        <img src="../Images/Original/downArrow.svg"
+                        <img src="{!! asset('Images/Original/downArrow.svg') !!}"
                             class="arrowDown" loading="lazy"
                             alt="Expand arrow" id="expandArrow-1"
                             data-nav-id="1">
@@ -218,7 +221,7 @@
                         data-nav-id="2">
                         <div
                             class="text-testimonial is-title @if(Route::currentRouteName() == 'user.user-role' || Route::currentRouteName() == 'user.teamManagement' || Route::currentRouteName() == 'user.customer-review' || Route::currentRouteName() == 'user.press-media' || Route::currentRouteName() == 'user.faqs' || Route::currentRouteName() == 'user.helpCentre') active @endif">Features</div>
-                        <img src="../Images/Original/downArrow.svg"
+                        <img src="{!! asset('Images/Original/downArrow.svg') !!}"
                             class="arrowDown" loading="lazy"
                             alt="Expand arrow" id="expandArrow-2"
                             data-nav-id="2">
@@ -337,7 +340,7 @@
                 <div class="navigationMenu-left">
                     <a href="{{ route('user.index') }}"
                         class="navigationMenu-logo-link inline-block">
-                        <img src="../Images/Original/Logo.svg"
+                        <img src="{!! asset($company->logo) !!}"
                             loading="lazy"
                             alt="Logo" class="navigationMenu-logo">
                     </a>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->longText('description');
             $table->longText('image_1');
             $table->enum('type', ['Press', 'Media', 'News'])->default('Press');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

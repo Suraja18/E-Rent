@@ -2,6 +2,7 @@
     if(Auth::id()){
         $user = App\Models\User::findOrFail(Illuminate\Support\Facades\Auth::id());
     }
+    $company = App\Models\Company::first();
 @endphp     
     <!-- Contact US Banner -->
     <section class="clientSays bg-blue-lighter pt-7b">
@@ -9,11 +10,9 @@
             <div class="container is-header">
                 <div class="hero-content housing-content-center">
                     <div class="hero-content housing-content-center housing-detail">
-                        <img src="../Images/Original/Icons/contactus.svg" alt="Logo" loading="lazy">
+                        <img src="{!! asset('Images/Original/Icons/contactus.svg') !!}" alt="Logo" loading="lazy">
                         <h1 class="banner-header">Contact Us</h1>
-                        <p class="text-testimonial text-center">Connect with us, your gateway to seamless rentals.
-                            Experience personalized assistance and swift solutions. Your satisfaction is our priority –
-                            contact us, your E-Rent concierge today.</p>
+                        <p class="text-testimonial text-center">{!! $company->contact_description !!}</p>
                     </div>
                 </div>
             </div>
@@ -31,9 +30,9 @@
                             <div class="search-wrappers">
                                 <div class="contact-icons-wrappers">
                                     <div class="contact-icons">
-                                        <img src="../Images/Original/Icons/location.svg" alt="Location">
+                                        <img src="{!! asset('Images/Original/Icons/location.svg') !!}" alt="Location">
                                     </div>
-                                    <span class="paragraph">123 Street, New York, USA</span>
+                                    <span class="paragraph">{!! $company->address !!}</span>
                                 </div>
                             </div>
                         </div>
@@ -41,9 +40,9 @@
                             <div class="search-wrappers">
                                 <div class="contact-icons-wrappers">
                                     <div class="contact-icons">
-                                        <img src="../Images/Original/Icons/email.svg" alt="Email">
+                                        <img src="{!! asset('Images/Original/Icons/email.svg') !!}" alt="Email">
                                     </div>
-                                    <span class="paragraph">abc@gmail.com</span>
+                                    <span class="paragraph">{!! $company->email !!}</span>
                                 </div>
                             </div>
                         </div>
@@ -51,9 +50,15 @@
                             <div class="search-wrappers">
                                 <div class="contact-icons-wrappers">
                                     <div class="contact-icons">
-                                        <img src="../Images/Original/Icons/phone.svg" alt="Location">
+                                        <img src="{!! asset('Images/Original/Icons/phone.svg') !!}" alt="Location">
                                     </div>
-                                    <span class="paragraph">+977 9800000000</span>
+                                    <span class="paragraph">
+                                        @if (strlen($company->phone_number) == 10)
+                                            +977 {{ $company->phone_number }}
+                                        @else
+                                            {{ $company->phone_number }}
+                                        @endif
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +66,7 @@
                 </div>
                 <div class="hero-content is-50-mobile wow fadeInUp">
                     <iframe class="google-maps"
-                        src="https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d4975.64534231162!2d84.10644133352281!3d28.136971586025812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d28.13782119854006!2d84.10735170548872!5e0!3m2!1sen!2snp!4v1709878758413!5m2!1sen!2snp"
+                        src="{!! $company->google_map !!}"
                         allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 <div class="hero-content is-50-mobile bg-white">

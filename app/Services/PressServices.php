@@ -14,6 +14,7 @@ class PressServices{
             $image1->move('Images/Variable/Press', $imageName);
             $validatedData['image_1'] = "Images/Variable/Press/" . $imageName;
         }
+        $validatedData['slug'] = $request['heading'];
         return $validatedData;
     }
     public static function pressUpdate($image1, $request, $press){
@@ -24,6 +25,7 @@ class PressServices{
             $image1->move('Images/Variable/Press', $imageName);
             $validatedData['image_1'] = 'Images/Variable/Press/' . $imageName;
         }
+        $validatedData['slug'] = $request['heading'];
         return $validatedData;
     }
 }
