@@ -192,7 +192,7 @@
                                         $ratingStar = $rating->rate; 
                                         $fullStars = floor($ratingStar);
                                         $halfStar = fmod(floatval($ratingStar), 1.0) >= 0.5;
-                                        $replies = App\Models\RateReply::where('rating_id',$rating->id)->latest()->get();
+                                        $replies = App\Models\RatingReply::where('rating_id',$rating->id)->latest()->get();
                                     @endphp
                                     <div class="p-r ratestr">
                                         <div class="d-flex mb-1 sidebar-content-wrapper">
@@ -212,7 +212,7 @@
                                                         </div>
                                                         @endif
                                                         <div class="btn-container-opt @if($rating->user->id == auth()->id()) below @endif">
-                                                            <a href="http://127.0.0.1:8000/tenants/property/Golden%20Urban%20House%20Single%20Room%20For%20Rent/make/payment" style="cursor: pointer;" class="upper-btn">Reply</a>
+                                                            <button style="cursor: pointer;" class="upper-btn replyButton" data-id="{{ $rating->id }}">Reply</button>
                                                         </div>
                                                         @if($rating->user->id == auth()->id())
                                                         <div class="btn-container-opt">
@@ -245,7 +245,6 @@
                                             @csrf
                                             @method('PUT')
                                             <div class="form-group mb-1">
-                                                <input type="hidden" class="form-control" value="{{ $rating->rate }}" />
                                                 <textarea class="form-control table-datas" style="height:auto;" name="review" required>{!! $rating->review !!}</textarea>
                                             </div>
                                             <div class="text-center mb-1">
@@ -255,13 +254,40 @@
                                             </div>
                                         </form>
                                         @endif
+                                        @foreach ($replies as $reply)
                                         <div class="d-flex">
                                             <svg class="svg-inline-fa rotate-180" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="reply" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M8.31 189.9l176-151.1c15.41-13.3 39.69-2.509 39.69 18.16v80.05C384.6 137.9 512 170.1 512 322.3c0 61.44-39.59 122.3-83.34 154.1c-13.66 9.938-33.09-2.531-28.06-18.62c45.34-145-21.5-183.5-176.6-185.8v87.92c0 20.7-24.31 31.45-39.69 18.16l-176-151.1C-2.753 216.6-2.784 199.4 8.31 189.9z"></path></svg>
                                             <div>
-                                                <h5 style="margin-top: .6rem; text-align: left;">Respond from Suraj <span class="text-body-time">5 mins ago</span></h5>
-                                                <p class="text-body-paragraph">Thank you for your valuable feedback</p>
+                                                <h5 style="margin-top: .6rem; text-align: left;">
+                                                    <div class="d-flex">
+                                                        Respond from {!! $reply->user->first_name !!} {!! $reply->user->last_name !!} <span class="text-body-time" style="margin-left: 5px;">{!! $reply->created_at->diffForHumans() !!}</span>
+                                                        <form action="{!! route('delete.reply', $reply) !!}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button style="background: transparent; border: 0; cursor: pointer;">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 448 512"><path fill="red" d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+                                                            </button>
+                                                        </form>   
+                                                    </div>
+                                                     
+                                                </h5>
+                                                <p class="text-body-paragraph">{!! $reply->reply !!}</p>
                                             </div>
                                         </div>
+                                        @endforeach
+                                        <form class="container" style="display:none" action="{!! route('reply.review') !!}" id="replyForm{{ $rating->id }}" method="POST">
+                                            @csrf
+                                            <div class="form-group mb-1">
+                                                <input type="hidden" class="form-control" name="ratingID" value="{{ $rating->id }}" />
+                                                <textarea class="form-control table-datas" placeholder="Reply here..." name="reply" required></textarea>
+                                            </div>
+                                            <div class="text-center mb-1">
+                                                <button class="m-button submit-blue">
+                                                    Reply
+                                                </button>
+                                            </div>
+                                        </form>
+                                        
                                     </div> 
                                 @endforeach
                                 
@@ -416,6 +442,19 @@
                 button.addEventListener('click', function() {
                     const ratingId = this.getAttribute('data-id');
                     const form = document.getElementById('editForm' + ratingId);
+                    const formReply = document.getElementById('replyForm' + ratingId);
+                    formReply.style.display = 'none';
+                    const targetElement = document.getElementById('rateOptions' + ratingId);
+                    targetElement.classList.remove('active');
+                    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+                });
+            });
+            document.querySelectorAll('.replyButton').forEach(button => {
+                button.addEventListener('click', function() {
+                    const ratingId = this.getAttribute('data-id');
+                    const form = document.getElementById('replyForm' + ratingId);
+                    const formEdit = document.getElementById('editForm' + ratingId);
+                    formEdit.style.display = 'none';
                     const targetElement = document.getElementById('rateOptions' + ratingId);
                     targetElement.classList.remove('active');
                     form.style.display = form.style.display === 'none' ? 'block' : 'none';

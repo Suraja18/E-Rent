@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Rating;
+use App\Models\RatingReply;
 use App\Models\RentPayment;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -66,5 +67,30 @@ class RatingController extends Controller
         $rating->delete();
         Alert::success('Your review removed successfully');
         return redirect()->back();
+    }
+    public function deleteReply(string $ratingId)
+    {
+        $rating = RatingReply::find($ratingId);
+        $rating->delete();
+        Alert::success('Your reply removed successfully');
+        return redirect()->back();
+    }
+    public function replyReview(Request $request)
+    {
+        $validate = $request->validate([
+            'reply' => 'required|string|min:2',
+            'ratingID' => 'required|exists:ratings,id'
+        ]);
+        if($validate)
+        {
+            $rating = new RatingReply();
+            $rating->user_id = Auth::id();
+            $rating->rating_id = $request->ratingID;
+            $rating->reply = $request->reply;
+            $rating->save();
+            Alert::success('Your have replied successfully');
+            return redirect()->back();
+        }
+       
     }
 }
