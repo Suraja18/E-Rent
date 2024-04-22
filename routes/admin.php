@@ -19,6 +19,8 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::delete('/about/infinity/images/{id}/delete', [AboutController::class, 'imagesDestroy'])->name('admin.infinity.images.destroy');
         Route::get('/about/history', [AboutController::class, 'history'])->name('admin.history');
         Route::post('/about/history/store', [AboutController::class, 'aboutHistory'])->name('admin.history.store');
+        Route::get('/company', [AdminController::class, 'company'])->name('admin.company');
+        Route::post('/company/store', [AdminController::class, 'companyStore'])->name('admin.company.store');
         Route::resource('/press', PressController::class);
     });
 });

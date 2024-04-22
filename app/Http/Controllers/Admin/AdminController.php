@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
@@ -72,5 +73,49 @@ class AdminController extends Controller
             return redirect()->route('admin.banners');
         }
 
+    }
+    public function company()
+    {
+        $data = ['company' => Company::first(),];
+        return view('Admin.Company.index', $data);
+    }
+    public function companyStore(Request $request)
+    {
+        $validate = $request->validate([
+            'address'             => 'required|string|max:255',
+            'email'               => 'required|email|max:255',
+            'phone_number'        => 'required|numeric|digits_between:9,10',
+            'logo'                => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'google_map'          => 'required|url|max:2048',
+            'linkedin'            => 'required|url|max:2048',
+            'facebook'            => 'required|url|max:2048',
+            'instagram'           => 'required|url|max:2048',
+            'twitter'             => 'required|url|max:2048',
+            'contact_description' => 'required|string|min:25|max:250',
+        ]);
+        if($validate)
+        {
+            $company = Company::first();
+            $company->address = $request->address;
+            $company->email = $request->email;
+            $company->phone_number = $request->phone_number;
+            $image1 = $request->logo;
+            if ($image1) {
+                File::delete($company->logo);
+                $imageName = Str::uuid()->toString() . '-' . time() . '.' . $image1->getClientOriginalExtension();
+                $image1->move('Images/Variable/Company', $imageName);
+                $company->logo = "Images/Variable/Company/" . $imageName;
+            }
+            $company->google_map = $request->google_map;
+            $company->linkedin = $request->linkedin;
+            $company->facebook = $request->facebook;
+            $company->instagram = $request->instagram;
+            $company->twitter = $request->twitter;
+            $company->contact_description = $request->contact_description;
+            $company->save();
+            Alert::success('Company Details Updated Successfully');
+            return redirect()->route('admin.company'); 
+        }
+       
     }
 }
