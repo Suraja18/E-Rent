@@ -3,19 +3,16 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
 use App\Models\Forums;
 use App\Models\Friends;
 use App\Models\MaintenanceRequest;
-use App\Models\Messages;
-use App\Models\Rating;
-use App\Models\RentPayment;
+use Illuminate\Support\Facades\Auth;
 use App\Models\RentProperty;
 use App\Models\User;
 use App\Notifications\FriendNotification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
+
+
 
 class TenantController extends Controller
 {
@@ -170,41 +167,5 @@ class TenantController extends Controller
         $tenant = $friend;
         return view('Tenants.Profile.index', compact('tenant'));
     }
-    public function submitRating(Request $request)
-    {
-        $validated = $request->validate([
-            'rating' => 'required|numeric|min:1|max:5',
-            'review' => 'required|string|max:1000',
-            'rented_id' => [
-                'required',
-                'integer',
-                Rule::exists('rent_properties', 'id'),
-            ]
-        ]);
-    
-        $rating = new Rating();
-        $rating->user_id = Auth::id();
-        $rating->rented_id = $validated['rented_id'];
-        $user_id = Auth::id();
-        $rented_id = $request->input('rented_id');
-        $existingRating = Rating::where('user_id', $user_id)
-            ->where('rented_id', $rented_id)
-            ->first();
-        if ($existingRating) {
-            return response()->json('You have already reviewed this product.', 422);
-        }
-        $rating->rate = $validated['rating'];
-        $rating->review = $validated['review'];
-        $rating->save();
-    
-        return response()->json([
-            'message' => 'Thank you for your review!',
-            'userName' => Auth::user()->first_name.' '. Auth::user()->last_name,
-            'userImage' => asset(Auth::user()->image),
-            'review' => $validated['review'],
-            'rating' => $validated['rating'],
-            'rateId' => $rating->id,
-        ]);
-    
-    }
+
 }

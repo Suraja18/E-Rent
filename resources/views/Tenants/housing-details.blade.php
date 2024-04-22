@@ -192,6 +192,7 @@
                                         $ratingStar = $rating->rate; 
                                         $fullStars = floor($ratingStar);
                                         $halfStar = fmod(floatval($ratingStar), 1.0) >= 0.5;
+                                        $replies = App\Models\RateReply::where('rating_id',$rating->id)->latest()->get();
                                     @endphp
                                     <div class="p-r ratestr">
                                         <div class="d-flex mb-1 sidebar-content-wrapper">
@@ -205,9 +206,15 @@
                                                 </div>
                                                 <div class="rateOptions" id="rateOptions{{$rating->id}}">
                                                     <div class="p-10p">
+                                                        @if($rating->user->id == auth()->id())
                                                         <div class="btn-container-opt below">
-                                                            <a href="http://127.0.0.1:8000/tenants/property/Golden%20Urban%20House%20Single%20Room%20For%20Rent/make/payment" class="upper-btn">Reply</a>
+                                                            <button class="upper-btn editButton" style="cursor: pointer;" data-id="{{ $rating->id }}">Edit</button>
                                                         </div>
+                                                        @endif
+                                                        <div class="btn-container-opt @if($rating->user->id == auth()->id()) below @endif">
+                                                            <a href="http://127.0.0.1:8000/tenants/property/Golden%20Urban%20House%20Single%20Room%20For%20Rent/make/payment" style="cursor: pointer;" class="upper-btn">Reply</a>
+                                                        </div>
+                                                        @if($rating->user->id == auth()->id())
                                                         <div class="btn-container-opt">
                                                             <form action="{!! route('delete.review', $rating) !!}" method="POST" id="deleteTables10">
                                                                 @csrf
@@ -215,6 +222,7 @@
                                                                 <input type="button" value="Delete" class="lower-btn" onclick="return confirmDelete('deleteTables10')">
                                                             </form>
                                                         </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -231,8 +239,22 @@
                                             </div>                                            
                                         </div>
                                         <p class="text-body-time">{!! $rating->created_at->diffForHumans() !!}</p>
-                                        <p class="text-body-paragraph mb-1">{!! $rating->review !!}</p>
-                                        {{-- reply --}}
+                                        <p class="text-body-paragraph mb-1" id="displayReview{!! $rating->id !!}">{!! $rating->review !!}</p>
+                                        @if($rating->user->id == auth()->id())
+                                        <form class="container" style="display:none" action="{!! route('update.review', $rating) !!}" id="editForm{{ $rating->id }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="form-group mb-1">
+                                                <input type="hidden" class="form-control" value="{{ $rating->rate }}" />
+                                                <textarea class="form-control table-datas" style="height:auto;" name="review" required>{!! $rating->review !!}</textarea>
+                                            </div>
+                                            <div class="text-center mb-1">
+                                                <button class="m-button submit-blue">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </form>
+                                        @endif
                                         <div class="d-flex">
                                             <svg class="svg-inline-fa rotate-180" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="reply" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M8.31 189.9l176-151.1c15.41-13.3 39.69-2.509 39.69 18.16v80.05C384.6 137.9 512 170.1 512 322.3c0 61.44-39.59 122.3-83.34 154.1c-13.66 9.938-33.09-2.531-28.06-18.62c45.34-145-21.5-183.5-176.6-185.8v87.92c0 20.7-24.31 31.45-39.69 18.16l-176-151.1C-2.753 216.6-2.784 199.4 8.31 189.9z"></path></svg>
                                             <div>
@@ -264,6 +286,7 @@
         </div>
      </section>
      <x-tenants.property-detail :propertiee="$properties ?? null" />
+
 
      <script>
         var currentIndex = 0;
@@ -351,25 +374,6 @@
                                         <img src="${response.userImage}" alt="" class="rate-profile">
                                         <h5>${response.userName}</h5>
                                     </div>
-                                    <div class="p-r">
-                                        <div class="m-button for-rate-btn rateOptions" data-target="rateOptions${response.rateId}">
-                                            <svg class="svg-inline-fa fs-10" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M120 256C120 286.9 94.93 312 64 312C33.07 312 8 286.9 8 256C8 225.1 33.07 200 64 200C94.93 200 120 225.1 120 256zM280 256C280 286.9 254.9 312 224 312C193.1 312 168 286.9 168 256C168 225.1 193.1 200 224 200C254.9 200 280 225.1 280 256zM328 256C328 225.1 353.1 200 384 200C414.9 200 440 225.1 440 256C440 286.9 414.9 312 384 312C353.1 312 328 286.9 328 256z"></path></svg>
-                                        </div>
-                                        <div class="rateOptions" id="rateOptions${response.rateId}">
-                                            <div class="p-10p">
-                                                <div class="btn-container-opt below">
-                                                    <a href="http://127.0.0.1:8000/tenants/property/Golden%20Urban%20House%20Single%20Room%20For%20Rent/make/payment" class="upper-btn">Reply</a>
-                                                </div>
-                                                <div class="btn-container-opt">
-                                                    <form action="{!! route('delete.review', $rating) !!}" method="POST" id="deleteTables${response.rateId}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <input type="button" value="Delete" class="lower-btn" onclick="return confirmDelete('deleteTables${response.rateId}')">
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="d-flex sidebar-content-wrapper">
                                     <h5 class="star-ratings">${stars}</h5>
@@ -408,8 +412,17 @@
                     targetElement.classList.toggle('active');
                 });
             });
+            document.querySelectorAll('.editButton').forEach(button => {
+                button.addEventListener('click', function() {
+                    const ratingId = this.getAttribute('data-id');
+                    const form = document.getElementById('editForm' + ratingId);
+                    const targetElement = document.getElementById('rateOptions' + ratingId);
+                    targetElement.classList.remove('active');
+                    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+                });
+            });
         });
-
+        
     </script>
     <x-tenants.footer />
 </x-users.main.app-layout>

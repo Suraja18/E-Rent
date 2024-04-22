@@ -6,6 +6,7 @@ use App\Http\Controllers\Tenant\FriendController;
 use App\Http\Controllers\Tenant\HousingController;
 use App\Http\Controllers\Tenant\MaintenanceController;
 use App\Http\Controllers\Tenant\PaymentController;
+use App\Http\Controllers\Tenant\RatingController;
 use App\Http\Controllers\Tenant\RentController;
 use App\Http\Controllers\Tenant\TenantController;
 use App\Http\Controllers\User\NotificationController;
@@ -70,8 +71,9 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::post('/view/friends', [TenantController::class, 'seeFriends'])->name('tenant.viewFriend');
             Route::post('/unfriend', [TenantController::class, 'unfriend'])->name('tenant.unfriend');
             Route::post('/addingFriend', [TenantController::class, 'addingFriend'])->name('tenant.addingFriend');
-            Route::post('/submit/rating', [TenantController::class, 'submitRating'])->name('submit.rating');
-            Route::delete('/delete/{id}/review', [TenantController::class, 'deleteReview'])->name('delete.review');
+            Route::post('/submit/rating', [RatingController::class, 'submitRating'])->name('submit.rating');
+            Route::delete('/delete/{id}/review', [RatingController::class, 'deleteReview'])->name('delete.review');
+            Route::put('/update/rating/{id}', [RatingController::class, 'updateReview'])->name('update.review');
 
             Route::get('/add/maintenance', [MaintenanceController::class, 'create'])->name('tenant.maintenance.add');
             Route::get('/view/{id}/maintenance', [MaintenanceController::class, 'view'])->name('tenant.maintenance.view');
