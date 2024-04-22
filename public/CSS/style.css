@@ -4241,7 +4241,7 @@ input:checked + .toggle-btn::before{
     font-weight: 600;
 }
 .news-containers{
-    height: 4rem;
+    /* height: 4rem; */
     position: relative;
     overflow: hidden;
 }
@@ -4258,6 +4258,7 @@ input:checked + .toggle-btn::before{
     bottom: 0%;
     left: auto;
     right: 0%;
+    z-index: 99;
 }
 .navigation-for-roles{
     flex-wrap: wrap;
@@ -7732,6 +7733,18 @@ td {
     margin-right: auto;
     height: 6rem;
     width: 6rem;
+}
+.navigation-for-roles .btnSecondary{
+    margin: 0 2.5px;
+}
+.btnSecondary.disabled {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.btnSecondary.selected {
+    background-color: var(--green-100); 
+    color: white;
 }
 .tables-image-round{
     display: block;

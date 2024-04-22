@@ -18,7 +18,10 @@
                 </x-slot>   
         </x-users.roles-detail-upper>
 
-        <x-users.clients-say />
+        @php
+                $press = App\Models\PressMedia::latest()->first();
+        @endphp
+        <x-users.clients-say :press="$press ?? null" />
 
         <x-users.faqs />
 

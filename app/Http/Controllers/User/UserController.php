@@ -5,7 +5,10 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
+use App\Models\PressMedia;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -56,5 +59,16 @@ class UserController extends Controller
         $contact->save();
         Alert::success('Your Message has been sent!');
         return redirect()->back();
+    }
+    public function newsAndMedia(string $slug)
+    {
+        $press = PressMedia::where('slug', $slug)->first();
+        $user = User::find(Auth::id());
+        if($user && $user->roles == 1)
+        {
+            return view('Tenants.Press-Media.details', compact('press'));
+        }else{
+            return view('Users.press-detail',compact('press'));
+        }
     }
 }

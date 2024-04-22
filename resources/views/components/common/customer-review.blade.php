@@ -15,8 +15,6 @@
      </section>
      <!-- End Customer Review Banner -->
 
-     <x-users.clients-say />
-
      <!-- Start Client Says -->
      <section class="clientSays bg-light">
          <div class="container pt-7b">

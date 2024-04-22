@@ -24,6 +24,7 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
         Route::get('/maintenance-request',[TenantController::class, 'maintenanceRequest'])->name('tenant.maintenanceRequest');
         Route::get('/landlord-forum',[TenantController::class, 'landlordForum'])->name('tenant.landlord-forum');
         Route::get('/press-and-media',[TenantController::class, 'pressMedia'])->name('tenant.press-media');
+        Route::get('/{slug}/press-media',[UserController::class, 'newsAndMedia'])->name('tenant.press-media.single');
         Route::get('/customer-review',[TenantController::class, 'customerReview'])->name('tenant.customer-review');
         Route::get('/contact', [TenantController::class, 'contactPage'])->name('tenant.contact');
         Route::post('/success/contact', [UserController::class, 'updateContact'])->name('tenant.get.contact');
