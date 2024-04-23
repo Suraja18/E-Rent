@@ -27,5 +27,7 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::get('/web/rates', [RatesController::class, 'index'])->name('admin.rates.index');
         Route::post('/web/rates/store', [RatesController::class, 'store'])->name('admin.rates.store');
         Route::resource('/service', ServiceController::class)->only(['index', 'store', 'edit', 'update', 'destroy' ]);
+        Route::get('/advertising', [RatesController::class, 'advertising'])->name('admin.advertising.index');
+        Route::post('/advertising', [RatesController::class, 'advertisingStore'])->name('admin.advertising.store');
     });
 });

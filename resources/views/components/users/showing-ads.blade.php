@@ -1,3 +1,6 @@
+@php
+    $advertising = App\Models\Advertising::first();
+@endphp
 <!-- Start Landlord and Tenants Joining Ads -->
 <section class="tenantsLandlord-joining-ads">
     <div class="ads-container">
@@ -13,39 +16,18 @@
                                             <div class="tenantsLandlord-widget-ads">
                                                 <div class="ads-header">
                                                     <div class="ads-widget-container">
-                                                        <h2 class="ads-heading-title">Take
-                                                            Your Next
-                                                            Step to
-                                                            Success</h2>
+                                                        <h2 class="ads-heading-title">{!! $advertising->title !!}</h2>
                                                     </div>
                                                 </div>
                                                 <div class="ads-header">
                                                     <div class="ads-widget-container">
-                                                        <p class="ads-sub-heading-title">The
-                                                            right
-                                                            vacation
-                                                            rental
-                                                            partner
-                                                            helps you
-                                                            grow from
-                                                            budding
-                                                            entrepreneur
-                                                            to thriving
-                                                            investor —
-                                                            without
-                                                            sneaky
-                                                            contracts or
-                                                            outrageous
-                                                            fees.
-                                                        </p>
+                                                        <p class="ads-sub-heading-title">{!! $advertising->description !!}</p>
                                                     </div>
                                                 </div>
                                                 <div class="ads-header">
                                                     <div class="ads-widget-container">
                                                         <div class="elementor-button-wrapper">
-                                                            <a href="/Errors/404Error.html" target="_blank" class="btnSecondary navButton">See
-                                                                if you
-                                                                qualify</a>
+                                                            <a href="{!! route('user.register') !!}" target="_blank" class="btnSecondary navButton">Join Now</a>
                                                         </div>
                                                     </div>
                                                 </div>

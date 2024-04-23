@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Advertising;
 use App\Models\WebRates;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -50,6 +51,33 @@ class RatesController extends Controller
             }
             Alert::success('Elements Updated Successfully');
             return redirect()->route('admin.rates.index');
+        }
+    }
+    public function advertising()
+    {
+        $data = ['advertising' => Advertising::first(),];
+        return view('Admin.Advertising.index', $data);
+    }
+    public function advertisingStore(Request $request)
+    {
+        $validate = $request->validate([
+            'video_title'         => 'required|string|max:150',
+            'video_description'   => 'required|string|max:255',
+            'video_link'          => 'required|url|max:2048',
+            'title'             => 'required|string|max:150',
+            'description'       => 'required|string|max:255',
+        ]);
+        if($validate)
+        {
+            $advertising = Advertising::first();
+            $advertising->video_title = $request->video_title;
+            $advertising->video_description = $request->video_description;
+            $advertising->video_link = $request->video_link;
+            $advertising->title = $request->title;
+            $advertising->description = $request->description;
+            $advertising->update();
+            Alert::success('Advertising Updated Successfully');
+            return redirect()->route('admin.advertising.index');
         }
     }
 }
