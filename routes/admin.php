@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PressController;
 use App\Http\Controllers\Admin\RatesController;
+use App\Http\Controllers\Admin\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin', 'session.logout'])->group(function () {
@@ -25,5 +26,6 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::resource('/press', PressController::class);
         Route::get('/web/rates', [RatesController::class, 'index'])->name('admin.rates.index');
         Route::post('/web/rates/store', [RatesController::class, 'store'])->name('admin.rates.store');
+        Route::resource('/service', ServiceController::class)->only(['index', 'store', 'edit', 'update', 'destroy' ]);
     });
 });

@@ -37,13 +37,13 @@ class UserController extends Controller
     {
         return view('Users.user-roles');
     }
-    public function teamManagement()
-    {
-        return view('Users.team-management');
-    }
     public function helpCentre()
     {
         return view('Users.help-centre');
+    }
+    public function allService()
+    {
+        return view('Users.services');
     }
     public function useCases()
     {
