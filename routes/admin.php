@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PressController;
+use App\Http\Controllers\Admin\RatesController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin', 'session.logout'])->group(function () {
@@ -22,5 +23,7 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::get('/company', [AdminController::class, 'company'])->name('admin.company');
         Route::post('/company/store', [AdminController::class, 'companyStore'])->name('admin.company.store');
         Route::resource('/press', PressController::class);
+        Route::get('/web/rates', [RatesController::class, 'index'])->name('admin.rates.index');
+        Route::post('/web/rates/store', [RatesController::class, 'store'])->name('admin.rates.store');
     });
 });
