@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\HelpCentreController;
 use App\Http\Controllers\Admin\PressController;
 use App\Http\Controllers\Admin\Question\FrequentlyController;
 use App\Http\Controllers\Admin\Question\TenantController;
@@ -37,5 +38,6 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::resource('/roles-desc', RolesDescController::class);
         Route::resource('/frequently', FrequentlyController::class);
         Route::resource('/question', TenantController::class);
+        Route::resource('/help-centre', HelpCentreController::class);
     });
 });

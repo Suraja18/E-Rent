@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
+use App\Models\HelpCentre;
 use App\Models\PressMedia;
 use App\Models\User;
 use App\Models\userRoles;
@@ -77,5 +78,10 @@ class UserController extends Controller
         }else{
             return view('Users.press-detail',compact('press'));
         }
+    }
+    public function helpCentreFind(string $userSlug, string $slug)
+    {
+        $question = HelpCentre::where('slug', $slug)->first();
+        return view('Users.help-centre-result', compact('question'));
     }
 }
