@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PressController;
+use App\Http\Controllers\Admin\Question\FrequentlyController;
+use App\Http\Controllers\Admin\Question\TenantController;
 use App\Http\Controllers\Admin\RatesController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\RolesDescController;
@@ -33,5 +35,7 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::post('/advertising', [RatesController::class, 'advertisingStore'])->name('admin.advertising.store');
         Route::resource('/roles', RolesController::class);
         Route::resource('/roles-desc', RolesDescController::class);
+        Route::resource('/frequently', FrequentlyController::class);
+        Route::resource('/question', TenantController::class);
     });
 });

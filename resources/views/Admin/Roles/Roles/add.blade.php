@@ -12,7 +12,7 @@
     <x-admin.banners>
         <x-slot name="withhead">
             <li class="banner-header-name">
-                /<a href="{{ route('press.index') }}" class="banner-link-for-header"> User Roles</a>
+                /<a href="{{ route('roles-desc.index') }}" class="banner-link-for-header"> User Roles</a>
             </li>
         </x-slot>
         <x-slot name="name">Add</x-slot>

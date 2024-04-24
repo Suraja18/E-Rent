@@ -9,7 +9,7 @@
             <div class="container is-header">
                 <div class="hero-content housing-content-center">
                     <div class="hero-content housing-content-center housing-detail">
-                        <img src="../Images/Original/Icons/faqs.svg" alt="Logo" loading="lazy">
+                        <img src="{!! asset('Images/Original/Icons/faqs.sv') !!}"" alt="Logo" loading="lazy">
                         <h1 class="banner-header">Your E-Rent is always by your side</h1>
                         <p class="text-testimonial text-center">Most of the Newly Owned Customers have questions related to our Website. Some of mostly asked question with their solution listed.</p>
                     </div>
@@ -20,6 +20,10 @@
     <!-- End FAQs Banner -->
 
     <x-users.faqs />
+    @php
+         $questions = App\Models\Questions::where('type', 'Tenant')->latest()->get();
+         $qn = 1;
+    @endphp
 
     <!-- Start Most Clients FAQs -->
     <section class="clientSays bg-light">
@@ -33,120 +37,31 @@
                 </div>
                 <div>
                     <!-- Start Loop -->
+                    @foreach ($questions as $question)
                     <div class="question-wrappers dropdown-ans">
-                        <div class="question-wrap dropdown-answer" role="button" id="question-1" aria-expanded="false" onclick="toggleAnswer(this)">
+                        <div class="question-wrap dropdown-answer" role="button" id="question-{!! $qn !!}" aria-expanded="false" onclick="toggleAnswer(this)">
                             <div class="question-wrap-questions">
                                 <div class="question-wrap-text">
-                                    <div class="heading-xS">Do HappyCo mobile apps work offline?</div>
+                                    <div class="heading-xS">{!! $question->question !!}</div>
                                 </div>
                             </div>
                             <div class="question-wrap-arrow">
-                                <img src="../Images/Original/downArrow.svg" alt="Expand Arrow" loading="lazy" class="arrowDown">
+                                <img src="{!! asset('Images/Original/downArrow.svg') !!}" alt="Expand Arrow" loading="lazy" class="arrowDown">
                             </div>
                         </div>
-                        <div class="question-answers dropdown-lists" id="answer-1">
+                        <div class="question-answers dropdown-lists" id="answer-{!! $qn !!}">
                             <div class="question-contents">
                                 <div class="question-content">
-                                    <p>The Inspections, Tasks and Optigo Happy℠ mobile apps have offline functionality, so slow service won’t stop your progress. Once you’re logged on, you can conduct inspections and perform maintenance tasks from anywhere, no access to cellular data or WiFi required.<br/> Call Complete does not currently require an app download and will work on any smartphone with SMS and a web browser. Call Complete requires a cellular or WiFi connection, so offline mode is not available for this product.</p>
+                                    <p>{!! $question->answer !!}</p>
                                 </div>
+                                @php
+                                    $qn++;
+                                @endphp
                             </div>
                         </div>
-                    </div>
-                    <div class="question-wrappers dropdown-ans">
-                        <div class="question-wrap dropdown-answer" role="button" id="question-2" aria-expanded="false" onclick="toggleAnswer(this)">
-                            <div class="question-wrap-questions">
-                                <div class="question-wrap-text">
-                                    <div class="heading-xS">Do HappyCo mobile apps work offline?</div>
-                                </div>
-                            </div>
-                            <div class="question-wrap-arrow">
-                                <img src="../Images/Original/downArrow.svg" alt="Expand Arrow" loading="lazy" class="arrowDown">
-                            </div>
-                        </div>
-                        <div class="question-answers dropdown-lists" id="answer-2">
-                            <div class="question-contents">
-                                <div class="question-content">
-                                    <p>The Inspections, Tasks and Optigo Happy℠ mobile apps have offline functionality, so slow service won’t stop your progress. Once you’re logged on, you can conduct inspections and perform maintenance tasks from anywhere, no access to cellular data or WiFi required.<br/> Call Complete does not currently require an app download and will work on any smartphone with SMS and a web browser. Call Complete requires a cellular or WiFi connection, so offline mode is not available for this product.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="question-wrappers dropdown-ans">
-                        <div class="question-wrap dropdown-answer" role="button" id="question-3" aria-expanded="false" onclick="toggleAnswer(this)">
-                            <div class="question-wrap-questions">
-                                <div class="question-wrap-text">
-                                    <div class="heading-xS">Do HappyCo mobile apps work offline?</div>
-                                </div>
-                            </div>
-                            <div class="question-wrap-arrow">
-                                <img src="../Images/Original/downArrow.svg" alt="Expand Arrow" loading="lazy" class="arrowDown">
-                            </div>
-                        </div>
-                        <div class="question-answers dropdown-lists" id="answer-3">
-                            <div class="question-contents">
-                                <div class="question-content">
-                                    <p>The Inspections, Tasks and Optigo Happy℠ mobile apps have offline functionality, so slow service won’t stop your progress. Once you’re logged on, you can conduct inspections and perform maintenance tasks from anywhere, no access to cellular data or WiFi required.<br/> Call Complete does not currently require an app download and will work on any smartphone with SMS and a web browser. Call Complete requires a cellular or WiFi connection, so offline mode is not available for this product.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="question-wrappers dropdown-ans">
-                        <div class="question-wrap dropdown-answer" role="button" id="question-4" aria-expanded="false" onclick="toggleAnswer(this)">
-                            <div class="question-wrap-questions">
-                                <div class="question-wrap-text">
-                                    <div class="heading-xS">Do HappyCo mobile apps work offline?</div>
-                                </div>
-                            </div>
-                            <div class="question-wrap-arrow">
-                                <img src="../Images/Original/downArrow.svg" alt="Expand Arrow" loading="lazy" class="arrowDown">
-                            </div>
-                        </div>
-                        <div class="question-answers dropdown-lists" id="answer-4">
-                            <div class="question-contents">
-                                <div class="question-content">
-                                    <p>The Inspections, Tasks and Optigo Happy℠ mobile apps have offline functionality, so slow service won’t stop your progress. Once you’re logged on, you can conduct inspections and perform maintenance tasks from anywhere, no access to cellular data or WiFi required.<br/> Call Complete does not currently require an app download and will work on any smartphone with SMS and a web browser. Call Complete requires a cellular or WiFi connection, so offline mode is not available for this product.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="question-wrappers dropdown-ans">
-                        <div class="question-wrap dropdown-answer" role="button" id="question-5" aria-expanded="false" onclick="toggleAnswer(this)">
-                            <div class="question-wrap-questions">
-                                <div class="question-wrap-text">
-                                    <div class="heading-xS">Do HappyCo mobile apps work offline?</div>
-                                </div>
-                            </div>
-                            <div class="question-wrap-arrow">
-                                <img src="../Images/Original/downArrow.svg" alt="Expand Arrow" loading="lazy" class="arrowDown">
-                            </div>
-                        </div>
-                        <div class="question-answers dropdown-lists" id="answer-5">
-                            <div class="question-contents">
-                                <div class="question-content">
-                                    <p>The Inspections, Tasks and Optigo Happy℠ mobile apps have offline functionality, so slow service won’t stop your progress. Once you’re logged on, you can conduct inspections and perform maintenance tasks from anywhere, no access to cellular data or WiFi required.<br/> Call Complete does not currently require an app download and will work on any smartphone with SMS and a web browser. Call Complete requires a cellular or WiFi connection, so offline mode is not available for this product.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="question-wrappers dropdown-ans">
-                        <div class="question-wrap dropdown-answer" role="button" id="question-6" aria-expanded="false" onclick="toggleAnswer(this)">
-                            <div class="question-wrap-questions">
-                                <div class="question-wrap-text">
-                                    <div class="heading-xS">Do HappyCo mobile apps work offline?</div>
-                                </div>
-                            </div>
-                            <div class="question-wrap-arrow">
-                                <img src="../Images/Original/downArrow.svg" alt="Expand Arrow" loading="lazy" class="arrowDown">
-                            </div>
-                        </div>
-                        <div class="question-answers dropdown-lists" id="answer-6">
-                            <div class="question-contents">
-                                <div class="question-content">
-                                    <p>The Inspections, Tasks and Optigo Happy℠ mobile apps have offline functionality, so slow service won’t stop your progress. Once you’re logged on, you can conduct inspections and perform maintenance tasks from anywhere, no access to cellular data or WiFi required.<br/> Call Complete does not currently require an app download and will work on any smartphone with SMS and a web browser. Call Complete requires a cellular or WiFi connection, so offline mode is not available for this product.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div> 
+                    @endforeach
+                    
                     <!-- End Loop -->
                 </div>
             </div>
@@ -154,7 +69,7 @@
     </section>
     <!-- End Most Clients FAQs -->
 
-    <x-users.get-in-touch />
+    <x-users.showing-ads />
 
     <x-slot name="scripts">
         <script>
