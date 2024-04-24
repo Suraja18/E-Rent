@@ -30,7 +30,7 @@ class RolesController extends Controller
 
     public function store(RolesRequest $request)
     {
-        $validatedData = $this->role->roleStore($request->file('image_1'), $request->validated());
+        $validatedData = $this->role->roleStore($request->file('image_1'), $request->file('image_2'), $request->validated());
         userRoles::create($validatedData);
         Alert::success('User Roles Added Successfully');
         return redirect()->route('roles.index');
@@ -58,7 +58,7 @@ class RolesController extends Controller
                 return redirect()->route('roles.index');
             }
         }
-        $validatedData = $this->role->roleUpdate($request->file('image_1'), $request->validated(), $role);
+        $validatedData = $this->role->roleUpdate($request->file('image_1'), $request->file('image_2'), $request->validated(), $role);
         $role->update($validatedData);
         Alert::success('User Roles Updated Successfully');
         return redirect()->route('roles.index');

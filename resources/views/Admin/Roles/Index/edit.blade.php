@@ -12,7 +12,7 @@
                 /<a href="{{ route('press.index') }}" class="banner-link-for-header"> User Roles</a>
             </li>
         </x-slot>
-        <x-slot name="name">View</x-slot>
+        <x-slot name="name">Edit</x-slot>
     </x-admin.banners>
                            
     <x-landlords.new-body>
@@ -34,6 +34,16 @@
             <x-common.input-image-100>
                 <x-slot name="image1">{!! asset($role->image) !!}</x-slot>
             </x-common.input-image-100>
+            <div class="admin">
+                <div class="add-img-container">
+                    <div class="add-flex-1">
+                        <x-common.input-file-flex>
+                            <x-slot name="image">Image 2</x-slot>
+                            <x-slot name="value2">{!! asset($role->sub_image) !!}</x-slot>
+                        </x-common.input-file-flex>
+                    </div>
+                </div>
+            </div>
             <x-common.input-text-100>
                 <x-slot name="column">Processes that Pay Off</x-slot>
                 <x-slot name="value">{!! $role->processes_that_pay_off !!}</x-slot> 

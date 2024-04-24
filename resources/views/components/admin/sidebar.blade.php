@@ -118,7 +118,7 @@
                                 </a>
                             </li>
                             <li class="mb-5 o-hidden" role="listitem">
-                                <span class="sidebar-link @if(request()->routeIs('landlord.property.rent.*')) active @endif" id="dropdownpropertyoccupy">
+                                <span class="sidebar-link @if(request()->routeIs('roles-desc.*') || request()->routeIs('roles.*')) active @endif" id="dropdownpropertyoccupy">
                                     <div class="sidebar-content-linkitem p-r">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M271.9 4.2c-9.8-5.6-21.9-5.6-31.8 0l-224 128C6.2 137.9 0 148.5 0 160V480c0 17.7 14.3 32 32 32s32-14.3 32-32V178.6L256 68.9 448 178.6V480c0 17.7 14.3 32 32 32s32-14.3 32-32V160c0-11.5-6.2-22.1-16.1-27.8l-224-128zM256 208a40 40 0 1 0 0-80 40 40 0 1 0 0 80zm-8 280V400h16v88c0 13.3 10.7 24 24 24s24-10.7 24-24V313.5l26.9 49.9c6.3 11.7 20.8 16 32.5 9.8s16-20.8 9.8-32.5l-37.9-70.3c-15.3-28.5-45.1-46.3-77.5-46.3H246.2c-32.4 0-62.1 17.8-77.5 46.3l-37.9 70.3c-6.3 11.7-1.9 26.2 9.8 32.5s26.2 1.9 32.5-9.8L200 313.5V488c0 13.3 10.7 24 24 24s24-10.7 24-24z"/></svg>
                                     </div>
@@ -138,7 +138,7 @@
                                                     Role list 
                                                 </span>
                                             </a>
-                                            <a href="{!! route('landlord.property.rent.vacant') !!}" class="sidebar-link @if(request()->routeIs('landlord.property.rent.vacant')) active @endif" role="listitem">
+                                            <a href="{!! route('roles-desc.index') !!}" class="sidebar-link @if(request()->routeIs('roles-desc.*')) active @endif" role="listitem">
                                                 <div class="sidebar-content-linkitem p-r">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M320.7 352c8.1-89.7 83.5-160 175.3-160c8.9 0 17.6 .7 26.1 1.9L309.5 7c-6-5-14-7-21-7s-15 1-22 8L10 231.5c-7 7-10 15-10 24c0 18 14 32.1 32 32.1h32v69.7c-.1 .9-.1 1.8-.1 2.8V472c0 22.1 17.9 40 40 40h16c1.2 0 2.4-.1 3.6-.2c1.5 .1 3 .2 4.5 .2H160h24c22.1 0 40-17.9 40-40V448 384c0-17.7 14.3-32 32-32h64l.7 0zM496 512a144 144 0 1 0 0-288 144 144 0 1 0 0 288zm59.3-180.7L518.6 368l36.7 36.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L496 390.6l-36.7 36.7c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6L473.4 368l-36.7-36.7c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L496 345.4l36.7-36.7c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>
                                                 </div>

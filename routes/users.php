@@ -19,3 +19,4 @@ Route::get('/user-role',[UserController::class, 'userRoles'])->name('user.user-r
 Route::get('/help-centre',[UserController::class, 'helpCentre'])->name('user.helpCentre');
 Route::post('/success/contact', [UserController::class, 'updateContact'])->name('users.get.contact');
 Route::get('/services', [UserController::class, 'allService'])->name('user.services');
+Route::get('/{slug}/user-role', [UserController::class, 'userRoleDetail'])->name('user.role.detail');

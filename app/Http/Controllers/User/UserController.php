@@ -7,6 +7,7 @@ use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use App\Models\PressMedia;
 use App\Models\User;
+use App\Models\userRoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -36,6 +37,12 @@ class UserController extends Controller
     public function userRoles()
     {
         return view('Users.user-roles');
+    }
+    public function userRoleDetail(string $slug)
+    {
+        $role = userRoles::where('slug', $slug)->first();
+        $data = ['role' => $role,];
+        return view('Users.userRoleDetail', $data);
     }
     public function helpCentre()
     {

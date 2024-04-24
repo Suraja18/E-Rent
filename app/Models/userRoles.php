@@ -17,6 +17,7 @@ class userRoles extends Model
         'description',
         'processes_that_pay_off',
         'image',
+        'sub_image',
         'slug'
     ];
     public function setSlugAttribute($value)

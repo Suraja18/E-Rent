@@ -30,6 +30,15 @@
             <x-common.input-image-100>
                 <x-slot name="nothing">Nothing</x-slot>
             </x-common.input-image-100>
+            <div class="admin">
+                <div class="add-img-container">
+                    <div class="add-flex-1">
+                        <x-common.input-file-flex>
+                            <x-slot name="image">Image 2</x-slot>
+                        </x-common.input-file-flex>
+                    </div>
+                </div>
+            </div>
             <x-common.input-text-100>
                 <x-slot name="column">Processes that Pay Off</x-slot>
             </x-common.input-text-100>

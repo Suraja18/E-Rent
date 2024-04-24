@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('roles');
             $table->longText('description');
             $table->longText('image');
+            $table->longText('sub_image');
             $table->longText('processes_that_pay_off');
             $table->string('slug');
             $table->timestamps();
