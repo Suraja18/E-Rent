@@ -66,13 +66,6 @@
                             <p class="error-message">{{ $message }}</p>
                         @enderror 
                     </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> I accept the Terms of Use
-                            &amp; Privacy Policy.
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
                     <button type="submit">Register Now</button>
                     <div class="below-btn">Already  have an account? <a href="{{ route('user.login') }}">Log in.</a></div>
                 </form>

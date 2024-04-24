@@ -107,7 +107,7 @@ class AuthController extends Controller
                 'digits_between:9,10',
                 Rule::unique('users', 'phone_number')->ignore(auth()->user()->id),
             ],
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'address' => 'required|string',
             'gender' => ['required', 'string', Rule::in(['Male', 'Female'])],
         ]);
@@ -268,7 +268,7 @@ class AuthController extends Controller
     
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            if ($user->roles == 0) {
+            if ($user->roles == 3) {
                 $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(30));
                 Alert::success('Login Successful');
                 return redirect()->route('admin.dashboard');

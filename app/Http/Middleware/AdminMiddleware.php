@@ -19,7 +19,7 @@ class AdminMiddleware
         if (!Auth::check()) {
             return redirect()->route('admin.login');
         }
-        if (Auth::user()->roles == 0) {
+        if (Auth::user()->roles == 3) {
             return $next($request);
         }
         return redirect()->route('admin.login')->withErrors(['error' => 'Unauthorized access']);

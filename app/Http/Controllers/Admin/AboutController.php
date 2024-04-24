@@ -25,10 +25,10 @@ class AboutController extends Controller
         $validate = $request->validate([
             'heading' => 'required|string|min:10|max:25',
             'description' => 'required|string|min:100|max:320',
-            'image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image_3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image_4' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'image_3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'image_4' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
         ]);
         if($validate)
         {

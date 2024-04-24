@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PressController;
 use App\Http\Controllers\Admin\RatesController;
+use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\ServiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,5 +30,6 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::resource('/service', ServiceController::class)->only(['index', 'store', 'edit', 'update', 'destroy' ]);
         Route::get('/advertising', [RatesController::class, 'advertising'])->name('admin.advertising.index');
         Route::post('/advertising', [RatesController::class, 'advertisingStore'])->name('admin.advertising.store');
+        Route::resource('/roles', RolesController::class);
     });
 });

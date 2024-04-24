@@ -23,7 +23,7 @@ class ServiceController extends Controller
         $validate = $request->validate([
             'heading'             => 'required|string|max:30',
             'description'         => 'required|string|max:200',
-            'image'               => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image'               => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
         ]);
         if($validate)
         {
@@ -54,7 +54,7 @@ class ServiceController extends Controller
         $validate = $request->validate([
             'heading'             => 'required|string|max:30',
             'description'         => 'required|string|max:200',
-            'image'               => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image'               => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
         ]);
         if($validate)
         {

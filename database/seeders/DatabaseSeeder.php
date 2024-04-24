@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             WebRatesTableSeeder::class,
             AdvertisingTableSeeder::class,
+            RolesSeeder::class,
         ]);
     }
 }

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class WebRates extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'images',
+        'title',
+        'paragraph'
+    ];
 }

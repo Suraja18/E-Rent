@@ -22,13 +22,13 @@ class RatesController extends Controller
         $validate = $request->validate([
             'title_1'             => 'required|string|max:25',
             'description_1'       => 'required|string|max:150',
-            'image_1'             => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_1'             => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'title_2'             => 'required|string|max:25',
             'description_2'       => 'required|string|max:150',
-            'image_2'             => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_2'             => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'title_3'             => 'required|string|max:25',
             'description_3'       => 'required|string|max:150',
-            'image_3'             => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_3'             => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
         ]);
         if($validate)
         {

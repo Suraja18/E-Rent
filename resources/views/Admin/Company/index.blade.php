@@ -8,7 +8,7 @@
 
     <x-admin.banners>
         <x-slot name="name">Company</x-slot>
-    </x-admin.banners>
+    </x-admin.banners> 
                            
     <x-landlords.new-body>
         <form enctype="multipart/form-data" action="{{ route('admin.company.store') }}" method="POST">

@@ -25,7 +25,7 @@ class PressRequest extends FormRequest
         return [    
             'heading'   =>  'required | string | min:3 | max:150',
             'description'   =>  'required | string | min:3 | max:50000',
-            'image_1' => $rule . '|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_1' => $rule . '|image|mimes:jpeg,png,jpg,gif|max:10240',
             'type' => 'required|in:Press,Media,News', 
         ];
     }
