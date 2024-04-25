@@ -89,7 +89,7 @@
                                         <th>Priority</th>
                                         <th>Action</th>
                                     </tr> 
-                                </x-slot>
+                                </x-slot> 
                                 <x-slot name="tbody">
                                     @foreach ($mRequest as $rent) 
                                         <tr>

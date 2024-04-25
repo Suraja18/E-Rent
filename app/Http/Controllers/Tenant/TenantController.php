@@ -46,6 +46,7 @@ class TenantController extends Controller
         $maintenanceRequests = MaintenanceRequest::select('maintenance_requests.*')
                             ->join('rented_properties', 'maintenance_requests.rented_id', '=', 'rented_properties.id')
                             ->where('rented_properties.tenant_id', $tenantId)
+                            ->where('rented_properties.status', 'Confirmed')
                             ->where('maintenance_requests.tenantVisible', 'Yes')
                             ->get();
         $count = $maintenanceRequests->count();
