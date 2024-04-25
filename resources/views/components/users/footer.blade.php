@@ -43,7 +43,7 @@
             <div class="hero-content">
                 <div class="hero-content">
                     <div class="footer-link header">Use Cases</div>
-                    <a href="{{ route('user.use-case') }}" class="footer-link">Tenants</a>
+                    <a href="#" class="footer-link">Tenants</a>
                     <a href="#" class="footer-link">Landlord</a>
                 </div>
             </div>

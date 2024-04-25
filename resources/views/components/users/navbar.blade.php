@@ -1,5 +1,12 @@
 @php
     $company = App\Models\Company::first();
+    $cases = App\Models\UseCases::select('*')
+            ->whereIn('id', function($query) {
+                $query->select(Illuminate\Support\Facades\DB::raw('MIN(id)'))
+                    ->from('use_cases')
+                    ->groupBy('role_id');
+            })
+            ->get();
 @endphp
 <!-- Navbar --> 
 <section class="Nav-Navbar">
@@ -49,7 +56,7 @@
             </div>
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <button class="nav-icons-for-mobile @if(Route::currentRouteName() == 'user.press-media' || Route::currentRouteName() == 'user.services' || Route::currentRouteName() == 'user.customer-review' || Route::currentRouteName() == 'user.faqs' || Route::currentRouteName() == 'user.helpCentre') active @endif" type="button" id="navMoreButton">
+                    <button class="nav-icons-for-mobile @if(Route::currentRouteName() == 'user.press-media' || Route::currentRouteName() == 'user.services' || Route::currentRouteName() == 'user.use-case' || Route::currentRouteName() == 'user.customer-review' || Route::currentRouteName() == 'user.faqs' || Route::currentRouteName() == 'user.helpCentre') active @endif" type="button" id="navMoreButton">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
                         <p class="small-text">More</p>
                     </button>
@@ -65,22 +72,16 @@
         </div>
         <h2 class="nav-mobile-heading top">Use Cases</h2>
         <div class="nav-mobile-grid ptb" role="list">
+            @foreach ($cases as $case)
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <a href="{{ route('user.use-case') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'user.use-case') active @endif">
+                    <a href="{{ route('user.use-case', $case->userRole->slug) }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'user.use-case' && request()->route('slug') == $case->userRole->slug) active @endif">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 448 512"><path d="M96 128a128 128 0 1 0 256 0A128 128 0 1 0 96 128zm94.5 200.2l18.6 31L175.8 483.1l-36-146.9c-2-8.1-9.8-13.4-17.9-11.3C51.9 342.4 0 405.8 0 481.3c0 17 13.8 30.7 30.7 30.7H162.5c0 0 0 0 .1 0H168 280h5.5c0 0 0 0 .1 0H417.3c17 0 30.7-13.8 30.7-30.7c0-75.5-51.9-138.9-121.9-156.4c-8.1-2-15.9 3.3-17.9 11.3l-36 146.9L238.9 359.2l18.6-31c6.4-10.7-1.3-24.2-13.7-24.2H224 204.3c-12.4 0-20.1 13.6-13.7 24.2z"/></svg>
-                        <p class="small-text">Landlord</p>
+                        <p class="small-text">{!! $case->userRole->user_roles !!}</p>
                     </a>
                 </div>
             </div>
-            <div class="nav-mobile-grid" role="listitem">
-                <div class="nav-mobile-below-whole-containers">
-                    <a class="nav-icons-for-mobile">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 448 512"><path d="M219.3 .5c3.1-.6 6.3-.6 9.4 0l200 40C439.9 42.7 448 52.6 448 64s-8.1 21.3-19.3 23.5L352 102.9V160c0 70.7-57.3 128-128 128s-128-57.3-128-128V102.9L48 93.3v65.1l15.7 78.4c.9 4.7-.3 9.6-3.3 13.3s-7.6 5.9-12.4 5.9H16c-4.8 0-9.3-2.1-12.4-5.9s-4.3-8.6-3.3-13.3L16 158.4V86.6C6.5 83.3 0 74.3 0 64C0 52.6 8.1 42.7 19.3 40.5l200-40zM111.9 327.7c10.5-3.4 21.8 .4 29.4 8.5l71 75.5c6.3 6.7 17 6.7 23.3 0l71-75.5c7.6-8.1 18.9-11.9 29.4-8.5C401 348.6 448 409.4 448 481.3c0 17-13.8 30.7-30.7 30.7H30.7C13.8 512 0 498.2 0 481.3c0-71.9 47-132.7 111.9-153.6z"/></svg>
-                        <p class="small-text">Tenants</p>
-                    </a>
-                </div>
-            </div>
+            @endforeach
         </div>
         <h2 class="nav-mobile-heading">Features</h2>
         <div class="nav-mobile-grid ptb" role="list">
@@ -173,7 +174,7 @@
                     <div class="nav-header-bar" id="navHeaderBar-1"
                         data-nav-id="1">
                         <div
-                            class="text-testimonial is-title">Use Cases</div>
+                            class="text-testimonial is-title @if(Route::currentRouteName() == 'user.use-case') active @endif">Use Cases</div>
                         <img src="{!! asset('Images/Original/downArrow.svg') !!}"
                             class="arrowDown" loading="lazy"
                             alt="Expand arrow" id="expandArrow-1"
@@ -186,30 +187,20 @@
                                 <div
                                     class="header-tag nav-sub-title">Website Flow</div>
                                 <div class="header-tag-list">
+                                    @foreach ($cases as $case)
                                     <div class="header-subheader-list">
-                                        <a href="{{ route('user.use-case') }}"
+                                        <a href="{{ route('user.use-case', $case->userRole->slug) }}"
                                             class="nav-subheader-listitems inline-block"
                                             style="border-color: rgba(0, 0, 0, 0);">
                                             <div class="sub-item_text">
                                                 <div
-                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.use-case') active @endif">Landlord</div>
+                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.use-case' && request()->route('slug') == $case->userRole->slug) active @endif">{!! $case->userRole->user_roles !!}</div>
                                                 <div
-                                                    class="text--xxs nav-sub">Manage rentals and tenants</div>
+                                                    class="text--xxs nav-sub">Flow of {!! $case->userRole->user_roles !!}</div>
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="header-subheader-list">
-                                        <a href="/Errors/404Error.html"
-                                            class="nav-subheader-listitems inline-block"
-                                            style="border-color: rgba(0, 0, 0, 0);">
-                                            <div class="sub-item_text">
-                                                <div
-                                                    class="text-testimonial nav-primary is-green-text-on-hover">Tenants</div>
-                                                <div
-                                                    class="text--xxs nav-sub">Pay rent and maintain your rentals</div>
-                                            </div>
-                                        </a>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -352,20 +343,18 @@
                             class="navigationMenu-items inline-block"><div
                                 class="navigationMenu-items-links @if(Route::currentRouteName() == 'user.about') active @endif">About</div></a>
                         <a class="navigationMenu-items inline-block is-pages">
-                            <div class="navigationMenu-items-links">
+                            <div class="navigationMenu-items-links @if(Route::currentRouteName() == 'user.use-case') active @endif">
                                 Use Cases
-                            </div>
+                            </div>                           
                             <div
                                 class="navbar-submenu-list is-page-subnav">
                                 <div class="header-tag nav-sub-title">Website Flow</div>
-                                <div class="navbar-header-tag" onclick="window.location.href='{{ route('user.use-case') }}';">
-                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.use-case') active @endif">Landlord</div>
-                                    <div class="text--xxs nav-sub">Manage rentals and tenants</div>
+                                @foreach ($cases as $case)
+                                <div class="navbar-header-tag" onclick="window.location.href='{{ route('user.use-case', $case->userRole->slug) }}';">
+                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.use-case' && request()->route('slug') == $case->userRole->slug) active @endif">{!! $case->userRole->user_roles !!}</div>
+                                    <div class="text--xxs nav-sub">Flow of {!! $case->userRole->user_roles !!}</div>
                                 </div>
-                                <div class="navbar-header-tag" onclick="window.location.href='customerReview.html';">
-                                    <div class="text-testimonial nav-primary is-green-text-on-hover">Tenants</div>
-                                    <div class="text--xxs nav-sub">Pay rent and maintain your rentals</div>
-                                </div>
+                                @endforeach
                                 
                             </div>
 

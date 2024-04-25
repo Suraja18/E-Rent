@@ -28,10 +28,10 @@ class AdminController extends Controller
             'user_description' => 'required|string|min:3|max:250',
             'tenant_heading' => 'required|string|min:3|max:100',
             'tenant_description' => 'required|string|min:3|max:250',
-            'image_1' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image_2' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image_3' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image_4' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_2' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_3' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_4' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         if($validate)
         {
@@ -85,7 +85,7 @@ class AdminController extends Controller
             'address'             => 'required|string|max:255',
             'email'               => 'required|email|max:255',
             'phone_number'        => 'required|numeric|digits_between:9,10',
-            'logo'                => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'logo'                => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'google_map'          => 'required|url|max:2048',
             'linkedin'            => 'required|url|max:2048',
             'facebook'            => 'required|url|max:2048',

@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:8',
             'confirm_password' => 'required|same:password',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'address' => 'nullable|string',
             'gender' => ['nullable', 'string', Rule::in(['Male', 'Female'])],
             'roles' => 'required|integer|in:1,2',

@@ -7,6 +7,7 @@ use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use App\Models\HelpCentre;
 use App\Models\PressMedia;
+use App\Models\UseCases;
 use App\Models\User;
 use App\Models\userRoles;
 use Illuminate\Http\Request;
@@ -53,9 +54,12 @@ class UserController extends Controller
     {
         return view('Users.services');
     }
-    public function useCases()
+    public function useCases(string $slug)
     {
-        return view('Users.use-case');
+        $role = userRoles::where('slug', $slug)->first();
+        $cases = UseCases::where('role_id', $role->id)->latest()->get();
+        $data = ['role' => $role, 'cases' => $cases,];
+        return view('Users.use-case', $data);
     }
     public function updateContact(ContactRequest $request)
     {

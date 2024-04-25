@@ -29,7 +29,7 @@ class MaintenanceController extends Controller
             'date' => 'required|date|after_or_equal:today',
             'time1' => 'required|date_format:H:i',
             'time2' => 'required|date_format:H:i',
-            'MaintainanceRequestImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'MaintainanceRequestImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'MaintainanceRequestVideo' => 'nullable|file|mimes:mp4,avi,mov,qt|max:10240',
             'piority' => 'required|in:Low,Normal,High,Critical',
         ]);

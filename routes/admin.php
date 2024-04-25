@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\RatesController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\RolesDescController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\UseCase\CaseController;
+use App\Http\Controllers\Admin\UseCase\DescController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin', 'session.logout'])->group(function () {
@@ -39,5 +41,7 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::resource('/frequently', FrequentlyController::class);
         Route::resource('/question', TenantController::class);
         Route::resource('/help-centre', HelpCentreController::class);
+        Route::resource('/use-case', CaseController::class)->except(['show']);
+        Route::resource('/case', DescController::class)->except(['show']);
     });
 });

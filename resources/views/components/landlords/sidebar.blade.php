@@ -63,7 +63,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> 
                             <li class="mb-5 o-hidden" role="listitem">
                                 <span class="sidebar-link @if(request()->routeIs('building.*') || request()->routeIs('unit.*')) active @endif" id="dropdownproperty">
                                     <div class="sidebar-content-linkitem p-r">

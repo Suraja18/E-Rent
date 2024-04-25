@@ -31,31 +31,6 @@
                                             <div class="is-header-all-container">
                                                 <form class="all-wrapper-maintainance-req" method="POST" enctype="multipart/form-data" action="{!! route('tenant.maintenance.store') !!}">
                                                     @csrf
-                                                    <div class="wizard-header more-header" role="list">
-                                                        <div class="wizard-content" role="list">
-                                                            <div class="category active" role="listitem">
-                                                                <h3 class="category-title">General</h3>
-                                                                <div class="category-progress">
-                                                                    <span class="category-line"></span>
-                                                                    <span class="category-progress-bar"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="category" role="listitem">
-                                                                <h3 class="category-title">Property</h3>
-                                                                <div class="category-progress">
-                                                                    <span class="category-line"></span>
-                                                                    <span class="category-progress-bar"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="category" role="listitem">
-                                                                <h3 class="category-title">Priority</h3>
-                                                                <div class="category-progress">
-                                                                    <span class="category-line"></span>
-                                                                    <span class="category-progress-bar"></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                     <div class="wizard-contents" role="list">
                                                         
                                                         <x-common.maintenance-is-first />

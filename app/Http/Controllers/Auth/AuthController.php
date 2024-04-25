@@ -107,7 +107,7 @@ class AuthController extends Controller
                 'digits_between:9,10',
                 Rule::unique('users', 'phone_number')->ignore(auth()->user()->id),
             ],
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'address' => 'required|string',
             'gender' => ['required', 'string', Rule::in(['Male', 'Female'])],
         ]);

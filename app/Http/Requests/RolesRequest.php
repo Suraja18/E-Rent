@@ -27,7 +27,7 @@ class RolesRequest extends FormRequest
             'user_roles' => 'required|string|max:12'.$rule2,
             'roles' => 'required|string|max:255',
             'description' => 'required|string|min:25',
-            'image_1' =>  $rule . '|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'image_1' =>  $rule . '|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'processes_that_pay_off' => 'required|string|max:600',
         ];
     }
