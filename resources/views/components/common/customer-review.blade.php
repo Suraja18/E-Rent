@@ -14,7 +14,11 @@
      </section>
      <!-- End Customer Review Banner -->
      @php
-         $rates = App\Models\webReview::all();
+     if(Route::currentRouteName() == 'user.index'){
+        $rates = App\Models\webReview::take(3)->get();
+     }else {
+        $rates = App\Models\webReview::all();
+     }  
      @endphp
      <!-- Start Client Says -->
      <section class="clientSays bg-light">
@@ -66,6 +70,11 @@
                          
                      </div>
                  </div>
+                 @if(Route::currentRouteName() == 'user.index')
+                    <div class="text-center">
+                        <a href="{!! route('user.customer-review') !!}" class="btn btnPrimary">Show More</a>
+                    </div>
+                @endif
              </div>
          </div>
      </section>

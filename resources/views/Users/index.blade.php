@@ -25,7 +25,7 @@
 
         <x-users.faqs />
 
-        <x-users.showing-ads />
+        <x-common.customer-review />
 
         <x-users.footer />
 </x-users.main.app-layout>
