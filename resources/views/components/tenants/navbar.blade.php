@@ -577,3 +577,4 @@
 
 </section>
 <!-- End Navbar -->
+<x-common.review-modal />

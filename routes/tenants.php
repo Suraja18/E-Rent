@@ -76,6 +76,7 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::delete('/delete/{id}/reply', [RatingController::class, 'deleteReply'])->name('delete.reply');
             Route::put('/update/rating/{id}', [RatingController::class, 'updateReview'])->name('update.review');
             Route::post('/reply/rating', [RatingController::class, 'replyReview'])->name('reply.review');
+            Route::post('/website/review',[RatingController::class, 'websiteReview'])->name('website.review.tenant');
 
             Route::get('/add/maintenance', [MaintenanceController::class, 'create'])->name('tenant.maintenance.add');
             Route::get('/view/{id}/maintenance', [MaintenanceController::class, 'view'])->name('tenant.maintenance.view');

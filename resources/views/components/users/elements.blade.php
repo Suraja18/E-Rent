@@ -9,6 +9,18 @@
     } else {
         $growth = $currentYearUsers > 0 ? 100 : 0;
     }
+    $rates = App\Models\webReview::all();
+    $ratesCount = $rates->count();
+    $totalrate = 0;
+    foreach ($rates as  $rate) {
+        $totalrate = $totalrate + $rate->rate;
+    }
+    if($ratesCount > 0)
+    {
+        $avggRate = $totalrate / $ratesCount;
+    }else {
+        $avggRate = 0;
+    }
 @endphp
 <!-- Elements -->
 <section class="elementorSection"> 
@@ -126,11 +138,11 @@
                                                 <div
                                                     class="elementor-header">
                                                     <p
-                                                        class="elementor-header-size">4.7
+                                                        class="elementor-header-size">{!! $avggRate !!}
                                                         stars</p>
                                                     <p
                                                         class="elementor-header-paragraph">EARNED
-                                                        FROM GUESTS ON
+                                                        FROM USERS ON
                                                         AVERAGE</p>
                                                 </div>
                                             </div>

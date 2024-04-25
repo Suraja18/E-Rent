@@ -1,5 +1,12 @@
 @php
     $company = App\Models\Company::first();
+    $cases = App\Models\UseCases::select('*')
+            ->whereIn('id', function($query) {
+                $query->select(Illuminate\Support\Facades\DB::raw('MIN(id)'))
+                    ->from('use_cases')
+                    ->groupBy('role_id');
+            })
+            ->get();
 @endphp
 <!-- Start Footer -->
 <footer class="footer-user">
@@ -43,8 +50,9 @@
             <div class="hero-content">
                 <div class="hero-content">
                     <div class="footer-link header">Use Cases</div>
-                    <a href="#" class="footer-link">Tenants</a>
-                    <a href="#" class="footer-link">Landlord</a>
+                    @foreach ($cases as $case)
+                    <a href="{{ route('user.use-case', $case->userRole->slug) }}" class="footer-link">{!! $case->userRole->user_roles !!}</a>
+                    @endforeach
                 </div>
             </div>
             <!-- For Middle two -->

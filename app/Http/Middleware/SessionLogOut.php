@@ -20,7 +20,7 @@ class SessionLogOut
 
         if ($request->session()->has('time-to-log_' . $userId)) {
             $loginTime = $request->session()->get('time-to-log_' . $userId);
-            if (now()->diffInMinutes($loginTime) > 30) {
+            if (now()->diffInMinutes($loginTime) > 60) {
                 Auth::logout();
                 return redirect()->route('user.login')->withErrors(['email' => 'Session expired. Please log in again.']);
             }

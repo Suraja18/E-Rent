@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Rating;
 use App\Models\RatingReply;
 use App\Models\RentPayment;
+use App\Models\webReview;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -92,5 +93,27 @@ class RatingController extends Controller
             return redirect()->back();
         }
        
+    }
+    public function websiteReview(Request $request)
+    {
+        $validate = $request->validate([
+            'rating' => 'required|numeric|in:0.5,1,1.5,2,2.5,3,3.5,4,4.5,5',
+            'review' => 'required|string|min:3|max:450'
+        ]);
+        if($validate)
+        {
+            $existingReview = webReview::where('user_id', Auth::id())->first();
+            if ($existingReview) {
+                Alert::error('You have already submitted a review for our website.');
+                return redirect()->back();
+            }
+            $rating = new webReview();
+            $rating->user_id = Auth::id();
+            $rating->rate = $request->rating;
+            $rating->review = $request->review;
+            $rating->save();
+            Alert::success('Thank you for giving  your review!');
+            return redirect()->back();
+        }
     }
 }

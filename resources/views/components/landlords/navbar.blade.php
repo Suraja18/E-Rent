@@ -349,6 +349,7 @@
                 </div>
             </header>
         </div>
+        <x-common.review-modal />
         <div class="d-flex is-cols">
             <div class="is-header-all-wrappers">
                 <div class="is-header-all-wrappers mh-100">

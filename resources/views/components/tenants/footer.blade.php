@@ -45,7 +45,7 @@
                     <div class="footer-link header">Property</div>
                     <a href="{{ route('tenant.property-types') }}" class="footer-link">Property Type</a>
                     <a href="{{ route('tenant.landlord') }}" class="footer-link">Landlord</a>
-                    <a href="{{ route('tenant.property-list') }}" class="footer-link">Buildingd</a>
+                    <a href="{{ route('tenant.property-list') }}" class="footer-link">Building</a>
                 </div>
             </div>
             <!-- For Middle two -->

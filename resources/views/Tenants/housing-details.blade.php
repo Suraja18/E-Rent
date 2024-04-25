@@ -342,14 +342,14 @@
 
             function setRating(widthPercent) {
                 starValue.style.width = `${widthPercent}%`;
-                var rating = (widthPercent / 20).toFixed(1); // Calculate the rating based on width percentage
-                ratingInput.value = rating; // Update the hidden input value
+                var rating = (widthPercent / 20).toFixed(1); 
+                ratingInput.value = rating; 
             }
 
             rateStar.addEventListener('mousemove', function(e) {
                 var boundingClientRect = rateStar.getBoundingClientRect();
                 var widthPercent = ((e.clientX - boundingClientRect.left) / boundingClientRect.width) * 100;
-                setRating(Math.round(widthPercent / 10) * 10); // Snap to nearest half-star
+                setRating(Math.round(widthPercent / 10) * 10); 
             });
 
             rateStar.addEventListener('click', function(e) {

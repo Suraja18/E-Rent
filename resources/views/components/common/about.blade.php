@@ -29,6 +29,19 @@
     $formattedRentTotal = formatRentTotal($rentTotal);
     $about3 = App\Models\About::find(3);
     $about3images = App\Models\DescImage::where( 'about_id' , 3 )->first();
+    $rates = App\Models\webReview::all();
+    $ratesCount = $rates->count();
+    $totalrate = 0;
+    foreach ($rates as  $rate) {
+        $totalrate = $totalrate + $rate->rate;
+    }
+    if($ratesCount > 0)
+    {
+        $avggRate = $totalrate / $ratesCount;
+    }else {
+        $avggRate = 0;
+    }
+    $users = App\Models\userRoles::latest()->get();
 @endphp
     <!-- About-Hero Banner -->
     <section class="about-banners">
@@ -109,9 +122,15 @@
                     <div class="hero-content gap-2m">
                         <h3 class="heading-larger text-hover">{!! $about2->heading !!}</h3>
                         <p class="paragraph">{!! $about2->description !!}</p>
+                        @if(auth()->id())
                         <a href="{!! route('tenant.view.allProperty') !!}" class="btnPrimary inline-block">
                             <div class="text-btn">See Properties</div>
                         </a>
+                        @else
+                        <a href="{!! route('user.register') !!}" class="btnPrimary inline-block">
+                            <div class="text-btn">Join Us</div>
+                        </a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -240,7 +259,7 @@
                                                     <div class="elementor-icons-image mb-2p">
                                                         <div class="about-grid-wrapper">
                                                             <h4 class="about-grid-header">
-                                                                4.7 Stars
+                                                                {!! $avggRate !!} Stars
                                                             </h4>
                                                         </div>
                                                     </div>
@@ -248,7 +267,7 @@
                                                         <div class="about-grid-wrapper">
                                                             <h4 class="about-grid-subheader">
                                                                 Average
-                                                                guest review
+                                                                User review
                                                             </h4>
                                                         </div>
                                                     </div>
@@ -307,14 +326,8 @@
             <div class="hero-content overflow-visible text-center">
                 <h3 class="heading-larger text-hover">Meet the people behind
                     the website</h3>
-                <p class="paragraph text-center">We strive for collaboration
-                    over hierarchy and recognize that leadership is as
-                    important as management. Together we bring decades of
-                    experience in enterprise and consumer SaaS, real estate
-                    technology, design and gaming, sales and marketing,
-                    management consulting and global investment banking –
-                    but our collective superpower is a shared passion to
-                    create products that make our customers happy.</p>
+                <p class="paragraph text-center">
+                    Meet the dedicated team behind E-Rent, the innovative platform transforming the way properties are rented online. At the core of E-Rent is a group of dynamic professionals, each bringing a unique set of skills and a shared passion for simplifying the rental process.</p>
             </div>
         </div>
         <div class="user-details-wrapper">
@@ -323,77 +336,24 @@
                     <div class="whole-sliders" id="wholeSliders" role="list">
                         <div class="sliders-wrapper draggable">
                             <div class="sliders-grid" id="sliderGrid">
-                                <div class="sliders-card current-slide active" role="listitem" data-silder-is="0"
-                                    aria-hidden="true" tabindex="0">
+                                @foreach ($users as $user)
+                                <div class="sliders-card current-slide active" role="listitem" data-silder-is="{!! $loop->iteration !!}"
+                                    aria-hidden="true" tabindex="{!! $loop->iteration !!}">
                                     <div class="slider-card-inner">
                                         <div class="slider-container">
                                             <div class="slider-marker">
                                                 <div class="slider-icons">
-                                                    <img src="{!! asset('Images/Original/Icons/Admin.svg') !!}" alt="Icons"
+                                                    <img src="{!! asset($user->image) !!}" alt="Icons"
                                                         loading="lazy" class="slide-icon-img">
                                                 </div>
                                             </div>
-                                            <h4>Admin</h4>
-                                            <p>We bring dependable support,
-                                                trusted expertise, and
-                                                proven marketing strategies
-                                                to your vacation home — all
-                                                for an industry-low fee
-                                                backed by our Risk-Free
-                                                Guarantee. We can help you
-                                                start, manage, and grow your
-                                                vacation rental business
-                                                with no long-term
-                                                commitment.</p>
+                                            <h4>{!! $user->user_roles !!}</h4>
+                                            <p>{!! $user->description !!}</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="sliders-card" role="listitem" data-silder-is="1" aria-hidden="false"
-                                    tabindex="1">
-                                    <div class="slider-card-inner">
-                                        <div class="slider-container">
-                                            <div class="slider-marker">
-                                                <div class="slider-icons text-hover">
-                                                    <img src="{!! asset('Images/Original/Icons/Employees.svg') !!}" alt="Icons"
-                                                        loading="lazy" class="slide-icon-img">
-                                                </div>
-                                            </div>
-                                            <h4>Landlords</h4>
-                                            <p>We work with professional
-                                                photographers and
-                                                experienced cleaning teams
-                                                who help every home reach
-                                                five-star potential. We
-                                                provide new opportunities to
-                                                grow your business while you
-                                                deliver expert support for
-                                                our guests and owners.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sliders-card" role="listitem" data-silder-is="1" aria-hidden="false"
-                                    tabindex="1">
-                                    <div class="slider-card-inner">
-                                        <div class="slider-container">
-                                            <div class="slider-marker">
-                                                <div class="slider-icons back-hover">
-                                                    <img src="{!! asset('Images/Original/Icons/Tenants.svg') !!}" alt="Icons"
-                                                        loading="lazy" class="slide-icon-img">
-                                                </div>
-                                            </div>
-                                            <h4>Tenants</h4>
-                                            <p>When you book with Evolve,
-                                                you get vetted homes,
-                                                bookings that give back, and
-                                                all the support you need for
-                                                a great stay. If something
-                                                is off or your plans change,
-                                                our Rest Easy Promise means
-                                                we’ll make it right, day or
-                                                night.</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
+                                
                             </div>
                         </div>
                     </div>
@@ -403,87 +363,5 @@
         </div>
     </section>
 
-    <section class="elementorSection is-bg">
-        <div class="client-header about-us">
-            <div class="elementor-content">
-                <div class="tenantsLandlord-sub-container">
-                    <div class="grow-users">
-                        <div class="tenantsLandlord-widget-ads">
-                            <div class="tenantsLandlord-section">
-                                <div class="client-header">
-                                    <div class="ads--row">
-                                        <div class="tenantsLandlord-sub-container">
-                                            <div class="ads-header for-mobile">
-                                                <div class="grow-user-containers">
-                                                    <h2 class="grow-user-header">Let’s
-                                                        grow together</h2>
-                                                </div>
-                                                <div class="grow-user-containers">
-                                                    <p class="grow-user-paragraph">Whether
-                                                        you’re an owner,
-                                                        guest, partner, or
-                                                        Evolver, working
-                                                        with us means
-                                                        working with a
-                                                        company that
-                                                        cares.<br><br> In
-                                                        fact, it’s built
-                                                        into our company
-                                                        values. Care is the
-                                                        driving force behind
-                                                        our&nbsp;<a
-                                                            href="https://evolve.com/social-responsibility/community-involvement"
-                                                            target="_blank" rel="noopener" style="color:#7bf1ff"
-                                                            ;>Building
-                                                            Hospitality
-                                                            program</a><a>,
-                                                            our diversity,
-                                                            inclusion,
-                                                            equity, and
-                                                            belonging
-                                                            (</a><a
-                                                            href="https://evolve.com/social-responsibility/deib"
-                                                            target="_blank" rel="noopener" style="color:#7bf1ff"
-                                                            ;>DEIB</a>)
-                                                        practices, and our
-                                                        passion for bringing
-                                                        new experiences to
-                                                        life. Find your
-                                                        purpose here — and
-                                                        your home.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tenantsLandlord-sub-container">
-                                            <div class="ads-header for-mobile">
-                                                <div class="grow-user-containers">
-                                                    <div class="grow-user-image-container">
-                                                        <div class="grow-user-containers">
-                                                            <img src="{!! asset('Images/Original/Our-story-logo.png') !!}"
-                                                                alt="Our Story" loading="lazy"
-                                                                sizes="(max-width: 900px) 100vw, 900px">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tenantsLandlord-section mt1-5">
-                                <div class="client-header">
-                                    <div class="ads--row">
-                                        <div class="tenantsLandlord-sub-container">
-                                            <a href="/Errors/404Error.html" class="btnPrimary navButton">Become
-                                                a Tenants</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <x-users.showing-ads />
     <!-- End About Us Section -->

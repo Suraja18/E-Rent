@@ -67,13 +67,13 @@ class AuthController extends Controller
             $userMode = User::find(Auth::id());
             if ($user->email_verified_at !== null) {
                 if ($user->roles == 1) {
-                    $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(30));
+                    $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(60));
                     $userMode->deleted_at = null;
                     $userMode->update();
                     Alert::success('Login Successful');
                     return redirect()->route('tenant.dashboard');
                 } elseif ($user->roles == 2) {
-                    $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(30));
+                    $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(60));
                     $userMode->deleted_at = null;
                     $userMode->update();
                     Alert::success('Login Successful');
@@ -269,7 +269,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             if ($user->roles == 3) {
-                $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(30));
+                $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(60));
                 Alert::success('Login Successful');
                 return redirect()->route('admin.dashboard');
             }
