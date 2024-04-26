@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Landlord;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -15,9 +16,20 @@ class EmailController extends Controller
         $tenant = User::findorFail($id);
         return view('Landlords.Email.index', compact('tenant'));
     }
+    public function sendEmailByEmail(string $email)
+    {
+        $tenant = User::where('email', $email)->first();
+        return view('Admin.Email.index', compact('tenant'));
+    }
     public function sendEmail()
     {
-        return view('Landlords.Email.index');
+        $user = User::find(Auth::id());
+        if($user->roles == 3)
+        {
+            return view('Admin.Email.index');
+        }elseif($user->roles == 2){
+            return view('Landlords.Email.index');
+        }
     }
     public function successEmail(Request $request){
         $validate = $request->validate([ 
@@ -26,6 +38,7 @@ class EmailController extends Controller
             'description' => 'required|string|min:15|max:50000',
         ]);
         if($validate){
+            $user = User::find(Auth::id());
             $data = ['body'=>$request->description];
             $user['to'] = $request->email;
             $subject = $request->subject;
@@ -34,7 +47,13 @@ class EmailController extends Controller
                 $messages->subject($subject);
             });
             Alert::success('Email has been sent!');
-            return redirect()->route('landlord.email.send');
+            if($user->roles == 3)
+            {
+                return redirect()->route('admin.email.send');
+            }elseif($user->roles==2){
+                return redirect()->route('landlord.email.send');
+            }
+           
         }
     }
 }

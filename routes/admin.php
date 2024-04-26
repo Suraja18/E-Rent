@@ -12,11 +12,15 @@ use App\Http\Controllers\Admin\RolesDescController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\UseCase\CaseController;
 use App\Http\Controllers\Admin\UseCase\DescController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Landlord\EmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin', 'session.logout'])->group(function () {
     Route::prefix('admins')->group(function () {
         Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
+        Route::put('/update/profile', [AuthController::class, 'updateProfile'])->name('admin.account');
         Route::get('/banner', [AdminController::class, 'banners'])->name('admin.banners');
         Route::post('/banner/store', [AdminController::class, 'bannerStore'])->name('admin.banners.store');
         Route::get('/about/intro', [AboutController::class, 'intro'])->name('admin.intro');
@@ -43,5 +47,13 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::resource('/help-centre', HelpCentreController::class);
         Route::resource('/use-case', CaseController::class)->except(['show']);
         Route::resource('/case', DescController::class)->except(['show']);
+        Route::get('/web/rating', [AdminController::class, 'getRating'])->name('admin.rating.index');
+        Route::delete('/web/{id}/rating/delete', [AdminController::class, 'deleteRating'])->name('admin.rating.destroy');
+        Route::get('/all-contact', [AdminController::class, 'Contact'])->name('admin.contact');
+        Route::post('/update-read-status', [AdminController::class, 'updateReadStatus'])->name('contact.read');
+        Route::delete('/contact/{id}/delete', [AdminController::class, 'deleteContact'])->name('admin.contact.destroy');
+        Route::get('/{id}/email',[EmailController::class, 'sendEmailByEmail'])->name('admin.email.send.id');
+        Route::get('/email',[EmailController::class, 'sendEmail'])->name('admin.email.send');
+            Route::post('/email/success',[EmailController::class, 'successEmail'])->name('admin.email.success');
     });
 });

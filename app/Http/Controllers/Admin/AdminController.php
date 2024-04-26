@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Company;
+use App\Models\Contact;
+use App\Models\User;
+use App\Models\webReview;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -15,6 +19,11 @@ class AdminController extends Controller
     public function dashboard()
     {
         return view('Admin.index');
+    }
+    public function profile()
+    {
+        $data = ['user' => User::findOrFail(Auth::id()),];
+        return view('Admin.edit-profile', $data);
     }
     public function banners()
     {
@@ -117,5 +126,43 @@ class AdminController extends Controller
             return redirect()->route('admin.company'); 
         }
        
+    }
+    public function getRating()
+    {
+        $data = ['rates' => webReview::orderBy('rate', 'desc')->get()];
+        return view('Admin.Rating.index', $data);
+    }
+    public function deleteRating(string $id)
+    {
+        $rate = webReview::find($id);
+        $rate->delete();
+        Alert::success('User Rate Deleted Successfully');
+        return redirect()->route('admin.rating.index'); 
+    }
+    public function Contact()
+    {
+        $data = [
+            'contacts' => Contact::orderBy('read')
+                                 ->latest()
+                                 ->get(),
+        ];
+        return view('Admin.Contact.index', $data);
+    }
+    public function updateReadStatus(Request $request)
+    {
+        $contact = Contact::find($request->id);
+        if ($contact) {
+            $contact->read = $request->read;
+            $contact->save();
+            return response()->json(['message' => 'Read status updated successfully!']);
+        }
+        return response()->json(['message' => 'Contact not found'], 404);
+    }
+    public function deleteContact(string $id)
+    {
+        $rate = Contact::find($id);
+        $rate->delete();
+        Alert::success('User Contact Deleted Successfully');
+        return redirect()->route('admin.contact');    
     }
 }

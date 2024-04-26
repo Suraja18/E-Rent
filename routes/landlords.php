@@ -74,6 +74,8 @@ Route::middleware(['landlord', 'session.logout'])->group(function () {
 
             Route::get('/payment/pdf/{id}', [PDFController::class, 'generateInvoicePDF'])->name('landlord.payment.pdf.download');
             Route::post('/mark-notification-read/{notification}', [NotificationController::class,'markNotificationRead'])->name('mark.notification.read');
+            Route::get('/property/rating', [LandlordController::class, 'getRating'])->name('landlord.rating.index');
+            Route::delete('/property/{id}/rating/delete', [LandlordController::class, 'deleteRating'])->name('landlord.rating.destroy');
         });
     });
 });

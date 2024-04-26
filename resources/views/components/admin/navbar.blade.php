@@ -283,7 +283,7 @@
                                                                 <div class="avatar-profile-infos">
                                                                     <div class="m-0">
                                                                         <div class="title-owners">
-                                                                            Landlord
+                                                                            Admin
                                                                         </div>
                                                                         <h2 class="avatar-profile-name">{!! $user->first_name !!} {!! $user->last_name !!}</h2>
                                                                     </div>
@@ -293,8 +293,8 @@
                                                                 </div>
                                                             </div>
                                                         </a>
-                                                        <a href="{!! route('landlord.profile') !!}" class="is-button-for-edit-profile">
-                                                            Edit Profile
+                                                        <a href="{!! route('admin.profile') !!}" class="is-button-for-edit-profile">
+                                                            Profile
                                                         </a>
                                                     </div>
                                                     <a href="{!! route('user.logout') !!}" class="avatar-logout nav-icons-for-mobile for-avatar-log">

@@ -6,7 +6,7 @@
                 <div class="flex-cl-1 account-sett">
                     <header class="profile-setting-header d-flex" style="justify-content: space-between">
                         <h2 class="profile-panel-title">Edit Profile</h2>
-                        <a href="{!! $routeFRD !!}" class="is-button-for-edit-profile">View All Friends</a>
+                        @if(!isset($isAdmin))<a href="{!! $routeFRD !!}" class="is-button-for-edit-profile">View All Friends</a>@endif
                     </header>
                     <div class="flex-cl-1" style="padding:20px"> 
                         <div>
@@ -82,6 +82,7 @@
                                 </div>
                             </form>
                         </div>
+                        @if(!isset($isAdmin))
                         <hr class="margin-panel-hr" />
                         <div>
                             <div class="row">
@@ -115,6 +116,7 @@
                             </div>
                             <input type="submit" value="Delete account" class="table-btns danger for-delete-prof" />
                         </form>
+                        @endif
                     </div>
                 </div>
             </div>

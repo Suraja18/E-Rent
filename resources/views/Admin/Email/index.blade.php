@@ -2,21 +2,21 @@
     <x-slot name="head">
         - Email
     </x-slot>
-    <x-landlords.sidebar />
+    <x-admin.sidebar />
 
-    <x-landlords.navbar />
+    <x-admin.navbar />
 
-    <x-landlords.banners>
+    <x-admin.banners>
         <x-slot name="withhead">
             <li class="banner-header-name">
                 /<a class="banner-link-for-header"> Email</a>
             </li>
         </x-slot>
         <x-slot name="name">Send Email</x-slot>
-    </x-landlords.banners>
+    </x-admin.banners>
 
     <x-landlords.new-body>
-        <form enctype="multipart/form-data" action="{{ route('landlord.email.success') }}" method="POST">
+        <form enctype="multipart/form-data" action="{{ route('admin.email.success') }}" method="POST">
             @csrf
 
             <div class="admin">

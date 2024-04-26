@@ -144,6 +144,11 @@
         <div class="p-r">
             <div class="row">
                 <div class="row">
+                    <div>
+                        <iframe class="google-maps"
+                        src="{!! $property->building->google_maps_link !!}"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
                     <div class="error-rows">
                         <h3 class="mb-1" style="text-decoration: underline">Description</h3>
                         @if($property->type == 'Rent'){!! $property->description !!}@elseif($property->type == 'Sell'){!! $property->building->description !!}@endif
@@ -188,7 +193,7 @@
                             </div>
                             <div class="allStars">
                                 @foreach ($ratings as $rating)
-                                    @php
+                                    @php 
                                         $ratingStar = $rating->rate; 
                                         $fullStars = floor($ratingStar);
                                         $halfStar = fmod(floatval($ratingStar), 1.0) >= 0.5;
@@ -295,6 +300,8 @@
                             
                         </div>
                     </div>
+                    
+                    
                 </div>
             </div>
         </div>

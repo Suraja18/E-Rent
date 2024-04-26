@@ -37,9 +37,14 @@
                         @endphp
                         <div role="listitem" class="card-testimonial gap-2m p2-5">
                             <div class="testimonial-profiles">
-                                <img loading="lazy" alt="Testimonial Profiles"
-                                    src="{!! asset($rate->user->image) !!}"
-                                    class="testimonial-imag-profile">
+                                @if (!$rate->user->image)
+                                    <div class="testimonial-imag-profile profile-avatar-no-img">
+                                        {!! substr($rate->user->first_name, 0, 1) !!}
+                                    </div>
+                                @endif
+                                @if ($rate->user->image)
+                                    <img src="{!! asset($rate->user->image) !!}" class="testimonial-imag-profile" alt="{!! $rate->user->first_name !!}">
+                                @endif
                             </div>
                             <p class="font-italic">“{!! $rate->review !!}”</p>
                             <div class="hero-content pb-1">

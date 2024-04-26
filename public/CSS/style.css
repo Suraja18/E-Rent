@@ -1064,6 +1064,17 @@ p {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.testimonial-imag-profile.profile-avatar-no-img
+{
+    color: #fff;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 10px;
+}
 .profile-avatar-image.profile-avatar-no-img{
     color: #fff;
     background-image: linear-gradient(135deg, #65d6ad 4% 50%, #3ebd93 96%);
@@ -3560,6 +3571,7 @@ input:checked + .toggle-btn{
 input:checked + .toggle-btn::before{
     transform: translateX(35px);
 }
+.checkbtn,
 #checkbtn{
     display: none;
 }

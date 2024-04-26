@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Building;
 use App\Models\Friends;
 use App\Models\MaintenanceRequest;
+use App\Models\Rating;
 use App\Models\RentedProperty;
 use App\Models\RentPayment;
 use App\Models\RentProperty;
@@ -15,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LandlordController extends Controller
 {
@@ -270,5 +272,21 @@ class LandlordController extends Controller
         $friend = User::find($friendId);
         $tenant = $friend;
         return view('Landlords.Profile.index', compact('tenant'));
+    }
+    public function getRating()
+    {
+        $data = [
+            'rates' => Rating::whereHas('rentProperty', function ($query) {
+                $query->where('landlord_id', Auth::id());
+            })->orderBy('rate', 'desc')->get()
+        ];
+        return view('Landlords.Rating.index', $data);
+    }
+    public function deleteRating(string $id)
+    {
+        $rate = Rating::find($id);
+        $rate->delete();
+        Alert::success('User Rate Deleted Successfully');
+        return redirect()->route('landlord.rating.index'); 
     }
 }

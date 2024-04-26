@@ -33,7 +33,7 @@ class BuildingRequest extends FormRequest
             'no_of_floors' => 'required|integer|min:0|max:200',
             'room_per_floor' => 'required|integer|min:0|max:200',
             'address'   =>  'required | string | min:3 | max:150',
-            'google_maps_link'   =>  'required | string | min:3 | max:50000',
+            'google_maps_link'   =>   'required|string|url|min:3|max:2048',
         ];
     }
 }
