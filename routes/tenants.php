@@ -85,6 +85,7 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::post('/users/add-friend', [FriendController::class, 'addFriend'])->name('user.addFriend');
             Route::post('/users/update-friend-request', [FriendController::class, 'updateFriendRequest'])->name('user.updateFriendRequest');
             Route::post('/search/maintenance', [MaintenanceController::class, 'search'])->name('tenant.maintenance.search');
+            Route::get('{slug}/policy', [UserController::class, 'policyView'])->name('tenant.policy');
 
         });
     });

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use App\Models\HelpCentre;
+use App\Models\policy;
 use App\Models\PressMedia;
 use App\Models\UseCases;
 use App\Models\User;
@@ -87,5 +88,10 @@ class UserController extends Controller
     {
         $question = HelpCentre::where('slug', $slug)->first();
         return view('Users.help-centre-result', compact('question'));
+    }
+    public function policyView(string $slug)
+    {
+        $policy = policy::where('slug', $slug)->first();
+        return view('Users.policy', compact('policy'));
     }
 }

@@ -1,5 +1,6 @@
 @php
     $company = App\Models\Company::first();
+    $policies = App\Models\policy::all();
 @endphp
 <!-- Start Footer -->
 <footer class="footer-user">
@@ -78,12 +79,9 @@
                         document.write(new Date().getFullYear());
                     </script>
                 </div>
-                <a href="/Errors/404Error.html" class="footer-link sublink mr-2">Terms of
-                    Use</a>
-                <a href="/Errors/404Error.html" class="footer-link sublink mr-2">Privacy
-                    Policy</a>
-                <a href="/Errors/404Error.html" class="footer-link sublink mr-2">Cookie
-                    Policy</a>
+                @foreach ($policies as $policy)
+                <a href="{!! route('tenant.policy', $policy->slug) !!}" class="footer-link sublink mr-2">{!! $policy->title !!}</a>
+                @endforeach
             </div>
             <div id="footerNode-end">
                 <p class="footer-text-end">Manage properties
@@ -106,7 +104,6 @@
                 url: url,
                 data: {_token: '{{ csrf_token() }}'},
                 success: function (response) {
-                    // Remove the clicked notification from the list
                     $(e.target).closest('li').remove();
                     window.location.href = targetUrl;
                 },

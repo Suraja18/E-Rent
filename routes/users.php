@@ -21,3 +21,4 @@ Route::post('/success/contact', [UserController::class, 'updateContact'])->name(
 Route::get('/services', [UserController::class, 'allService'])->name('user.services');
 Route::get('/{slug}/user-role', [UserController::class, 'userRoleDetail'])->name('user.role.detail');
 Route::get('/{userSlug}/help-centre/{slug}',[UserController::class, 'helpCentreFind'])->name('user.help.centre.find');
+Route::get('{slug}/policy', [UserController::class, 'policyView'])->name('user.policy');

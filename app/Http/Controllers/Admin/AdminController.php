@@ -153,8 +153,12 @@ class AdminController extends Controller
         $contact = Contact::find($request->id);
         if ($contact) {
             $contact->read = $request->read;
+            $message = "Contact Marked as Read!";
+            if($request->read == "0"){
+                $message = "Contact Marked as Unread!";
+            }
             $contact->save();
-            return response()->json(['message' => 'Read status updated successfully!']);
+            return response()->json(['message' => $message]);
         }
         return response()->json(['message' => 'Contact not found'], 404);
     }
@@ -164,5 +168,11 @@ class AdminController extends Controller
         $rate->delete();
         Alert::success('User Contact Deleted Successfully');
         return redirect()->route('admin.contact');    
+    }
+    public function contactView(string $email)
+    {
+        $contact = Contact::where('email', $email)->first();
+        $data = ['contact' => $contact, 'type' => 'readonly'];
+        return view('Admin.Contact.view', $data);
     }
 }

@@ -274,7 +274,7 @@
                                 </div>
                             </li>
                             <li class="mb-5 o-hidden" role="listitem">
-                                <a href="{!! route('admin.contact') !!}" class="sidebar-link @if(request()->routeIs('admin.contact')) active @endif">
+                                <a href="{!! route('admin.contact.index') !!}" class="sidebar-link @if(request()->routeIs('admin.contact.*')) active @endif">
                                     <div class="sidebar-content-linkitem p-r">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M347.1 24.6c7.7-18.6 28-28.5 47.4-23.2l88 24C499.9 30.2 512 46 512 64c0 247.4-200.6 448-448 448c-18 0-33.8-12.1-38.6-29.5l-24-88c-5.3-19.4 4.6-39.7 23.2-47.4l96-40c16.3-6.8 35.2-2.1 46.3 11.6L207.3 368c70.4-33.3 127.4-90.3 160.7-160.7L318.7 167c-13.7-11.2-18.4-30-11.6-46.3l40-96z"></path></svg>
                                     </div>
@@ -283,19 +283,11 @@
                             </li>
                             <li class="border-light-color"></li>
                             <li class="mb-5 o-hidden" role="listitem">
-                                <a href="{!! route('landlord.view.friends') !!}" class="sidebar-link @if(request()->routeIs('landlord.view.friends')) active @endif">
-                                    <div class="sidebar-content-linkitem p-r">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 0C60.7 0 32 28.7 32 64V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H96zM208 288h64c44.2 0 80 35.8 80 80c0 8.8-7.2 16-16 16H144c-8.8 0-16-7.2-16-16c0-44.2 35.8-80 80-80zm-32-96a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zM512 80c0-8.8-7.2-16-16-16s-16 7.2-16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16V80zM496 192c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm16 144c0-8.8-7.2-16-16-16s-16 7.2-16 16v64c0 8.8 7.2 16 16 16s16-7.2 16-16V336z"/></svg>
-                                    </div>
-                                    <span class="sidebar-content-header"> Friends </span>
-                                </a>
-                            </li>
-                            <li class="mb-5 o-hidden" role="listitem">
-                                <a href="{!! route('landlord.add.friends') !!}" class="sidebar-link @if(request()->routeIs('landlord.add.friends')) active @endif">
+                                <a href="{!! route('policy.index') !!}" class="sidebar-link @if(request()->routeIs('policy.*')) active @endif">
                                     <div class="sidebar-content-linkitem p-r">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
                                     </div>
-                                    <span class="sidebar-content-header"> Add Friend </span>
+                                    <span class="sidebar-content-header"> Policy </span>
                                 </a>
                             </li>
                             <li class="mb-5 o-hidden" role="listitem">

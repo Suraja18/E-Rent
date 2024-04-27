@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\HelpCentreController;
+use App\Http\Controllers\Admin\PolicyController;
 use App\Http\Controllers\Admin\PressController;
 use App\Http\Controllers\Admin\Question\FrequentlyController;
 use App\Http\Controllers\Admin\Question\TenantController;
@@ -49,11 +50,13 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::resource('/case', DescController::class)->except(['show']);
         Route::get('/web/rating', [AdminController::class, 'getRating'])->name('admin.rating.index');
         Route::delete('/web/{id}/rating/delete', [AdminController::class, 'deleteRating'])->name('admin.rating.destroy');
-        Route::get('/all-contact', [AdminController::class, 'Contact'])->name('admin.contact');
+        Route::get('/all-contact', [AdminController::class, 'Contact'])->name('admin.contact.index');
         Route::post('/update-read-status', [AdminController::class, 'updateReadStatus'])->name('contact.read');
         Route::delete('/contact/{id}/delete', [AdminController::class, 'deleteContact'])->name('admin.contact.destroy');
         Route::get('/{id}/email',[EmailController::class, 'sendEmailByEmail'])->name('admin.email.send.id');
         Route::get('/email',[EmailController::class, 'sendEmail'])->name('admin.email.send');
-            Route::post('/email/success',[EmailController::class, 'successEmail'])->name('admin.email.success');
+        Route::post('/email/success',[EmailController::class, 'successEmail'])->name('admin.email.success');
+        Route::get('{email}/contact', [AdminController::class, 'contactView'])->name('admin.contact.view');
+        Route::resource('/policy', PolicyController::class);
     });
 });
