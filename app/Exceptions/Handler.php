@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use App\Models\User;
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -15,6 +19,15 @@ class Handler extends ExceptionHandler
     protected $levels = [
         //
     ];
+
+    protected function handleException($request, Throwable $e)
+    {
+        if ($e instanceof NotFoundHttpException) {
+            return response()->view('Error.404', [], 404);
+        }
+    
+        return parent::render($request, $e);
+    }
 
     /**
      * A list of the exception types that are not reported.
@@ -43,6 +56,9 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+        $this->renderable(function (Throwable $e, $request) {
+            return $this->handleException($request, $e);
         });
     }
 }

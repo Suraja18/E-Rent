@@ -96,6 +96,11 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('user.login');
     }
+    public function Home()
+    {
+        Auth::logout();
+        return redirect()->route('user.index');
+    }
     public function updateProfile(Request $request)
     {
         $validate = $request->validate([

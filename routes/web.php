@@ -21,3 +21,4 @@ Route::get('/forget-password',[AuthController::class,'forgetPassword'])->name('f
 Route::post('/send',[AuthController::class,'sendPass'])->name('user.send.pass');
 Route::get('/admin-login', [AuthController::class, 'showAdminLogin'])->name('admin.login');
 Route::post('/admin-login/success', [AuthController::class, 'doAdminLogin'])->name('admin.login.success');
+Route::get('/home', [AuthController::class, 'Home'])->name('user.home');
