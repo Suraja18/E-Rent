@@ -2,7 +2,6 @@
     <x-slot name="head">
         - Login
     </x-slot>
-    <x-users.navbar />
     <section class="register" id="LoginForm">
         <div class="wrapper">
             <div class="inner d-flex">

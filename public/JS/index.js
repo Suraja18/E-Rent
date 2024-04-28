@@ -1,16 +1,3 @@
-// const navbar = document.getElementById('navigations');
-// window.onscroll = function () {
-//     scrollFunction()
-// }
-// function scrollFunction() {
-//     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-//         navbar.classList.add('inSticky')
-//     } else {
-//         navbar.classList.remove('inSticky')
-
-//     }
-// }
-
 //Start Index Hero Banners
 document.addEventListener("DOMContentLoaded", function () {
     const slides = document.querySelectorAll(".heroBannerSlides");
@@ -548,6 +535,7 @@ document.addEventListener("DOMContentLoaded", function () {
     DropdownToggle('dropdownpropertyoccupy', 'expandArrow-propertyoccupy', 'sidebarDropdown-propertyoccupy');
     DropdownToggle('dropdowntenants', 'expandArrow-tenants', 'sidebarDropdown-tenants');
     DropdownToggle('dropdownreport', 'expandArrow-report', 'sidebarDropdown-report');
+    DropdownToggle('dropdownuserlist', 'expandArrow-userlist', 'sidebarDropdown-userlist');
 
 
     //More Click for Landlord

@@ -19,7 +19,7 @@
     <div class="landlordBody d-flex">
             <!-- Navbar especially for Mobile Phones --> 
     <div class="mobile-below-nav-containers">
-        <div class="nav-mobile-grid" role="list">
+        <div class="nav-mobile-grid no-wrap" role="list">
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
                     <a href="{{ route('landlord.dashboard') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'landlord.dashboard') active @endif">
@@ -44,14 +44,7 @@
                     </a>
                 </div>
             </div>
-            <div class="nav-mobile-grid" role="listitem">
-                <div class="nav-mobile-below-whole-containers">
-                    <a href="{!! route('landlord.email.send') !!}" class="nav-icons-for-mobile @if(request()->routeIs('landlord.email.*')) active @endif">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 512 512"><path d="M215.4 96H144 107.8 96v8.8V144v40.4 89L.2 202.5c1.6-18.1 10.9-34.9 25.7-45.8L48 140.3V96c0-26.5 21.5-48 48-48h76.6l49.9-36.9C232.2 3.9 243.9 0 256 0s23.8 3.9 33.5 11L339.4 48H416c26.5 0 48 21.5 48 48v44.3l22.1 16.4c14.8 10.9 24.1 27.7 25.7 45.8L416 273.4v-89V144 104.8 96H404.2 368 296.6 215.4zM0 448V242.1L217.6 403.3c11.1 8.2 24.6 12.7 38.4 12.7s27.3-4.4 38.4-12.7L512 242.1V448v0c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64v0zM176 160H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
-                        <p class="small-text">Email</p>
-                    </a>
-                </div>
-            </div>
+            
             <div class="nav-mobile-grid" role="listitem">
                 <div class="p-r nav-mobile-below-whole-containers">
                     <a href="{!! route('landlord.sendMessage') !!}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'landlord.sendMessage') active @endif">
@@ -67,7 +60,7 @@
             </div>
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <button class="nav-icons-for-mobile @if(request()->routeIs('building.*') || request()->routeIs('unit.*') || request()->routeIs('house-sell.*') || request()->routeIs('rent.*') || request()->routeIs('landlord.property.rent.*') || request()->routeIs('approve.*') || request()->routeIs('landlord.maintenance.complete') || request()->routeIs('forum.*') || request()->routeIs('landlord.tenant.active.*') || request()->routeIs('landlord.tenant.deposit') || request()->routeIs('landlord.contact') || request()->routeIs('landlord.add.friends')) active @endif" type="button" id="navMoreButton">
+                    <button class="nav-icons-for-mobile @if(request()->routeIs('building.*') || request()->routeIs('unit.*') || request()->routeIs('house-sell.*') || request()->routeIs('landlord.email.*') || request()->routeIs('rent.*') || request()->routeIs('landlord.property.rent.*') || request()->routeIs('approve.*') || request()->routeIs('landlord.maintenance.complete') || request()->routeIs('forum.*') || request()->routeIs('landlord.tenant.active.*') || request()->routeIs('landlord.tenant.deposit') || request()->routeIs('landlord.contact') || request()->routeIs('landlord.add.friends')) active @endif" type="button" id="navMoreButton">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
                         <p class="small-text">More</p>
                     </button>
@@ -152,6 +145,14 @@
                     <a href="{!! route('forum.index') !!}" class="nav-icons-for-mobile @if(request()->routeIs('forum.*')) active @endif">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 384 512"><path d="M320 464c8.8 0 16-7.2 16-16V160H256c-17.7 0-32-14.3-32-32V48H64c-8.8 0-16 7.2-16 16V448c0 8.8 7.2 16 16 16H320zM0 64C0 28.7 28.7 0 64 0H229.5c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64z"/></svg>
                         <p class="small-text">Landlord Forum</p>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-mobile-grid" role="listitem">
+                <div class="nav-mobile-below-whole-containers">
+                    <a href="{!! route('landlord.email.send') !!}" class="nav-icons-for-mobile @if(request()->routeIs('landlord.email.*')) active @endif">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 512 512"><path d="M215.4 96H144 107.8 96v8.8V144v40.4 89L.2 202.5c1.6-18.1 10.9-34.9 25.7-45.8L48 140.3V96c0-26.5 21.5-48 48-48h76.6l49.9-36.9C232.2 3.9 243.9 0 256 0s23.8 3.9 33.5 11L339.4 48H416c26.5 0 48 21.5 48 48v44.3l22.1 16.4c14.8 10.9 24.1 27.7 25.7 45.8L416 273.4v-89V144 104.8 96H404.2 368 296.6 215.4zM0 448V242.1L217.6 403.3c11.1 8.2 24.6 12.7 38.4 12.7s27.3-4.4 38.4-12.7L512 242.1V448v0c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64v0zM176 160H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+                        <p class="small-text">Email</p>
                     </a>
                 </div>
             </div>

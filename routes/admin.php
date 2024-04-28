@@ -58,5 +58,7 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::post('/email/success',[EmailController::class, 'successEmail'])->name('admin.email.success');
         Route::get('{email}/contact', [AdminController::class, 'contactView'])->name('admin.contact.view');
         Route::resource('/policy', PolicyController::class);
+
+        Route::get('/logout', [AuthController::class, 'adminLogout'])->name('admin.logout');
     });
 });

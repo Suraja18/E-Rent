@@ -862,8 +862,9 @@ p {
 .no-wrap{
     flex-flow: unset !important;
 }
-.nav-more-options.active{
+.nav-more-options.active {
     transform: translateY(0%);
+    overflow-y: scroll;
 }
 .nav-mobile-grid.ptb{
     padding-bottom: .6rem;
@@ -924,6 +925,9 @@ p {
     padding-left: 10px;
     padding-right: 10px;
     text-align: center;
+}
+.nav-more-options.active .nav-mobile-below-whole-containers{
+    max-width: 85px;
 }
 .nav-icons-for-mobile{
     cursor: pointer;
@@ -3570,6 +3574,9 @@ input:checked + .toggle-btn{
 }
 input:checked + .toggle-btn::before{
     transform: translateX(35px);
+}
+.nav-mobile-grid.no-wrap{
+    flex-flow: nowrap;
 }
 .checkbtn,
 #checkbtn{

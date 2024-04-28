@@ -89,7 +89,12 @@ class AuthController extends Controller
         Alert::error('Invalid credentials.', 'Please enter correct email and password');
         return redirect()->route('user.login');
     }
-   
+
+    public function adminLogout()
+    {
+        Auth::logout();
+        return redirect()->route('admin.login');
+    }
 
     public function logout()
     {
@@ -98,8 +103,23 @@ class AuthController extends Controller
     }
     public function Home()
     {
-        Auth::logout();
-        return redirect()->route('user.index');
+        $user = User::find(Auth::id());
+        if (!$user) {
+            return redirect()->route('user.index');
+        }
+        if($user->roles == 3)
+        {
+            return redirect()->route('admin.dashboard');
+        }
+        if($user->roles == 2)
+        {
+            return redirect()->route('landlord.dashboard');
+        }
+        if($user->roles == 1)
+        {
+            return redirect()->route('tenant.dashboard');
+        }
+        
     }
     public function updateProfile(Request $request)
     {
