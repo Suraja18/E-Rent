@@ -175,4 +175,31 @@ class AdminController extends Controller
         $data = ['contact' => $contact, 'type' => 'readonly'];
         return view('Admin.Contact.view', $data);
     }
+    public function AllTenants()
+    {
+        $data = ['users' => User::where('roles', 1)->latest()->get(),];
+        return view('Admin.Users.Tenants.index', $data);
+    }
+    public function AllLandlords()
+    {
+        $data = ['users' => User::where('roles', 2)->latest()->get(),];
+        return view('Admin.Users.Landlords.index', $data);
+    }
+    public function destroyUser(string $id)
+    {
+        $user = User::findOrFail($id);
+        if($user->roles == 1)
+        {
+            $user->delete();
+            Alert::success('The User account is deactivated temporary.', 'The account will permanently deleted after 30 days.');
+            return redirect()->route('admin.all_tenants');
+        }
+        if($user->roles == 2)
+        {
+            $user->delete();
+            Alert::success('The User account is deactivated temporary.', 'The account will permanently deleted after 30 days.');
+            return redirect()->route('admin.all_landlords');
+        }
+        return redirect()->back();
+    }
 }

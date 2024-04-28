@@ -58,6 +58,9 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::post('/email/success',[EmailController::class, 'successEmail'])->name('admin.email.success');
         Route::get('{email}/contact', [AdminController::class, 'contactView'])->name('admin.contact.view');
         Route::resource('/policy', PolicyController::class);
+        Route::get('/all-tenants', [AdminController::class,  'AllTenants'])->name('admin.all_tenants');
+        Route::get('/all-landlords', [AdminController::class,  'AllLandlords'])->name('admin.all_landlords');
+        Route::delete('/{id}/delete', [AdminController::class, 'destroyUser'])->name('admin.deactivate.user');
 
         Route::get('/logout', [AuthController::class, 'adminLogout'])->name('admin.logout');
     });
