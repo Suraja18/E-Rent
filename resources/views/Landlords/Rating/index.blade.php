@@ -2,13 +2,13 @@
     <x-slot name="head">
         - Rating
     </x-slot>
-    <x-admin.sidebar />
+    <x-landlords.sidebar />
 
-    <x-admin.navbar />
+    <x-landlords.navbar />
 
-    <x-admin.banners>
+    <x-landlords.banners>
         <x-slot name="name">Rating</x-slot>
-    </x-admin.banners>
+    </x-landlords.banners>
                            
     <x-landlords.responsive-table>
         <x-slot name="heading">Rating</x-slot>

@@ -929,6 +929,10 @@ p {
 .nav-more-options.active .nav-mobile-below-whole-containers{
     max-width: 85px;
 }
+.nav-mobile-grid.no-justify{
+    justify-content: unset;
+    margin-left: 5px;
+}
 .nav-icons-for-mobile{
     cursor: pointer;
     justify-content: center;

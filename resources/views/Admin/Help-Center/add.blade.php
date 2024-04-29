@@ -23,9 +23,11 @@
             @csrf
             <x-common.input-select-100>
                 <x-slot name="column">User Roles</x-slot>
-                @foreach ($roles as $role)
-                    <option value="{!! $role->id !!}">{!! $role->user_roles !!}</option>
-                @endforeach
+                @if($roles)
+                    @foreach ($roles as $role)
+                        <option value="{!! $role->id !!}">{!! $role->user_roles !!}</option>
+                    @endforeach
+                @endif
             </x-common.input-select-100>
             <x-common.input-text-100>
                 <x-slot name="column">Question</x-slot>
@@ -38,8 +40,5 @@
             </div>
         </form>
     </x-landlords.new-body>
-
-
-    
     <x-landlords.footer />  
 </x-users.main.app-layout>
