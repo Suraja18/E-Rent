@@ -210,7 +210,7 @@
                 data: [
                     @foreach ($weeklyPayments as $payment)
                         {{ $payment }},
-                    @endforeach
+                    @endforeach 
                 ],
                 maxBarThickness: 6
                 }, ],

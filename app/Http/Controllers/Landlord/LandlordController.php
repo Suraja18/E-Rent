@@ -23,6 +23,8 @@ class LandlordController extends Controller
     public function dashboard()
     {
         // Start Weekly Payment
+        Carbon::setWeekStartsAt(Carbon::SUNDAY);
+        Carbon::setWeekEndsAt(Carbon::SATURDAY);
         $landlordId = Auth::id();
         $properties = RentProperty::where('landlord_id', $landlordId)->get();
         $currentWeeklyPayments = [];

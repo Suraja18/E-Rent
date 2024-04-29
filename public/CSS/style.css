@@ -7298,7 +7298,7 @@ small{
     background-color: #00d27a;
 }
 .chat-msg{
-    height: calc(100vh - 4.3125rem - 0.625rem);
+    height: calc(100vh - 16vh);
     z-index: 1;
 }
 .chat-sidebar {

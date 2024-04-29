@@ -6,19 +6,139 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Company;
 use App\Models\Contact;
+use App\Models\MaintenanceRequest;
+use App\Models\RentedProperty;
 use App\Models\User;
 use App\Models\webReview;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('Admin.index');
+        // Start Feedback Count
+        Carbon::setWeekStartsAt(Carbon::SUNDAY);
+        Carbon::setWeekEndsAt(Carbon::SATURDAY);
+        $currentWeekStart = Carbon::now()->startOfWeek();
+        $currentWeekEnd = Carbon::now()->endOfWeek();
+        $previousWeekStart = Carbon::now()->subWeek()->startOfWeek();
+        $previousWeekEnd = Carbon::now()->subWeek()->endOfWeek();
+        $currentWeekFeedbacks = Contact::where('created_at', '>=', $currentWeekStart)
+                                        ->where('created_at', '<=', $currentWeekEnd)
+                                        ->get();
+        $previousWeekFeedbacks = Contact::whereBetween('created_at', [$previousWeekStart, $previousWeekEnd])
+                                        ->get();
+        $currentWeeklyFeedback = $this->aggregateFeedbackByDay($currentWeekFeedbacks);
+        $previousWeeklyFeedback = $this->aggregateFeedbackByDay($previousWeekFeedbacks);
+        $totalCurrentWeekFeedback = array_sum($currentWeeklyFeedback);
+        $totalPreviousWeekFeedback = array_sum($previousWeeklyFeedback);
+         // End Feedback Count
+        //  Start Monthly User Registration Count
+        $users = User::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
+
+        $monthlyData = [];
+        foreach ($users as $user) {
+            $monthlyData[$user->month] = $user->count;
+        }
+        //  End Monthly User Registration Count
+        //  Start Monthly Rental Tenants Count
+        $confirmedRentals = RentedProperty::where('status', 'Confirmed')
+            ->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+        $monthlyConfirmedRentals = [];
+        foreach ($confirmedRentals as $rental) {
+            $monthlyConfirmedRentals[$rental->month] = $rental->count;
+        }
+        $currentMonthKey = date('Y-m');
+        $previousMonthKey = date('Y-m', strtotime('-1 month'));
+
+        $totalRentalsThisMonth = $monthlyConfirmedRentals[$currentMonthKey] ?? 0;
+        $totalRentalsPreviousMonth = $monthlyConfirmedRentals[$previousMonthKey] ?? 0;
+        //  End Monthly Rental Tenants Count
+        // Start Showing Maintenance Request
+        $currentMonthStart = Carbon::now()->startOfMonth();
+        $currentMonthEnd = Carbon::now()->endOfMonth();
+        $previousMonthStart = Carbon::now()->subMonth()->startOfMonth();
+        $previousMonthEnd = Carbon::now()->subMonth()->endOfMonth();
+        $currentMonthRequests = MaintenanceRequest::whereBetween('created_at', [$currentMonthStart, $currentMonthEnd])->count();
+        $previousMonthRequests = MaintenanceRequest::whereBetween('created_at', [$previousMonthStart, $previousMonthEnd])->count();
+        // End Showing Maintenance Request
+        // Start Roles Distribution
+        $yearStart = Carbon::now()->startOfYear();
+        $yearEnd = Carbon::now()->endOfYear();
+    
+        $roleDistribution = User::select(DB::raw('MONTH(created_at) as month'), DB::raw('count(*) as total'), 'roles')
+                                ->whereBetween('created_at', [$yearStart, $yearEnd])
+                                ->whereIn('roles', [1, 2])
+                                ->groupBy('month', 'roles')
+                                ->orderBy('month')
+                                ->get();
+    
+        $monthlyRoleData = [
+            'tenant' => array_fill(1, 12, 0),
+            'landlord' => array_fill(1, 12, 0) 
+        ];
+    
+        foreach ($roleDistribution as $data) {
+            if ($data->roles == 1) { 
+                $monthlyRoleData['tenant'][$data->month] = $data->total;
+            } elseif ($data->roles == 2) { 
+                $monthlyRoleData['landlord'][$data->month] = $data->total;
+            }
+        }
+        // End Roles Distribution
+        // Start Rating Comparison
+        $monthlyRatings = webReview::select(
+                DB::raw('MONTH(created_at) as month'), 
+                DB::raw('AVG(rate) as average_rate')
+            )
+            ->whereBetween('created_at', [$yearStart, $yearEnd])
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
+
+        $monthlyRateData = array_fill(1, 12, 0);
+
+        foreach ($monthlyRatings as $rating) {
+            $monthlyRateData[$rating->month] = round($rating->average_rate, 2);
+        }
+        //  End Rating Comparison
+        $data = [
+            'currentWeeklyFeedback' => $currentWeeklyFeedback,
+            'previousWeeklyFeedback' => $previousWeeklyFeedback,
+            'totalCurrentWeekFeedback' => $totalCurrentWeekFeedback,
+            'totalPreviousWeekFeedback' => $totalPreviousWeekFeedback,
+            'monthlyData' => $monthlyData,
+            'monthlyConfirmedRentals' => $monthlyConfirmedRentals,
+            'totalRentalsThisMonth' => $totalRentalsThisMonth,
+            'totalRentalsPreviousMonth' => $totalRentalsPreviousMonth,
+            'currentMonthRequests' => $currentMonthRequests,
+            'previousMonthRequests' => $previousMonthRequests,
+            'monthlyRoleData' => $monthlyRoleData,
+            'monthlyRatings' => $monthlyRateData
+        ];
+        return view('Admin.index', $data);
+    }
+    private function aggregateFeedbackByDay($feedbacks)
+    {
+        $weeklyFeedback = array_fill(0, 7, 0);
+        foreach ($feedbacks as $feedback) {
+            $dayOfWeek = Carbon::parse($feedback->created_at)->dayOfWeek;
+            $weeklyFeedback[$dayOfWeek]++;
+        }
+        return $weeklyFeedback;
     }
     public function profile()
     {

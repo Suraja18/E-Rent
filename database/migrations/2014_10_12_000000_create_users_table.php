@@ -22,7 +22,7 @@ return new class extends Migration
             $table->longText('image')->nullable();
             $table->string('address')->nullable();
             $table->enum('gender', ['Male', 'Female'])->nullable();
-            $table->integer('roles')->enum(0, 1, 2);
+            $table->integer('roles');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
