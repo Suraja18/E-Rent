@@ -8134,6 +8134,35 @@ ul{
     border-radius: 1.25rem;
     width: 100%;
 }
+.thumbnail{
+    cursor: pointer;
+}
+.image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+.full-size-image {
+    max-width: 90%;
+    max-height: 80%;
+}
+.close-btn-x {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+    z-index: 10001;
+}
+
 .chat-mess:hover,
 .chat-mess:focus{
     border: 0;

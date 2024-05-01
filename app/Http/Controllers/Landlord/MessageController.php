@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Landlord;
 
 use App\Http\Controllers\Controller;
+use App\Models\Friends;
 use App\Models\Messages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class MessageController extends Controller
 {
@@ -20,7 +24,18 @@ class MessageController extends Controller
                     ->orWhere('friends.sent_id', $userId);
             })
             ->get();
-        $data = ['messages' => $messages, ];
+        $contacts = Friends::where('type', 'Accepted')
+            ->where(function ($query) use ($userId) {
+                $query->where('friends.user_id', $userId)
+                      ->orWhere('friends.sent_id', $userId);
+            })
+            ->whereNotExists(function ($query) {
+                $query->select(DB::raw(1))
+                      ->from('messages')
+                      ->whereRaw('messages.friend_id = friends.id');
+            })
+            ->get();
+        $data = ['messages' => $messages, 'contacts' => $contacts,];
         return view('Landlords.Message.send-message', $data);
     }
     public function sendTenantMessage()
@@ -34,20 +49,39 @@ class MessageController extends Controller
                     ->orWhere('friends.sent_id', $userId);
             })
             ->get();
-        $data = ['messages' => $messages, ];
-        // return $data;
+        $contacts = Friends::where('type', 'Accepted')
+            ->where(function ($query) use ($userId) {
+                $query->where('friends.user_id', $userId)
+                      ->orWhere('friends.sent_id', $userId);
+            })
+            ->whereNotExists(function ($query) {
+                $query->select(DB::raw(1))
+                      ->from('messages')
+                      ->whereRaw('messages.friend_id = friends.id');
+            })
+            ->get();
+        $data = ['messages' => $messages, 'contacts' => $contacts,];
         return view('Tenants.messages', $data);
     }
     public function sendMessages(Request $request)
     {
         $request->validate([
             'friend_id' => 'required|exists:friends,id',
-            'message' => 'required|string',
+            'message' => 'nullable|string',
+            'image' => 'nullable|file|image',
+            'message' => 'required_without_all:image',
+            'image' => 'required_without_all:message',
         ]);
         $message = new Messages();
         $message->friend_id = $request->friend_id;
         $message->sent_by = auth()->id();
         $message->message = $request->message;
+        $image1 = $request->image;
+        if ($image1) {
+            $imageName = Str::uuid()->toString() . '-' . time() . '.' . $image1->getClientOriginalExtension();
+            $image1->move('Images/Variable/Messages', $imageName);
+            $message->image = "Images/Variable/Messages/" . $imageName;
+        }
         $message->save();
         
         return response()->json(['success' => true, 'message' => 'Message sent successfully']);
@@ -64,7 +98,17 @@ class MessageController extends Controller
     public function deleteMessage(Request $request)
     {
         $messageId = $request->input('message_id');
-        Messages::where('id', $messageId)->delete();
+        $message = Messages::findOrFail($messageId);
+        if($message->image){
+            File::delete($message->image);
+        }
+        if($message->sent_by == Auth::id())
+        {
+            $message->delete();
+        }else{
+            $message->deleted_by = Auth::id();
+            $message->update();
+        }
         return response()->json(['success' => true]);
     }
 }
