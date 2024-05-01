@@ -8092,13 +8092,10 @@ ul{
     flex-grow: 1;
     flex-direction: column;
 }
-/* Default styles for larger screens and when specific sizes are not matched */
 .msg-sb-cont.max {
     max-width: 100%;
     max-height: 60vh;
 }
-
-
 .message-wrap{
     display: flex;
     height: 100%;

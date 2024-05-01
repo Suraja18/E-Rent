@@ -1836,11 +1836,7 @@
         height: 180px;
         margin-left: 0;
     }
-    .back-chat{
-        cursor: pointer;
-        display: block;
-        z-index: 999;
-    }
+    
     .chat-editor-area{
         top: 30.5rem;
     }
@@ -2173,6 +2169,9 @@
     .msg-sidebar.show{
         display: block;
         width: 100%;
+        max-width: 100%;
+        height: 84vh;
+        overflow-y: auto;
     }
     .msg-sidebar.show .msg-sb-cont{
         max-width: 100%;
@@ -2183,6 +2182,11 @@
     } 
     .msg-sidebar.show + .msg-body.active{
         display: none;
+    }
+    .back-chat{
+        cursor: pointer;
+        display: block;
+        z-index: 999;
     }
 }
 @media screen and (min-width: 576px){

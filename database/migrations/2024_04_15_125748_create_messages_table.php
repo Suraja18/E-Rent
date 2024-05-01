@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('friend_id');
             $table->unsignedBigInteger('sent_by')->nullable();
-            $table->longText('message');
+            $table->longText('message')->nullable();
+            $table->longText('image')->nullable();
             $table->timestamp('read_at')->nullable();
+            $table->timestamp('deleted_by')->nullable();
             $table->timestamps();
             $table->foreign('friend_id')->references('id')->on('friends')->onDelete('cascade');
             $table->foreign('sent_by')->references('id')->on('users')->onDelete('cascade');

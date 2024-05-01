@@ -198,7 +198,12 @@
                                                                 <div class="send-msg">
                                                                     <div class="p-r">
                                                                         <div class="d-flex">
+                                                                            <button class="b-e-0">
+                                                                                <input type="file" name="image_upload" id="image_upload_{{ $friendMessages[0]->friend_id }}" style="display: none;" accept="image/*" onchange="previewImage({{ $friendMessages[0]->friend_id }});">
+                                                                                <svg height="25px" width="25px" onclick="document.getElementById('image_upload_{{ $friendMessages[0]->friend_id }}').click();" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#3d3975" d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"></path></svg>
+                                                                            </button>
                                                                             <div class="msg-chat p-r">
+                                                                                <div id="image_preview_{{ $friendMessages[0]->friend_id }}" style="display:none; width: 100px; height: 100px;"></div>
                                                                                 <input type="text" id="messageInput" class="chat-mess" placeholder="Aa" />
                                                                             </div>
                                                                             <button type="button" class="msg-send-svg b-e-0 btnSend" id="btnSend">
@@ -223,6 +228,7 @@
         </div>
     </section>
     <script>
+
         $(document).ready(function() {
             $('.chat-contact').click(function() {
                 var chatSidebar = document.querySelector('.msg-sidebar');
@@ -301,7 +307,28 @@
             var chatSidebar = document.querySelector('.msg-sidebar');
             chatSidebar.classList.toggle('show');
         });
-        function adjustMaxHeight() {
+        function previewImage(friendId) {
+            var fileInput = document.getElementById('image_upload_' + friendId);
+            
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var imagePreviewDiv = document.getElementById('image_preview_' + friendId);
+                imagePreviewDiv.style.backgroundImage = 'url(' + e.target.result + ')';
+                imagePreviewDiv.style.backgroundSize = 'cover';
+                imagePreviewDiv.style.backgroundPosition = 'center';
+                imagePreviewDiv.style.display = 'block';
+                const container = document.querySelector('.msg-sb-cont.max');
+                if (container) {
+                    let currentHeight = window.getComputedStyle(container).height;
+                    currentHeight = parseInt(currentHeight, 10);
+                    let newHeight = Math.max(currentHeight - 100, 0) + 'px';
+                    container.style.height = newHeight;
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+        function adjustHeight() {
             const container = document.querySelector('.msg-sb-cont.max');
             if (!container) return;
 
@@ -311,40 +338,40 @@
             if (screenHeight === 730) {
                 if(screenWidth < 992)
                 {
-                    container.style.maxHeight = '55vh';
+                    container.style.height = '52vh';
                 }else{
-                    container.style.maxHeight = '60vh';
+                    container.style.height = '60vh';
                 }
                 
             } else {
                 if (screenHeight < 500) {
-                    container.style.maxHeight = '20vh';
+                    container.style.height = '20vh';
                 } else if (screenHeight < 550) {
-                    container.style.maxHeight = '32vh';
+                    container.style.height = '32vh';
                 } else if (screenHeight < 600) {
-                    container.style.maxHeight = '39vh';
+                    container.style.height = '39vh';
                 } else if (screenHeight < 650) {
-                    container.style.maxHeight = '43vh';
+                    container.style.height = '43vh';
                 } else if (screenHeight < 700) {
-                    container.style.maxHeight = '48vh';
+                    container.style.height = '48vh';
                 } else if (screenHeight < 800) {
-                    container.style.maxHeight = '53vh';
+                    container.style.height = '53vh';
                 } else if (screenHeight < 900) {
-                    container.style.maxHeight = '60vh';
+                    container.style.height = '60vh';
                 } else if (screenHeight < 1000) {
-                    container.style.maxHeight = '63vh';
+                    container.style.height = '63vh';
                 } else if (screenHeight < 1200) {
-                    container.style.maxHeight = '65vh';
+                    container.style.height = '65vh';
                 } else if (screenHeight < 1300) {
-                    container.style.maxHeight = '70vh';
+                    container.style.height = '70vh';
                 } else {
-                    container.style.maxHeight = '76vh';
+                    container.style.height = '76vh';
                 }
             }
         }
 
-        window.addEventListener('resize', adjustMaxHeight);
-        adjustMaxHeight();
+        window.addEventListener('resize', adjustHeight);
+        adjustHeight();
 
     </script>
 
