@@ -805,6 +805,16 @@
     .pr-info{
         flex-direction: column;
     }
+    .chat-contact .nav-flex.d-b{
+        display: none;
+    }
+    .msg-sidebar,
+    .msg-sb-cont{
+        width: 6rem;
+    }
+    .msg-sb-cont.max{
+        width: 100%;
+    }
 }
 
 @media screen and (min-width: 992px){
@@ -1827,13 +1837,12 @@
         margin-left: 0;
     }
     .back-chat{
+        cursor: pointer;
         display: block;
+        z-index: 999;
     }
     .chat-editor-area{
         top: 30.5rem;
-    }
-    .chat-editor-area.is-land{
-        top: 32rem;
     }
 }
 
@@ -2157,6 +2166,23 @@
     }
     .video-control {
         height: 150px;
+    }
+    .msg-sidebar{
+        display: none;
+    }
+    .msg-sidebar.show{
+        display: block;
+        width: 100%;
+    }
+    .msg-sidebar.show .msg-sb-cont{
+        max-width: 100%;
+        width: 100%;
+    }
+    .msg-sidebar.show .nav-flex.d-b{
+        display: block !important;
+    } 
+    .msg-sidebar.show + .msg-body.active{
+        display: none;
     }
 }
 @media screen and (min-width: 576px){
