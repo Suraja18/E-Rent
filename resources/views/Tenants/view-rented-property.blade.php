@@ -202,9 +202,11 @@
                                                             </div>
                                                             <div class="more-info-for-maintainance">
                                                                 <div class="p-10p">
+                                                                    @if($property_rent->status == "Approved" || $property_rent->status == "Confirmed" )
                                                                     <div class="btn-container-opt below">
-                                                                        <a href="{!! route('tenant.make.payment', $slug) !!}" class="upper-btn">Pay Rent</a>
+                                                                            <a href="{!! route('tenant.make.payment', $slug) !!}" class="upper-btn">Pay Rent</a>
                                                                     </div>
+                                                                    @endif
                                                                     <div class="btn-container-opt below">
                                                                         <a href="{!! route('tenant.display.property', $slug) !!}" class="upper-btn">View</a>
                                                                     </div>

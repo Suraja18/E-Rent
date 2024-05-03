@@ -11,7 +11,7 @@ class EsewaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->routeIs('tenant.esewa.pay', 'tenant.khalti.pay');
+        return $this->routeIs('tenant.esewa.pay', 'tenant.khalti.pay', 'tenant.paypal.pay');
     }
 
     /**

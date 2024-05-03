@@ -54,9 +54,12 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::post('/mark-notification-read/{notification}', [NotificationController::class,'markNotificationRead'])->name('tenant.mark.notification.read');
             Route::get('/property/{slug}/make/payment', [HousingController::class,'makePayment'])->name('tenant.make.payment');
             Route::post('/property/rent/pay/esewa',[PaymentController::class, 'esewaPay'])->name('tenant.esewa.pay');
+            Route::post('/property/rent/pay/paypal',[PaymentController::class, 'paypalPay'])->name('tenant.paypal.pay');
             Route::post('/property/rent/pay/khalti',[PaymentController::class, 'khaltiPay'])->name('tenant.khalti.pay');
             Route::get('/property/rent/pay/eSewa/success',[PaymentController::class, 'esewaSuccess']);
+            Route::get('/property/rent/pay/paypal/success',[PaymentController::class, 'paypalSuccess'])->name('paypal.success');
             Route::get('/property/rent/pay/esewa/failure',[PaymentController::class, 'esewaFailure']);
+            Route::get('/property/rent/pay/paypal/failure',[PaymentController::class, 'paypalFailure'])->name('paypal.cancel');
             Route::post('/property/view/rented', [RentController::class, 'viewRentedProperty'])->name('tenant.property.status.search');
             Route::get('/property/payment/history', [PaymentController::class, 'index'])->name('tenant.payment_history'); 
             Route::get('/property/{payment}/payment/history', [PaymentController::class, 'show'])->name('tenant.payment_history.show'); 

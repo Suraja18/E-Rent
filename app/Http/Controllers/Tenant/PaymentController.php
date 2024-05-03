@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class PaymentController extends Controller
 {
@@ -38,7 +39,7 @@ class PaymentController extends Controller
         }
         if($request->payment_type == "Sell")
         {
-            $rentPrice = $rents->rentProperty->price = $rents->discount;
+            $rentPrice = $rents->rentProperty->price - $rents->discount;
             if($rents->status == "Confirmed")
             {
                 Alert::warning('You have already paid for this property');
@@ -71,7 +72,7 @@ class PaymentController extends Controller
         $amount = $_GET['amt'];
         $payment = RentPayment::where('rented_id', $pid)->latest()->first();
         $payment->status = "Paid";
-        if($payment->payment_type == "Deposit")
+        if($payment->payment_type == "Deposit" || $payment->payment_type == "Sell")
         {
             $rent = $payment->rentedProperty;
             $rent->status = "Confirmed";
@@ -108,7 +109,7 @@ class PaymentController extends Controller
         }
         if($request->payment_type == "Sell")
         {
-            $rentPrice = $rents->rentProperty->price = $rents->discount;
+            $rentPrice = $rents->rentProperty->price - $rents->discount;
             if($rents->status == "Confirmed")
             {
                 Alert::warning('You have already paid for this property');
@@ -124,7 +125,7 @@ class PaymentController extends Controller
         $payment->payment_mode = "Online";
         $payment->payment_type = $request->payment_type;
         $payment->month = $request->month;
-        if($payment->payment_type == "Deposit")
+        if($payment->payment_type == "Deposit" || $payment->payment_type == "Sell")
         {
             $rent = $payment->rentedProperty;
             $rent->status = "Confirmed";
@@ -134,7 +135,107 @@ class PaymentController extends Controller
         Alert::success("Payment Successful");
         return redirect()->route('tenant.view.allProperty');
     }
+    public function paypalPay(EsewaRequest $request)
+    {
+        $pid = $request->building_id;
+        $amt = $request->amt_paid;
+        $payment = new RentPayment();
+        $payment->rented_id = $pid; 
+        $payment->amt_paid = $amt;
+        $rents = RentedProperty::where('id', $pid)->whereNull('deleted_at')->first();
+        if($request->payment_type == "Deposit")
+        {
+            $rentPrice = $rents->rentProperty->monthly_house_rent + $rents->rentProperty->electric_charge + $rents->rentProperty->water_charge + $rents->rentProperty->garbage_charge - $rents->discount;
+            if($rentPrice != $amt)
+            {
+                Alert::warning('Please Insert the full amount to continue');
+                return redirect()->route('tenant.view.allProperty');
+            }
+        }
+        if($request->payment_type == "Sell")
+        {
+            $rentPrice = $rents->rentProperty->price - $rents->discount;
+            if($rents->status == "Confirmed")
+            {
+                Alert::warning('You have already paid for this property');
+                return redirect()->route('tenant.view.allProperty');
+            }
+            if($rentPrice != $amt)
+            {
+                Alert::warning('Please Insert the full amount to continue');
+                return redirect()->route('tenant.view.allProperty');
+            }
+        }
+        $payment->status = "Unpaid";
+        $payment->payment_mode = "Online";
+        $payment->payment_type = $request->payment_type;
+        $payment->month = $request->month;
+        $payment->save();
 
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $provider->setCurrency('USD');
+        $paypalToken = $provider->getAccessToken();
+        $orderResponse = $provider->createOrder([
+            "intent" => "CAPTURE",
+            "application_context" => [
+                "return_url" => route('paypal.success'),
+                "cancel_url" => route('paypal.cancel')
+            ],
+            "purchase_units" => [
+                [
+                    "amount" => [
+                        "currency_code" => "USD",
+                        "value" =>  round($request->amt_paid / 133.58403, 2)
+                    ]
+                ]
+            ]
+        ]);
+        session()->put('REID', $payment->id);
+        if(isset($orderResponse['id']) && $orderResponse['id'] != null)
+        {
+            foreach($orderResponse['links'] as $link)
+            {
+                if($link['rel'] === 'approve')
+                {
+                    return redirect()->away($link['href']);
+                }
+            }
+        }else{
+            return redirect()->route('paypal.cancel');
+        }
+    }
+    public function paypalSuccess(Request $request)
+    {
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $paypalToken = $provider->getAccessToken();
+        $response = $provider->capturePaymentOrder($request->token);
+        if(isset($response['status']) && $response['status'] == 'COMPLETED'){
+            $payment = RentPayment::find(session()->get('REID'));
+            $payment->status = "Paid";
+            $payment->update();
+            if($payment->payment_type == "Deposit" || $payment->payment_type == "Sell")
+            {
+                $rent = $payment->rentedProperty;
+                $rent->status = "Confirmed";
+                $rent->update();
+            }
+            unset($_SESSION['REID']);
+            Alert::success("Payment Successful");
+            return redirect()->route('tenant.view.allProperty');
+        }else{
+            return redirect()->route('paypal.cancel');
+        }
+    }
+    public function paypalFailure(Request $request)
+    {
+        $payment = RentPayment::find(session()->get('REID'));
+        $payment->delete();
+        unset($_SESSION['REID']);
+        Alert::error("Payment Cancelled");
+        return redirect()->route('tenant.view.allProperty');
+    }
     public function index()
     {
         $payments = RentPayment::with(['rentedProperty.tenant'])
