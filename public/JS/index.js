@@ -645,6 +645,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    var fileInputs = document.querySelectorAll('input[type="file"]');
+    if (fileInputs.length > 0) {
+        fileInputs.forEach(function(input) {
+            input.setAttribute('accept', 'image/*,video/*');
+        });
+    }
+});
 
 
 
