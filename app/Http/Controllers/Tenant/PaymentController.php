@@ -65,11 +65,11 @@ class PaymentController extends Controller
         $esewa = new Client($conn);
         $esewa->process($pid, $amt, 0, 0, 0);
     }
-    public function esewaSuccess()
+    public function esewaSuccess(Request $request)
     {
-        $pid = $_GET['oid'];
-        $refId = $_GET['refId'];
-        $amount = $_GET['amt'];
+        $pid = $request->oid;
+        $refId = $request->refId;
+        $amt = $request->amt;
         $payment = RentPayment::where('rented_id', $pid)->latest()->first();
         $payment->status = "Paid";
         if($payment->payment_type == "Deposit" || $payment->payment_type == "Sell")
@@ -82,9 +82,9 @@ class PaymentController extends Controller
         Alert::success("Payment Successful");
         return redirect()->route('tenant.view.allProperty');
     }
-    public function esewaFailure()
+    public function esewaFailure(Request $request)
     {
-        $pid = $_GET['pid'];
+        $pid = $request->pid;
         $payment = RentPayment::where('rented_id', $pid)->latest()->first();
         $payment->delete();
         Alert::error('Payment Failed! Error While Paying');
