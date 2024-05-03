@@ -126,6 +126,7 @@
                                 <div>
                                     <h4 class="mb-1">Pay with</h4>
                                     <button type="button" class="pay-btn" onclick="setPaypalRoute()"><img src="{!! asset('Images/Original/paypal-logo.svg') !!}" alt="" class="img-fluid"></button>  
+                                    <button type="button" class="pay-btn" onclick="setStripeRoute()"><img src="{!! asset('Images/Original/stripe-logo.svg') !!}" alt="" class="img-fluid"></button>  
                                     <button type="button" id="payment-button" class="pay-btn"><img src="{!! asset('Images/Original/khalti-logo.svg') !!}" alt="" class="img-fluid"></button>  
                                     <button type="button" class="pay-btn" onclick="setEsewaRoute()"><img src="{!! asset('Images/Original/esewa_logo.png') !!}" alt="" class="img-fluid"></button>               
                                 </div>
@@ -145,6 +146,10 @@
         }
         function setPaypalRoute(){
             document.getElementById('paymentForm').action = "{{ route('tenant.paypal.pay') }}";
+            document.getElementById('paymentForm').submit();
+        }
+        function setStripeRoute(){
+            document.getElementById('paymentForm').action = "{{ route('tenant.stripe.pay') }}";
             document.getElementById('paymentForm').submit();
         }
     </script>

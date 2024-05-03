@@ -222,6 +222,7 @@ class PaymentController extends Controller
                 $rent->update();
             }
             unset($_SESSION['REID']);
+            session()->forget('REID');
             Alert::success("Payment Successful");
             return redirect()->route('tenant.view.allProperty');
         }else{
@@ -233,6 +234,97 @@ class PaymentController extends Controller
         $payment = RentPayment::find(session()->get('REID'));
         $payment->delete();
         unset($_SESSION['REID']);
+        session()->forget('REID');
+        Alert::error("Payment Cancelled");
+        return redirect()->route('tenant.view.allProperty');
+    }
+    public function stripePay(EsewaRequest $request)
+    {
+        $pid = $request->building_id;
+        $amt = $request->amt_paid;
+        $payment = new RentPayment();
+        $payment->rented_id = $pid; 
+        $payment->amt_paid = $amt;
+        $rents = RentedProperty::where('id', $pid)->whereNull('deleted_at')->first();
+        if($request->payment_type == "Deposit")
+        {
+            $rentPrice = $rents->rentProperty->monthly_house_rent + $rents->rentProperty->electric_charge + $rents->rentProperty->water_charge + $rents->rentProperty->garbage_charge - $rents->discount;
+            if($rentPrice != $amt)
+            {
+                Alert::warning('Please Insert the full amount to continue');
+                return redirect()->route('tenant.view.allProperty');
+            }
+        }
+        if($request->payment_type == "Sell")
+        {
+            $rentPrice = $rents->rentProperty->price - $rents->discount;
+            if($rents->status == "Confirmed")
+            {
+                Alert::warning('You have already paid for this property');
+                return redirect()->route('tenant.view.allProperty');
+            }
+            if($rentPrice != $amt)
+            {
+                Alert::warning('Please Insert the full amount to continue');
+                return redirect()->route('tenant.view.allProperty');
+            }
+        }
+        $payment->status = "Unpaid";
+        $payment->payment_mode = "Online";
+        $payment->payment_type = $request->payment_type;
+        $payment->month = $request->month;
+        $payment->save();
+        session()->put('RID', $payment->id);
+        $stripe = new \Stripe\StripeClient(config('stripe.stripe_sk'));
+        $orderResponse = $stripe->checkout->sessions->create([
+        'line_items' => [
+            [
+            'price_data' => [
+                'currency' => 'usd',
+                'product_data' => ['name' => $request->building_id],
+                'unit_amount' => round(($request->amt_paid / 133.58403), 2)*100,
+            ],
+            'quantity' => 1,
+            ],
+        ],
+        'mode' => 'payment',
+        'success_url' => route('stripe.success').'?session_id={CHECKOUT_SESSION_ID}',
+        'cancel_url' => route('stripe.cancel'),
+        ]);
+        if(isset($orderResponse->id) && $orderResponse->id != null)
+        {
+            return redirect($orderResponse->url);
+        }else{
+            return redirect()->route('stripe.cancel');
+        }
+    }
+    public function stripeSuccess(Request $request)
+    {
+        if(isset($request->session_id)){
+            $payment = RentPayment::find(session()->get('RID'));
+            $payment->status = "Paid";
+            $payment->update();
+            if($payment->payment_type == "Deposit" || $payment->payment_type == "Sell")
+            {
+                $rent = $payment->rentedProperty;
+                $rent->status = "Confirmed";
+                $rent->update();
+            }
+            unset($_SESSION['RID']);
+            session()->forget('RID');
+
+            Alert::success("Payment Successful");
+            return redirect()->route('tenant.view.allProperty');
+        } else{
+            return redirect()->route('stripe.cancel');
+        }
+    }
+    public function stripeFailure(Request $request)
+    {
+        $payment = RentPayment::find(session()->get('RID'));
+        $payment->delete();
+        unset($_SESSION['RID']);
+        session()->forget('RID');
         Alert::error("Payment Cancelled");
         return redirect()->route('tenant.view.allProperty');
     }
