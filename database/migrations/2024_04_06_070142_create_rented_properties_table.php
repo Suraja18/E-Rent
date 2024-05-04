@@ -22,7 +22,6 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('tenant_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('rent_id')->references('id')->on('rent_properties')->onDelete('cascade');
-            $table->softDeletes();
         });
     }
 

@@ -72,6 +72,9 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::get('/trash/forum', [TrashedController::class, 'forumIndex'])->name('admin.trash.forum');
         Route::get('/trash/{id}/forum/restore', [TrashedController::class, 'forumRestore'])->name('admin.trash.forum.restore');
         Route::delete('/trash/{id}/forum/delete', [TrashedController::class, 'forumDelete'])->name('admin.trash.forum.destroy');
+        Route::get('/trash/roles', [TrashedController::class, 'rolesIndex'])->name('admin.trash.roles');
+        Route::get('/trash/{id}/roles/restore', [TrashedController::class, 'rolesRestore'])->name('admin.trash.roles.restore');
+        Route::delete('/trash/{id}/roles/delete', [TrashedController::class, 'rolesDelete'])->name('admin.trash.roles.destroy');
         // End Trashed and Restore
 
         Route::get('/logout', [AuthController::class, 'adminLogout'])->name('admin.logout');
