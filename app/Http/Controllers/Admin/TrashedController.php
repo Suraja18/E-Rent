@@ -7,6 +7,8 @@ use App\Models\Building;
 use App\Models\Forums;
 use App\Models\User;
 use App\Models\userRoles;
+use App\Notifications\BuildingRestoredNotification;
+use App\Notifications\UserRecoveredNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -22,6 +24,8 @@ class TrashedController extends Controller
     {
         $building = Building::withTrashed()->find($buildingId);
         $building->restore();
+        $landlord = $building->landlords;
+        $landlord->notify(new BuildingRestoredNotification($building, $landlord));
         Alert::success('Building Restored Successfully');
         return redirect()->route('admin.trash.building');
     }
@@ -97,6 +101,7 @@ class TrashedController extends Controller
     {
         $users = User::withTrashed()->find($usersId);
         $users->restore();
+        $users->notify(new UserRecoveredNotification($users));
         Alert::success('User deactivation Cancelled');
         return redirect()->route('admin.trash.users');
     }

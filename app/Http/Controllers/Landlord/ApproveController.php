@@ -74,7 +74,7 @@ class ApproveController extends Controller
 
     public function destroy(string $id)
     {
-        $rent = RentedProperty::findOrFail($id);
+        $rent = RentedProperty::findOrFail($id); 
         $property  = RentProperty::where('id', $rent->rent_id)->first();
         $rent->status = "Cancelled";
         $rent->update();

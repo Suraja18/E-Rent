@@ -230,10 +230,16 @@ class RentController extends Controller
 
     public function destroy(RentProperty $rent)
     {
+        if($rent->rentedProperties()->exists())
+        {
+            Alert::error('The Property is already occupied  and cannot be deleted.');
+            return redirect()->route('rent.index');
+        }
         $unit = Unit::findOrFail($rent->property_type_id);
         $existingRecord = FloorRemain::where('building_id', $rent->building_id)
         ->where('floor', $rent->floor)
-        ->first();
+        ->first(); 
+
 
         if ($existingRecord) {
             $remainingRooms = ($existingRecord->remaining_room + $unit->rooms);

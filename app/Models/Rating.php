@@ -22,4 +22,8 @@ class Rating extends Model
     {
         return $this->belongsTo(RentProperty::class, 'rented_id');
     }
+    public function ratingReplies()
+    {
+        return $this->hasMany(RatingReply::class);
+    }
 }

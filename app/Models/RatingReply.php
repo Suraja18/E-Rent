@@ -17,8 +17,5 @@ class RatingReply extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function ratingReplies()
-    {
-        return $this->hasMany(RatingReply::class);
-    }
+    
 }

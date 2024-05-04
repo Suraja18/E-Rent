@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Notifications\AccountDeactivationNotification;
+use App\Notifications\EmailChangedNotification;
 use App\Notifications\EmailTempPassword;
+use App\Notifications\EmailVerifiedNotification;
+use App\Notifications\UserRecoveredNotification;
 use App\Notifications\VerifyEmailNotification;
 use App\Notifications\VerifyOTPNotification;
 use App\Services\UserServices;
@@ -57,6 +61,7 @@ class AuthController extends Controller
         {
             if ($user->trashed()) {
                 $user->restore();
+                $user->notify(new UserRecoveredNotification($user));
             }
         }
     
@@ -68,14 +73,10 @@ class AuthController extends Controller
             if ($user->email_verified_at !== null) {
                 if ($user->roles == 1) {
                     $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(60));
-                    $userMode->restore();
-                    $userMode->update();
                     Alert::success('Login Successful');
                     return redirect()->route('tenant.dashboard');
                 } elseif ($user->roles == 2) {
                     $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(60));
-                    $userMode->restore();
-                    $userMode->update();
                     Alert::success('Login Successful');
                     return redirect()->route('landlord.dashboard');
                 }
@@ -167,6 +168,7 @@ class AuthController extends Controller
         }
 
         $user->email_verified_at = now();
+        $user->notify(new EmailVerifiedNotification());
         $user->save();
         Alert::success('Email verified successfully.','You can now log in.');
         return redirect()->route('user.login');
@@ -242,6 +244,7 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->email_verified_at = now();
         $user->update();
+        $user->notify(new EmailChangedNotification($request->email));
         Alert::success('Email Changed Successfully.', 'Please login to continue');
         return redirect()->route('user.login');
     }
@@ -254,6 +257,7 @@ class AuthController extends Controller
             return redirect()->back();
         }
         $user->delete();
+        $user->notify(new AccountDeactivationNotification());
         Alert::success('Account deactivated Successfully.', 'You all information will be permenantly deleted after 30 days');
         return redirect()->route('user.login');
     }

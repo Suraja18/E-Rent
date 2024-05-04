@@ -10,6 +10,7 @@ use App\Models\MaintenanceRequest;
 use App\Models\RentedProperty;
 use App\Models\User;
 use App\Models\webReview;
+use App\Notifications\AccountDeactivationNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -310,13 +311,15 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         if($user->roles == 1)
         {
-            $user->delete();
+            $user->delete(); 
+            $user->notify(new AccountDeactivationNotification());
             Alert::success('The User account is deactivated temporary.', 'The account will permanently deleted after 30 days.');
             return redirect()->route('admin.all_tenants');
         }
         if($user->roles == 2)
         {
             $user->delete();
+            $user->notify(new AccountDeactivationNotification());
             Alert::success('The User account is deactivated temporary.', 'The account will permanently deleted after 30 days.');
             return redirect()->route('admin.all_landlords');
         }
