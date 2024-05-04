@@ -75,6 +75,9 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::get('/trash/roles', [TrashedController::class, 'rolesIndex'])->name('admin.trash.roles');
         Route::get('/trash/{id}/roles/restore', [TrashedController::class, 'rolesRestore'])->name('admin.trash.roles.restore');
         Route::delete('/trash/{id}/roles/delete', [TrashedController::class, 'rolesDelete'])->name('admin.trash.roles.destroy');
+        Route::get('/trash/users', [TrashedController::class, 'usersIndex'])->name('admin.trash.users');
+        Route::get('/trash/{id}/users/restore', [TrashedController::class, 'usersRestore'])->name('admin.trash.users.restore');
+        Route::delete('/trash/{id}/users/delete', [TrashedController::class, 'usersDelete'])->name('admin.trash.users.destroy');
         // End Trashed and Restore
 
         Route::get('/logout', [AuthController::class, 'adminLogout'])->name('admin.logout');

@@ -248,6 +248,11 @@ class AuthController extends Controller
     public function deactiveAccount()
     {
         $user = User::find(Auth::id());
+        if($user->rentedProperties()->exists())
+        {
+            Alert::error('Please remove your account from all property first!');
+            return redirect()->back();
+        }
         $user->delete();
         Alert::success('Account deactivated Successfully.', 'You all information will be permenantly deleted after 30 days');
         return redirect()->route('user.login');

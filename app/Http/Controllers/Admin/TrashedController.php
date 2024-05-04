@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Building;
 use App\Models\Forums;
+use App\Models\User;
 use App\Models\userRoles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -86,5 +87,27 @@ class TrashedController extends Controller
         $roles->forceDelete(); 
         Alert::success('User Roles is permanently Deleted Successfully');
         return redirect()->route('admin.trash.roles');
+    }
+    public function usersIndex()
+    {
+        $data = [ 'users' => User::onlyTrashed()->latest()->get(),];
+        return view('Admin.Trashed.users', $data);
+    }
+    public function usersRestore(string $usersId)
+    {
+        $users = User::withTrashed()->find($usersId);
+        $users->restore();
+        Alert::success('User deactivation Cancelled');
+        return redirect()->route('admin.trash.users');
+    }
+    public function usersDelete(string $usersId)
+    {
+        $users = User::withTrashed()->find($usersId);
+        if(isset($users->image)){
+            File::delete($users->image);
+        }
+        $users->forceDelete(); 
+        Alert::success('User is permanently Deleted Successfully');
+        return redirect()->route('admin.trash.users');
     }
 }
