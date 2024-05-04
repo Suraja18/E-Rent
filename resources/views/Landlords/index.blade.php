@@ -132,7 +132,7 @@
                 <div class="card-dashboard-body ptb-1-2">
                     @foreach ($tenants as $tenant)
                         <div class="d-flex align-center p-r mb-1">
-                            <div class="avatar-img status">
+                            <div class="avatar-img @if($tenant->active_status == 1) status-online @else status @endif">
                                 <img src="{!! $tenant->image !!}" alt="Avatar">
                             </div>
                             <div class="avatar-flex">

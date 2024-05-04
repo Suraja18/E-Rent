@@ -73,10 +73,14 @@ class AuthController extends Controller
             if ($user->email_verified_at !== null) {
                 if ($user->roles == 1) {
                     $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(60));
+                    $userMode->active_status = 1;
+                    $userMode->update();
                     Alert::success('Login Successful');
                     return redirect()->route('tenant.dashboard');
                 } elseif ($user->roles == 2) {
                     $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(60));
+                    $userMode->active_status = 1;
+                    $userMode->update();
                     Alert::success('Login Successful');
                     return redirect()->route('landlord.dashboard');
                 }
@@ -99,6 +103,9 @@ class AuthController extends Controller
 
     public function logout()
     {
+        $user = User::find(Auth::id());
+        $user->active_status = 0;
+        $user->update();
         Auth::logout();
         return redirect()->route('user.login');
     }

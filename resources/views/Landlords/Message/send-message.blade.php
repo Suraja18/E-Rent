@@ -37,7 +37,7 @@
                                                                     @endphp
                                                                     <div class="chat-contact {!! $loop->first ? 'active' : '' !!}" data-chat="chat-{!! $messagesGroup[0]->friend->id !!}">
                                                                         <div class="d-flex @if($hasUnreadMessage) unread-mg @endif" style="padding: 1rem">
-                                                                            <div class="avatar-img status">
+                                                                            <div class="avatar-img @if($messagesGroup[0]->friend->user->id == auth()->id()) @if($messagesGroup[0]->friend->sentBy->active_status == 1) status-online @endif  @else @if($messagesGroup[0]->friend->user->active_status == 1) status-online @endif @endif status">
                                                                                 <img src="@if($messagesGroup[0]->friend->user->id == auth()->id()) {!! asset($messagesGroup[0]->friend->sentBy->image) !!} @else{!! asset($messagesGroup[0]->friend->user->image) !!} @endif">
                                                                             </div>
                                                                             <div class="nav-flex d-b p-r">
@@ -62,7 +62,7 @@
                                                                 @foreach ($contacts as $contact)
                                                                     <div class="chat-contact @if($messages->isEmpty()) {!! $loop->first ? 'active' : '' !!} @endif" data-chat="chat-{!! $contact->id !!}">
                                                                         <div class="d-flex" style="padding: 1rem">
-                                                                            <div class="avatar-img status">
+                                                                            <div class="avatar-img @if($contact->user->id == auth()->id()) @if($contact->sentBy->active_status == 1) status-online @endif  @else @if($contact->user->active_status == 1) status-online @endif @endif status">
                                                                                 <img src="@if($contact->user->id == auth()->id()) {!! asset($contact->sentBy->image) !!} @else{!! asset($contact->user->image) !!} @endif">
                                                                             </div>
                                                                             <div class="nav-flex d-b p-r">

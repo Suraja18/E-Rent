@@ -32,12 +32,12 @@
                                                                 @endphp
                                                                 <div class="chat-contact {!! $loop->first ? 'active' : '' !!}" data-chat="chat-{!! $messagesGroup[0]->friend->id !!}">
                                                                     <div class="d-flex @if($hasUnreadMessage) unread-mg @endif" style="padding: 1rem">
-                                                                        <div class="avatar-img status">
+                                                                        <div class="avatar-img @if($messagesGroup[0]->friend->user->id == auth()->id()) @if($messagesGroup[0]->friend->sentBy->active_status == 1) status-online @endif  @else @if($messagesGroup[0]->friend->user->active_status == 1) status-online @endif @endif status">
                                                                             <img src="@if($messagesGroup[0]->friend->user->id == auth()->id()) {!! asset($messagesGroup[0]->friend->sentBy->image) !!} @else{!! asset($messagesGroup[0]->friend->user->image) !!} @endif">
                                                                         </div>
                                                                         <div class="nav-flex d-b p-r">
                                                                             <div class="d-flex chat-mg" style="justify-content: space-between">
-                                                                                <h6 class="mb-0">@if($messagesGroup[0]->friend->user->id == auth()->id()){!! $messagesGroup[0]->friend->sentBy->first_name !!} {!! $messagesGroup[0]->friend->sentBy->last_name !!} @else {!! $messagesGroup[0]->friend->sentBy->first_name !!} {!! $messagesGroup[0]->friend->sentBy->last_name !!} @endif</h6>
+                                                                                <h6 class="mb-0">@if($messagesGroup[0]->friend->user->id == auth()->id()){!! $messagesGroup[0]->friend->sentBy->first_name !!} {!! $messagesGroup[0]->friend->sentBy->last_name !!} @else {!! $messagesGroup[0]->friend->user->first_name !!} {!! $messagesGroup[0]->friend->user->last_name !!} @endif</h6>
                                                                                 <span class="message-time">{!! $messagesGroup[0]->created_at->format('D') !!}</span>
                                                                             </div>
                                                                             <div>
@@ -57,12 +57,12 @@
                                                             @foreach ($contacts as $contact)
                                                                 <div class="chat-contact @if($messages->isEmpty()) {!! $loop->first ? 'active' : '' !!} @endif" data-chat="chat-{!! $contact->id !!}">
                                                                     <div class="d-flex" style="padding: 1rem">
-                                                                        <div class="avatar-img status">
+                                                                        <div class="avatar-img @if($contact->user->id == auth()->id()) @if($contact->sentBy->active_status == 1) status-online @endif  @else @if($contact->user->active_status == 1) status-online @endif @endif status">
                                                                             <img src="@if($contact->user->id == auth()->id()) {!! asset($contact->sentBy->image) !!} @else{!! asset($contact->user->image) !!} @endif">
                                                                         </div>
                                                                         <div class="nav-flex d-b p-r">
                                                                             <div class="d-flex chat-mg" style="justify-content: space-between">
-                                                                                <h6 class="mb-0">@if($contact->user->id == auth()->id()){!! $contact->sentBy->first_name !!} {!! $contact->sentBy->last_name !!} @else {!! $contact->sentBy->first_name !!} {!! $contact->sentBy->last_name !!} @endif</h6>
+                                                                                <h6 class="mb-0">@if($contact->user->id == auth()->id()){!! $contact->sentBy->first_name !!} {!! $contact->sentBy->last_name !!} @else {!! $contact->user->first_name !!} {!! $contact->user->last_name !!} @endif</h6>
                                                                             </div>
                                                                             <div>
                                                                                 <div class="chat-contact-content">Say <b>Hi</b> to your Friends</div>
