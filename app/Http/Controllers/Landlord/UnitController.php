@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Landlord;
 
 use App\Http\Controllers\Controller;
 use App\Models\Unit;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
@@ -14,7 +16,17 @@ class UnitController extends Controller
     public function index()
     {
         $data = [ 'units' => Unit::latest()->get(),];
-        return view('Landlords.Property.unit', $data);
+        $user = User::find(Auth::id());
+        if($user->roles == 2)
+        {
+            return view('Landlords.Property.unit', $data);
+        }elseif ($user->roles == 3)
+        {
+            return view('Admin.Units.unit', $data);
+        }else{
+            return redirect()->route('user.logout');
+        }
+        
     }
     public function store(Request $request)
     {
@@ -42,14 +54,14 @@ class UnitController extends Controller
             $unit->slug=$request->building_unit;
             $unit->save();
             Alert::success('Building Unit has been added!!');
-            return redirect()->route('unit.index');
+            return redirect()->back();
         }
     }
 
     public function edit(Unit $unit)
     {
         $data = ['unit' => $unit, 'units' => Unit::latest()->get(), 'type2' => 'edit'];
-        return view('Landlords.Property.unit', $data);
+        return view('Admin.Units.unit', $data);
     }
 
     public function update(Request $request, Unit $unit)
@@ -84,6 +96,10 @@ class UnitController extends Controller
 
     public function destroy(Unit $unit)
     {
+        if ($unit->rentProperties()->exists()) {
+            Alert::error('Error', 'The building exists and cannot be deleted.');
+            return redirect()->route('unit.index');
+        }
         File::delete($unit->image_1);
         $unit->delete();
         Alert::success('Building Unit Deleted Successfully');

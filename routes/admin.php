@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\UseCase\CaseController;
 use App\Http\Controllers\Admin\UseCase\DescController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Landlord\EmailController;
+use App\Http\Controllers\Landlord\UnitController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin', 'session.logout'])->group(function () {
@@ -41,6 +42,7 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::resource('/service', ServiceController::class)->only(['index', 'store', 'edit', 'update', 'destroy' ]);
         Route::get('/advertising', [RatesController::class, 'advertising'])->name('admin.advertising.index');
         Route::post('/advertising', [RatesController::class, 'advertisingStore'])->name('admin.advertising.store');
+        Route::resource('/unit', UnitController::class)->only(["index", "store", "edit", "update", "destroy"]);
         Route::resource('/roles', RolesController::class);
         Route::resource('/roles-desc', RolesDescController::class);
         Route::resource('/frequently', FrequentlyController::class);

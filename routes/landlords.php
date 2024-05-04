@@ -36,7 +36,8 @@ Route::middleware(['landlord', 'session.logout'])->group(function () {
         Route::middleware(['checkComplete'])->group(function () {
             Route::resource('/building', BuildingController::class);
             Route::get('/get-floors/{id}', [LandlordController::class, 'getFloors']);
-            Route::resource('/unit', UnitController::class)->only(["index", "store", "edit", "update", "destroy"]);
+            Route::get('/property/unit', [UnitController::class, 'index'])->name('landlord.unit.index');
+            Route::post('/property/unit/store', [UnitController::class, 'store'])->name('landlord.unit.store');
             Route::resource('/house-sell', HomeSellController::class)->only(["index", "store", "edit", "update", "destroy"]);
             Route::resource('/rent', RentController::class);
             Route::resource('/forum', ForumController::class);
