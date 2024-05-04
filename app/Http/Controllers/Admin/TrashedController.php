@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Building;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use RealRashid\SweetAlert\Facades\Alert;
+
+class TrashedController extends Controller
+{
+    public function buildingIndex()
+    {
+        $data = [ 'buildings' => Building::onlyTrashed()->latest()->get(),];
+        return view('Admin.Trashed.building', $data);
+    }
+    public function buildingDelete(string $buildingId)
+    {
+        $building = Building::withTrashed()->find($buildingId);
+        if(isset($building->image_1)){
+            File::delete($building->image_1);
+        } 
+        if(isset($building->image_2)){
+            File::delete($building->image_2);
+        }
+        if(isset($building->image_3)){
+            File::delete($building->image_3);
+        }
+        if(isset($building->image_4)){
+            File::delete($building->image_4);
+        }
+        $building->forceDelete(); 
+        Alert::success('Building is permanently Deleted Successfully');
+        return redirect()->route('admin.trash.building');
+    }
+}

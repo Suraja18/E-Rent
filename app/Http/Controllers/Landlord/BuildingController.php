@@ -63,17 +63,11 @@ class BuildingController extends Controller
 
     public function destroy(Building $building)
     {
-        File::delete($building->image_1);
-        if(isset($building->image_2)){
-            File::delete($building->image_2);
+        if ($building->rentProperties()->exists()) {
+            Alert::error('Error', 'The building is already occupied and cannot be deleted.');
+            return redirect()->route('building.index');
         }
-        if(isset($building->image_3)){
-            File::delete($building->image_3);
-        }
-        if(isset($building->image_4)){
-            File::delete($building->image_4);
-        }
-        $building->delete();
+        $building->delete(); 
         Alert::success('Building Deleted Successfully');
         return redirect()->route('building.index');
     }

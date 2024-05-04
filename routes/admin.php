@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\RatesController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\RolesDescController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\TrashedController;
 use App\Http\Controllers\Admin\UseCase\CaseController;
 use App\Http\Controllers\Admin\UseCase\DescController;
 use App\Http\Controllers\Auth\AuthController;
@@ -63,6 +64,11 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::get('/all-tenants', [AdminController::class,  'AllTenants'])->name('admin.all_tenants');
         Route::get('/all-landlords', [AdminController::class,  'AllLandlords'])->name('admin.all_landlords');
         Route::delete('/{id}/delete', [AdminController::class, 'destroyUser'])->name('admin.deactivate.user');
+
+        // Start Trashed and Restore
+        Route::get('/trash/building', [TrashedController::class, 'buildingIndex'])->name('admin.trash.building');
+        Route::delete('/trash/{id}/building/delete', [TrashedController::class, 'buildingDelete'])->name('admin.trash.building.destroy');
+        // End Trashed and Restore
 
         Route::get('/logout', [AuthController::class, 'adminLogout'])->name('admin.logout');
     });

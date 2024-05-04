@@ -29,7 +29,7 @@ class Building extends Model
         'slug',
     ];
 
-    public function landlord()
+    public function landlords()
     {
         return $this->belongsTo(User::class, 'landlord', 'id');
     }

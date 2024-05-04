@@ -97,7 +97,7 @@ class UnitController extends Controller
     public function destroy(Unit $unit)
     {
         if ($unit->rentProperties()->exists()) {
-            Alert::error('Error', 'The building exists and cannot be deleted.');
+            Alert::error('Error', 'The unit is already occupied  and cannot be deleted.');
             return redirect()->route('unit.index');
         }
         File::delete($unit->image_1);
