@@ -68,13 +68,13 @@ class AuthController extends Controller
             if ($user->email_verified_at !== null) {
                 if ($user->roles == 1) {
                     $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(60));
-                    $userMode->deleted_at = null;
+                    $userMode->restore();
                     $userMode->update();
                     Alert::success('Login Successful');
                     return redirect()->route('tenant.dashboard');
                 } elseif ($user->roles == 2) {
                     $request->session()->put('time-to-log_' . $user->id, now()->addMinutes(60));
-                    $userMode->deleted_at = null;
+                    $userMode->restore();
                     $userMode->update();
                     Alert::success('Login Successful');
                     return redirect()->route('landlord.dashboard');

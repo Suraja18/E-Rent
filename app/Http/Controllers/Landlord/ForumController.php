@@ -55,8 +55,12 @@ class ForumController extends Controller
 
     public function destroy(Forums $forum)
     {
+        if ($forum->rentProperties()->exists()) {
+            Alert::error('Error', 'The forum is already occupied and cannot be deleted.');
+            return redirect()->route('forum.index');
+        }
         $forum->delete();
-        Alert::success('Lease Agreement has been deleted Successfully');
+        Alert::success('Forum has been deleted successfully');
         return redirect()->route('forum.index');
     }
 }

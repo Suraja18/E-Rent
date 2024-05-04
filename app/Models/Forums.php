@@ -22,6 +22,6 @@ class Forums extends Model
     }
     public function rentProperties()
     {
-        return $this->hasMany(RentProperty::class);
+        return $this->hasMany(RentProperty::class, 'forum_id');
     }
 }

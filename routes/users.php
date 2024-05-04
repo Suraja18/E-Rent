@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\PDFController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,7 @@ Route::get('/press-and-media',[UserController::class, 'SocialNews'])->name('user
 Route::get('/{slug}/press-media',[UserController::class, 'newsAndMedia'])->name('user.press-media.single');
 Route::get('/customer-review',[UserController::class, 'customerReview'])->name('user.customer-review');
 Route::get('/user-role',[UserController::class, 'userRoles'])->name('user.user-role');
+Route::get('/forums/{slug}/pdf',[PDFController::class, 'generatePDF'])->name('forum.generatePDF');
 Route::get('/help-centre',[UserController::class, 'helpCentre'])->name('user.helpCentre');
 Route::post('/success/contact', [UserController::class, 'updateContact'])->name('users.get.contact');
 Route::get('/services', [UserController::class, 'allService'])->name('user.services');
