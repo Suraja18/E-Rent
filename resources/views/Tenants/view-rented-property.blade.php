@@ -181,6 +181,10 @@
                                                         
                                                             @if($property_rent->status == "Approved" || $property_rent->status == "New" )
                                                                 <a class="status-links view-btn dangers">Unpaid</a>
+                                                            @elseif ($property_rent->status == "Cancelled")
+                                                                <a class="status-links view-btn dangers">Not Needed</a>
+                                                            @elseif ($property_rent->status == "Checked Out")
+                                                                <a class="status-links view-btn">Checked</a>
                                                             @else
                                                                 @if($status == "Unpaid")
                                                                     <a class="status-links view-btn dangers">{!! $status !!}</a>
@@ -210,6 +214,7 @@
                                                                     <div class="btn-container-opt below">
                                                                         <a href="{!! route('tenant.display.property', $slug) !!}" class="upper-btn">View</a>
                                                                     </div>
+                                                                    @if($property_rent->status == "Cancelled" || $property_rent->status == "Checked Out") 
                                                                     <div class="btn-container-opt">
                                                                         <form action="{!! route('tenant.property.delete', $slug) !!}" method="POST" id="deleteTables{!! $property_rent->id !!}">
                                                                             @method('DELETE')
@@ -217,6 +222,7 @@
                                                                             <input type="button" value="Delete" class="lower-btn" onclick="return confirmDelete('deleteTables{!! $property_rent->id !!}')" />
                                                                         </form>
                                                                     </div>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>

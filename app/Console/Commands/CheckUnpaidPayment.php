@@ -26,7 +26,7 @@ class CheckUnpaidPayment extends Command
      */
     public function handle()
     {
-        $unpaidPayments = RentPayment::where('status', 'Unpaid')->get();
+        $unpaidPayments = RentPayment::where('status', 'Unpaid')->withTrashed()->get();
 
         foreach ($unpaidPayments as $payment) {
             $payment->forceDelete();

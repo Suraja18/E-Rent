@@ -94,14 +94,16 @@
                                                                         <ul class="list-unstyle"> 
                                                                             <li class="m-dot-item" role="listitem">
                                                                                 <a href="{!! route('tenant.property.generatePDF', $slug) !!}" class="m-dot-links"> Download</a>
-                                                                            </li>   
+                                                                            </li>  
+                                                                            @if($property->rentedProperty->status == "Cancelled" || $property->rentedProperty->status == "Checked Out") 
                                                                             <li class="m-dot-item delete" role="listitem">
                                                                                 <form action="{!! route('tenant.property.delete', $slug) !!}" method="POST" id="deleteTables{!! $rented_property->id !!}">
                                                                                     @method('DELETE')
                                                                                     @csrf
                                                                                     <input type="button" value="Delete" class="m-dot-links" onclick="return confirmDelete('deleteTables{!! $rented_property->id !!}')" />
                                                                                 </form>
-                                                                            </li>   
+                                                                            </li> 
+                                                                            @endif  
                                                                         </ul>
                                                                     </div>
                                                                 </div>

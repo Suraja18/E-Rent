@@ -2,12 +2,6 @@
 
 namespace App\Http\Controllers\Tenant;
 
-// require '../vendor/autoload.php';
-require __DIR__ . '../../../../../vendor/autoload.php';
-
-use RemoteMerge\Esewa\Client;
-use RemoteMerge\Esewa\Config;
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EsewaRequest;
 use App\Models\RentedProperty;
@@ -20,6 +14,68 @@ use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class PaymentController extends Controller
 {
+    private $merchant_id;
+    private $accessType;
+    private $proCode;
+
+    public function __construct()
+    {
+        $this->merchant_id = config('esewa.secret_key');
+        $this->accessType = config('esewa.access_type');
+        $this->proCode = config('esewa.prod_code');
+    }
+
+    public function esewaCheckout($data)
+    {
+        if ($this->accessType == "Test") {
+            $esewa_url = config('esewa.test_esewa_url');
+        } elseif ($this->accessType == "Live") {
+            $esewa_url = config('esewa.live_esewa_url');
+        } else {
+            throw new \Exception("Please write access type (Test or Live)");
+        }
+
+        if (!$this->merchant_id) {
+
+            throw new \Exception("Please Enter Merchant Id");
+        }
+        $amount = $data['total_amount'];
+        $transaction_uuid = $data['transaction_uuid'];
+        $message = "total_amount=$amount,transaction_uuid=$transaction_uuid,product_code=$this->proCode";
+        $s = hash_hmac('sha256', $message, config('esewa.secret_key'), true);
+        $signature = base64_encode($s);
+        $data = [
+            "amount" => $data['total_amount'],
+            "failure_url" => route('esewa.cancel'),
+            "product_delivery_charge" => 0,
+            "product_service_charge" => 0,
+            "product_code" => "EPAYTEST",
+            "signed_field_names" => "total_amount,transaction_uuid,product_code",
+            "success_url" => route('esewa.success'),
+            "tax_amount" => 0,
+            "total_amount" => $data['total_amount'],
+            "transaction_uuid" => $data['transaction_uuid'],
+            "signature" => $signature,
+        ];
+        $html = [];
+        foreach ($data as $key => $value) :
+            $html[] = "<input type=\"hidden\" name=\"$key\" value=\"$value\"/>";
+        endforeach;
+
+        $html = implode("", $html);
+
+        $form =  <<< EOT
+            <html><head><style></style></head><body>
+                <form id="form" action="$esewa_url" method="POST">
+                $html
+                </form>
+
+                <script>document.getElementById("form").submit();</script>
+            </body></html>
+        EOT;
+
+        return $form;
+    }
     public function esewaPay(EsewaRequest $request)
     {
         $pid = $request->building_id;
@@ -55,23 +111,26 @@ class PaymentController extends Controller
         $payment->payment_mode = "Online";
         $payment->payment_type = $request->payment_type;
         $payment->month = $request->month;
+        $tuid = now()->timestamp;
+        $payment->remarks = $tuid;
         $payment->save();
 
-        $successUrl = url('/tenants/property/rent/pay/eSewa/success');
-        $failureUrl = url('/tenants/property/rent/pay/esewa/failure');
-
-        $conn = new Config($successUrl, $failureUrl);
-
-        $esewa = new Client($conn);
-        $esewa->process($pid, $amt, 0, 0, 0);
+        $data = [
+            "total_amount" => $amt,
+            "transaction_uuid" => $tuid,
+        ];
+        return $this->esewaCheckout($data);
     }
     public function esewaSuccess(Request $request)
     {
-        return $request;
-        $pid = $request->oid;
-        $refId = $request->refId;
-        $amt = $request->amt;
-        $payment = RentPayment::where('rented_id', $pid)->latest()->first();
+        $encodedData = $request->data;
+        $jsonData = base64_decode($encodedData);
+        $data = json_decode($jsonData, true);
+        if($data['status'] == "NOT_FOUND" || $data['status'] == "CANCELED" || $data['status'] == "PENDING")
+        {
+            return redirect()->route('esewa.cancel');
+        }
+        $payment = RentPayment::where('remarks', $data['transaction_uuid'])->latest()->first();
         $payment->status = "Paid";
         if($payment->payment_type == "Deposit" || $payment->payment_type == "Sell")
         {
@@ -85,10 +144,6 @@ class PaymentController extends Controller
     }
     public function esewaFailure(Request $request)
     {
-        return $request;
-        $pid = $request->pid;
-        $payment = RentPayment::where('rented_id', $pid)->latest()->first();
-        $payment->delete();
         Alert::error('Payment Failed! Error While Paying');
         return redirect()->route('tenant.view.allProperty');
     }
