@@ -67,6 +67,7 @@ class PaymentController extends Controller
     }
     public function esewaSuccess(Request $request)
     {
+        return $request;
         $pid = $request->oid;
         $refId = $request->refId;
         $amt = $request->amt;
@@ -84,6 +85,7 @@ class PaymentController extends Controller
     }
     public function esewaFailure(Request $request)
     {
+        return $request;
         $pid = $request->pid;
         $payment = RentPayment::where('rented_id', $pid)->latest()->first();
         $payment->delete();

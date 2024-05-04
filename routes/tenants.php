@@ -57,10 +57,10 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
             Route::post('/property/rent/pay/paypal',[PaymentController::class, 'paypalPay'])->name('tenant.paypal.pay');
             Route::post('/property/rent/pay/stripe',[PaymentController::class, 'stripePay'])->name('tenant.stripe.pay');
             Route::post('/property/rent/pay/khalti',[PaymentController::class, 'khaltiPay'])->name('tenant.khalti.pay');
-            Route::get('/property/rent/pay/eSewa/success',[PaymentController::class, 'esewaSuccess']);
+            Route::get('/property/rent/pay/eSewa/success',[PaymentController::class, 'esewaSuccess'])->name('esewa.success');
             Route::get('/property/rent/pay/paypal/success',[PaymentController::class, 'paypalSuccess'])->name('paypal.success');
             Route::get('/property/rent/pay/stripe/success',[PaymentController::class, 'stripeSuccess'])->name('stripe.success');
-            Route::get('/property/rent/pay/esewa/failure',[PaymentController::class, 'esewaFailure']);
+            Route::get('/property/rent/pay/esewa/failure',[PaymentController::class, 'esewaFailure'])->name('esewa.cancel');
             Route::get('/property/rent/pay/paypal/failure',[PaymentController::class, 'paypalFailure'])->name('paypal.cancel');
             Route::get('/property/rent/pay/stripe/failure',[PaymentController::class, 'stripeFailure'])->name('stripe.cancel');
             Route::post('/property/view/rented', [RentController::class, 'viewRentedProperty'])->name('tenant.property.status.search');
