@@ -16,11 +16,11 @@ class Friends extends Model
     ];
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function sentBy()
     {
-        return $this->belongsTo(User::class, 'sent_id');
+        return $this->belongsTo(User::class, 'sent_id')->withTrashed();
     }
 }

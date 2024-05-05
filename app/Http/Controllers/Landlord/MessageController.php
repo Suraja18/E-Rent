@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Landlord;
 
+use App\Events\SentMessage;
 use App\Http\Controllers\Controller;
 use App\Models\Friends;
 use App\Models\Messages;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -83,6 +85,15 @@ class MessageController extends Controller
             $message->image = "Images/Variable/Messages/" . $imageName;
         }
         $message->save();
+        if($message->friend->sentBy->id == Auth::id())
+        {
+            $frdID = User::find($message->friend->user->id);
+            $sendID = User::find($message->friend->sentBy->id);
+        }else{
+            $frdID = User::find($message->friend->sentBy->id);
+            $sendID = User::find($message->friend->user->id);
+        }
+        event(new SentMessage($message, $frdID, $sendID));
         
         return response()->json(['success' => true, 'message' => 'Message sent successfully']);
     }

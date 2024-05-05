@@ -143,7 +143,7 @@
                                                         <div>
                                                             <div class="msg-sb-cont max" id="chat-content-scroll-{!! $friendMessages[0]->friend_id !!}">
                                                                 <div>
-                                                                    <div class="p-r">
+                                                                    <div class="p-r" id="messagesContainer">
                                                                         @forelse ($friendMessages->sortBy('created_at') as $message)
                                                                             @if($message->sent_by == auth()->id())
                                                                                 <div class="d-flex chat-mg msg" style="padding: .25rem;">
@@ -348,26 +348,16 @@
                 var friendId = $('.chat-contact.active').data('chat').split('-')[1];
                 var chatContentScroll = document.getElementById('chat-content-scroll-' + friendId);
                 chatContentScroll.scrollTop = chatContentScroll.scrollHeight;
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route("tenant.mark_messages_as_read") }}',
-                    data: {
-                        friend_id: friendId,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        //
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                });
+                markMessagesAsRead(friendId);
             });
         });
+       
+
         $(document).ready(function() {
             $('.chat-container').on('click', '.btnSend', function() {
-                var messageBox = $(this).closest('.send-msg').find('.chat-mess');
                 var friendId = $('.chat-contact.active').data('chat').split('-')[1];
+                markMessagesAsRead(friendId);
+                var messageBox = $(this).closest('.send-msg').find('.chat-mess');
                 var imageInput = document.getElementById('image_upload_' + $('.chat-contact.active').data('chat').split('-')[1]);
                 var image = imageInput.files.length > 0 ? imageInput.files[0] : null;
                 var message = messageBox.val();
@@ -394,6 +384,7 @@
                     contentType: false,
                     processData: false,
                     success: function(response) {
+                        
                         window.location.reload();
                     },
                     error: function(xhr, status, error) {
@@ -402,6 +393,22 @@
                 });
             });
         });
+        function markMessagesAsRead(friendId) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("tenant.mark_messages_as_read") }}',
+                data: {
+                    friend_id: friendId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    console.log('Messages marked as read');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error marking messages as read: ' + xhr.responseText);
+                }
+            });
+        }
         var friendId = $('.chat-contact.active').data('chat').split('-')[1];
         var chatContentScroll = document.getElementById('chat-content-scroll-' + friendId);
         chatContentScroll.scrollTop = chatContentScroll.scrollHeight;
@@ -536,7 +543,105 @@
     });
 
     </script>
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script>
+  var userId = {{ auth()->check() ? auth()->id() : 'null' }};
+  var pusher = new Pusher('9f7d08c0d986c8dd99a5', {
+    cluster: 'ap2'
+  });
 
+  var channel = pusher.subscribe('my-channel');
+  channel.bind('my-event', function(data) {
+    if(data.frdID.id == userId)
+    {
+        addMessageToConversation(data);
+    }
+  });
+  function addMessageToConversation(messageData) {
+        var baseUrl = "{{ asset('') }}";
+        const messagesContainer = document.getElementById('messagesContainer');
+        const messageElement = document.createElement('div');
+        messageElement.className = 'd-flex chat-mg msg';
+        messageElement.style.padding = '.25rem';
+        const avatarImgDiv = document.createElement('div');
+        avatarImgDiv.className = 'avatar-img status';
+        avatarImgDiv.style.cssText = 'height:2rem; width:2rem;';
+
+
+        const img = document.createElement('img');
+        img.src = baseUrl + messageData.sendID.image;
+        img.alt = messageData.sendID.first_name;
+        avatarImgDiv.appendChild(img);
+        const messageContentDiv = document.createElement('div');
+        messageContentDiv.style.flex = '1';
+        messageContentDiv.style.marginLeft = '.75rem';
+
+
+        const hoverEffectDiv = document.createElement('div');
+        hoverEffectDiv.className = 'hover-effect';
+
+
+        const messageWrapperDiv = document.createElement('div');
+        messageWrapperDiv.className = 'p-r d-flex';
+
+
+        const chatMessageDiv = document.createElement('div');
+        chatMessageDiv.className = 'chat-message bg-msg';
+
+
+        if (messageData.message.image) {
+            const imageTag = document.createElement('img');
+            imageTag.src = baseUrl + messageData.message.image;
+            imageTag.className = 'thumbnail';
+            imageTag.style = 'height: 200px; width: 200px';
+            chatMessageDiv.appendChild(imageTag);
+            chatMessageDiv.appendChild(document.createElement('br'));
+        }
+        if (messageData.message.message) {
+            chatMessageDiv.innerHTML = messageData.message.message;
+        }
+        messageWrapperDiv.appendChild(chatMessageDiv);
+        const ul = document.createElement('ul');
+        ul.className = 'hover-action icons-on-hover';
+        ul.dataset.messageId = messageData.message.id;
+        const li = document.createElement('li');
+        li.className = 'list-inline-item';
+        const a = document.createElement('a');
+        a.className = 'icon-color';
+        a.href = '#';
+        a.dataset.bsToggle = 'tooltip';
+        a.dataset.bsPlacement = 'top';
+        a.ariaLabel = 'Remove';
+        a.dataset.bsOriginalTitle = 'Remove';
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.classList.add('svg-inline-fa');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.setAttribute('focusable', 'false');
+        svg.setAttribute('data-prefix', 'fas');
+        svg.setAttribute('data-icon', 'trash-alt');
+        svg.setAttribute('role', 'img');
+        svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        svg.setAttribute('viewBox', '0 0 448 512');
+        svg.innerHTML = `<path fill="currentColor" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path>`;
+        a.appendChild(svg);
+        li.appendChild(a);
+        ul.appendChild(li);
+        messageWrapperDiv.appendChild(ul);
+        const messageTimeDiv = document.createElement('div');
+        messageTimeDiv.className = 'message-time';
+        const timeSpan = document.createElement('span');
+        timeSpan.textContent = new Date(messageData.message.created_at).toLocaleString('en-US', { month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
+        messageTimeDiv.appendChild(timeSpan);
+        hoverEffectDiv.appendChild(messageWrapperDiv);
+        hoverEffectDiv.appendChild(messageTimeDiv);
+        messageContentDiv.appendChild(hoverEffectDiv);
+        messageElement.appendChild(avatarImgDiv);
+        messageElement.appendChild(messageContentDiv);
+        messagesContainer.appendChild(messageElement);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+</script>
 
 
 
