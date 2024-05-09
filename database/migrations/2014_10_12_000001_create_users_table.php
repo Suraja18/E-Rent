@@ -22,11 +22,12 @@ return new class extends Migration
             $table->longText('image')->nullable();
             $table->string('address')->nullable();
             $table->enum('gender', ['Male', 'Female'])->nullable();
-            $table->integer('roles');
+            $table->unsignedBigInteger('roles');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
-            $table->enum('active_status', [0, 1])->default(0); // 0: InActive , 1 : Active
+            $table->boolean('active_status')->default(false);
+            $table->foreign('roles')->references('id')->on('user_roles')->onDelete('cascade');
         });
     }
 

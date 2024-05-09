@@ -1,4 +1,5 @@
 <!-- Start Overview Client Says  --> 
+@if(isset($press))
 <section class="clientSays pt-7b">
     <div class="client-header">
         <div class="hero-content">
@@ -88,4 +89,5 @@
         </div>
     </div>
 </section>
+@endif
 <!-- End Overview Client Says -->
