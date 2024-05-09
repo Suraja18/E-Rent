@@ -37,11 +37,6 @@ class FriendController extends Controller
             if ($type) {
                 $friendRequest->type = $type;
                 $friendRequest->save();
-                $message = new Messages();
-                $message->friend_id = $friendRequest->id;
-                $message->sent_by = auth()->id();
-                $message->message = "Hi";
-                $message->save();
                 $message = "Friends";
                 $friend = User::find($requestId); 
                 if ($friend) {

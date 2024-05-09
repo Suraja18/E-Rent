@@ -16,7 +16,7 @@ class MaintenanceController extends Controller
 {
     public function create()
     {
-        $tenants = RentedProperty::where('tenant_id', Auth::id())->where('status', 'Confirmed')->whereNull('deleted_at')->get();
+        $tenants = RentedProperty::where('tenant_id', Auth::id())->where('status', 'Confirmed')->get();
         $data = ['properties' => $tenants,];
         return view('Tenants.Maintainance.add', $data);
     }

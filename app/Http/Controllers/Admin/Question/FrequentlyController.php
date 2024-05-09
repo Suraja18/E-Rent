@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Questions;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class FrequentlyController extends Controller
 {
@@ -28,11 +29,7 @@ class FrequentlyController extends Controller
         ]);
         if($validate)
         {
-            $frequently = new Questions();
-            $frequently->question = $request->question;
-            $frequently->answer = $request->description;
-            $frequently->type = "Frequently";
-            $frequently->save();
+            DB::select('CALL InsertQuestion(?, ?, ?)', [$request->question,$request->description,'Frequently']);
             Alert::success('FAQs Added Successfully');
             return redirect()->route('frequently.index');
         }
