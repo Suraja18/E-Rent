@@ -5,7 +5,7 @@
     $currentYearUsers = App\Models\User::whereYear('created_at', $currentYear)->count();
     $previousYearUsers = App\Models\User::whereYear('created_at', $previousYear)->count();
     if ($previousYearUsers > 0) {
-        $growth = (($currentYearUsers - $previousYearUsers) / $previousYearUsers) * 100;
+        $growth = (($currentYearUsers - $previousYearUsers) / ($currentYearUsers + $previousYearUsers)) * 100;
     } else {
         $growth = $currentYearUsers > 0 ? 100 : 0;
     }

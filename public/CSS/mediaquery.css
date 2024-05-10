@@ -815,6 +815,13 @@
     .msg-sb-cont.max{
         width: 100%;
     }
+    .row .nav-ul{
+        justify-content: flex-start;
+    }
+    .error-rows.text-right{
+        text-align: left !important;
+    }
+
 }
 
 @media screen and (min-width: 992px){
@@ -2541,6 +2548,9 @@
     }
     .pr-buttons{
         width: 100%;
+    }
+    .mbxj{
+        margin-bottom: .5rem;
     }
 }
 

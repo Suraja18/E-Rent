@@ -25,7 +25,7 @@
                         ->get()
                         ->shuffle();
     }
-
+    $uniqueUnits = App\Models\Unit::latest()->get();
 @endphp
 
  
@@ -49,6 +49,47 @@
                             </div>
                         </div>
                         @endif
+                        @if(!(Route::currentRouteName() == 'tenant.dashboard'))
+                        <div class="row align-end">
+                            <div class="error-rows">
+                                <ul class="nav-ul">
+                                    <li style="margin-right:.5rem;" class="mbxj">
+                                        <select name="unitFilter" id="unitFilter" class="btn-clicks-filter">
+                                            <option value="">Select Unit</option>
+                                            @foreach($uniqueUnits as $unitName)
+                                            <option value="{{ $unitName->building_unit }}">{{ $unitName->building_unit }}</option>
+                                            @endforeach
+                                        </select>
+                                        
+                                    </li>
+                                    <li style="margin-right:.5rem;">
+                                        <select name="ratingFilter" id="ratingFilter" class="btn-clicks-filter">
+                                            <option value="">Rating</option>
+                                            <option value="1">1 Star & Above</option>
+                                            <option value="2">2 Stars & Above</option>
+                                            <option value="3">3 Stars & Above</option>
+                                            <option value="4">4 Stars & Above</option>
+                                            <option value="5">5 Stars</option>
+                                        </select>
+                                        
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="error-rows text-right">
+                                <ul class="nav-ul">
+                                    <li style="margin-right:.5rem;">
+                                        <button class="btn-clicks active" data-filter="All">All</button>
+                                    </li>
+                                    <li style="margin-right:.5rem;">
+                                        <button class="btn-clicks" data-filter="Sell">Sell</button>
+                                    </li>
+                                    <li style="margin-right:.5rem;">
+                                        <button class="btn-clicks" data-filter="Rent">Rent</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        @endif
                         <div class="hero-content">
                             <div class="housing-list">
                                 <div class="housing-grid" role="list">
@@ -67,7 +108,7 @@
                                                 $fraction = $starRate - $fullStars;
                                                 $halfStar = $fraction >= 0.5;
                                         @endphp
-                                        <div class="housing-grid-list-items wow fadeInUp"data-wow-delay="0.1s" role="listitem">
+                                        <div class="housing-grid-list-items wow fadeInUp"data-wow-delay="0.1s" role="listitem" data-type="{!! $property->type !!}" data-unit="{!! $property->unit->building_unit !!}" data-rating="{!! $fullStars !!}">
                                             <div class="housing-grid-list-container">
                                                 <div class="housing-image-container">
                                                     @php
@@ -133,3 +174,57 @@
     @endif
 </section>
 <!-- End House Details -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const buttons = document.querySelectorAll('.btn-clicks');
+        const listings = document.querySelectorAll('.housing-grid-list-items');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                listings.forEach(listing => {
+                    if (filter === 'All' || listing.getAttribute('data-type') === filter) {
+                        listing.style.display = 'block';
+                    } else {
+                        listing.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        const buttons = document.querySelectorAll('.btn-clicks');
+        const listings = document.querySelectorAll('.housing-grid-list-items');
+        const unitFilter = document.getElementById('unitFilter');
+        const ratingFilter = document.getElementById('ratingFilter');
+        function filterItems() {
+            const selectedType = document.querySelector('.btn-clicks.active').getAttribute('data-filter');
+            const selectedUnit = unitFilter.value;
+            const selectedRating = ratingFilter.value;
+
+            listings.forEach(listing => {
+                const typeMatch = (selectedType === 'All' || listing.getAttribute('data-type') === selectedType);
+                const unitMatch = (!selectedUnit || listing.getAttribute('data-unit') === selectedUnit);
+                const ratingMatch = (!selectedRating || parseInt(listing.getAttribute('data-rating')) >= parseInt(selectedRating));
+
+                if (typeMatch && unitMatch && ratingMatch) {
+                    listing.style.display = 'block';
+                } else {
+                    listing.style.display = 'none';
+                }
+            });
+        }
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                buttons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                filterItems();
+            });
+        });
+        [unitFilter, ratingFilter].forEach(filter => {
+            filter.addEventListener('change', filterItems);
+        });
+    });
+</script>

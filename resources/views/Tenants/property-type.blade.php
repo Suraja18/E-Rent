@@ -9,7 +9,7 @@
             <div class="container is-header">
                 <div class="hero-content housing-content-center">
                     <div class="hero-content housing-content-center housing-detail">
-                        <img src="../Images/Original/Icons/house-type.svg" alt="Logo" loading="lazy">
+                        <img src="{!! asset('Images/Original/Icons/house-type.svg') !!}" alt="Logo" loading="lazy">
                         <h1 class="banner-header">Property Types</h1>
                         <p class="text-testimonial text-center">Welcome to E-Rent, your premier online destination for hassle-free property rentals. Explore a diverse range of properties tailored to your needs, from luxurious apartments to cozy homes and commercial spaces. Our user-friendly interface makes finding your ideal rental a breeze. Whether you're a tenant or a property owner, E-Rent is your one-stop solution for seamless transactions. Experience convenience and efficiency in the world of property rentals with E-Rent.</p>
                         <a href="#Landlords-details-focus" class="client-header-link inline-block">

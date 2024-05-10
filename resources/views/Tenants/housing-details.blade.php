@@ -44,7 +44,7 @@
                 <div class="mb-1">
                     <ul class="product-detail-container">
                         <li class="prd-detail"><a href="{!! route('tenant.property-list') !!}" class="text-hover">Property</a></li>
-                        <li class="prd-detail"><a href="#" class="text-hover">{!! $property->unit->building_unit !!}</a></li>
+                        <li class="prd-detail"><a href="{!! route('tenant.find.unit', $property->unit->slug) !!}" class="text-hover">{!! $property->unit->building_unit !!}</a></li>
                         <li class="prd-detail"><a>@if($property->type == 'Rent'){!! $property->rent_name !!}@elseif($property->type == 'Sell'){!! $property->building->name !!}@endif</a></li>
                     </ul>
                 </div>

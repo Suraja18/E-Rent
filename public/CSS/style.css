@@ -8879,5 +8879,38 @@ ul{
     margin-top: 8px;
     margin-bottom: 20px;
   }
-  
+  .row.align-end{
+    align-items: flex-end;
+  }
+  .row .nav-ul{
+    display: inline-flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    justify-content: flex-end;
+    margin-bottom: 3rem;
+  }
+  .btn-clicks-filter,
+  .btn-clicks{
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--core-navy-800);
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid var(--core-navy-800);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+  .btn-clicks.active,
+  .btn-clicks:hover{
+    background-color: var(--green-100);
+    border-color: var(--green-100);
+    color: var(--whiteColor);
+  }
   

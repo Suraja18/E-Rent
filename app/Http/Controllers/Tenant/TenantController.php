@@ -8,6 +8,7 @@ use App\Models\Friends;
 use App\Models\MaintenanceRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RentProperty;
+use App\Models\Unit;
 use App\Models\User;
 use App\Notifications\FriendNotification;
 use Illuminate\Http\Request;
@@ -73,6 +74,16 @@ class TenantController extends Controller
     {
         $data = ['user' => User::findOrFail(Auth::id()),];
         return view('Tenants.edit-profile', $data);
+    }
+    public function findPropertiesByUnit(string $slug)
+    {
+        $unit = Unit::where('slug', $slug)->first();
+        if (!$unit) {
+            return null; 
+        }
+        $properties = RentProperty::where('property_type_id', $unit->id)->latest()->get();
+        $data = ['properties' => $properties, ];
+        return view('Tenants.property-list', $data);
     }
     public function searchProperty(Request $request)
     {

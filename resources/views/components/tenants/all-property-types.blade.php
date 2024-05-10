@@ -24,7 +24,7 @@
                                 <div class="property-types-container" role="list">
                                     @forelse ($property_types as $property_type)
                                         <div class="property-type-block" role="listitem">
-                                            <a href="../Errors/404Error.html" class="property-type-links inline-block">
+                                            <a href="{!! route('tenant.find.unit', $property_type->slug) !!}" class="property-type-links inline-block">
                                                 <div class="property-types-wrapper text-center">
                                                     <div class="property-type-icons-wrapper">
                                                         <img src="{!! asset($property_type->image_1) !!}" alt="type Icon" loading="lazy" class="property-type-icons">

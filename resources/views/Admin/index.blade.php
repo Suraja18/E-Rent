@@ -24,7 +24,7 @@
                         @php
                             if($totalPreviousWeekFeedback != 0)
                             {
-                                $percentageChange = ($totalCurrentWeekFeedback - $totalPreviousWeekFeedback) / $totalPreviousWeekFeedback * 100;
+                                $percentageChange = ($totalCurrentWeekFeedback - $totalPreviousWeekFeedback) / ($totalCurrentWeekFeedback + $totalPreviousWeekFeedback) * 100;
                                 $percentageChange = min($percentageChange, 100);
                             }elseif($totalPreviousWeekFeedback == 0 && $totalCurrentWeekFeedback == 0) {
                                 $percentageChange = 0;
@@ -60,7 +60,7 @@
                                 $totalRegistrationsThisMonth = $monthlyData[$currentMonth] ?? 0;
                                 $totalRegistrationsPreviousMonth = $monthlyData[$previousMonth] ?? 0;
                                 $percentageChange = $totalRegistrationsPreviousMonth != 0 
-                                                    ? (($totalRegistrationsThisMonth - $totalRegistrationsPreviousMonth) / $totalRegistrationsPreviousMonth) * 100 
+                                                    ? (($totalRegistrationsThisMonth - $totalRegistrationsPreviousMonth) / ($totalRegistrationsThisMonth + $totalRegistrationsPreviousMonth)) * 100 
                                                     : 100;
                                 $class = $percentageChange < 0 ? 'danger' : 'success';
                             @endphp
@@ -87,7 +87,7 @@
                         <div class="colun">
                             @php
                                 $percentageChange = $totalRentalsPreviousMonth != 0 
-                                                    ? (($totalRentalsThisMonth - $totalRentalsPreviousMonth) / $totalRentalsPreviousMonth) * 100 
+                                                    ? (($totalRentalsThisMonth - $totalRentalsPreviousMonth) / ($totalRentalsThisMonth + $totalRentalsPreviousMonth)) * 100 
                                                     : 100;
                                 $class = $percentageChange < 0 ? 'danger' : 'success';
                             @endphp

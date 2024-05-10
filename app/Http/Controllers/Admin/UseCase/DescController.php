@@ -23,9 +23,9 @@ class DescController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {    
         $validate = $request->validate([
-            'use_case_id' => 'required|integer|exists:user_roles,id',
+            'use_case_id' => 'required|exists:use_cases,id',
             'image_1'       => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'heading'          => 'required|string|max:50',
             'description'       => 'required|string|max:150',
@@ -58,7 +58,7 @@ class DescController extends Controller
     public function update(Request $request, string $id)
     {
         $validate = $request->validate([
-            'use_case_id' => 'required|integer|exists:user_roles,id',
+            'use_case_id' => 'required|exists:use_cases,id',
             'image_1'       => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'heading'          => 'required|string|max:50',
             'description'       => 'required|string|max:150',

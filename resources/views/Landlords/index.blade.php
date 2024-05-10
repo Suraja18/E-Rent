@@ -22,7 +22,7 @@
                         @php
                             if($totalPreviousWeekPayment != 0)
                             {
-                                $percentageChange = ($totalWeekPayment - $totalPreviousWeekPayment) / $totalPreviousWeekPayment * 100;
+                                $percentageChange = ($totalWeekPayment - $totalPreviousWeekPayment) / ($totalWeekPayment + $totalPreviousWeekPayment) * 100;
                                 $percentageChange = min($percentageChange, 100);
                             }else {
                                 $percentageChange = 100;
@@ -55,7 +55,7 @@
                                 $previousMonth = ($currentMonth - 1 > 0) ? $currentMonth - 1 : 12;
                                 $totalRequestsThisMonth = isset($monthlyData[$currentMonth]) ? $monthlyData[$currentMonth] : 0;
                                 $totalRequestsPreviousMonth = isset($monthlyData[$previousMonth]) ? $monthlyData[$previousMonth] : 0;
-                                $percentageChange = ($totalRequestsPreviousMonth != 0) ? (($totalRequestsThisMonth - $totalRequestsPreviousMonth) / $totalRequestsPreviousMonth) * 100 : 100;
+                                $percentageChange = ($totalRequestsPreviousMonth != 0) ? (($totalRequestsThisMonth - $totalRequestsPreviousMonth) / ($totalRequestsThisMonth + $totalRequestsPreviousMonth)) * 100 : 100;
                                 $class = $percentageChange < 0 ? 'danger' : 'success';
                             @endphp
 
@@ -80,7 +80,7 @@
                     <div class="row">
                         @php
                             if ($previousMonthActiveTenants != 0) {
-                                $percentageChangeTenant = ($currentMonthActiveTenants - $previousMonthActiveTenants) / $previousMonthActiveTenants * 100;
+                                $percentageChangeTenant = ($currentMonthActiveTenants - $previousMonthActiveTenants) / ($currentMonthActiveTenants + $previousMonthActiveTenants) * 100;
                                 $percentageChangeTenant = min($percentageChangeTenant, 100);
                             } else {
                                 $percentageChangeTenant = 100; 

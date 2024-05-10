@@ -58,7 +58,7 @@ class UserController extends Controller
     public function useCases(string $slug)
     {
         $role = userRoles::where('slug', $slug)->first();
-        $cases = UseCases::where('role_id', $role->id)->latest()->get();
+        $cases = UseCases::where('role_id', $role->id)->get();
         $data = ['role' => $role, 'cases' => $cases,];
         return view('Users.use-case', $data);
     }
