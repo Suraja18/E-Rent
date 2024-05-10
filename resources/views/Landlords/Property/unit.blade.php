@@ -26,6 +26,7 @@
                         @endif
                     </x-common.input-image-100>
                     <x-common.input-text-100>
+                        <x-slot name="nones">" "</x-slot>
                         <x-slot name="column">Rooms</x-slot>
                         <x-slot name="number">number</x-slot>
                         @if (isset($unit->rooms))

@@ -1,4 +1,4 @@
-<script src="https://cdn.tiny.cloud/1/7p2xig2sg5eses0o3u8hqa66xbnrbnu24o6n1kumw7m692m3/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/3fcj59hxp8mou3bip1cn67fz0fmvdb5rqep6i9cqicxfbphr/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 <script src="{{ asset('JS/datatable.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('JS/chartjs.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('JS/wow.min.js') }}" type="text/javascript"></script>

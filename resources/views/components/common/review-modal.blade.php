@@ -38,7 +38,7 @@
 </section>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var modal = document.getElementById('reviewModal');
+        var modal = document.getElementById('reviewModal'); 
         var closeButton = document.getElementById('closeReviewModal');
         var rateStarReview = document.getElementById('rateStar');
         var starValueReview = document.getElementById('starValue');

@@ -94,12 +94,12 @@ class LandlordController extends Controller
             $query->select('rent_id')->from('rented_properties')->where(function ($query) {
                 $query->whereIn('status', ['Confirmed', 'Approved']);
             });
-        })->count();
+        })->where('landlord_id', Auth::id())->count();
         $occupiedProperties = RentProperty::whereIn('id', function ($query) {
             $query->select('rent_id')->from('rented_properties')->where(function ($query) {
                 $query->whereIn('status', ['Confirmed', 'Approved']);
             });
-        })->count();
+        })->where('landlord_id', Auth::id())->count();
         // End Vacant Property
 
 

@@ -13,21 +13,21 @@
                 <h3 class="use-case-feat-head header">Universal Landlord Forms</h3>
                 <div class="universal-grid-container">
                     @forelse ($forums as $forum)
-                    <a href="{!! route('tenant.forum.detail', $forum->slug) !!}" class="forum-containers" target="_blank" role="listitem" style="overflow:hidden">
-                        <div class="image-before">
-                            <img src="{!! asset('Images/Original/Request/aggrement.svg') !!}" alt="icons">
-                        </div>
-                        <h2 class="grid-header-title text-center ">
-                            {!! $forum->heading !!}
-                        </h2>
-                        <div>
+                        <a href="{{ route('tenant.forum.detail', $forum->slug) }}" class="forum-containers" target="_blank" role="listitem" style="overflow:hidden">
+                            <div class="image-before">
+                            <img src="{{ asset('Images/Original/Request/aggrement.svg') }}" alt="icons">
+                            </div>
+                            <h2 class="grid-header-title text-center ">
+                            {{ $forum->heading }}
+                            </h2>
+                            <div>
                             <span class="text-grid-paragraph">
                                 @if(strlen($forum->description) > 100)
-                                    {!! substr($forum->description, 0, 100) !!}...
+                                {!! substr($forum->description, 100) !!}...
                                 @endif
                             </span>
-                        </div>
-                    </a>
+                            </div>
+                        </a>
                     @empty
                         <h3>No Forums</h3>
                     @endforelse

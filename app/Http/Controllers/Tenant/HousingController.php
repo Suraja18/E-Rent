@@ -25,8 +25,7 @@ class HousingController extends Controller
         ->whereNotIn('id', function ($query) {
             $query->select('rent_id')
                 ->from('rented_properties')
-                ->where('status', '<>', 'Cancelled')
-                ->orWhereNull('deleted_at');
+                ->where('status', '<>', 'Cancelled');
         })->take(4)->get()->shuffle();
         
         $propertiesCount = $properties->count();
@@ -37,8 +36,7 @@ class HousingController extends Controller
                                                 ->whereNotIn('id', function ($query) {
                                                     $query->select('rent_id')
                                                         ->from('rented_properties')
-                                                        ->where('status', '<>', 'Cancelled')
-                                                        ->orWhereNull('deleted_at');
+                                                        ->where('status', '<>', 'Cancelled');
                                                 })
                                                 ->take(4 - $propertiesCount)
                                                 ->get(); 
@@ -57,7 +55,7 @@ class HousingController extends Controller
             $building = Building::where('slug', $slug)->firstOrFail();
             $property = RentProperty::where('building_id', $building->id)->firstOrFail();
         }
-        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->whereNull('deleted_at')->where('tenantVisible', 'Yes')->first();
+        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->where('tenantVisible', 'Yes')->first();
         $data = ['property' => $property, 'rented_property' => $rented_property ];
         return view('Tenants.view-detail', $data);
     }
@@ -75,7 +73,7 @@ class HousingController extends Controller
             $building = $property->building->name;
         }
         $paymentType = "Deposit";
-        $rented_property = RentedProperty::where('rent_id', $property->id)->where('tenant_id', Auth::id())->whereNull('deleted_at')->first();
+        $rented_property = RentedProperty::where('rent_id', $property->id)->where('tenant_id', Auth::id())->first();
         $payment = RentPayment::where('rented_id', $rented_property->id)
         ->where('payment_type', 'Deposit')
         ->whereHas('rentedProperty.rentProperty', function($query) {

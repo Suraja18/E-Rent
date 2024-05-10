@@ -33,7 +33,7 @@ class UnitController extends Controller
         $validate = $request->validate([
             'image_1' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'building_unit'   =>  'required | string | min:3 | max:255 | unique:units',
-            'rooms' => 'required|integer|min:0|max:200',
+            'rooms' => 'nullable|integer|min:0|max:200',
             'description' => 'required|string| min:3 | max:150',
         ]);
         if($validate)
@@ -69,7 +69,7 @@ class UnitController extends Controller
         $validate = $request->validate([
             'image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'building_unit'   =>  'required | string | min:3 | max:255',
-            'rooms' => 'required|integer|min:0',
+            'rooms' => 'nullable|integer|min:0',
             'description' => 'required|string| min:3 | max:150',
         ]);
         if($validate)
