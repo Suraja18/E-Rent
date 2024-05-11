@@ -22,5 +22,7 @@
 
     <x-users.showing-ads />
 
+    <x-common.app-for-user />
+
     <x-tenants.footer />
 </x-users.main.app-layout>

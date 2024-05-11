@@ -188,6 +188,8 @@
     </div>
     <!-- Plot End -->
 
+    <x-common.app-for-user />
+
 
     <x-landlords.footer />                
 

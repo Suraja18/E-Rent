@@ -156,23 +156,10 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="error-rows dash-plot full-width" role="listitem">
-            <div class="card-dashboard">
-                <div class="card-dashboard-header card-center ptb-1-2">
-                    <h6 class="mb-0">Revenue Comparison</h6>
-                    <div class="p-r">
-                        <a class="status-links view-btn ptb-1-2" href="{!! route('payment.index') !!}">View Details</a>
-                    </div>
-                </div>
-                <div class="card-dashboard-body ptb-1-2">
-                    <div class="e-bar-chart">
-                        <canvas id="chart-bars-year-lines" class="chart-canvas"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     </div>
     <!-- Plot End -->
+
+    <x-common.app-for-admin />
 
 
     <x-landlords.footer />                

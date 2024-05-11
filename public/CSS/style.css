@@ -8913,4 +8913,12 @@ ul{
     border-color: var(--green-100);
     color: var(--whiteColor);
   }
+  .apk-app svg{
+    margin-top: 10px;
+    fill: var(--green-100);
+    cursor: pointer;
+  }
+  .apk-app svg:hover{
+    fill: var(--core-navy-800);
+  }
   

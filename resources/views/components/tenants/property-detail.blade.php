@@ -62,6 +62,16 @@
                                         </select>
                                         
                                     </li>
+                                    <li style="margin-right:.5rem;" class="mbxj">
+                                        <select name="priceFilter" id="priceFilter" class="btn-clicks-filter">
+                                            <option value="">Price</option>
+                                            <option value="1">0-30,000</option>
+                                            <option value="2">30,000-1,00,000</option>
+                                            <option value="3">1,00,000-15,00,000</option>
+                                            <option value="4">15,00,000-50,00,000</option>
+                                            <option value="5">50,00,000 +</option>
+                                        </select>                                                                            
+                                    </li>
                                     <li style="margin-right:.5rem;">
                                         <select name="ratingFilter" id="ratingFilter" class="btn-clicks-filter">
                                             <option value="">Rating</option>
@@ -108,7 +118,7 @@
                                                 $fraction = $starRate - $fullStars;
                                                 $halfStar = $fraction >= 0.5;
                                         @endphp
-                                        <div class="housing-grid-list-items wow fadeInUp"data-wow-delay="0.1s" role="listitem" data-type="{!! $property->type !!}" data-unit="{!! $property->unit->building_unit !!}" data-rating="{!! $fullStars !!}">
+                                        <div class="housing-grid-list-items wow fadeInUp"data-wow-delay="0.1s" role="listitem" data-type="{!! $property->type !!}" data-unit="{!! $property->unit->building_unit !!}" data-rating="{!! $fullStars !!}" data-price="@if($property->type == 'Rent') {!! $property->monthly_house_rent !!} @elseif($property->type == 'Sell') {!! $property->price !!} @endif">
                                             <div class="housing-grid-list-container">
                                                 <div class="housing-image-container">
                                                     @php
@@ -199,23 +209,48 @@
         const listings = document.querySelectorAll('.housing-grid-list-items');
         const unitFilter = document.getElementById('unitFilter');
         const ratingFilter = document.getElementById('ratingFilter');
+        const priceFilter = document.getElementById('priceFilter');
+
         function filterItems() {
             const selectedType = document.querySelector('.btn-clicks.active').getAttribute('data-filter');
             const selectedUnit = unitFilter.value;
             const selectedRating = ratingFilter.value;
+            const selectedPrice = priceFilter.value;
+
+            const [minPrice, maxPrice] = getPriceRange();
 
             listings.forEach(listing => {
                 const typeMatch = (selectedType === 'All' || listing.getAttribute('data-type') === selectedType);
                 const unitMatch = (!selectedUnit || listing.getAttribute('data-unit') === selectedUnit);
                 const ratingMatch = (!selectedRating || parseInt(listing.getAttribute('data-rating')) >= parseInt(selectedRating));
+                const price = parseInt(listing.getAttribute('data-price'));
+                const priceMatch = (!selectedPrice || (price >= minPrice && price <= maxPrice));
 
-                if (typeMatch && unitMatch && ratingMatch) {
+                if (typeMatch && unitMatch && ratingMatch && priceMatch) {
                     listing.style.display = 'block';
                 } else {
                     listing.style.display = 'none';
                 }
             });
         }
+
+        function getPriceRange() {
+            switch (priceFilter.value) {
+                case '1':
+                    return [0, 30000];
+                case '2':
+                    return [30000, 100000];
+                case '3':
+                    return [100000, 1500000];
+                case '4':
+                    return [1500000, 5000000];
+                case '5':
+                    return [5000000, Infinity];
+                default:
+                    return [0, Infinity]; // Default range if no option is selected
+            }
+        }
+
         buttons.forEach(button => {
             button.addEventListener('click', function() {
                 buttons.forEach(btn => btn.classList.remove('active'));
@@ -223,8 +258,10 @@
                 filterItems();
             });
         });
-        [unitFilter, ratingFilter].forEach(filter => {
+
+        [unitFilter, ratingFilter, priceFilter].forEach(filter => {
             filter.addEventListener('change', filterItems);
         });
     });
+
 </script>
