@@ -27,8 +27,6 @@
 
         <x-common.customer-review />
 
-        <x-common.app-for-user />
-
         <x-users.footer />
 </x-users.main.app-layout>
         

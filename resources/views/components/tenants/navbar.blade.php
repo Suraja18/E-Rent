@@ -456,7 +456,7 @@
                                                                     <p class="lowersection-pa">
                                                                         <img src="{{ asset('Images/Original/Icons/clock.svg') }}" alt="clock">
 
-                                                                        {!! $notification->created_at->diffForHumans() !!}
+                                                                        {{ $notification->created_at->diffForHumans() }}
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -485,16 +485,16 @@
                                     <menu class="profile-accounts">
                                         <button type="button" class="btn-profiles" id="profileAvatarButton">
                                             <div class="btn-profile-containers">
-                                                <span class="profile-names">{!! $user->first_name !!}</span>
+                                                <span class="profile-names">{{ $user->first_name }}</span>
                                                 <div class="profile-avatar-img">
                                                     <div class="profile-avatar-img-container">
                                                         @if (!$user->image)
                                                             <div class="profile-avatar-image profile-avatar-no-img">
-                                                                {!! substr($user->first_name, 0, 1) !!}
+                                                                {{ substr($user->first_name, 0, 1) }}
                                                             </div>
                                                         @endif
                                                         @if ($user->image)
-                                                            <img src="{!! asset($user->image) !!}" class="profile-avatar-image" alt="{!! $user->first_name !!}">
+                                                            <img src="{{  asset($user->image)  }}" class="profile-avatar-image" alt="{{  $user->first_name  }}">
                                                         @endif
                                                     </div>
                                                 </div>
@@ -513,11 +513,11 @@
                                                                                 <div class="profile-avatar-img-wrapper">
                                                                                     @if (!$user->image)
                                                                                         <div class="profile-avatar-image profile-avatar-no-img">
-                                                                                            {!! substr($user->first_name, 0, 1) !!}
+                                                                                            {{ substr($user->first_name, 0, 1) }}
                                                                                         </div>
                                                                                     @endif
                                                                                     @if ($user->image)
-                                                                                        <img src="{!! asset($user->image) !!}" class="profile-avatar-image" alt="{!! $user->first_name !!}">
+                                                                                        <img src="{{ asset($user->image) }}" class="profile-avatar-image" alt="{{ $user->first_name }}">
                                                                                     @endif
                                                                                 </div>
                                                                             </div>
@@ -529,15 +529,15 @@
                                                                         <div class="title-owners">
                                                                             Tenant
                                                                         </div>
-                                                                        <h2 class="avatar-profile-name">{!! $user->first_name !!} {!! $user->last_name !!}</h2>
+                                                                        <h2 class="avatar-profile-name">{{ $user->first_name }} {{ $user->last_name }}</h2>
                                                                     </div>
                                                                     <div class="avatar-email-sub-title">
-                                                                        {!! $user->email !!}
+                                                                        {{ $user->email }}
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </a>
-                                                        <a href="{!! route('tenant.profile') !!}" class="is-button-for-edit-profile">
+                                                        <a href="{{ route('tenant.profile') }}" class="is-button-for-edit-profile">
                                                             Edit Profile
                                                         </a>
                                                     </div>

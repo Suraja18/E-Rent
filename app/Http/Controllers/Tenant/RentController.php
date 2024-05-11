@@ -37,11 +37,7 @@ class RentController extends Controller
         ]);
 
         if ($validate) {
-            $isPropertyRented = RentedProperty::where('rent_id', $request->id)
-                                ->where(function($query) {
-                                    $query->whereNull('deleted_at');
-                                })
-                                ->exists();
+            $isPropertyRented = RentedProperty::where('rent_id', $request->id)->exists();
 
             if ($isPropertyRented) {
                 Alert::error('This Property is already processed by others');
@@ -70,7 +66,7 @@ class RentController extends Controller
             $building = Building::where('slug', $slug)->firstOrFail();
             $property = RentProperty::where('building_id', $building->id)->firstOrFail();
         }
-        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->whereNull('deleted_at')->where('tenantVisible', 'Yes')->first();
+        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->where('tenantVisible', 'Yes')->first();
         $data = ['property' => $property, 'property_rent' => $rented_property];
         return view('Tenants.view-detail', $data);
     }
@@ -82,7 +78,7 @@ class RentController extends Controller
             $building = Building::where('slug', $slug)->firstOrFail();
             $property = RentProperty::where('building_id', $building->id)->firstOrFail();
         }
-        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->whereNull('deleted_at')->where('tenantVisible', 'Yes')->first();
+        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->where('tenantVisible', 'Yes')->first();
         $rented_property->tenantVisible = "No";
         $rented_property->update();
         Alert::success('Building Rent Deleted Successfully');
@@ -96,7 +92,7 @@ class RentController extends Controller
             $building = Building::where('slug', $slug)->firstOrFail();
             $property = RentProperty::where('building_id', $building->id)->firstOrFail();
         }
-        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->whereNull('deleted_at')->where('tenantVisible', 'Yes')->first();
+        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->where('tenantVisible', 'Yes')->first();
         $rented_property->status = "Checked Out";
         $rented_property->update();
         Alert::success('Building Rent Checked Out Successfully');
@@ -109,7 +105,7 @@ class RentController extends Controller
             $building = Building::where('slug', $slug)->firstOrFail();
             $property = RentProperty::where('building_id', $building->id)->firstOrFail();
         }
-        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->whereNull('deleted_at')->where('tenantVisible', 'Yes')->first();
+        $rented_property = RentedProperty::where('rent_id', $property->id)->orWhere('tenant_id', Auth::id())->where('tenantVisible', 'Yes')->first();
         $rented_property->status = "Cancelled";
         $rented_property->update();
         Alert::success('Building Rent Cancelled Out Successfully');

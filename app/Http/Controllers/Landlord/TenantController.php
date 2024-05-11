@@ -52,7 +52,6 @@ class TenantController extends Controller
             $query->where('landlord_id', $landlordId);
         })
         ->where('status', 'Confirmed')
-        ->whereNull('deleted_at')
         ->with(['payments'])
         ->get();
 

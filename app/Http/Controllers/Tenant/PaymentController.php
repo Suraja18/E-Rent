@@ -83,7 +83,7 @@ class PaymentController extends Controller
         $payment = new RentPayment();
         $payment->rented_id = $pid; 
         $payment->amt_paid = $amt;
-        $rents = RentedProperty::where('id', $pid)->whereNull('deleted_at')->first();
+        $rents = RentedProperty::where('id', $pid)->first();
         if($request->payment_type == "Deposit")
         {
             $rentPrice = $rents->rentProperty->monthly_house_rent + $rents->rentProperty->electric_charge + $rents->rentProperty->water_charge + $rents->rentProperty->garbage_charge - $rents->discount;
@@ -154,7 +154,7 @@ class PaymentController extends Controller
         $payment = new RentPayment();
         $payment->rented_id = $pid; 
         $payment->amt_paid = $amt;
-        $rents = RentedProperty::where('id', $pid)->whereNull('deleted_at')->first();
+        $rents = RentedProperty::where('id', $pid)->first();
         if($request->payment_type == "Deposit")
         {
             $rentPrice = $rents->rentProperty->monthly_house_rent + $rents->rentProperty->electric_charge + $rents->rentProperty->water_charge + $rents->rentProperty->garbage_charge - $rents->discount;
@@ -199,7 +199,7 @@ class PaymentController extends Controller
         $payment = new RentPayment();
         $payment->rented_id = $pid; 
         $payment->amt_paid = $amt;
-        $rents = RentedProperty::where('id', $pid)->whereNull('deleted_at')->first();
+        $rents = RentedProperty::where('id', $pid)->first();
         if($request->payment_type == "Deposit")
         {
             $rentPrice = $rents->rentProperty->monthly_house_rent + $rents->rentProperty->electric_charge + $rents->rentProperty->water_charge + $rents->rentProperty->garbage_charge - $rents->discount;
@@ -302,7 +302,7 @@ class PaymentController extends Controller
         $payment = new RentPayment();
         $payment->rented_id = $pid; 
         $payment->amt_paid = $amt;
-        $rents = RentedProperty::where('id', $pid)->whereNull('deleted_at')->first();
+        $rents = RentedProperty::where('id', $pid)->first();
         if($request->payment_type == "Deposit")
         {
             $rentPrice = $rents->rentProperty->monthly_house_rent + $rents->rentProperty->electric_charge + $rents->rentProperty->water_charge + $rents->rentProperty->garbage_charge - $rents->discount;

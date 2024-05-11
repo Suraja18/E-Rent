@@ -41,7 +41,9 @@ class AdminController extends Controller
         $totalPreviousWeekFeedback = array_sum($previousWeeklyFeedback);
          // End Feedback Count
         //  Start Monthly User Registration Count
+        $currentYear = date('Y');
         $users = User::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                ->whereYear('created_at', $currentYear)
                 ->groupBy('month')
                 ->orderBy('month')
                 ->get();

@@ -115,8 +115,7 @@ class TenantController extends Controller
         ->whereNotIn('id', function ($query) {
             $query->select('rent_id')
                   ->from('rented_properties')
-                  ->where('status', '<>', 'Cancelled')
-                  ->orWhereNull('deleted_at');
+                  ->where('status', '<>', 'Cancelled');
         })
         ->take(4)
         ->get();

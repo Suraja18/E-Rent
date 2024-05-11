@@ -159,9 +159,6 @@
     </div>
     <!-- Plot End -->
 
-    <x-common.app-for-admin />
-
-
     <x-landlords.footer />                
 
     <x-slot name="scripts">

@@ -53,7 +53,6 @@ class RentProperty extends Model
     }
     public function rentedProperty()
     {
-        return $this->hasOne(RentedProperty::class, 'rent_id', 'id')
-                    ->whereNull('deleted_at');
+        return $this->hasOne(RentedProperty::class, 'rent_id', 'id');
     }
 }

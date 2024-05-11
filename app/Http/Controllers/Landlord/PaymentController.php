@@ -52,7 +52,7 @@ class PaymentController extends Controller
         $rentedProperty = $request->building_id;
         $type = $request->payment_type;
         
-        $rented = RentedProperty::where('tenant_id', $tenant)->where('rent_id', $rentedProperty)->whereNull('deleted_at')->first();
+        $rented = RentedProperty::where('tenant_id', $tenant)->where('rent_id', $rentedProperty)->first();
         $payments = RentPayment::where('rented_id', $rented->id)->where('payment_type', "Deposit")->first();
         $paymentrent = RentPayment::where('rented_id', $rented->id)->first();
         $paymentrents = RentPayment::where('rented_id', $rented->id)->get();

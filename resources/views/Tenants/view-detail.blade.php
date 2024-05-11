@@ -98,7 +98,7 @@
                                                                             @if($property->rentedProperty->status == "Cancelled" || $property->rentedProperty->status == "Checked Out") 
                                                                             <li class="m-dot-item delete" role="listitem">
                                                                                 <form action="{!! route('tenant.property.delete', $slug) !!}" method="POST" id="deleteTables{!! $rented_property->id !!}">
-                                                                                    @method('DELETE')
+                                                                                    @method('DELETE') 
                                                                                     @csrf
                                                                                     <input type="button" value="Delete" class="m-dot-links" onclick="return confirmDelete('deleteTables{!! $rented_property->id !!}')" />
                                                                                 </form>
