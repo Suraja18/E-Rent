@@ -58,7 +58,7 @@
                                         @foreach ($combinedImages as $index => $image)
                                             <div class="slider-slide slide-img" aria-label="{{ $loop->index }} / 4" role="listitem">
                                                 <div class="slider-small-img" onclick="showLargeImage({{ $loop->index }})">
-                                                    <img src="{!! asset($image) !!}" alt="">
+                                                    <img src="{!! asset($image) !!}">
                                                 </div>
                                             </div>
                                         @endforeach
@@ -71,7 +71,7 @@
                                         <div class="slider-large-img-wrapper" role="list" id="largeImgWrapper">
                                             @foreach ($combinedImages as $index => $image)
                                                 <div class="slider-slide slide-prev" role="listitem">
-                                                    <img id="largeImg{!! $loop->index !!}" src="{!! asset($image) !!}" alt="image-{!! $loop->index !!}">
+                                                    <img id="largeImg{!! $loop->index !!}" src="{!! asset($image) !!}" alt="image-{!! $loop->index !!}" class="thumbnail">
                                                 </div>
                                             @endforeach
                                         </div>
@@ -320,6 +320,32 @@
 
 
      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.thumbnail').forEach(image => {
+                image.addEventListener('click', function () {
+                    const overlay = document.createElement('div');
+                    overlay.className = 'image-overlay';
+
+                    const img = document.createElement('img');
+                    img.src = this.src; 
+                    img.className = 'full-size-image';
+
+                    const closeBtn = document.createElement('div');
+                    closeBtn.textContent = '✖';
+                    closeBtn.className = 'close-btn-x';
+
+                    overlay.appendChild(img);
+                    overlay.appendChild(closeBtn);
+                    document.body.appendChild(overlay);
+
+                    overlay.style.display = 'flex';
+
+                    closeBtn.addEventListener('click', () => {
+                        document.body.removeChild(overlay); 
+                    });
+                });
+            });
+        });
         var currentIndex = 0;
         var slideWidth = 100;
 

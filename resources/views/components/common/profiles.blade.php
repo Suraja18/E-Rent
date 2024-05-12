@@ -38,7 +38,7 @@
                                             <div class="pr-div">
                                                 <div class="pr-profile">
                                                     <div class="pr-profile-container">
-                                                        <img height="168" width="168" src="{!! asset($tenant->image) !!}" class="pr-profile-container" alt="">
+                                                        <img height="168" width="168" src="{!! asset($tenant->image) !!}" class="pr-profile-container thumbnail">
                                                     </div>
                                                 </div>
                                                 <div class="pr-info" style=" @if(isset($margin)) {!! $margin !!} @endif ">
@@ -189,4 +189,34 @@
             PRUnfriend.classList.toggle('active');
         });
     }
+    document.addEventListener('DOMContentLoaded', function () {
+        if(document.querySelectorAll('.thumbnail'))
+        {
+            document.querySelectorAll('.thumbnail').forEach(image => {
+                image.addEventListener('click', function () {
+                    const overlay = document.createElement('div');
+                    overlay.className = 'image-overlay';
+
+                    const img = document.createElement('img');
+                    img.src = this.src; 
+                    img.className = 'full-size-image';
+
+                    const closeBtn = document.createElement('div');
+                    closeBtn.textContent = '✖';
+                    closeBtn.className = 'close-btn-x';
+
+                    overlay.appendChild(img);
+                    overlay.appendChild(closeBtn);
+                    document.body.appendChild(overlay);
+
+                    overlay.style.display = 'flex';
+
+                    closeBtn.addEventListener('click', () => {
+                        document.body.removeChild(overlay); 
+                    });
+                });
+            });
+        }
+        
+    });
 </script>
