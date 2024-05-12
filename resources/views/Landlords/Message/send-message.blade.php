@@ -352,7 +352,7 @@
         </section>
         </div>
     </div>
-
+@if((isset($messages) && $messages->isNotEmpty()) || (isset($contacts) && $contacts->isNotEmpty()))
 <script>
     function adjustHeight() {
         const containers = document.querySelectorAll('.msg-sb-cont.max');
@@ -663,4 +663,5 @@
     }
 
 </script>
+@endif
 </x-users.main.app-layout>

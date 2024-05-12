@@ -184,6 +184,7 @@
     @endif
 </section>
 <!-- End House Details -->
+@if(!(Route::currentRouteName() == 'tenant.dashboard'))
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const buttons = document.querySelectorAll('.btn-clicks');
@@ -265,3 +266,4 @@
     });
 
 </script>
+@endif

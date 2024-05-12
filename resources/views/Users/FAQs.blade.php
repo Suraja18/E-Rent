@@ -9,7 +9,7 @@
             <div class="container is-header">
                 <div class="hero-content housing-content-center">
                     <div class="hero-content housing-content-center housing-detail">
-                        <img src="{!! asset('Images/Original/Icons/faqs.sv') !!}"" alt="Logo" loading="lazy">
+                        <img src="{!! asset('Images/Original/Icons/faqs.svg') !!}" alt="Logo" loading="lazy">
                         <h1 class="banner-header">Your E-Rent is always by your side</h1>
                         <p class="text-testimonial text-center">Most of the Newly Owned Customers have questions related to our Website. Some of mostly asked question with their solution listed.</p>
                     </div>

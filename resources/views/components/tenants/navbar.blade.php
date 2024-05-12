@@ -60,7 +60,7 @@
             </div>
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <button class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.property-types' || Route::currentRouteName() == 'tenant.maintenanceRequest' || Route::currentRouteName() == 'tenant.landlord' || Route::currentRouteName() == 'tenant.property-list' || Route::currentRouteName() == 'tenant.contact' || Route::currentRouteName() == 'tenant.press-media' || Route::currentRouteName() == 'tenant.landlord-forum' || Route::currentRouteName() == 'tenant.customer-review' || Route::currentRouteName() == 'tenant.add-friend') active @endif" type="button" id="navMoreButton">
+                    <button class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.property-types' || Route::currentRouteName() == 'tenant.maintenanceRequest' || request()->routeIs('tenant.maintenance.*') || Route::currentRouteName() == 'tenant.landlord' || Route::currentRouteName() == 'tenant.property-list' || Route::currentRouteName() == 'tenant.find.unit' || Route::currentRouteName() == 'tenant.propertyDetail' || Route::currentRouteName() == 'tenant.search.property' || Route::currentRouteName() == 'tenant.contact' || Route::currentRouteName() == 'tenant.press-media' || Route::currentRouteName() == 'tenant.press-media.single' || Route::currentRouteName() == 'tenant.landlord-forum' || request()->routeIs('tenant.forum.*') || Route::currentRouteName() == 'tenant.customer-review' || Route::currentRouteName() == 'tenant.manual' || Route::currentRouteName() == 'tenant.add-friend' || Route::currentRouteName() == 'tenant.viewFriend') active @endif" type="button" id="navMoreButton">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
                         <p class="small-text">More</p>
                     </button>
@@ -78,7 +78,7 @@
         <div class="nav-mobile-grid ptb" role="list">
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <a href="{{ route('tenant.maintenanceRequest') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.maintenanceRequest') active @endif">
+                    <a href="{{ route('tenant.maintenanceRequest') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.maintenanceRequest' || request()->routeIs('tenant.maintenance.*')) active @endif">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 512 512"><path d="M78.6 5C69.1-2.4 55.6-1.5 47 7L7 47c-8.5 8.5-9.4 22-2.1 31.6l80 104c4.5 5.9 11.6 9.4 19 9.4h54.1l109 109c-14.7 29-10 65.4 14.3 89.6l112 112c12.5 12.5 32.8 12.5 45.3 0l64-64c12.5-12.5 12.5-32.8 0-45.3l-112-112c-24.2-24.2-60.6-29-89.6-14.3l-109-109V104c0-7.5-3.5-14.5-9.4-19L78.6 5zM19.9 396.1C7.2 408.8 0 426.1 0 444.1C0 481.6 30.4 512 67.9 512c18 0 35.3-7.2 48-19.9L233.7 374.3c-7.8-20.9-9-43.6-3.6-65.1l-61.7-61.7L19.9 396.1zM512 144c0-10.5-1.1-20.7-3.2-30.5c-2.4-11.2-16.1-14.1-24.2-6l-63.9 63.9c-3 3-7.1 4.7-11.3 4.7H352c-8.8 0-16-7.2-16-16V102.6c0-4.2 1.7-8.3 4.7-11.3l63.9-63.9c8.1-8.1 5.2-21.8-6-24.2C388.7 1.1 378.5 0 368 0C288.5 0 224 64.5 224 144l0 .8 85.3 85.3c36-9.1 75.8 .5 104 28.7L429 274.5c49-23 83-72.8 83-130.5zM56 432a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/></svg>
                         <p class="small-text">Request</p>
                     </a>
@@ -102,7 +102,7 @@
             </div>
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <a href="{{ route('tenant.property-list') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.property-list') active @endif">
+                    <a href="{{ route('tenant.property-list') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.property-list' || Route::currentRouteName() == 'tenant.find.unit' || Route::currentRouteName() == 'tenant.propertyDetail' || Route::currentRouteName() == 'tenant.search.property') active @endif">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 384 512"><path d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z"/></svg>
                         <p class="small-text">All Property</p>
                     </a>
@@ -113,7 +113,7 @@
         <div class="nav-mobile-grid ptb" role="list">
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <a href="{{ route('tenant.add-friend') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.add-friend') active @endif">
+                    <a href="{{ route('tenant.add-friend') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.add-friend' || Route::currentRouteName() == 'tenant.viewFriend') active @endif">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 640 512"><path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
                         <p class="small-text">Add Friend</p>
                     </a>
@@ -121,7 +121,7 @@
             </div>
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <a href="{{ route('tenant.landlord-forum') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.landlord-forum') active @endif">
+                    <a href="{{ route('tenant.landlord-forum') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.landlord-forum' || request()->routeIs('tenant.forum.*')) active @endif">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 384 512"><path d="M64 464c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16H224v80c0 17.7 14.3 32 32 32h80V448c0 8.8-7.2 16-16 16H64zM64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V154.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0H64zm56 256c-13.3 0-24 10.7-24 24s10.7 24 24 24H264c13.3 0 24-10.7 24-24s-10.7-24-24-24H120zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24H264c13.3 0 24-10.7 24-24s-10.7-24-24-24H120z"/></svg>
                         <p class="small-text">Landlord Forum</p>
                     </a>
@@ -129,7 +129,7 @@
             </div>
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <a href="{{ route('tenant.press-media') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.press-media') active @endif">
+                    <a href="{{ route('tenant.press-media') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.press-media' || Route::currentRouteName() == 'tenant.press-media.single') active @endif">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 512 512"><path d="M168 80c-13.3 0-24 10.7-24 24V408c0 8.4-1.4 16.5-4.1 24H440c13.3 0 24-10.7 24-24V104c0-13.3-10.7-24-24-24H168zM72 480c-39.8 0-72-32.2-72-72V112C0 98.7 10.7 88 24 88s24 10.7 24 24V408c0 13.3 10.7 24 24 24s24-10.7 24-24V104c0-39.8 32.2-72 72-72H440c39.8 0 72 32.2 72 72V408c0 39.8-32.2 72-72 72H72zM176 136c0-13.3 10.7-24 24-24h96c13.3 0 24 10.7 24 24v80c0 13.3-10.7 24-24 24H200c-13.3 0-24-10.7-24-24V136zm200-24h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H376c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H376c-13.3 0-24-10.7-24-24s10.7-24 24-24zM200 272H408c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80H408c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>
                         <p class="small-text">Press & Media</p>
                     </a>
@@ -152,7 +152,16 @@
                     <p class="small-text">Contact US</p>
                 </a>
             </div>
+            <div class="nav-mobile-grid" role="listitem">
+                <div class="nav-mobile-below-whole-containers">
+                    <a href="{{ route('tenant.manual') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'tenant.manual') active @endif">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 640 512"><path d="M160 64c0-35.3 28.7-64 64-64H576c35.3 0 64 28.7 64 64V352c0 35.3-28.7 64-64 64H336.8c-11.8-25.5-29.9-47.5-52.4-64H384V320c0-17.7 14.3-32 32-32h64c17.7 0 32 14.3 32 32v32h64V64L224 64v49.1C205.2 102.2 183.3 96 160 96V64zm0 64a96 96 0 1 1 0 192 96 96 0 1 1 0-192zM133.3 352h53.3C260.3 352 320 411.7 320 485.3c0 14.7-11.9 26.7-26.7 26.7H26.7C11.9 512 0 500.1 0 485.3C0 411.7 59.7 352 133.3 352z"/></svg>
+                        <p class="small-text">User Manuals</p>
+                    </a>
+                </div>
+            </div>
         </div>
+        
     </div>
 
     <!-- End Navbar especially for Mobile Phones -->
@@ -178,7 +187,7 @@
                     <div class="nav-header-bar" id="navHeaderBar-2"
                         data-nav-id="2">
                         <div
-                            class="text-testimonial is-title @if(Route::currentRouteName() == 'tenant.property-list' || Route::currentRouteName() == 'tenant.landlord' || Route::currentRouteName() == 'tenant.property-types') active @endif">Property</div>
+                            class="text-testimonial is-title @if(Route::currentRouteName() == 'tenant.property-list' || Route::currentRouteName() == 'tenant.find.unit' || Route::currentRouteName() == 'tenant.propertyDetail' || Route::currentRouteName() == 'tenant.search.property' || Route::currentRouteName() == 'tenant.landlord' || Route::currentRouteName() == 'tenant.property-types') active @endif">Property</div>
                         <img src="{!! asset('Images/Original/downArrow.svg') !!}"
                             class="arrowDown" loading="lazy"
                             alt="Expand arrow" id="expandArrow-2"
@@ -220,7 +229,7 @@
                                             style="border-color: rgba(0, 0, 0, 0);">
                                             <div class="sub-item_text">
                                                 <div
-                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.property-list') active @endif">Property List</div>
+                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.property-list' || Route::currentRouteName() == 'tenant.find.unit' || Route::currentRouteName() == 'tenant.propertyDetail' || Route::currentRouteName() == 'tenant.search.property') active @endif">Property List</div>
                                                 <div
                                                     class="text--xxs nav-sub">Explore homes for sale using images, details, and categories to ensure a smooth and easy experience with E-Rent.</div>
                                             </div>
@@ -237,7 +246,7 @@
                     <div class="nav-header-bar" id="navHeaderBar-1"
                         data-nav-id="1">
                         <div
-                            class="text-testimonial is-title @if(Route::currentRouteName() == 'tenant.add-friend' || Route::currentRouteName() == 'tenant.maintenanceRequest' || Route::currentRouteName() == 'tenant.landlord-forum' || Route::currentRouteName() == 'tenant.press-media' || Route::currentRouteName() == 'tenant.customer-review') active @endif">Features</div>
+                            class="text-testimonial is-title @if(Route::currentRouteName() == 'tenant.add-friend' || Route::currentRouteName() == 'tenant.viewFriend' || Route::currentRouteName() == 'tenant.maintenanceRequest' || request()->routeIs('tenant.maintenance.*') || Route::currentRouteName() == 'tenant.landlord-forum' || request()->routeIs('tenant.forum.*') || Route::currentRouteName() == 'tenant.press-media' || Route::currentRouteName() == 'tenant.press-media.single' || Route::currentRouteName() == 'tenant.customer-review' || Route::currentRouteName() == 'tenant.manual') active @endif">Features</div>
                         <img src="{!! asset('Images/Original/downArrow.svg') !!}"
                             class="arrowDown" loading="lazy"
                             alt="Expand arrow" id="expandArrow-1"
@@ -256,7 +265,7 @@
                                             style="border-color: rgba(0, 0, 0, 0);">
                                             <div class="sub-item_text">
                                                 <div
-                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.add-friend') active @endif">Add Friends</div>
+                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.add-friend' || Route::currentRouteName() == 'tenant.viewFriend') active @endif">Add Friends</div>
                                                 <div
                                                     class="text--xxs nav-sub">Streamline connections: Meet verified Users </div>
                                             </div>
@@ -268,7 +277,7 @@
                                             style="border-color: rgba(0, 0, 0, 0);">
                                             <div class="sub-item_text">
                                                 <div
-                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.maintenanceRequest') active @endif">Maintenance Request</div>
+                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.maintenanceRequest' || request()->routeIs('tenant.maintenance.*')) active @endif">Maintenance Request</div>
                                                 <div
                                                     class="text--xxs nav-sub">Manage maintenance requests here.</div>
                                             </div>
@@ -280,7 +289,7 @@
                                             style="border-color: rgba(0, 0, 0, 0);">
                                             <div class="sub-item_text">
                                                 <div
-                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.landlord-forum') active @endif">Landlord Forum</div>
+                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.landlord-forum' || request()->routeIs('tenant.forum.*')) active @endif">Landlord Forum</div>
                                                 <div
                                                     class="text--xxs nav-sub">View All Agreement Forum of Landlord.</div>
                                             </div>
@@ -292,7 +301,7 @@
                                             style="border-color: rgba(0, 0, 0, 0);">
                                             <div class="sub-item_text">
                                                 <div
-                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.press-media') active @endif">Press & Media</div>
+                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.press-media' || Route::currentRouteName() == 'tenant.press-media.single') active @endif">Press & Media</div>
                                                 <div
                                                     class="text--xxs nav-sub">Latest News and Media Updates</div>
                                             </div>
@@ -307,6 +316,18 @@
                                                     class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.customer-review') active @endif">Customer Reviews</div>
                                                 <div
                                                     class="text--xxs nav-sub">Efficient service, user-friendly, reliable rentals for seamless online experiences.</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="header-subheader-list">
+                                        <a href="{{ route('tenant.manual') }}"
+                                            class="nav-subheader-listitems inline-block"
+                                            style="border-color: rgba(0, 0, 0, 0);">
+                                            <div class="sub-item_text">
+                                                <div
+                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.manual') active @endif">User Manuals</div>
+                                                <div
+                                                    class="text--xxs nav-sub">A Guide Video for Using E-Rent Website.</div>
                                             </div>
                                         </a>
                                     </div>
@@ -345,9 +366,9 @@
                             class="navigationMenu-items inline-block"><div
                                 class="navigationMenu-items-links @if(Route::currentRouteName() == 'tenant.about') active @endif">About</div></a>
                         <a class="navigationMenu-items inline-block is-contact">
-                            <div class="navigationMenu-items-links @if(Route::currentRouteName() == 'tenant.property-list' || Route::currentRouteName() == 'tenant.landlord' || Route::currentRouteName() == 'tenant.property-types') active @endif">Property</div>
+                            <div class="navigationMenu-items-links @if(Route::currentRouteName() == 'tenant.property-list' || Route::currentRouteName() == 'tenant.find.unit' || Route::currentRouteName() == 'tenant.propertyDetail' || Route::currentRouteName() == 'tenant.search.property' || Route::currentRouteName() == 'tenant.landlord' || Route::currentRouteName() == 'tenant.property-types') active @endif">Property</div>
                             <div
-                                class="navbar-submenu-list is-contact-subnav">
+                                class="navbar-submenu-list is-contact-subnav"> 
                                 <div
                                     class="header-tag nav-sub-title">Property Center</div>
                                 <div class="navbar-header-tag" onclick="window.location.href='{{ route('tenant.property-types') }}';">
@@ -362,7 +383,7 @@
                                         class="text--xxs nav-sub">Make contact with prospective purchasers or landlords.</div>
                                 </div>
                                 <div class="navbar-header-tag" onclick="window.location.href='{{ route('tenant.property-list') }}';">
-                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.property-list') active @endif">Property List</div>
+                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.property-list' || Route::currentRouteName() == 'tenant.find.unit' || Route::currentRouteName() == 'tenant.propertyDetail' || Route::currentRouteName() == 'tenant.search.property') active @endif">Property List</div>
                                     <div
                                         class="text--xxs nav-sub">Explore homes for sale using images, details, and categories to ensure a smooth and easy experience with E-Rent.</div>
                                 </div>
@@ -370,29 +391,29 @@
                             </div>
                         </a>
                         <a class="navigationMenu-items inline-block is-contact">
-                            <div class="navigationMenu-items-links @if(Route::currentRouteName() == 'tenant.add-friend' || Route::currentRouteName() == 'tenant.maintenanceRequest' || Route::currentRouteName() == 'tenant.landlord-forum' || Route::currentRouteName() == 'tenant.press-media' || Route::currentRouteName() == 'tenant.customer-review') active @endif">Features</div>
+                            <div class="navigationMenu-items-links @if(Route::currentRouteName() == 'tenant.add-friend' || Route::currentRouteName() == 'tenant.viewFriend' || Route::currentRouteName() == 'tenant.maintenanceRequest' || request()->routeIs('tenant.maintenance.*') || Route::currentRouteName() == 'tenant.landlord-forum' || request()->routeIs('tenant.forum.*') || Route::currentRouteName() == 'tenant.press-media' || Route::currentRouteName() == 'tenant.press-media.single' || Route::currentRouteName() == 'tenant.customer-review' || Route::currentRouteName() == 'tenant.manual') active @endif">Features</div>
                             <div
-                                class="navbar-submenu-list is-contact-subnav">
+                                class="navbar-submenu-list is-contact-subnav"> 
                                 <div
                                     class="header-tag nav-sub-title">Tenants Features</div>
                                 <div class="navbar-header-tag" onclick="window.location.href='{{ route('tenant.add-friend') }}';">
-                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.add-friend') active @endif">Add Friends</div>
+                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.add-friend' || Route::currentRouteName() == 'tenant.viewFriend') active @endif">Add Friends</div>
                                     <div
                                         class="text--xxs nav-sub">Streamline connections: Meet verified Users </div>
                                 </div>
                                 <div class="navbar-header-tag" onclick="window.location.href='{{ route('tenant.maintenanceRequest') }}';">
                                     <div
-                                        class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.maintenanceRequest' || Route::currentRouteName() == 'tenant.maintenance.*' ) active @endif">Maintainance Request</div>
+                                        class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.maintenanceRequest' || request()->routeIs('tenant.maintenance.*')) active @endif">Maintainance Request</div>
                                     <div
                                         class="text--xxs nav-sub">Manage maintenance requests here.</div>
                                 </div>
                                 <div class="navbar-header-tag" onclick="window.location.href='{{ route('tenant.landlord-forum') }}';">
-                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.landlord-forum') active @endif">Landlord Forms</div>
+                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.landlord-forum' || request()->routeIs('tenant.forum.*')) active @endif">Landlord Forms</div>
                                     <div
                                         class="text--xxs nav-sub">View All Agreement Forum of Landlord.</div>
                                 </div>
                                 <div class="navbar-header-tag" onclick="window.location.href='{{ route('tenant.press-media') }}';">
-                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.press-media') active @endif">Press & Media</div>
+                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.press-media' || Route::currentRouteName() == 'tenant.press-media.single') active @endif">Press & Media</div>
                                     <div
                                         class="text--xxs nav-sub">Latest News and Media Updates</div>
                                 </div>

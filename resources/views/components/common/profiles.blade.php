@@ -182,8 +182,11 @@
     </div>
 {{-- </div> --}}
 <script>
-    document.getElementById('svgButton').addEventListener('click', function() {
-        var PRUnfriend = document.getElementById('PRUnfriend');
-        PRUnfriend.classList.toggle('active');
-    });
+    if(document.getElementById('svgButton'))
+    {
+        document.getElementById('svgButton').addEventListener('click', function() {
+            var PRUnfriend = document.getElementById('PRUnfriend');
+            PRUnfriend.classList.toggle('active');
+        });
+    }
 </script>

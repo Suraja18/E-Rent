@@ -48,7 +48,7 @@
             </div>
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <button class="nav-icons-for-mobile @if(Route::currentRouteName() == 'user.press-media' || Route::currentRouteName() == 'user.user-role'|| Route::currentRouteName() == 'user.services' || Route::currentRouteName() == 'user.use-case' || Route::currentRouteName() == 'user.customer-review' || Route::currentRouteName() == 'user.faqs' || Route::currentRouteName() == 'user.helpCentre') active @endif" type="button" id="navMoreButton">
+                    <button class="nav-icons-for-mobile @if(Route::currentRouteName() == 'user.press-media' || Route::currentRouteName() == 'user.press-media.single' || Route::currentRouteName() == 'user.user-role' || Route::currentRouteName() == 'user.role.detail' || Route::currentRouteName() == 'user.services' || Route::currentRouteName() == 'user.use-case' || Route::currentRouteName() == 'user.customer-review' || Route::currentRouteName() == 'user.faqs' || Route::currentRouteName() == 'user.helpCentre' || Route::currentRouteName() == 'user.manual' || Route::currentRouteName() == 'user.help.centre.find') active @endif" type="button" id="navMoreButton">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
                         <p class="small-text">More</p>
                     </button>
@@ -77,10 +77,10 @@
         </div>
         <h2 class="nav-mobile-heading">Features</h2>
         
-        <div class="nav-mobile-grid ptb" role="list">
+        <div class="nav-mobile-grid" role="list">
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <a href="{{ route('user.user-role') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'user.user-role') active @endif">
+                    <a href="{{ route('user.user-role') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'user.user-role' || Route::currentRouteName() == 'user.role.detail') active @endif">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 640 512"><path d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z"/></svg>
                         <p class="small-text">Roles</p>
                     </a>
@@ -96,7 +96,7 @@
             </div>
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <a href="{{ route('user.press-media') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'user.press-media') active @endif">
+                    <a href="{{ route('user.press-media') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'user.press-media' || Route::currentRouteName() == 'user.press-media.single') active @endif">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 512 512"><path d="M168 80c-13.3 0-24 10.7-24 24V408c0 8.4-1.4 16.5-4.1 24H440c13.3 0 24-10.7 24-24V104c0-13.3-10.7-24-24-24H168zM72 480c-39.8 0-72-32.2-72-72V112C0 98.7 10.7 88 24 88s24 10.7 24 24V408c0 13.3 10.7 24 24 24s24-10.7 24-24V104c0-39.8 32.2-72 72-72H440c39.8 0 72 32.2 72 72V408c0 39.8-32.2 72-72 72H72zM176 136c0-13.3 10.7-24 24-24h96c13.3 0 24 10.7 24 24v80c0 13.3-10.7 24-24 24H200c-13.3 0-24-10.7-24-24V136zm200-24h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H376c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H376c-13.3 0-24-10.7-24-24s10.7-24 24-24zM200 272H408c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80H408c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>
                         <p class="small-text">Press & Media</p>
                     </a>
@@ -120,9 +120,17 @@
             </div>
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <a href="{{ route('user.helpCentre') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'user.helpCentre') active @endif">
+                    <a href="{{ route('user.helpCentre') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'user.helpCentre' || Route::currentRouteName() == 'user.help.centre.find') active @endif">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                         <p class="small-text">Help Centre</p>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-mobile-grid" role="listitem">
+                <div class="nav-mobile-below-whole-containers">
+                    <a href="{{ route('user.manual') }}" class="nav-icons-for-mobile @if(Route::currentRouteName() == 'user.manual') active @endif">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 640 512"><path d="M160 64c0-35.3 28.7-64 64-64H576c35.3 0 64 28.7 64 64V352c0 35.3-28.7 64-64 64H336.8c-11.8-25.5-29.9-47.5-52.4-64H384V320c0-17.7 14.3-32 32-32h64c17.7 0 32 14.3 32 32v32h64V64L224 64v49.1C205.2 102.2 183.3 96 160 96V64zm0 64a96 96 0 1 1 0 192 96 96 0 1 1 0-192zM133.3 352h53.3C260.3 352 320 411.7 320 485.3c0 14.7-11.9 26.7-26.7 26.7H26.7C11.9 512 0 500.1 0 485.3C0 411.7 59.7 352 133.3 352z"/></svg>
+                        <p class="small-text">User Manuals</p>
                     </a>
                 </div>
             </div>
@@ -212,7 +220,7 @@
                     <div class="nav-header-bar" id="navHeaderBar-2"
                         data-nav-id="2">
                         <div
-                            class="text-testimonial is-title @if(Route::currentRouteName() == 'user.user-role' || Route::currentRouteName() == 'user.services' || Route::currentRouteName() == 'user.customer-review' || Route::currentRouteName() == 'user.press-media' || Route::currentRouteName() == 'user.faqs' || Route::currentRouteName() == 'user.helpCentre') active @endif">Features</div>
+                            class="text-testimonial is-title @if(Route::currentRouteName() == 'user.user-role' || Route::currentRouteName() == 'user.role.detail' || Route::currentRouteName() == 'user.services' || Route::currentRouteName() == 'user.customer-review' || Route::currentRouteName() == 'user.press-media' || Route::currentRouteName() == 'user.press-media.single' || Route::currentRouteName() == 'user.faqs' || Route::currentRouteName() == 'user.helpCentre' || Route::currentRouteName() == 'user.manual' || Route::currentRouteName() == 'user.help.centre.find') active @endif">Features</div>
                         <img src="{!! asset('Images/Original/downArrow.svg') !!}"
                             class="arrowDown" loading="lazy"
                             alt="Expand arrow" id="expandArrow-2"
@@ -231,7 +239,7 @@
                                             style="border-color: rgba(0, 0, 0, 0);">
                                             <div class="sub-item_text">
                                                 <div
-                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.user-role') active @endif">Roles</div>
+                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.user-role' || Route::currentRouteName() == 'user.role.detail') active @endif">Roles</div>
                                                 <div
                                                     class="text--xxs nav-sub">Streamlining property rentals</div>
                                             </div>
@@ -255,7 +263,7 @@
                                             style="border-color: rgba(0, 0, 0, 0);">
                                             <div class="sub-item_text">
                                                 <div
-                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.press-media') active @endif">Press & Media</div>
+                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.press-media' || Route::currentRouteName() == 'user.press-media.single') active @endif">Press & Media</div>
                                                 <div
                                                     class="text--xxs nav-sub">Latest News and Media Updates</div>
                                             </div>
@@ -291,9 +299,21 @@
                                             style="border-color: rgba(0, 0, 0, 0);">
                                             <div class="sub-item_text">
                                                 <div
-                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.helpCentre') active @endif">Help Centre</div>
+                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.helpCentre' || Route::currentRouteName() == 'user.help.centre.find') active @endif">Help Centre</div>
                                                 <div
                                                     class="text--xxs nav-sub">Navigating rentals? Find answers for tenants & landlords.</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="header-subheader-list">
+                                        <a href="{{ route('user.manual') }}"
+                                            class="nav-subheader-listitems inline-block"
+                                            style="border-color: rgba(0, 0, 0, 0);">
+                                            <div class="sub-item_text">
+                                                <div
+                                                    class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.manual') active @endif">User Manuals</div>
+                                                <div
+                                                    class="text--xxs nav-sub">A Guide Video for Using E-Rent Website.</div>
                                             </div>
                                         </a>
                                     </div>
@@ -361,14 +381,13 @@
 
                         </a>
                         <a class="navigationMenu-items inline-block is-pages">
-                            <div class="navigationMenu-items-links @if(Route::currentRouteName() == 'user.user-role' || Route::currentRouteName() == 'user.services' || Route::currentRouteName() == 'user.customer-review' || Route::currentRouteName() == 'user.press-media' || Route::currentRouteName() == 'user.faqs' || Route::currentRouteName() == 'user.helpCentre') active @endif">
+                            <div class="navigationMenu-items-links @if(Route::currentRouteName() == 'user.user-role' || Route::currentRouteName() == 'user.role.detail' || Route::currentRouteName() == 'user.services' || Route::currentRouteName() == 'user.customer-review' || Route::currentRouteName() == 'user.press-media' || Route::currentRouteName() == 'user.press-media.single' || Route::currentRouteName() == 'user.faqs' || Route::currentRouteName() == 'user.helpCentre' || Route::currentRouteName() == 'user.manual' || Route::currentRouteName() == 'user.help.centre.find') active @endif">
                                 Features
                             </div> 
-                            <div
-                                class="navbar-submenu-list is-page-subnav">
+                            <div class="navbar-submenu-list is-page-subnav">
                                 <div class="header-tag nav-sub-title">Website Features</div>
                                 <div class="navbar-header-tag" onclick="window.location.href='{{ route('user.user-role') }}';">
-                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.user-role') active @endif">Roles</div>
+                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.user-role' || Route::currentRouteName() == 'user.role.detail') active @endif">Roles</div>
                                     <div class="text--xxs nav-sub">Streamlining property rentals </div>
                                 </div>
                                 <div class="navbar-header-tag" onclick="window.location.href='{{ route('user.services') }}';">
@@ -376,7 +395,7 @@
                                     <div class="text--xxs nav-sub">Services E-Rent Offers</div>
                                 </div>
                                 <div class="navbar-header-tag" onclick="window.location.href='{{ route('user.press-media') }}';">
-                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.press-media') active @endif">Press & Media</div>
+                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.press-media' || Route::currentRouteName() == 'user.press-media.single') active @endif">Press & Media</div>
                                     <div class="text--xxs nav-sub">Latest News and Media Updates</div>
                                 </div>
                                 <div class="navbar-header-tag" onclick="window.location.href='{{ route('user.customer-review') }}';">
@@ -388,7 +407,7 @@
                                     <div class="text--xxs nav-sub">Mostly Asked Question with Answers Update</div>
                                 </div>
                                 <div class="navbar-header-tag" onclick="window.location.href='{{ route('user.helpCentre') }}';">
-                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.helpCentre') active @endif">Help Centre</div>
+                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.helpCentre' || Route::currentRouteName() == 'user.help.centre.find') active @endif">Help Centre</div>
                                     <div class="text--xxs nav-sub">Navigating rentals? Find answers for tenants & landlords.</div>
                                 </div>
                                 <div class="navbar-header-tag" onclick="window.location.href='{{ route('user.manual') }}';">
