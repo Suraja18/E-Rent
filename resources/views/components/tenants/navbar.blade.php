@@ -401,6 +401,10 @@
                                     <div
                                         class="text--xxs nav-sub">Efficient service, user-friendly, reliable rentals for seamless online experiences.</div>
                                 </div>
+                                <div class="navbar-header-tag" onclick="window.location.href='{{ route('tenant.manual') }}';">
+                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'tenant.manual') active @endif">User Manual</div>
+                                    <div class="text--xxs nav-sub">A Guide Video for Using E-Rent Website.</div>
+                                </div>
                             </div>
                         </a>
                         <a href="{{ route('tenant.contact') }}"

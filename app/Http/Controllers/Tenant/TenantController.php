@@ -41,6 +41,10 @@ class TenantController extends Controller
     {
         return view('Tenants.contact');
     }
+    public function manualView()
+    {
+        return view('Tenants.user-manual');
+    }
     public function maintenanceRequest()
     {
         $tenantId = Auth::id();

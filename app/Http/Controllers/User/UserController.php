@@ -94,4 +94,8 @@ class UserController extends Controller
         $policy = policy::where('slug', $slug)->first();
         return view('Users.policy', compact('policy'));
     }
+    public function manualView()
+    {
+        return view('Users.user-manual');
+    }
 }

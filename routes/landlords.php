@@ -31,6 +31,7 @@ Route::middleware(['landlord', 'session.logout'])->group(function () {
         Route::get('/change-email', [AuthController::class, 'changeEmail'])->name('landlord.change.email');
         Route::post('/change-email/try', [AuthController::class, 'changeTryEmail'])->name('landlord.try.change.email');
         Route::post('/de-active/account', [AuthController::class, 'deactiveAccount'])->name('landlord.deactive.email');
+        Route::get('/user/manual', [LandlordController::class, 'manualView'])->name('landlord.manual');
 
         //For Complete Profile Landlord
         Route::middleware(['checkComplete'])->group(function () {

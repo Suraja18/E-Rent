@@ -8921,4 +8921,7 @@ ul{
   .apk-app svg:hover{
     fill: var(--core-navy-800);
   }
+  li{
+    color: var(--core-navy-800);
+  }
   

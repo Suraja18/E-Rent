@@ -2,7 +2,7 @@
     if(Auth::id()){
         $user = App\Models\User::findOrFail(Illuminate\Support\Facades\Auth::id());
     }
-    $company = App\Models\Company::first();
+    $company = App\Models\Company::first(); 
 @endphp     
     <!-- Contact US Banner -->
     <section class="clientSays bg-blue-lighter pt-7b">

@@ -231,6 +231,10 @@ class LandlordController extends Controller
         $tenant = User::findOrFail($request->tenantID);
         return view('Landlords.Profile.index', compact('tenant'));
     }
+    public function manualView()
+    {
+        return view('Landlords.user-manual');
+    }
     public function unfriend(Request $request)
     {
         $tenantId = $request->tenantID;

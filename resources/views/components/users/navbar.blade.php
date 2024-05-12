@@ -391,6 +391,10 @@
                                     <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.helpCentre') active @endif">Help Centre</div>
                                     <div class="text--xxs nav-sub">Navigating rentals? Find answers for tenants & landlords.</div>
                                 </div>
+                                <div class="navbar-header-tag" onclick="window.location.href='{{ route('user.manual') }}';">
+                                    <div class="text-testimonial nav-primary is-green-text-on-hover @if(Route::currentRouteName() == 'user.manual') active @endif">User Manual</div>
+                                    <div class="text--xxs nav-sub">A Guide Video for Using E-Rent Website.</div>
+                                </div>
                             </div>
 
                         </a>

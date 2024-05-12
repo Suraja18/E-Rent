@@ -40,6 +40,7 @@ Route::middleware(['tenant', 'session.logout'])->group(function () {
         Route::post('/change-email/try', [AuthController::class, 'changeTryEmail'])->name('tenant.try.change.email');
         Route::post('/de-active/account', [AuthController::class, 'deactiveAccount'])->name('tenant.deactive.email');
         Route::get('/{slug}/find/properties', [TenantController::class, 'findPropertiesByUnit'])->name('tenant.find.unit');
+        Route::get('/user/manual', [TenantController::class, 'manualView'])->name('tenant.manual');
 
          //For Complete Profile Landlord
         Route::middleware(['checkComplete'])->group(function () {

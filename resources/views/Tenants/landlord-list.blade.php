@@ -9,7 +9,7 @@
             <div class="container is-header">
                 <div class="hero-content housing-content-center">
                     <div class="hero-content housing-content-center housing-detail">
-                        <img src="../Images/Original/Icons/users-property-owners.svg" alt="Logo" loading="lazy">
+                        <img src="{!! asset('Images/Original/Icons/users-property-owners.svg') !!}" alt="Logo" loading="lazy">
                         <h1 class="banner-header">Property Owners</h1>
                         <p class="text-testimonial text-center">Explore our diverse range of prime properties, meticulously curated for discerning individuals. From luxurious estates to urban havens, we offer a collection that embodies elegance and comfort. Unlock a world of possibilities as you discover your dream property with us. Your perfect home awaits in our portfolio of exclusive real estate.</p>
                         <a href="#Landlords-details-focus" class="client-header-link inline-block">

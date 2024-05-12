@@ -24,3 +24,4 @@ Route::get('/services', [UserController::class, 'allService'])->name('user.servi
 Route::get('/{slug}/user-role', [UserController::class, 'userRoleDetail'])->name('user.role.detail');
 Route::get('/{userSlug}/{slug}/help-centre',[UserController::class, 'helpCentreFind'])->name('user.help.centre.find');
 Route::get('/user/{slug}/policy', [UserController::class, 'policyView'])->name('user.policy');
+Route::get('/manual/user', [UserController::class, 'manualView'])->name('user.manual');
