@@ -25,11 +25,11 @@ class TempSeeder extends Seeder
             $this->createUser('Grace', 'Black', 9012345678, 'grace@gmail.com', '2024-01-04 11:15:00', 'grace789', 'Images/Variable/Users/9.PNG', '901 Elm St', 'Female', 1, '2024-01-04 08:00:00'),
             $this->createUser('Henry', 'Jones', 1234506789, 'henry@gmail.com', '2024-01-05 12:20:00', 'henry789', 'Images/Variable/Users/10.PNG', '102 Elm St', 'Male', 2, '2024-01-05 08:00:00'),
             $this->createUser('Isabel', 'Jones', 2345617890, 'isabel@gmail.com', NULL, 'isabel789', 'Images/Variable/Users/11.PNG', '103 Elm St', 'Female', 1, '2024-01-06 08:00:00'),
-            $this->createUser('Zack', 'Noble', 1232387654, 'zack@gmail.com', NULL, 'zack789', 'Images/Variable/Users/28.PNG', '120 Elm St', 'Male', 2, '2024-04-03 08:00:00'),
-            $this->createUser('Amber', 'Oak', 2343498765, 'amber@gmail.com', '2024-04-04 14:40:00', 'amber789', 'Images/Variable/Users/29.PNG', '121 Elm St', 'Female', 1, '2024-04-04 08:00:00'),
-            $this->createUser('Bruce', 'Pine', 3454509876, 'bruce@gmail.com', '2024-05-01 15:45:00', 'bruce789', 'Images/Variable/Users/30.PNG', '122 Elm St', 'Male', 2, '2024-05-01 08:00:00'),
-            $this->createUser('Cindy', 'Quartz', 4565610987, 'cindy@gmail.com', NULL, 'cindy789', 'Images/Variable/Users/31.PNG', '123 Elm St', 'Female', 1, '2024-05-02 08:00:00'),
-            $this->createUser('Derek', 'Rock', 5676721098, 'derek@gmail.com', '2024-05-03 16:50:00', 'derek789', 'Images/Variable/Users/32.PNG', '124 Elm St', 'Male', 2, '2024-05-03 08:00:00')
+            $this->createUser('Zack', 'Noble', 1232387654, 'zack@gmail.com', NULL, 'zack789', 'Images/Variable/Users/6.PNG', '120 Elm St', 'Male', 2, '2024-04-03 08:00:00'),
+            $this->createUser('Amber', 'Oak', 2343498765, 'amber@gmail.com', '2024-04-04 14:40:00', 'amber789', 'Images/Variable/Users/9.PNG', '121 Elm St', 'Female', 1, '2024-04-04 08:00:00'),
+            $this->createUser('Bruce', 'Pine', 3454509876, 'bruce@gmail.com', '2024-05-01 15:45:00', 'bruce789', 'Images/Variable/Users/1.PNG', '122 Elm St', 'Male', 2, '2024-05-01 08:00:00'),
+            $this->createUser('Cindy', 'Quartz', 4565610987, 'cindy@gmail.com', NULL, 'cindy789', 'Images/Variable/Users/5.PNG', '123 Elm St', 'Female', 1, '2024-05-02 08:00:00'),
+            $this->createUser('Derek', 'Rock', 5676721098, 'derek@gmail.com', '2024-05-03 16:50:00', 'derek789', 'Images/Variable/Users/2.PNG', '124 Elm St', 'Male', 2, '2024-05-03 08:00:00')
         ]);
 
     }

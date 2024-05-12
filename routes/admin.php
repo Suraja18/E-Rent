@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\HelpCentreController;
+use App\Http\Controllers\Admin\ManualController;
 use App\Http\Controllers\Admin\PolicyController;
 use App\Http\Controllers\Admin\PressController;
 use App\Http\Controllers\Admin\Question\FrequentlyController;
@@ -64,6 +65,7 @@ Route::middleware(['admin', 'session.logout'])->group(function () {
         Route::get('/all-tenants', [AdminController::class,  'AllTenants'])->name('admin.all_tenants');
         Route::get('/all-landlords', [AdminController::class,  'AllLandlords'])->name('admin.all_landlords');
         Route::delete('/{id}/delete', [AdminController::class, 'destroyUser'])->name('admin.deactivate.user');
+        Route::resource('/manual', ManualController::class);
 
         // Start Trashed and Restore
         Route::get('/trash/building', [TrashedController::class, 'buildingIndex'])->name('admin.trash.building');

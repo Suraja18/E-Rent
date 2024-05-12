@@ -27,7 +27,7 @@
                     src="{!! $advertising->video_link !!}"
                     frameborder="0" allowfullscreen
                     allow="autoplay; encrypted-media"></iframe>
-                <input placeholder="Write Video Link here..." name="video_link" class="form-control" />
+                <input placeholder="Write Video Link here..." value="{!! $advertising->video_link !!}" name="video_link" class="form-control" />
                 @error('video_link')
                     <p class="error-message">{{ $message }}</p>
                 @enderror

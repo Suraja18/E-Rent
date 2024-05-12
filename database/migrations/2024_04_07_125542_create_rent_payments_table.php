@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('remarks')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('rented_id')->references('id')->on('rented_properties')->onDelete('NULL');
+            $table->foreign('rented_id')->references('id')->on('rented_properties');
         });
     }
 
