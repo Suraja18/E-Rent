@@ -62,7 +62,7 @@
             <div class="hero-content fd-row">
                 <div>
                     <div class="footer-link header">Company</div>
-                    <a href="{{ route('tenant.about') }}" class="footer-link">Why HappyCo?</a>
+                    <a href="{{ route('tenant.about') }}" class="footer-link">Why E-Rent?</a>
                     <a href="{{ route('tenant.contact') }}" class="footer-link">Contact Us</a>
                 </div>
             </div>

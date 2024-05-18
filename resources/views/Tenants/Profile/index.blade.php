@@ -1,6 +1,6 @@
 <x-users.main.app-layout>
     <x-slot name="head">
-        - About Us
+        - Friend Details
     </x-slot>
     <x-tenants.navbar />
 

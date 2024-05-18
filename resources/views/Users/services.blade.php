@@ -1,6 +1,6 @@
 <x-users.main.app-layout>
     <x-slot name="head">
-        - Contact Us
+        - Services
     </x-slot>
     <x-users.navbar />
 

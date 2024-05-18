@@ -25,7 +25,7 @@ class HousingController extends Controller
         ->whereNotIn('id', function ($query) {
             $query->select('rent_id')
                 ->from('rented_properties')
-                ->where('status', '<>', 'Cancelled');
+                ->where('status', '<>', 'Cancelled')->where('status', '<>', 'Checked Out');
         })->take(4)->get()->shuffle();
         
         $propertiesCount = $properties->count();
@@ -36,7 +36,7 @@ class HousingController extends Controller
                                                 ->whereNotIn('id', function ($query) {
                                                     $query->select('rent_id')
                                                         ->from('rented_properties')
-                                                        ->where('status', '<>', 'Cancelled');
+                                                        ->where('status', '<>', 'Cancelled')->where('status', '<>', 'Checked Out');
                                                 })
                                                 ->take(4 - $propertiesCount)
                                                 ->get(); 

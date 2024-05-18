@@ -33,7 +33,7 @@ class TenantController extends Controller
     public function depositTenants()
     {
         $landlordId = Auth::id();
-        $rentedProperties = RentedProperty::withTrashed()->whereHas('rentProperty', function ($query) use ($landlordId) {
+        $rentedProperties = RentedProperty::whereHas('rentProperty', function ($query) use ($landlordId) {
             $query->where('landlord_id', $landlordId);
         })->whereHas('payments', function ($query) {
             $query->where('payment_type', 'Deposit');
@@ -78,7 +78,7 @@ class TenantController extends Controller
             $query->select('rent_id')->from('rented_properties')->where(function ($query) {
                 $query->whereIn('status', ['Confirmed', 'Approved']);
             });
-        })->latest()->get();
+        })->where('landlord_id', Auth::id())->latest()->get();
         $data = ['properties' => $availableRentProperties,];
         return view('Landlords.Property-Occupants.Vacant.index', $data);
     }

@@ -1,6 +1,6 @@
 <x-users.main.app-layout>
     <x-slot name="head">
-        - Login
+        - Forgot Password
     </x-slot>
     <x-users.navbar />
     <section class="register" id="LoginForm">

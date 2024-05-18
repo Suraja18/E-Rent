@@ -1,6 +1,6 @@
 <x-users.main.app-layout>
     <x-slot name="head">
-        - About Us
+        - Add Maintenance
     </x-slot>
     <x-tenants.navbar />
 

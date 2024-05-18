@@ -1,6 +1,6 @@
 <x-users.main.app-layout>
     <x-slot name="head">
-        - Accounts
+        - Property Details
     </x-slot>
     <x-tenants.navbar />
     @php
