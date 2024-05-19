@@ -5,26 +5,10 @@ namespace App\Console\Commands;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-
 class DeleteDeactivateUsers extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'users:delete-deactivate-users';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description';
-
-    /**
-     * Execute the console command.
-     */
+    protected $description = 'This command deletes the user data permanently after 30 days';
     public function handle()
     {
         $thresholdDate = Carbon::now()->subDays(30);

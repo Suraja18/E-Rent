@@ -248,7 +248,7 @@
                 case '5':
                     return [5000000, Infinity];
                 default:
-                    return [0, Infinity]; // Default range if no option is selected
+                    return [0, Infinity];
             }
         }
 

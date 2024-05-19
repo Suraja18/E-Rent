@@ -34,7 +34,6 @@ class PaymentController extends Controller
         } else {
             throw new \Exception("Please write access type (Test or Live)");
         }
-
         if (!$this->merchant_id) {
 
             throw new \Exception("Please Enter Merchant Id");
@@ -63,7 +62,6 @@ class PaymentController extends Controller
         endforeach;
 
         $html = implode("", $html);
-
         $form =  <<< EOT
             <html><head><style></style></head><body>
                 <form id="form" action="$esewa_url" method="POST">
@@ -73,7 +71,6 @@ class PaymentController extends Controller
                 <script>document.getElementById("form").submit();</script>
             </body></html>
         EOT;
-
         return $form;
     }
     public function esewaPay(EsewaRequest $request)

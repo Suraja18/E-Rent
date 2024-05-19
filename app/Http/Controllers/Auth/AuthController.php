@@ -29,11 +29,6 @@ class AuthController extends Controller
         $this->users = $userService;
     }
 
-    public function chat()
-    {
-        return view('chat');
-    }
-
     public function registerComplete(UserRequest $request)
     {
         $validatedData = $this->users->userStore($request->validated());
