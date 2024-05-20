@@ -60,7 +60,7 @@
             </div>
             <div class="nav-mobile-grid" role="listitem">
                 <div class="nav-mobile-below-whole-containers">
-                    <button class="nav-icons-for-mobile @if(request()->routeIs('building.*') || request()->routeIs('landlord.unit.*') || request()->routeIs('landlord.rating.*') || request()->routeIs('house-sell.*') || request()->routeIs('landlord.email.*') || request()->routeIs('rent.*') || request()->routeIs('landlord.property.rent.*') || request()->routeIs('approve.*') || request()->routeIs('landlord.maintenance.complete') || request()->routeIs('forum.*') || Route::currentRouteName() == 'landlord.manual' || request()->routeIs('landlord.tenant.active.*') || request()->routeIs('landlord.tenant.deposit') || request()->routeIs('landlord.contact') || request()->routeIs('landlord.add.friends')) active @endif" type="button" id="navMoreButton">
+                    <button class="nav-icons-for-mobile @if(request()->routeIs('building.*') || request()->routeIs('landlord.unit.*') || request()->routeIs('landlord.maintenance.index') || request()->routeIs('landlord.rating.*') || request()->routeIs('house-sell.*') || request()->routeIs('landlord.email.*') || request()->routeIs('rent.*') || request()->routeIs('landlord.property.rent.*') || request()->routeIs('approve.*') || request()->routeIs('landlord.maintenance.complete') || request()->routeIs('forum.*') || Route::currentRouteName() == 'landlord.manual' || request()->routeIs('landlord.tenant.active.*') || request()->routeIs('landlord.tenant.deposit') || request()->routeIs('landlord.contact') || request()->routeIs('landlord.add.friends')) active @endif" type="button" id="navMoreButton">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
                         <p class="small-text">More</p>
                     </button>
@@ -128,6 +128,14 @@
                     <a href="{!! route('approve.index') !!}" class="nav-icons-for-mobile @if(request()->routeIs('approve.*')) active @endif">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 576 512"><path d="M112 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm40 304V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V256.9L59.4 304.5c-9.1 15.1-28.8 20-43.9 10.9s-20-28.8-10.9-43.9l58.3-97c17.4-28.9 48.6-46.6 82.3-46.6h29.7c33.7 0 64.9 17.7 82.3 46.6l44.9 74.7c-16.1 17.6-28.6 38.5-36.6 61.5c-1.9-1.8-3.5-3.9-4.9-6.3L232 256.9V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V352H152zM432 224a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm0 240a24 24 0 1 0 0-48 24 24 0 1 0 0 48zM368 321.6V328c0 8.8 7.2 16 16 16s16-7.2 16-16v-6.4c0-5.3 4.3-9.6 9.6-9.6h40.5c7.7 0 13.9 6.2 13.9 13.9c0 5.2-2.9 9.9-7.4 12.3l-32 16.8c-5.3 2.8-8.6 8.2-8.6 14.2V384c0 8.8 7.2 16 16 16s16-7.2 16-16v-5.1l23.5-12.3c15.1-7.9 24.5-23.6 24.5-40.6c0-25.4-20.6-45.9-45.9-45.9H409.6c-23 0-41.6 18.6-41.6 41.6z"/></svg>
                         <p class="small-text">Approval Request</p>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-mobile-grid" role="listitem">
+                <div class="nav-mobile-below-whole-containers">
+                    <a href="{!! route('landlord.maintenance.index') !!}" class="nav-icons-for-mobile @if(request()->routeIs('landlord.maintenance.index')) active @endif">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="28" width="35" viewBox="0 0 640 512"><path d="M320 368c0 59.5 29.5 112.1 74.8 144H128.1c-35.3 0-64-28.7-64-64V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L522.1 193.9c-8.5-1.3-17.3-1.9-26.1-1.9c-54.7 0-103.5 24.9-135.8 64H320V208c0-8.8-7.2-16-16-16H272c-8.8 0-16 7.2-16 16v48H208c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h48v48c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16zM496 224a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm0 240a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm0-192c-8.8 0-16 7.2-16 16v80c0 8.8 7.2 16 16 16s16-7.2 16-16V288c0-8.8-7.2-16-16-16z"/></svg>
+                        <p class="small-text">Maintenance Request</p>
                     </a>
                 </div>
             </div>
